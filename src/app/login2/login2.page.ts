@@ -17,7 +17,7 @@ export class Login2Page implements OnInit {
 
   goHome(){
    console.log("button clicked");
-   this.router.navigate(['home'])
+   this.router.navigate(['home']);
   }
 
 }

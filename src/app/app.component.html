@@ -1,50 +1,79 @@
 <ion-app>
   <ion-menu menuId="main-menu" content-id="main">
-  	
+  	    
     	<ion-content>
         <div class="menu-header-bg"></div>
        <ion-list class="menu-items" lines="none"> 
+			
+		 <ion-menu-toggle>
+			<ion-item routerLink="/home">
+       	 	    <ion-icon name="home"></ion-icon>
+       	 	    Inicio
+       	    </ion-item>
+		 </ion-menu-toggle>
        	 
-       	 <ion-item>
-       	 	<ion-icon name="home"></ion-icon>
-       	 	Inicio
-       	 </ion-item>
-       	 <ion-item>
-       	 	<ion-icon name="person"></ion-icon>
-       	 	Perfil
-       	 </ion-item>
-       	 <ion-item>
-       	 	<ion-icon name="bandage"></ion-icon>
-       	 	Medicamentos
-       	 </ion-item>
-       	 <ion-item>
-       	 	<ion-icon name="newspaper"></ion-icon>
-       	 	Pedidos
-       	 </ion-item>
-       	 <ion-item>
-       	 	<ion-icon name="medkit"></ion-icon>
-       	 	Pastillero
-       	 </ion-item>
-       	 <ion-item>
-       	 	<ion-icon name="location"></ion-icon>
-       	 	Direcciones
-       	 </ion-item>
-       	 <ion-item>
-       	 	<ion-icon name="mail"></ion-icon>
-       	 	Mensajes/PQR
-       	 </ion-item>
-       	 <ion-item>
-       	 	<ion-icon name="settings"></ion-icon>
-       	 	Ajustes
-       	 </ion-item>
-       	 <ion-item>
-       	 	<ion-icon name="information-circle"></ion-icon>
-       	 	Acerca de
-       	 </ion-item>
-       	 <ion-item>
-       	 	<ion-icon name="log-out"></ion-icon>
-       	 	Cerrar
-       	 </ion-item>
+		 <ion-menu-toggle>
+			<ion-item routerLink="/perfil">
+				<ion-icon name="person"></ion-icon>
+				Perfil
+			</ion-item>
+		 </ion-menu-toggle>
+
+       	 <ion-menu-toggle>
+			<ion-item routerLink="/medicamentos">
+       	 	   <ion-icon name="bandage"></ion-icon>
+       	 	   Medicamentos
+       	    </ion-item>
+		</ion-menu-toggle>
+
+       	<ion-menu-toggle>
+			<ion-item routerLink="/pedidos">
+       	 	   <ion-icon name="newspaper"></ion-icon>
+       	 	   Pedidos
+       	    </ion-item>
+		</ion-menu-toggle>
+
+		<ion-menu-toggle>
+			<ion-item routerLink="/pastillero">
+       	 	    <ion-icon name="medkit"></ion-icon>
+       	 	    Pastillero
+       	    </ion-item>
+		</ion-menu-toggle> 
+
+       	<ion-menu-toggle>
+		    <ion-item routerLink="/direcciones">
+       	 	    <ion-icon name="location"></ion-icon>
+       	 	    Direcciones
+       	    </ion-item>
+		</ion-menu-toggle>
+
+		<ion-menu-toggle>
+            <ion-item routerLink="/mensajes">
+       	 	    <ion-icon name="mail"></ion-icon>
+       	 	    Mensajes/PQR
+       	    </ion-item>
+		</ion-menu-toggle>
+
+       	<ion-menu-toggle>
+			<ion-item routerLink="/ajustes">
+       	 	    <ion-icon name="settings"></ion-icon>
+       	 	    Ajustes
+       	    </ion-item>
+		</ion-menu-toggle> 
+
+       	<ion-menu-toggle>
+			<ion-item routerLink="/acercade">
+       	 	    <ion-icon name="information-circle"></ion-icon>
+       	 	    Acerca de
+       	    </ion-item>
+		</ion-menu-toggle>
+		   
+		<ion-menu-toggle>
+			<ion-item routerLink="/login1">
+       	 	    <ion-icon name="log-out"></ion-icon>
+       	 	    Cerrar
+       	    </ion-item>
+		</ion-menu-toggle>
 
        </ion-list>
   	</ion-content>
