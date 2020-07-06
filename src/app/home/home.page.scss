@@ -1,27 +1,63 @@
-#container {
-  text-align: center;
+ion-header{
+  --background: #009bd7!important;
+  --ion-background-color-rgb: 0,155,215;
+}
 
+.header-styles{
+  --background: #009bd7!important;
+  padding-top:20px;
+  padding-bottom:10px;
+}
+
+.logo-header{
+  padding-top: 20px;
+  padding-bottom: 20px;
+  width: 50%;    
+}
+
+ion-content{
+  --ion-background-color: #ecebee;
+  --ion-background-color-rgb: 236, 235, 238;
+}
+
+.img-profile{
+  width: 17%;
+  margin-top: 5%;
+}
+
+#container{
+  margin-left: auto!important;
+  margin-right: auto!important;
+  max-width: 90%;
+}
+
+.user{
+  margin-bottom: 5%;
+}
+
+.username{
+  margin-left: 3.4vw;
   position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
+  top: 6%;
+  -ms-transform: translateY(-50%); /* IE 9 */
+  -webkit-transform: translateY(-50%); /* Chrome, Safari, Opera */
   transform: translateY(-50%);
+  color:#87878a;
+  font-weight: bold;
+  font-style: italic;
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
+.ion-text-left{
+  margin-right: auto;
 }
 
-#container p {
-  font-size: 16px;
-  line-height: 22px;
-
-  color: #8c8c8c;
-
-  margin: 0;
+.buttons{
+  --background:#fff;
+  color:#87878a;
+  margin-bottom:3%;
 }
 
-#container a {
-  text-decoration: none;
+.button-logos{
+  width: 7%;
+  margin-right:3%;
 }
