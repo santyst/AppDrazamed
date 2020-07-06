@@ -1,0 +1,44 @@
+<!-- Header without a border -->
+<ion-header class="ion-no-border">
+  <ion-toolbar class="header-styles">
+    <ion-title><img  class="content-image" src="../../assets/img/LOGOS/LOGOS DRAZAMED_Mesa de trabajo 1 copia.png" alt=""></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <form>
+    <div id="container">
+      <p>Crear cuenta</p>
+      <img class="logo-form" src="../../assets/img/LOGOS/LOGOS DRAZAMED-04.png">
+      <ion-item>
+        <ion-label position="stacked">Documento</ion-label>
+        <ion-input type="number"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Fecha de nacimiento</ion-label>
+        <ion-input type="date"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Dirección para entrega de pedidos</ion-label>
+        <ion-input type="text"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Teléfono de contacto</ion-label>
+        <ion-input type="tel"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Género</ion-label>
+        <ion-select>
+          <ion-select-option value="f">Femenino</ion-select-option>
+          <ion-select-option value="m">Masculino</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-checkbox color="success"></ion-checkbox>
+        <ion-label class="label-checkbox">Aceptar términos y condiciones</ion-label>
+      </ion-item>
+    </div>
+    <ion-button class="btn-continue" expand="block">ACEPTAR</ion-button>
+  </form>
+</ion-content>

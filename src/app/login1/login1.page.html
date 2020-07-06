@@ -1,0 +1,20 @@
+<ion-content [fullscreen]="true">
+  <div id="container-logo">
+    <img class="img-primary-logo" src="../../assets/img/LOGOS/LOGOS DRAZAMED-02.png" alt="">
+  </div>
+  <div id="container-buttons">
+    <ion-button class="buttons-modified mb-10" expand="block">Continúa con Google</ion-button>
+    <ion-button class="buttons-modified mb-10" expand="block">Continúa con Facebook</ion-button>
+    <ion-button class="buttons-modified mb-15" expand="block" (click)="goCreateAccount()">Crear Cuenta</ion-button>
+    <span class="account-text">¿Ya tienes una cuenta? </span><a class="link" href="./login2">Inicia sesión</a>
+  </div>
+</ion-content>
+<ion-footer class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>
+      <span>Al continuar estas aceptando nuestros</span>
+      <br> 
+      <span>términos, condiciones y politicas de privacidad</span>
+    </ion-title>
+  </ion-toolbar>
+</ion-footer>

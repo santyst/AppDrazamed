@@ -1,0 +1,27 @@
+<!-- Header without a border -->
+<ion-header class="ion-no-border">
+  <ion-toolbar class="header-styles">
+    <ion-title><img  class="content-image" src="../../assets/img/LOGOS/LOGOS DRAZAMED_Mesa de trabajo 1 copia.png" alt=""></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <form>
+    <div id="container">
+      <p>Iniciar sesión</p>
+      <img class="logo-form" src="../../assets/img/LOGOS/LOGOS DRAZAMED-04.png">
+      <ion-item>
+        <ion-input type="text" placeholder="Usuario"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="password" placeholder="Contraseña"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-checkbox color="success"></ion-checkbox>
+        <ion-label class="label-checkbox">Recordar</ion-label><a class="link" href="./forgottenpassword">Olvide la contraseña</a>
+      </ion-item>
+      <ion-button class="btn-continue" expand="block" (click)="goHome()">INGRESAR</ion-button>
+    </div>
+  </form>
+</ion-content>
