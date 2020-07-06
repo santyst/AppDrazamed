@@ -1,76 +1,87 @@
 <ion-app>
   <ion-menu menuId="main-menu" content-id="main">
-  	    
-    	<ion-content>
-        <div class="menu-header-bg"></div>
+
+	<ion-header class="ion-no-border">
+		<ion-toolbar class="header-styles">
+		  <ion-title><img class="content-image" src="../../assets/img/LOGOS/LOGOS DRAZAMED_Mesa de trabajo 1.png" alt=""></ion-title>
+		</ion-toolbar>
+	  </ion-header>
+	    	    
+    <ion-content class="side-menu">
+	
+		<div class="user">
+		 <img class="img-profile" src="../../assets/img/RECURSOS/iconos drazamed-24.png" alt="">
+		 <span class="username">¡Hola Ana!</span>
+		</div>
+
        <ion-list class="menu-items" lines="none"> 
-			
+
 		 <ion-menu-toggle>
-			<ion-item on-click="goHome()">
-       	 	    <ion-icon name="home"></ion-icon>
-       	 	    Inicio
-       	    </ion-item>
+			 <ion-item on-click="goHome()">
+				<img class="button-logos" src="../../assets/img/RECURSOS/iconos drazamed-cc-05.png">
+				Inicio
+			 </ion-item>
 		 </ion-menu-toggle>
        	 
 		 <ion-menu-toggle>
 			<ion-item on-click="goPerfil()">
-				<ion-icon name="person"></ion-icon>
+				<img class="button-logos" src="../../assets/img/RECURSOS/iconos drazamed-cc_Mesa de trabajo 1.png">
 				Perfil
 			</ion-item>
 		 </ion-menu-toggle>
 
        	 <ion-menu-toggle>
 			<ion-item on-click="goMedicamentos()">
-       	 	   <ion-icon name="bandage"></ion-icon>
+				<img class="button-logos" src="../../assets/img/RECURSOS/iconos drazamed-cc-03.png">
        	 	   Medicamentos
        	    </ion-item>
 		</ion-menu-toggle>
 
        	<ion-menu-toggle>
 			<ion-item on-click="goPedidos()">
-       	 	   <ion-icon name="newspaper"></ion-icon>
+				<img class="button-logos" src="../../assets/img/RECURSOS/iconos drazamed-cc-07.png">
        	 	   Pedidos
        	    </ion-item>
 		</ion-menu-toggle>
 
 		<ion-menu-toggle>
 			<ion-item on-click="goPastillero()">
-       	 	    <ion-icon name="medkit"></ion-icon>
+				<img class="button-logos" src="../../assets/img/RECURSOS/iconos drazamed-cc-09.png">
        	 	    Pastillero
        	    </ion-item>
 		</ion-menu-toggle> 
 
        	<ion-menu-toggle>
 		    <ion-item on-click="goDirecciones()">
-       	 	    <ion-icon name="location"></ion-icon>
+				<img class="button-logos" src="../../assets/img/RECURSOS/iconos drazamed-cc-32.png">
        	 	    Direcciones
        	    </ion-item>
 		</ion-menu-toggle>
 
 		<ion-menu-toggle>
             <ion-item on-click="goMensajes()">
-       	 	    <ion-icon name="mail"></ion-icon>
+				<img class="button-logos" src="../../assets/img/RECURSOS/iconos drazamed-cc-11.png">
        	 	    Mensajes/PQR
        	    </ion-item>
 		</ion-menu-toggle>
 
        	<ion-menu-toggle>
 			<ion-item on-click="goAjustes()">
-       	 	    <ion-icon name="settings"></ion-icon>
+				<img class="button-logos" src="../../assets/img/RECURSOS/iconos drazamed-11.png">
        	 	    Ajustes
        	    </ion-item>
 		</ion-menu-toggle> 
 
        	<ion-menu-toggle>
 			<ion-item on-click="goAcercade()">
-       	 	    <ion-icon name="information-circle"></ion-icon>
+				<img class="button-logos" src="../../assets/img/RECURSOS/iconos drazamed-cc-15.png">
        	 	    Acerca de
        	    </ion-item>
 		</ion-menu-toggle>
 		   
 		<ion-menu-toggle>
 			<ion-item on-click="goOut()">
-       	 	    <ion-icon name="log-out"></ion-icon>
+				<img class="button-logos" src="../../assets/img/RECURSOS/iconos drazamed-cc-17.png">
        	 	    Cerrar
        	    </ion-item>
 		</ion-menu-toggle>
