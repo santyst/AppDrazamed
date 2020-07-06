@@ -30,7 +30,39 @@ const routes: Routes = [
   {
     path: 'forgottenpassword',
     loadChildren: () => import('./forgottenpassword/forgottenpassword.module').then( m => m.ForgottenpasswordPageModule)
+  },  {
+    path: 'perfil',
+    loadChildren: () => import('./pages/perfil/perfil.module').then( m => m.PerfilPageModule)
   },
+  {
+    path: 'medicamentos',
+    loadChildren: () => import('./pages/medicamentos/medicamentos.module').then( m => m.MedicamentosPageModule)
+  },
+  {
+    path: 'pedidos',
+    loadChildren: () => import('./pages/pedidos/pedidos.module').then( m => m.PedidosPageModule)
+  },
+  {
+    path: 'pastillero',
+    loadChildren: () => import('./pages/pastillero/pastillero.module').then( m => m.PastilleroPageModule)
+  },
+  {
+    path: 'direcciones',
+    loadChildren: () => import('./pages/direcciones/direcciones.module').then( m => m.DireccionesPageModule)
+  },
+  {
+    path: 'mensajes',
+    loadChildren: () => import('./pages/mensajes/mensajes.module').then( m => m.MensajesPageModule)
+  },
+  {
+    path: 'ajustes',
+    loadChildren: () => import('./pages/ajustes/ajustes.module').then( m => m.AjustesPageModule)
+  },
+  {
+    path: 'acercade',
+    loadChildren: () => import('./pages/acercade/acercade.module').then( m => m.AcercadePageModule)
+  },
+
 ];
 
 @NgModule({
