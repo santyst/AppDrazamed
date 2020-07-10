@@ -64,20 +64,19 @@ login(credentials: {email: string, password: string}) {
     this.items2 = this.items [0].result.status;
     console.log(this.items2);
   });
-
   if (this.items2 !== 'success'){
-      return of(null);
-    }
+    return of(null);
+  }
 
 
   return this.http.get(`${this.apiURL}email=${credentials.email}&password=${credentials.password}`).pipe(
 take(1),
 map(res => {
-return `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJPbmxpbmUgSldUIEJ1aWxkZXIiLCJpYXQiOjE1Njc2NjU3MDYsImV4cCI6MTU5OTIwMTcwNiwiYXVkIjoid3d3LmV4YW1wbGUuY29tIiwic3ViIjoiMTIzNDUiLCJmaXJzdF9uYW1lIjoiU2ltb24iLCJsYXN0X25hbWUiOiJHcmltbSIsImVtYWlsIjoic2FpbW9uQGRldmRhY3RpYy5jb20ifQ.4LZTaUxsX2oXpWN6nrSScFXeBNZVEyuPxcOkbbDVZ5U`;
+return `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkRyYXphbWVkIiwiaWF0IjoxNTE2MjM5MDIyfQ.4x0iejWjRVH3V7ULcX0-vRmxeR8NLdlFGvx69CuBrrY`;
 }),
 switchMap(token => {
 const decoded = helper.decodeToken(token);
-// console.log('login decoded: ', decoded);
+//console.log('login decoded: ', decoded);
 this.userData.next(decoded);
 const storageObs = from(this.storage.set(TOKEN_KEY, token));
 return storageObs;

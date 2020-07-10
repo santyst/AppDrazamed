@@ -17,12 +17,6 @@ import { AuthService } from '../services/auth.service';
 })
 export class Login2Page implements OnInit {
 
-//apiURL = `https://drazamed.com/user/user-login/1?`;
-
-
-//public items: any;
-public items2: any;
-
   constructor(
     private router: Router,
     public http: HttpClient,
@@ -32,6 +26,14 @@ public items2: any;
     private auth: AuthService
 
   ) {}
+
+
+public items2: any;
+
+  credentials = {
+   email: '',
+   password: ''
+  };
 
   login() {
     this.auth.login(this.credentials).subscribe(async res => {
@@ -51,11 +53,6 @@ public items2: any;
   ngOnInit() {
   }
 
-  credentials={
-   email: '',
-   password: ''
-  };
-   
   logForm(form) {
     console.log(form.value)
   }
