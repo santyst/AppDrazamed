@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
+import { MenuController } from '@ionic/angular';
+
+
 
 @Component({
   selector: 'app-home',
@@ -9,7 +13,9 @@ import { Router } from '@angular/router';
 export class HomePage {
 
   constructor(
-    private router:Router
+    private router: Router,
+    private auth: AuthService,
+    private menuCtrl: MenuController
   ) {}
 
   goPerfil(){
@@ -54,7 +60,12 @@ export class HomePage {
 
    goOut(){
     console.log("button clicked");
-    this.router.navigate(['login1']);
+    this.auth.logout();
    }
+
+    ionViewWillEnter() {
+ this.menuCtrl.enable(false);
+}
+
 
 }

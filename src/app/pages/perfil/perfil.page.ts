@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MenuController } from '@ionic/angular';
+import { truncateSync } from 'fs';
 
 @Component({
   selector: 'app-perfil',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PerfilPage implements OnInit {
 
-  constructor() { }
+  constructor(
+    private menuCtrl: MenuController
+  ) { }
 
   ngOnInit() {
   }
 
+  ionViewWillEnter() {
+    this.menuCtrl.enable(true);
+   }
 }

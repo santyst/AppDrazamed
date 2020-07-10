@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule), canActivate: [AuthGuard]
   },
   {
     path: '',
@@ -30,37 +31,38 @@ const routes: Routes = [
   {
     path: 'forgottenpassword',
     loadChildren: () => import('./forgottenpassword/forgottenpassword.module').then( m => m.ForgottenpasswordPageModule)
-  },  {
+  },
+  {
     path: 'perfil',
-    loadChildren: () => import('./pages/perfil/perfil.module').then( m => m.PerfilPageModule)
+    loadChildren: () => import('./pages/perfil/perfil.module').then( m => m.PerfilPageModule), canActivate: [AuthGuard]
   },
   {
     path: 'medicamentos',
-    loadChildren: () => import('./pages/medicamentos/medicamentos.module').then( m => m.MedicamentosPageModule)
+    loadChildren: () => import('./pages/medicamentos/medicamentos.module').then( m => m.MedicamentosPageModule), canActivate: [AuthGuard]
   },
   {
     path: 'pedidos',
-    loadChildren: () => import('./pages/pedidos/pedidos.module').then( m => m.PedidosPageModule)
+    loadChildren: () => import('./pages/pedidos/pedidos.module').then( m => m.PedidosPageModule), canActivate: [AuthGuard]
   },
   {
     path: 'pastillero',
-    loadChildren: () => import('./pages/pastillero/pastillero.module').then( m => m.PastilleroPageModule)
+    loadChildren: () => import('./pages/pastillero/pastillero.module').then( m => m.PastilleroPageModule), canActivate: [AuthGuard]
   },
   {
     path: 'direcciones',
-    loadChildren: () => import('./pages/direcciones/direcciones.module').then( m => m.DireccionesPageModule)
+    loadChildren: () => import('./pages/direcciones/direcciones.module').then( m => m.DireccionesPageModule), canActivate: [AuthGuard]
   },
   {
     path: 'mensajes',
-    loadChildren: () => import('./pages/mensajes/mensajes.module').then( m => m.MensajesPageModule)
+    loadChildren: () => import('./pages/mensajes/mensajes.module').then( m => m.MensajesPageModule), canActivate: [AuthGuard]
   },
   {
     path: 'ajustes',
-    loadChildren: () => import('./pages/ajustes/ajustes.module').then( m => m.AjustesPageModule)
+    loadChildren: () => import('./pages/ajustes/ajustes.module').then( m => m.AjustesPageModule), canActivate: [AuthGuard]
   },
   {
     path: 'acercade',
-    loadChildren: () => import('./pages/acercade/acercade.module').then( m => m.AcercadePageModule)
+    loadChildren: () => import('./pages/acercade/acercade.module').then( m => m.AcercadePageModule), canActivate: [AuthGuard]
   },
 
 ];

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router'; 
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login1',
@@ -9,7 +10,8 @@ import { Router } from '@angular/router';
 export class Login1Page implements OnInit {
 
   constructor(
-    private router: Router
+    private router: Router,
+    private menuCtrl: MenuController
   ) { }
 
   ngOnInit() {
@@ -19,5 +21,9 @@ export class Login1Page implements OnInit {
   console.log("Button clicked");
   this.router.navigate(['createaccount'])
   }
+
+  ionViewWillEnter() {
+    this.menuCtrl.enable(false);
+   }
 
 }
