@@ -8,7 +8,7 @@ import { Observable, BehaviorSubject, from, of } from 'rxjs';
 import { take, map, switchMap, switchMapTo } from 'rxjs/operators';
 import { Token } from '@angular/compiler/src/ml_parser/lexer';
 import { strict } from 'assert';
-import { parseJSON } from 'jquery';
+
 
 
 const helper = new JwtHelperService();
@@ -26,8 +26,6 @@ export class AuthService {
   public user: Observable<any>;
   private userData = new BehaviorSubject(null);
   public items2: any;
-  
- 
 
   constructor(
     private storage: Storage,
@@ -38,7 +36,7 @@ export class AuthService {
      }
 
 loadStoredToken(){
-let platformObs = from(this.plt.ready());
+const platformObs = from(this.plt.ready());
 
 this.user = platformObs.pipe(
   switchMap(() =>{
@@ -47,8 +45,8 @@ this.user = platformObs.pipe(
   map(token => {
    // console.log('token from storage', token);
     if (token){
-      let decoded = helper.decodeToken(token);
-      //console.log('decoded: ', decoded);
+      const decoded = helper.decodeToken(token);
+      // console.log('decoded: ', decoded);
       this.userData.next(decoded);
       return true;
     } else {
@@ -63,38 +61,27 @@ login(credentials: {email: string, password: string}) {
   data = this.http.get(`${this.apiURL}email=${credentials.email}&password=${credentials.password}`);
   data.subscribe(result => {
     this.items = result;
-    this.items2 = this.items [0]["result"]["status"];
+    this.items2 = this.items [0].result.status;
     console.log(this.items2);
   });
 
-  if(this.items2 != "success" ){
+  if (this.items2 !== 'success'){
       return of(null);
     }
 
 
-/*loadData(email, password){
-  let data:Observable<any>;
-  data = this.http.get(`${this.apiURL}email=${email}&password=${password}`);
-  data.subscribe(result => {
-    this.items = result;
-    console.log(result);
-  });
-}*/
-
-return this.http.get('https://randomuser.me/api/').pipe(
-  take(1),
-  map(res => {
-  return `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJPbmxpbmUgSldUIEJ1aWxkZXIiLCJpYXQiOjE1Njc2NjU3MDYsImV4cCI6MTU5OTIwMTcwNiwiYXVkIjoid3d3LmV4YW1wbGUuY29tIiwic3ViIjoiMTIzNDUiLCJmaXJzdF9uYW1lIjoiU2ltb24iLCJsYXN0X25hbWUiOiJHcmltbSIsImVtYWlsIjoic2FpbW9uQGRldmRhY3RpYy5jb20ifQ.4LZTaUxsX2oXpWN6nrSScFXeBNZVEyuPxcOkbbDVZ5U`;
-  }),
-  switchMap(token => {
-    let decoded = helper.decodeToken(token);
-   // console.log('login decoded: ', decoded);
-    this.userData.next(decoded);
-    
-    let storageObs = from(this.storage.set(TOKEN_KEY, token));
-    return storageObs;
-
-  })
+  return this.http.get(`${this.apiURL}email=${credentials.email}&password=${credentials.password}`).pipe(
+take(1),
+map(res => {
+return `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJPbmxpbmUgSldUIEJ1aWxkZXIiLCJpYXQiOjE1Njc2NjU3MDYsImV4cCI6MTU5OTIwMTcwNiwiYXVkIjoid3d3LmV4YW1wbGUuY29tIiwic3ViIjoiMTIzNDUiLCJmaXJzdF9uYW1lIjoiU2ltb24iLCJsYXN0X25hbWUiOiJHcmltbSIsImVtYWlsIjoic2FpbW9uQGRldmRhY3RpYy5jb20ifQ.4LZTaUxsX2oXpWN6nrSScFXeBNZVEyuPxcOkbbDVZ5U`;
+}),
+switchMap(token => {
+const decoded = helper.decodeToken(token);
+// console.log('login decoded: ', decoded);
+this.userData.next(decoded);
+const storageObs = from(this.storage.set(TOKEN_KEY, token));
+return storageObs;
+})
 );
 }
 
