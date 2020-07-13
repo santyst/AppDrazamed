@@ -54,7 +54,7 @@ public items2: any;
   }
 
   logForm(form) {
-    console.log(form.value)
+    console.log(form.value);
   }
 
   ionViewWillEnter() {

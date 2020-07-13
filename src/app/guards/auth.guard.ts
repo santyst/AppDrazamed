@@ -24,15 +24,14 @@ export class AuthGuard implements CanActivate {
             animated: true,
             header: 'Acceso denegado',
             message: 'No tienes acceso a esta pagina',
-            buttons: ['OK']  
+            buttons: ['OK']
           }).then(alert => alert.present());
 
-         return false;
+          return false;
         } else {
           return true;
         }
       })
-    )
+    );
   }
- 
 }
