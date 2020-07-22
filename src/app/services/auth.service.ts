@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Storage } from '@ionic/storage';
-import { Platform } from '@ionic/angular';
+import { Platform, AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable, BehaviorSubject, from, of, Subscription } from 'rxjs';
@@ -24,19 +24,19 @@ export class AuthService {
 
   apiURL = `https://drazamed.com/user/user-login/1?`;
 
-
   public items: any;
   public user: Observable<any>;
   private userData = new BehaviorSubject(null);
   public items2: any;
   public items3: any;
-  public items4: any;
+  status: string;
 
   constructor(
     private storage: Storage,
     private http: HttpClient,
     private plt: Platform,
-    private router: Router) {
+    private router: Router,
+    private alertController: AlertController) {
       this.loadStoredToken();
      }
 
@@ -61,20 +61,26 @@ this.user = platformObs.pipe(
 );
 }
 
-
 login(credentials: {email: string, password: string}){
-// tslint:disable-next-line: no-shadowed-variable
   let data: Observable <any>;
   data = this.http.get(`${this.apiURL}email=${credentials.email}&password=${credentials.password}`);
   data.subscribe(result => {
     this.items = result;
     this.items2 = this.items [0].result.status;
     console.log(this.items2);
+  }, async (err: HttpErrorResponse) => {
+    this.items3 = err.status;
+    if (this.items3 === 401 || credentials.email === '' || credentials.password === ''){
+      console.log('Usuario o contraseña incorrecto');
+      const alert = await this.alertController.create({
+        header: 'Login Failed',
+        message: 'Usuario o contraseña incorrectos',
+        buttons: ['OK']
+      });
+      await alert.present();
+    }
   });
 
-  if (!this.items2) {
-    return of(null);
-   }
 
   return this.http.get(`${this.apiURL}email=${credentials.email}&password=${credentials.password}`).pipe(
 take(1),

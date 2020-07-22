@@ -35,7 +35,7 @@ ion-content{
     left: 70%;
     right: 0;
     top: 15%;
-    transform: translateY(-100%);
+    transform: translateY(-270%);
     width: 25%;
 }
 
@@ -48,10 +48,11 @@ ion-label{
     --color: #b4b4b4!important;
 }
 
-ion-input{
+ion-input, ion-datetime{
     border: 1px solid #eeeeee;
     border-radius: 16px;
     padding-left:10px!important;
+    margin-top: 5px;
 }
 
 .btn-continue{
@@ -68,4 +69,13 @@ ion-input{
 p{
     font-weight: bold;
     color:#7e7e7e;
+}
+ion-select{
+    border: 1px solid #eeeeee;
+    border-radius: 16px;
+    padding-left: 10px!important;
+    margin-top: 5px;
+}
+.error-message {
+ color: var(--ion-color-danger);
 }
