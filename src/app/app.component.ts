@@ -4,6 +4,7 @@ import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Router } from '@angular/router';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,8 @@ export class AppComponent {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private router: Router
+    private router: Router,
+    private auth: AuthService
   ) {
     this.initializeApp();
   }
@@ -28,52 +30,30 @@ export class AppComponent {
   }
 
   goHome(){
-    console.log("button clicked");
     this.router.navigate(['home']);
   }
 
   goPerfil(){
-    console.log("button clicked");
     this.router.navigate(['perfil']);
   }
 
   goMedicamentos(){
-    console.log("button clicked");
     this.router.navigate(['medicamentos']);
   }
 
-  goPedidos(){
-    console.log("button clicked");
-    this.router.navigate(['pedidos']);
-  }
-
-  goPastillero(){
-    console.log("button clicked");
-    this.router.navigate(['pastillero']);
-  }
-
-  goDirecciones(){
-    console.log("button clicked");
-    this.router.navigate(['direcciones']);
-  }
-
   goMensajes(){
-    console.log("button clicked");
     this.router.navigate(['mensajes']);
   }
 
   goAjustes(){
-    console.log("button clicked");
     this.router.navigate(['ajustes']);
   }
 
   goAcercade(){
-    console.log("button clicked");
     this.router.navigate(['acercade']);
   }
 
   goOut(){
-    console.log("button clicked");
-    this.router.navigate(['login1']);
+    this.auth.logout();
   }
 }

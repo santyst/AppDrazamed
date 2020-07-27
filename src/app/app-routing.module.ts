@@ -9,7 +9,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'login1',
+    redirectTo: 'slideshow',
     pathMatch: 'full'
   },
   {
@@ -41,18 +41,6 @@ const routes: Routes = [
     loadChildren: () => import('./pages/medicamentos/medicamentos.module').then( m => m.MedicamentosPageModule), canActivate: [AuthGuard]
   },
   {
-    path: 'pedidos',
-    loadChildren: () => import('./pages/pedidos/pedidos.module').then( m => m.PedidosPageModule), canActivate: [AuthGuard]
-  },
-  {
-    path: 'pastillero',
-    loadChildren: () => import('./pages/pastillero/pastillero.module').then( m => m.PastilleroPageModule), canActivate: [AuthGuard]
-  },
-  {
-    path: 'direcciones',
-    loadChildren: () => import('./pages/direcciones/direcciones.module').then( m => m.DireccionesPageModule), canActivate: [AuthGuard]
-  },
-  {
     path: 'mensajes',
     loadChildren: () => import('./pages/mensajes/mensajes.module').then( m => m.MensajesPageModule), canActivate: [AuthGuard]
   },
@@ -64,6 +52,11 @@ const routes: Routes = [
     path: 'acercade',
     loadChildren: () => import('./pages/acercade/acercade.module').then( m => m.AcercadePageModule), canActivate: [AuthGuard]
   },
+  {
+    path: 'slideshow',
+    loadChildren: () => import('./slideshow/slideshow.module').then( m => m.SlideshowPageModule)
+  },
+
 
 ];
 

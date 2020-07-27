@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { PastilleroPageRoutingModule } from './pastillero-routing.module';
+import { SlideshowPageRoutingModule } from './slideshow-routing.module';
 
-import { PastilleroPage } from './pastillero.page';
+import { SlideshowPage } from './slideshow.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    PastilleroPageRoutingModule
+    SlideshowPageRoutingModule
   ],
-  declarations: [PastilleroPage]
+  declarations: [SlideshowPage]
 })
-export class PastilleroPageModule {}
+export class SlideshowPageModule {}

@@ -1,0 +1,21 @@
+
+ion-slide {
+    display: block;
+}
+
+img {
+    max-height: 400px;
+}
+
+.slide-img-padding {
+    padding: 40px;
+}
+h3 {
+    font-size: 30;
+    font-weight: lighter;
+    margin-bottom: 60px;
+}
+ion-slides {
+    --bullet-background: #009bd7;
+    --bullet-background-active: #009bd7;
+}
