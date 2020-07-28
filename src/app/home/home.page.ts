@@ -1,7 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { MenuController } from '@ionic/angular';
-
+import { MenuController, IonSlides } from '@ionic/angular';
 
 
 @Component({
@@ -10,6 +9,17 @@ import { MenuController } from '@ionic/angular';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+@ViewChild('mySlider') slider: IonSlides;
+sliderOpts = {
+  autoplay: true,
+  speed: 1000,
+  zoom: {
+    maxRatio: 5
+  }
+};
+
+categories = ['AGUAS', 'ANTIAGREGANTE PLAQUETARIO', 'dolor e inflamacion', 'gripa y tos', 'mauricio', 'elbert', 'juan', 'camaro', 'hola', 'maincra',
+'damian', 'xd'];
 
   constructor(
     private router: Router,
@@ -19,6 +29,7 @@ export class HomePage {
     ionViewWillEnter() {
  this.menuCtrl.enable(true);
 }
+
 
 
 }
