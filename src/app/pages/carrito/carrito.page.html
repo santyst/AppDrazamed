@@ -1,0 +1,94 @@
+<ion-header class="ion-no-border" mode="ios">
+  <div class="div-header">
+  <ion-toolbar class="header-styles">
+    <ion-title><img class="content-image" src="../../../assets/img/LOGOS/LOGOS DRAZAMED_Mesa de trabajo 1.png" alt=""></ion-title>
+  </ion-toolbar>
+    <ion-buttons>
+      <ion-button slot="start" class="icono" (click)="goHome()">
+        <ion-icon size="large" name="chevron-back-outline"></ion-icon>
+      </ion-button>
+      <ion-button class="carrito" (click)="goPerfil()">
+        <img src="../../../assets/img/RECURSOS/iconos drazamed-cc-38.png">
+      </ion-button>
+    </ion-buttons>
+  </div>
+</ion-header>
+
+<ion-content mode="ios">
+  <div class="titulo">
+     <!-- <img src="../../../assets/img/RECURSOS/iconos drazamed-17.png" class="img_title">-->
+      <p class="title_seccion">Carrito de Compras</p>
+  </div>
+  <div class="container">
+    <ion-grid>
+      <ion-row class="result_search" *ngFor="let p of cart">
+        <ion-col size="3" class="align-self-center" *ngIf="!p.item_name">
+          <img src={{apiUrl3}}{{p.url_img}} class="img_product" width="100%">
+        </ion-col>
+        <ion-col size="3" class="align-self-center" *ngIf="p.item_name">
+          <img src={{imgUrl}} class="img_product" width="100%">
+        </ion-col>
+        <ion-col size="5" class="align-self-center">
+          <p class="name_product">{{p.name}}{{p.item_name}}</p>
+          <p class="description_product">{{p.group}}</p>
+          <p class="price_product">${{ p.amount * p.mrp | number}}</p>
+        </ion-col>
+        <ion-col size="4">
+          <ion-buttons>
+            <ion-button class="trash" (click)="removeCartItem(p)"><img src="../../../assets/img/RECURSOS/trash.png" width="100%"></ion-button>
+          </ion-buttons>
+          <ion-button color="medium" fill="clear" (click)="decreaseCartItem(p)">
+            <ion-icon name="remove" slot="icon-only"></ion-icon>
+          </ion-button>
+            {{ p.amount }}
+          <ion-button color="medium" fill="clear" (click)="increaseCartItem(p)">
+            <ion-icon name="add" slot="icon-only"></ion-icon>
+          </ion-button>
+      
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="agregar">
+          <ion-button class="btn-continue" expand="block" (click)="goBuscar()">A<p class="btntext">gregar más productos</p></ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row class="result_search">
+         <ion-col size="12">
+           <div class="formula">
+              <p class="name_product">Formula médica</p>
+              <p class="description_product">Adjunta aquí tu formula médica. En constantes minutos te verificaremos para seguir con la compra</p>
+           </div>
+           <div class="section_attach">
+             <img src="../../../assets/img/RECURSOS/attach.png" width="20%">
+             <p class="description_product">Adjuntar formula</p>
+           </div>
+         </ion-col>
+      </ion-row>
+      <ion-row class="result_search">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="6"><p class="name_product">Subtotal</p></ion-col>
+          <ion-col size="6"><p class="description_product">$000.000</p></ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="6"><p class="name_product">Costo envío</p></ion-col>
+          <ion-col size="6"><p class="description_product">$000.000</p></ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="6"><p class="name_product">Impuesto</p></ion-col>
+          <ion-col size="6"><p class="description_product">$000.000</p></ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="6"><p class="name_product">Total</p></ion-col>
+          <ion-col size="6"><p class="description_product">${{ getTotal() | number }}</p></ion-col>
+        </ion-row>
+      </ion-grid>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  
+</ion-content>

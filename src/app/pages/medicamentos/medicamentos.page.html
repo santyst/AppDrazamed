@@ -1,12 +1,32 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Medicamentos</ion-title>
-    <ion-buttons slot="start">
-      <ion-menu-button menu="main-menu"></ion-menu-button>
-    </ion-buttons>
+<ion-header class="ion-no-border" mode="ios">
+  <div class="div-header">
+  <ion-toolbar class="header-styles">
+    <ion-title><img class="content-image" src="../../assets/img/LOGOS/LOGOS DRAZAMED_Mesa de trabajo 1.png" alt=""></ion-title>
   </ion-toolbar>
+    <ion-buttons>
+      <ion-menu-button slot="start" menu="main-menu"></ion-menu-button>
+      <ion-button class="carrito" (click)="goCarrito()">
+        <img src="../../assets/img/RECURSOS/iconos drazamed-18.png">
+      </ion-button>
+      <ion-badge>{{ cartItemCount | async }}</ion-badge>
+    </ion-buttons>
+  </div>
 </ion-header>
 
-<ion-content>
+<ion-content mode="md">
+  <div class="searchbar">
+      <ion-searchbar autocomplete="on"debounce="500" [(ngModel)]="searchbarInput" (ionChange)="getItems($event)" placeholder="Busca aquí tus productos"></ion-searchbar>
+      <ion-list *ngIf="isItemAvailable">
+        <ion-item button *ngFor="let med of items " (click)="fillSearchbarText(med.value)">{{ med.value }}</ion-item>
+    </ion-list>
+    </div>
+  <div class="label">
+    <ion-label class="description_product" *ngIf="!isItemAvailable">Escribe el producto que necesitas y el buscador te ayudará a encontrarlo, si esta disponible.</ion-label>
+  </div>
 
+  
+  <!--<ion-list>
+    <ion-item button *ngFor="let med of meds " (click)="verMed(med.value)">{{ med.value }}</ion-item>
+</ion-list>-->
 </ion-content>
+

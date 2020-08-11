@@ -5,7 +5,7 @@ import { AuthGuard } from './guards/auth.guard';
 const routes: Routes = [
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule), canActivate: [AuthGuard]
   },
   {
     path: '',
@@ -56,6 +56,37 @@ const routes: Routes = [
     path: 'slideshow',
     loadChildren: () => import('./slideshow/slideshow.module').then( m => m.SlideshowPageModule)
   },
+  {
+    path: 'carrito',
+    loadChildren: () => import('./pages/carrito/carrito.module').then( m => m.CarritoPageModule), canActivate: [AuthGuard]
+  },
+  {
+    path: 'resultsearch',
+    loadChildren: () => import('./pages/resultsearch/resultsearch.module').then( m => m.ResultsearchPageModule), canActivate: [AuthGuard]
+  },
+  {
+    path: 'avisoprivacidad',
+    loadChildren: () => import('./pages/terminos/avisoprivacidad/avisoprivacidad.module').then( m => m.AvisoprivacidadPageModule), canActivate: [AuthGuard]
+  },
+  {
+    path: 'politicagarantia',
+    loadChildren: () => import('./pages/terminos/politicagarantia/politicagarantia.module').then( m => m.PoliticagarantiaPageModule), canActivate: [AuthGuard]
+  },
+  {
+    path: 'politicadevolucion',
+    loadChildren: () => import('./pages/terminos/politicadevolucion/politicadevolucion.module').then( m => m.PoliticadevolucionPageModule), canActivate: [AuthGuard]
+  },
+  {
+    path: 'politicaretracto',
+    loadChildren: () => import('./pages/terminos/politicaretracto/politicaretracto.module').then( m => m.PoliticaretractoPageModule), canActivate: [AuthGuard]
+  },
+  {
+    path: 'manejodatos',
+    loadChildren: () => import('./pages/terminos/manejodatos/manejodatos.module').then( m => m.ManejodatosPageModule), canActivate: [AuthGuard]
+  },
+
+
+
 
 
 ];

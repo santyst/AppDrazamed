@@ -16,18 +16,21 @@ ion-header {
 }
 
 ion-content{
-  --ion-background-color: #fff;
+  --ion-background-color: #eeeef1;
   --ion-background-color-rgb: 236, 235, 238;
 }
 
 .carrito{
-  width: 15%;
-  margin-left: 63%;
+  width: 14% ;
+    height: 14% ;
+    border-radius: 100% !important;
+    margin-left: 65%;
+    margin-bottom: 2% !important;
 }
 
 .div-header{
   background-color: #009bd7;
-  padding-bottom: 5%;
+  padding-bottom: 0.5%;
 }
 
 ion-menu-button{
@@ -54,7 +57,7 @@ ion-searchbar {
 
 .btn_category{
   --background: #015670 !important;
-  padding: 10px 10px !important;
+  padding: 5px 10px !important;
   --border-radius: 15px !important;
   color: #fff !important;
   margin-bottom: 10px !important;
@@ -74,7 +77,7 @@ ion-searchbar {
     margin-right: auto;
     margin-left: auto;
     margin-bottom: 20px !important;
-    margin-top: 20px !important;
+    margin-top: 5px !important;
 }
 .inner{
   position: relative;
@@ -91,40 +94,44 @@ ion-slides {
 }
 .container{
     width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
+    padding-right: 1px;
+    padding-left: 1px;
     margin-right: auto;
     margin-left: auto;
-    margin-top: 20px !important;
-    margin-bottom: 20px !important;
+    margin-top: -18px !important;
+   background: #eeeef1;
 }
 .product{
   margin-bottom: 30px !important;
+ 
 }
 .card_product{
   box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.1) !important;
   padding: 20px !important;
   border-radius: 20px !important;
   margin-bottom: 15px !important;
+  min-width: 50% !important;
+  max-width: 50% !important;
 }
 .price_product{
-  font-size: 21px !important;
+  font-size: 20px !important;
   font-weight: 700 !important;
   color: #727070 !important;
   margin: 0px !important;
 }
 .name_product{
-  font-size: 19px !important;
-  font-weight: 700 !important;
-  color: #727070 !important;
+  font-size: 100% !important;
+  font-weight: 1000 !important;
+  color: #535353 !important;
   margin: 5px 0px !important;
   line-height: 20px !important;
 }
 .description_product{
-  font-size: 17px !important;
+  font-size: 100% !important;
   color: #727070 !important;
   line-height: 18px !important;
   margin: 5px 0px !important;
+  text-transform: lowercase !important;
 }
 .btn_product{
   --background: #00a2dd !important;
@@ -142,7 +149,7 @@ ion-slides {
 }
 
 .scrolli{
-  background: #fff;
+  background: #eeeef1;
 }
 
 @media (max-width: 360px) {
@@ -159,14 +166,72 @@ ion-slides {
   .price_product{
     font-size: 16px !important;
   }
-  .description_product{
-    font-size: 14px !important;
+}
+.img-fluid{
+  height: 100px !important;
+}
+.categorias{
+  margin-top: -23px !important;
+  background: #eeeef1;
+}
+ion-grid{
+  width: 100%;
+  padding-right: 1px;
+  padding-left: 1px;
+  margin-right: auto;
+  margin-left: auto;
+  background: #eeeef1;
+}
+.searchbar{
+  margin-top: -2px !important;
+}
+.elementos{
+  min-height: 230px !important;
+  max-height: 230px !important;
+}
+.btn-continue{
+  margin-left: auto!important;
+  margin-right: auto!important;
+  --background: #00a2dd!important;
+  font-weight: 600 !important;
+  font-size: 17.5px !important;
+  width: 95% !important;
+  --border-radius: 20px!important;
+  height: 41px !important;
+}
+.btntext{
+  text-transform: lowercase !important;
+}
+.btntext::first-letter{
+  text-transform: uppercase !important;
+}
+.search{
+  margin-right: 35px ;
+}
+ion-icon{
+  min-width: 21px;
+  max-width: 21px;
+  margin-left: -40px;
+}
+.letra{
+  margin-left: -20px;
+}
+@media (max-width: 350px){
+  .letra{
+    margin-left: -20px;
   }
-  .name_product{
-    font-size: 16px !important;
+  ion-icon{
+    margin-left: -5px;
   }
 }
-
-
-
-
+ion-badge {
+  color: #046a8f;
+  position: absolute;
+  --border-radius: 200%;
+  top: -3px;
+right: 15px;
+--background: #c9c9c9;
+width: 20px ;
+height: 20px;
+font-size: 16px;
+}

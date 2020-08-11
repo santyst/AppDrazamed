@@ -1,12 +1,12 @@
 <!-- Header without a border -->
-<ion-header class="ion-no-border">
+<ion-header class="ion-no-border" mode="ios">
   <ion-toolbar class="header-styles">
     <ion-title><img  class="content-image" src="../../assets/img/LOGOS/LOGOS DRAZAMED_Mesa de trabajo 1 copia.png" alt=""></ion-title>
   </ion-toolbar>
 </ion-header>
 
 
-<ion-content>
+<ion-content mode="ios">
   <form (ngSubmit)="logForm(form)" [formGroup]="registroForm"  #form="ngForm">
     <div id="container">
       <ion-list>
@@ -57,7 +57,7 @@
       </ion-item>
       <ion-item>
         <ion-label position="stacked">Fecha de nacimiento</ion-label>
-        <ion-datetime formControlName="nacimiento" drag-content="false" (ionChange)="doSomething(this.nacimiento)" displayFormat="DD/MM/YYYY" [(ngModel)]="register.nacimiento" name="nacimiento" ngControl="nacimiento"></ion-datetime>
+        <ion-datetime mode="md"formControlName="nacimiento" drag-content="false" (ionChange)="doSomething(this.nacimiento)" displayFormat="DD/MM/YYYY" [(ngModel)]="register.nacimiento" name="nacimiento" ngControl="nacimiento"></ion-datetime>
       </ion-item>
       <ion-item>
         <ion-label position="stacked">Dirección para entrega</ion-label>
@@ -75,12 +75,9 @@
         </ion-select>
       </ion-item>
       <ion-item>
-        <ion-label position="stacked">Tipo de cuenta</ion-label>
+        <ion-label position="stacked">Convenio</ion-label>
         <ion-select formControlName="tipo" placeholder="Seleccionar" [(ngModel)]="register.tipo" name="tipo" ngControl="tipo">
-           <ion-select-option>profesional Médico</ion-select-option>
-           <ion-select-option>Cliente</ion-select-option>
-           <ion-select-option>Domiciliario</ion-select-option>
-           <ion-select-option>Centro Médico</ion-select-option>
+           <ion-select-option>Ninguno</ion-select-option>
         </ion-select>
       </ion-item>
       <ion-item>

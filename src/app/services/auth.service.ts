@@ -74,8 +74,15 @@ login(credentials: {email: string, password: string}){
       console.log('Usuario o contraseña incorrecto');
       const alert = await this.alertController.create({
         header: 'Login Failed',
-        message: 'Usuario o contraseña incorrectos',
-        buttons: ['OK']
+        message: '<img src = "../../assets/img/RECURSOS/iconos drazamed-27.png" class="alert">Usuario o contraseña incorrectos',
+        mode: 'ios',
+        cssClass: 'failed',
+        buttons: [
+          {
+            text: 'Aceptar',
+            cssClass: 'btnalert',
+          }
+        ]
       });
       await alert.present();
     }

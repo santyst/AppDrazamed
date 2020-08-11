@@ -2,7 +2,8 @@ import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuController, IonSlides } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { CartService } from '../services/cart.service';
 
 
 @Component({
@@ -20,17 +21,22 @@ sliderOpts = {
   }
 };
 
+cartItemCount: BehaviorSubject<number>;
 public items: any;
 public items2: any;
 public items3: any;
 public items4: any;
+public items5: any;
+public items6: any;
 apiURL = `https://drazamed.com/medicine/load-medicine-cats/0`;
 apiURL2 = `https://drazamed.com/favorites`;
+apiURL3 = `https://drazamed.com`;
 
   constructor(
     private router: Router,
     private menuCtrl: MenuController,
-    private http: HttpClient
+    private http: HttpClient,
+    private cartService: CartService
   ) {
     this.http.get(`${this.apiURL}`).subscribe((response) => {
       this.items = response;
@@ -39,15 +45,22 @@ apiURL2 = `https://drazamed.com/favorites`;
 
     this.http.get(`${this.apiURL2}`).subscribe((response) => {
       this.items3 = response;
-      this.items4 = this.items3.result.msg [0].name;
-      console.log(this.items4);
+      this.items4 = this.items3.result.msg;
     });
 
+    this.cartItemCount = this.cartService.getCartItemCount();
   }
 
     ionViewWillEnter() {
  this.menuCtrl.enable(true);
 }
-
-
+goCarrito(){
+  this.router.navigate(['carrito']);
+}
+buscarMed(){
+  this.router.navigate(['medicamentos']);
+}
+addToCart(product){
+  this.cartService.addProduct(product);
+ }
 }

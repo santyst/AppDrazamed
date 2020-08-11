@@ -37,12 +37,19 @@ public items2: any;
   login() {
     this.auth.login(this.credentials).subscribe(async res => {
       if (res) {
-        this.router.navigateByUrl('/home');
+        this.router.navigateByUrl('/perfil');
       } else {
         const alert = await this.alertController.create({
-          header: 'Login Failed',
-          message: 'Usuario o contraseña incorrectos',
-          buttons: ['OK']
+        header: 'Login Failed',
+        message: '<img src = "../../assets/img/RECURSOS/iconos drazamed-27.png" class="alert">Usuario o contraseña incorrectos',
+        mode: 'ios',
+        cssClass: 'failed',
+        buttons: [
+          {
+            text: 'Aceptar',
+            cssClass: 'btnalert',
+          }
+        ]
         });
         await alert.present();
       }

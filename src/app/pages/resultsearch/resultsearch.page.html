@@ -1,0 +1,62 @@
+<ion-header class="ion-no-border" mode="ios">
+  <div class="div-header">
+  <ion-toolbar class="header-styles">
+    <ion-title><img class="content-image" src="../../../assets/img/LOGOS/LOGOS DRAZAMED_Mesa de trabajo 1.png" alt=""></ion-title>
+  </ion-toolbar>
+    <ion-buttons>
+      <ion-button slot="start" class="icono" (click)="goBack()">
+        <ion-icon size="large" name="chevron-back-outline"></ion-icon>
+      </ion-button>
+      <ion-button class="carrito" (click)="openCart()" #cart>
+        <img src="../../../assets/img/RECURSOS/iconos drazamed-18.png">
+      </ion-button>
+      <ion-badge>{{ cartItemCount | async }}</ion-badge>
+    </ion-buttons>
+  </div>
+</ion-header>
+
+<ion-content >
+  <div class="contenedor" mode="md" *ngIf="data">
+    <ion-grid *ngFor="let p of data">
+      <ion-row>
+        <ion-col size="6">
+             <div class="img_product" *ngFor="let p of imgUrl">
+                <img src={{p.imagen}} class="img-fluid">
+             </div>
+        </ion-col>
+        <ion-col size="6" class="info_product">
+          <p class="name_product" style="color: #00a1dd !important" >{{p.item_name}}</p>
+          <p class="price_product">$000.00</p>
+        </ion-col>
+      </ion-row>
+      <ion-row class="action_products">
+        <ion-col size="6"></ion-col>
+        <ion-col size="6">
+          <ion-button class="btn_add" (click)="addToCart(p)">
+           A<p class="btn_text">gregar</p>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row class="resume_product"> 
+         <p class="item_resume"><b>Comercializado por:</b> {{p.manufacturer}}</p>
+         <p class="item_formula" *ngIf="data1"><b>Formula Médica:</b> RX</p>
+         <p class="item_formula1" *ngIf="!data1"><b>Formula Médica:</b></p>
+         <p class="item_resume"><b>Composición:</b> {{p.composition}}</p>
+         <p class="item_resume"><b>Tipo de medicamento:</b> {{p.group}}</p>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <div class="contenedor">
+  <p class="title_seccion">Alternativas</p>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6">
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  </div>
+
+  <ion-input [(ngModel)]="name" placeholder="nombre"></ion-input>
+  <ion-button (click)="postData()">post</ion-button>
+  </ion-content>

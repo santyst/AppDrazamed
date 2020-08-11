@@ -1,5 +1,5 @@
 ion-content{
-	--ion-background-color: #ecebee;
+	--ion-background-color: #f0efef;
 	--ion-background-color-rgb: 236, 235, 238;
 }
 
@@ -40,7 +40,7 @@ ion-header{
 	-ms-transform: translateY(-50%); /* IE 9 */
 	-webkit-transform: translateY(-50%); /* Chrome, Safari, Opera */
 	transform: translateY(-50%);
-	color:#87878a;
+	color:#737375;
 	font-weight: bold;
 	font-style: italic;
 }
@@ -50,6 +50,9 @@ ion-header{
 	margin-top: 5%;
 }
   
-  
+p{
+	color: #737375;
+	font-weight: bold;
+}
 
 
