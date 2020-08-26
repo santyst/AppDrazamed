@@ -1,0 +1,67 @@
+<ion-header class="ion-no-border" mode="ios">
+  <div class="div-header">
+  <ion-toolbar class="header-styles">
+    <ion-title><img class="content-image" src="../../assets/img/LOGOS/LOGOS DRAZAMED_Mesa de trabajo 1.png" alt=""></ion-title>
+  </ion-toolbar>
+    <ion-buttons>
+      <ion-button slot="start" class="icono" (click)="goBack()">
+        <ion-icon size="large" name="chevron-back-outline"></ion-icon>
+      </ion-button>
+      <ion-button class="carrito" (click)="updateAlarm()">
+        Ok
+      </ion-button>
+    </ion-buttons>
+  </div>
+</ion-header>
+
+<ion-content mode="md">
+ <div class="container">
+   <p class="title_seccion center">Ingresa un nuevo medicamento</p>
+ </div>
+ <div class="container1">
+  <ion-row class="result_search">
+  <div class="searchbar mb-20">
+    <ion-searchbar autocomplete="on"debounce="700"  placeholder="Busca aquí tus productos"></ion-searchbar>
+  </div>
+      <ion-col size="4">
+        <div class="img_product">
+          <img src="../../../assets/img/RECURSOS/dolex.jpeg" class="img-fluid">
+        </div>
+      </ion-col>
+      <ion-col size="8" class="align-self">
+        <p class="name_product" style="color: #00a1dd !important;">Nombre del producto</p>
+        <p class="description_product">Lorem ipsum dolor sit amet</p>
+      </ion-col>
+      <ion-col size="12" class="mt-20 padding">
+        <form action="">
+          <p class="name_product" style="color: #00a1dd !important;">Mensaje</p>
+          <div class="form-group">
+            <ion-input type="text" placeholder="Ingresa tu mensaje" class="form-control"></ion-input>
+          </div>
+          <p class="name_product" style="color: #00a1dd !important;">Crear alarma</p>
+          <div class="select_options">
+            <p class="name_product" style="color: #00a1dd !important;">Tomar cada: </p>
+            <div class="input-group">
+              <ion-select placeholder="Selecciona un periodo" class="custom_select" mode="ios">
+                <ion-select-option *ngFor="let inter of intervalo">{{inter}}</ion-select-option>
+              </ion-select>
+            </div>
+          </div>
+          <div class="select_options">
+            <p class="name_product" style="color: #00a1dd !important;">Empezar tratamiento: </p>
+            <div class="input-group">
+              <ion-select placeholder="Selecciona un periodo" class="custom_select" mode="ios">
+                <ion-select-option *ngFor="let hora of horas">{{hora}}</ion-select-option>
+              </ion-select>
+            </div>
+          </div>
+          <p class="name_product" style="color: #00a1dd !important;">Fecha de inicio</p>
+          <div class="form-group">
+            <ion-datetime mode="md" drag-content="false"  displayFormat="DD/MM/YYYY" class="form-control" placeholder="Dia/Mes/Año"></ion-datetime>
+          </div>
+        </form>
+      </ion-col>
+   </ion-row>
+ </div>
+</ion-content>
+

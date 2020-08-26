@@ -22,7 +22,7 @@ const TOKEN_KEY = 'jwt-token';
 })
 export class AuthService {
 
-  apiURL = `https://drazamed.com/user/user-login/1?`;
+  apiURL = `https://dev.drazamed.com/user/user-login/0?`;
 
   public items: any;
   public user: Observable<any>;
@@ -30,6 +30,7 @@ export class AuthService {
   public items2: any;
   public items3: any;
   status: string;
+  public usuario: any;  
 
   constructor(
     private storage: Storage,
@@ -66,8 +67,7 @@ login(credentials: {email: string, password: string}){
   data = this.http.get(`${this.apiURL}email=${credentials.email}&password=${credentials.password}`);
   data.subscribe(result => {
     this.items = result;
-    this.items2 = this.items [0].result.status;
-    console.log(this.items2);
+    this.items2 = this.items.data.status;
   }, async (err: HttpErrorResponse) => {
     this.items3 = err.status;
     if (this.items3 === 401 || credentials.email === '' || credentials.password === ''){
@@ -95,9 +95,10 @@ map(res => {
 return `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkRyYXphbWVkIiwiaWF0IjoxNTE2MjM5MDIyfQ.4x0iejWjRVH3V7ULcX0-vRmxeR8NLdlFGvx69CuBrrY`;
 }),
 switchMap(token => {
-  if (this.items2 !== 'success'){
+  if (this.items2 !== 'ACTIVE'){
     return of(null);
   }
+  this.usuario = {name: this.items.name , email: this.items.email};
   const decoded = helper.decodeToken(token);
 // console.log('login decoded: ', decoded);
   this.userData.next(decoded);
@@ -107,9 +108,12 @@ switchMap(token => {
 );
 }
 
-getUser(){
-  return this.userData.getValue();
+
+
+getusuario(){
+  return this.usuario;
 }
+
 
 logout(){
   this.storage.remove(TOKEN_KEY).then(() => {

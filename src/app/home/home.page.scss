@@ -27,7 +27,9 @@ ion-content{
     margin-left: 65%;
     margin-bottom: 2% !important;
 }
-
+.btn_i{
+padding-top: 5px;
+}
 .div-header{
   background-color: #009bd7;
   padding-bottom: 0.5%;
@@ -106,7 +108,6 @@ ion-slides {
  
 }
 .card_product{
-  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.1) !important;
   padding: 20px !important;
   border-radius: 20px !important;
   margin-bottom: 15px !important;
@@ -199,6 +200,30 @@ ion-grid{
   --border-radius: 20px!important;
   height: 41px !important;
 }
+@media (max-width: 353px) {
+  .btn-continue{
+    margin-left: auto!important;
+    margin-right: auto!important;
+    --background: #00a2dd!important;
+    font-weight: 600 !important;
+    font-size: 15px !important;
+    width: 95% !important;
+    --border-radius: 20px!important;
+    height: 41px !important;
+  }
+}
+@media (max-width: 323px) {
+  .btn-continue{
+    margin-left: auto!important;
+    margin-right: auto!important;
+    --background: #00a2dd!important;
+    font-weight: 600 !important;
+    font-size: 13.5px !important;
+    width: 95% !important;
+    --border-radius: 20px!important;
+    height: 41px !important;
+  }
+}
 .btntext{
   text-transform: lowercase !important;
 }
@@ -228,10 +253,49 @@ ion-badge {
   color: #046a8f;
   position: absolute;
   --border-radius: 200%;
-  top: -3px;
+  top: -1px;
 right: 15px;
 --background: #c9c9c9;
-width: 20px ;
+width: 24px ;
 height: 20px;
 font-size: 16px;
+}
+@media (min-width:400px) and (max-width:417px) {
+  ion-badge {
+    color: #046a8f;
+    position: absolute;
+    --border-radius: 200%;
+    top: -1px;
+  right: 21px;
+  --background: #c9c9c9;
+  width: 24px ;
+  height: 20px;
+  font-size: 16px;
+  }
+}
+@media (min-width:320px) and (max-width:336px) {
+  ion-badge {
+    color: #046a8f;
+    position: absolute;
+    --border-radius: 200%;
+    top: -1px;
+  right: 5px;
+  --background: #c9c9c9;
+  width: 24px ;
+  height: 20px;
+  font-size: 16px;
+  }
+}
+@media (min-width:337px) and (max-width:350px) {
+  ion-badge {
+    color: #046a8f;
+    position: absolute;
+    --border-radius: 200%;
+    top: -1px;
+  right: 10px;
+  --background: #c9c9c9;
+  width: 24px ;
+  height: 20px;
+  font-size: 16px;
+  }
 }

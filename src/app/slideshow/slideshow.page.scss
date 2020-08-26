@@ -1,21 +1,100 @@
 
-ion-slide {
-    display: block;
-}
-
-img {
-    max-height: 400px;
-}
-
-.slide-img-padding {
-    padding: 40px;
-}
-h3 {
-    font-size: 30;
-    font-weight: lighter;
-    margin-bottom: 40px;
-}
 ion-slides {
     --bullet-background: #009bd7;
     --bullet-background-active: #009bd7;
 }
+ion-content{
+    --ion-background-color: #fff;
+    --ion-background-color-rgb: 236, 235, 238;
+}
+.carousel {
+    position: relative;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url(../../assets/img/RECURSOS/bg_slides.png);
+}
+.full_height {
+    height: 100vh;
+}
+.container {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+.logo1{
+    padding-top: 40px !important;
+}
+
+.center{
+    text-align: center;
+}
+.col-btn{
+    text-align: right;
+    padding-top: 90px !important;
+}
+.col-logo{
+    padding-top: -5px !important;
+}
+.btn_product {
+    --background: #00a2dd !important;
+    padding: 10px !important;
+    --border-radius: 15px !important;
+    color: #fff !important;
+    margin-bottom: 15px !important;
+    text-align: center !important;
+    font-size: 18px !important;
+    font-weight: 600 !important;
+    text-decoration: none;
+    height: 53px;
+}
+@media (max-width: 335px){
+    .col-btn{
+        text-align: right;
+        padding-top: 50px !important;
+    }
+}
+@media (min-height : 810px) and (max-height: 830px){
+    .col-btn{
+        text-align: right;
+        padding-top: 200px !important;
+    }
+    .full_height {
+        height: 92vh;
+    }
+}
+.btntext{
+    text-transform: lowercase;
+}
+@media (min-height : 585px) and (max-height: 610px){
+    .col-btn{
+        text-align: right;
+        padding-top: 45px !important;
+    }
+}
+@media (min-height : 537px) and (max-height: 559px){
+    .col-btn{
+        text-align: right;
+        padding-top: 5px !important;
+    }
+}
+@media (min-height : 560px) and (max-height: 584px){
+    .col-btn{
+        text-align: right;
+        padding-top: 25px !important;
+    }
+}
+@media (min-height : 585px) and (max-height: 623px){
+    .full_height {
+        height: 106vh;
+    }   
+}
+@media (min-height : 537px) and (max-height: 584px){
+    .full_height {
+        height: 114vh;
+    }   
+}
+
+//////////////////////////////////////////////////////////////////

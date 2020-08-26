@@ -9,8 +9,8 @@ import { CartService } from 'src/app/services/cart.service';
   styleUrls: ['./carrito.page.scss'],
 })
 export class CarritoPage implements OnInit {
-  apiUrl3 = `https://drazamed.com`;
-  imgUrl= `https://drazamed.com/images/products/default.png`;
+  apiUrl3 = `https://dev.drazamed.com`;
+  imgUrl= `https://dev.drazamed.com/images/products/default.png`;
   cart = [];
   constructor(private router: Router, private menuCtrl: MenuController, private cartService: CartService) { }
 

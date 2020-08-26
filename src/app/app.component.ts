@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -11,16 +11,26 @@ import { AuthService } from './services/auth.service';
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss']
 })
+
 export class AppComponent {
+
+public user: any;
+
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private router: Router,
-    private auth: AuthService
+    public auth: AuthService
   ) {
     this.initializeApp();
   }
+
+  ionViewWillEnter() {
+    this.user = this.auth.getusuario();
+    console.log(this.user);
+
+   }
 
   initializeApp() {
     this.platform.ready().then(() => {
@@ -28,6 +38,7 @@ export class AppComponent {
       this.splashScreen.hide();
     });
   }
+  
 
   goHome(){
     this.router.navigate(['home']);
@@ -45,13 +56,14 @@ export class AppComponent {
     this.router.navigate(['mensajes']);
   }
 
-  goAjustes(){
-    this.router.navigate(['ajustes']);
+  goPastillero(){
+    this.router.navigate(['mipastillero']);
   }
 
   goAcercade(){
     this.router.navigate(['acercade']);
   }
+
 
   goOut(){
     this.auth.logout();

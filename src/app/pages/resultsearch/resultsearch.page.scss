@@ -130,7 +130,7 @@
     border-bottom: 1px solid #727070 !important;
     padding: 10px 0px !important;
     width: 100% !important;
-    color: red;
+    color: green;
 }
 b{
   color: #727070;
@@ -143,15 +143,56 @@ b{
   color: green;
 }
 
-
 ion-badge {
   color: #046a8f;
   position: absolute;
   --border-radius: 200%;
-  top: -3px;
+  top: -1px;
 right: 15px;
 --background: #c9c9c9;
-width: 20px ;
+width: 24px ;
 height: 20px;
 font-size: 16px;
 }
+.btn_i{
+  padding-top: 5px;
+  }
+  @media (min-width:400px) and (max-width:417px) {
+    ion-badge {
+      color: #046a8f;
+      position: absolute;
+      --border-radius: 200%;
+      top: -1px;
+    right: 21px;
+    --background: #c9c9c9;
+    width: 24px ;
+    height: 20px;
+    font-size: 16px;
+    }
+  }
+  @media (min-width:320px) and (max-width:336px) {
+    ion-badge {
+      color: #046a8f;
+      position: absolute;
+      --border-radius: 200%;
+      top: -1px;
+    right: 5px;
+    --background: #c9c9c9;
+    width: 24px ;
+    height: 20px;
+    font-size: 16px;
+    }
+  }
+  @media (min-width:337px) and (max-width:350px) {
+    ion-badge {
+      color: #046a8f;
+      position: absolute;
+      --border-radius: 200%;
+      top: -1px;
+    right: 10px;
+    --background: #c9c9c9;
+    width: 24px ;
+    height: 20px;
+    font-size: 16px;
+    }
+  }

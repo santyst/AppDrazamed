@@ -72,3 +72,28 @@
   margin-right: auto;
   width: 25%;
 }
+
+// Swiper slideshow 
+.swiper-pagination {
+  bottom: 4% !important;
+  margin-left: -3% !important;
+}
+
+@media (min-height: 790px) {
+  .swiper-pagination {
+    bottom: 30% !important;
+    margin-left: -3% !important;
+  }
+}
+@media (min-height: 810px) {
+  .swiper-pagination {
+    bottom: 37% !important;
+    margin-left: -3% !important;
+  }
+}
+@media (min-height: 790px) and (max-height: 900px){
+  .swiper-pagination {
+    bottom: 3% !important;
+    margin-left: -3% !important;
+  }
+}

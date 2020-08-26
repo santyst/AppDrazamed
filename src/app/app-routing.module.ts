@@ -45,10 +45,6 @@ const routes: Routes = [
     loadChildren: () => import('./pages/mensajes/mensajes.module').then( m => m.MensajesPageModule), canActivate: [AuthGuard]
   },
   {
-    path: 'ajustes',
-    loadChildren: () => import('./pages/ajustes/ajustes.module').then( m => m.AjustesPageModule), canActivate: [AuthGuard]
-  },
-  {
     path: 'acercade',
     loadChildren: () => import('./pages/acercade/acercade.module').then( m => m.AcercadePageModule), canActivate: [AuthGuard]
   },
@@ -84,6 +80,51 @@ const routes: Routes = [
     path: 'manejodatos',
     loadChildren: () => import('./pages/terminos/manejodatos/manejodatos.module').then( m => m.ManejodatosPageModule), canActivate: [AuthGuard]
   },
+  {
+    path: 'categorias',
+    loadChildren: () => import('./pages/categorias/categorias.module').then( m => m.CategoriasPageModule), canActivate: [AuthGuard]
+  },
+  {
+    path: 'mipastillero',
+    loadChildren: () => import('./pages/mipastillero/mipastillero.module').then( m => m.MipastilleroPageModule), canActivate: [AuthGuard]
+  },
+  {
+    path: 'misdirecciones',
+    loadChildren: () => import('./pages/misdirecciones/misdirecciones.module').then( m => m.MisdireccionesPageModule), canActivate: [AuthGuard]
+  },
+  {
+    path: 'editprofile',
+    loadChildren: () => import('./pages/editprofile/editprofile.module').then( m => m.EditprofilePageModule), canActivate: [AuthGuard]
+  },
+  {
+    path: 'mispedidos',
+    loadChildren: () => import('./pages/mispedidos/mispedidos.module').then( m => m.MispedidosPageModule), canActivate: [AuthGuard]
+  },
+  {
+    path: 'pedidoscompletados',
+    loadChildren: () => import('./pages/pedidoscompletados/pedidoscompletados.module').then( m => m.PedidoscompletadosPageModule), canActivate: [AuthGuard]
+  },  {
+    path: 'createalarm',
+    loadChildren: () => import('./pages/createalarm/createalarm.module').then( m => m.CreatealarmPageModule)
+  },
+  {
+    path: 'adddirection',
+    loadChildren: () => import('./pages/adddirection/adddirection.module').then( m => m.AdddirectionPageModule)
+  },
+  {
+    path: 'processtreatment',
+    loadChildren: () => import('./pages/processtreatment/processtreatment.module').then( m => m.ProcesstreatmentPageModule)
+  },
+  {
+    path: 'checkout',
+    loadChildren: () => import('./pages/checkout/checkout.module').then( m => m.CheckoutPageModule)
+  },
+
+
+
+
+
+
 
 
 

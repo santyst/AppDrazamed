@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MenuController } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-slideshow',
@@ -8,12 +10,15 @@ import { Router } from '@angular/router';
 })
 export class SlideshowPage implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private menuCtrl: MenuController) { 
+  }
 
   ngOnInit() {
   }
 goLogin(){
   this.router.navigate(['login1']);
 }
-
+ionViewWillEnter() {
+  this.menuCtrl.enable(false);
+ }
 }

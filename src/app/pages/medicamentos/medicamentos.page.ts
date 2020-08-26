@@ -23,7 +23,7 @@ export class MedicamentosPage implements OnInit {
   fullmed2: any;
   apiURL = `https://drazamed.com/medicine/load-medicine-web/1?term=`;
   items: any[] = [];
- apiURL2 = `https://drazamed.com/medicine/load-medicine-web/0?n=`;
+ apiURL2 = `https://dev.drazamed.com/medicine/load-medicine-web/0?n=`;
   constructor(
     private menuCtrl: MenuController,
     private router: Router,
@@ -57,7 +57,7 @@ getItems(ev: any) {
   // if the value is an empty string don't filter the items
   if (val && val.trim() !== '') {
       this.isItemAvailable = true;
-      this.items = this.meds.filter((item) => {
+      this.items = this.meds.filter((item: any) => {
           return (item.value.toLowerCase().indexOf(val.toLowerCase()) > -1);
       });
   } else {

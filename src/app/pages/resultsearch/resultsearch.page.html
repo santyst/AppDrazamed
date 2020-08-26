@@ -3,7 +3,7 @@
   <ion-toolbar class="header-styles">
     <ion-title><img class="content-image" src="../../../assets/img/LOGOS/LOGOS DRAZAMED_Mesa de trabajo 1.png" alt=""></ion-title>
   </ion-toolbar>
-    <ion-buttons>
+    <ion-buttons class="btn_i">
       <ion-button slot="start" class="icono" (click)="goBack()">
         <ion-icon size="large" name="chevron-back-outline"></ion-icon>
       </ion-button>
@@ -25,8 +25,8 @@
              </div>
         </ion-col>
         <ion-col size="6" class="info_product">
-          <p class="name_product" style="color: #00a1dd !important" >{{p.item_name}}</p>
-          <p class="price_product">$000.00</p>
+          <p class="name_product" style="color: #00a1dd !important" >{{p.value}}</p>
+          <p class="price_product">${{p.mrp | number}}</p>
         </ion-col>
       </ion-row>
       <ion-row class="action_products">

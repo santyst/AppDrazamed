@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 import { MenuController, IonSlides } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
@@ -28,9 +28,11 @@ public items3: any;
 public items4: any;
 public items5: any;
 public items6: any;
-apiURL = `https://drazamed.com/medicine/load-medicine-cats/0`;
-apiURL2 = `https://drazamed.com/favorites`;
-apiURL3 = `https://drazamed.com`;
+med3: any;
+apiURL = `https://dev.drazamed.com/medicine/load-medicine-cats/0`;
+apiURL2 = `https://dev.drazamed.com/favorites`;
+apiURL3 = `https://dev.drazamed.com`;
+
 
   constructor(
     private router: Router,
@@ -62,5 +64,14 @@ buscarMed(){
 }
 addToCart(product){
   this.cartService.addProduct(product);
+ }
+
+ goCat(item: string){
+   let navigationsExtras: NavigationExtras = {
+     state : {
+       cat: item
+     }
+   }
+   this.router.navigate(['categorias'], navigationsExtras);
  }
 }

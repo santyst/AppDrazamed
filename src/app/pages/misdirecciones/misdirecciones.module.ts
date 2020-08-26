@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { AjustesPageRoutingModule } from './ajustes-routing.module';
+import { MisdireccionesPageRoutingModule } from './misdirecciones-routing.module';
 
-import { AjustesPage } from './ajustes.page';
+import { MisdireccionesPage } from './misdirecciones.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    AjustesPageRoutingModule
+    MisdireccionesPageRoutingModule
   ],
-  declarations: [AjustesPage]
+  declarations: [MisdireccionesPage]
 })
-export class AjustesPageModule {}
+export class MisdireccionesPageModule {}

@@ -15,7 +15,7 @@ export class ResultsearchPage implements OnInit {
   
  cartItemCount: BehaviorSubject<number>;
 posteo: Observable<any>;
- imgUrl = [{imagen: `https://drazamed.com/images/products/default.png`}];
+ imgUrl = [{imagen: `https://dev.drazamed.com/images/products/default.png`}];
  data: any;
  data1: any;
  formul: any[] = [];

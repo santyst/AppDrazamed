@@ -18,7 +18,6 @@ export class Login1Page implements OnInit {
   }
 
   goCreateAccount(){
-  console.log("Button clicked");
   this.router.navigate(['createaccount'])
   }
 
