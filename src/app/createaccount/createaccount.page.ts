@@ -91,15 +91,4 @@ export class CreateaccountPage implements OnInit {
      moment(nacimiento).format('YYYY-MM-DD');
   }
 
-  /*goCreateAccount(){
-    let data: Observable <any>;
-    data = this.http.get(`${this.apiURL}u_name=${this.register.correo}`);
-    data.subscribe(result => {
-    this.status = result.status;
-    console.log(this.status);
-  });
-    if(this.status !== 'SUCCESS'){
-    console.log('La cuenta ya existe');
-  }
- }*/
 }

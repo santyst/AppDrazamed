@@ -122,6 +122,21 @@ text-align: center !important;
     font-weight: 600 !important;
     height: 60px;
 }
+.btn-product {
+  --background: #00a2dd !important;
+  padding: 10px !important;
+  --border-radius: 15px !important;
+  color: #fff !important;
+  margin-bottom: 15px !important;
+  text-align: center !important;
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  display: block !important;
+  margin-right: auto !important;
+  margin-left: auto !important;
+  text-decoration: none;
+  height: 55px;
+}
 a{
     text-decoration: none !important;
 }

@@ -82,6 +82,14 @@
     margin: 5px 0px !important;
     line-height: 20px !important;
 }
+.name_product1 {
+  font-size: 19px !important;
+  font-weight: 700 !important;
+  color: #00a1dd !important;
+  margin: 5px 0px !important;
+  line-height: 20px !important;
+}
+
 .description_product {
     font-size: 17px !important;
     color: #727070 !important;
@@ -93,4 +101,18 @@
 }
 .col-item{
     border-left: 1px solid #727070;
+}
+.col-txt{
+  padding-top: 110px;
+  padding-right: 12px;
+}
+@media (min-width: 319px) and (max-width: 339px){
+.name_product1 {
+  font-size: 19px !important;
+  font-weight: 700 !important;
+  color: #00a1dd !important;
+  margin: 5px 0px !important;
+  line-height: 20px !important;
+  padding-left: 12px;
+}
 }

@@ -6,7 +6,7 @@
 </ion-header>
 
 
-<ion-content mode="ios">
+<ion-content mode="md">
   <form (ngSubmit)="logForm(form)" [formGroup]="registroForm"  #form="ngForm">
     <div id="container">
       <ion-list>
@@ -69,19 +69,19 @@
       </ion-item>
       <ion-item>
         <ion-label position="stacked">Género</ion-label>
-        <ion-select formControlName="genero" placeholder="Seleccionar" [(ngModel)]="register.genero" name="genero" ngControl="genero">
+        <ion-select formControlName="genero" placeholder="Seleccionar" [(ngModel)]="register.genero" name="genero" ngControl="genero" mode="ios">
           <ion-select-option>Masculino</ion-select-option>
           <ion-select-option>Femenino</ion-select-option>
         </ion-select>
       </ion-item>
       <ion-item>
         <ion-label position="stacked">Convenio</ion-label>
-        <ion-select formControlName="tipo" placeholder="Seleccionar" [(ngModel)]="register.tipo" name="tipo" ngControl="tipo">
+        <ion-select formControlName="tipo" placeholder="Seleccionar" [(ngModel)]="register.tipo" name="tipo" ngControl="tipo" mode="ios">
            <ion-select-option>Ninguno</ion-select-option>
         </ion-select>
       </ion-item>
       <ion-item>
-        <ion-checkbox formControlName="aceptar" [(ngModel)]="register.accept" name="accept" ngControl="accept"  color="success"></ion-checkbox>
+        <ion-checkbox formControlName="aceptar" [(ngModel)]="register.accept" name="accept" ngControl="accept"  color="success" mode="ios"></ion-checkbox>
         <ion-label class="label-checkbox">Aceptar términos y condiciones</ion-label>
       </ion-item>
       <div *ngFor="let error of error_messages.aceptar">
@@ -91,7 +91,7 @@
         </ng-container>
       </div>
     </ion-list>
-    <ion-button [disabled]="!registroForm.valid" class="btn-continue" type="submit" expand="block">ACEPTAR</ion-button>
+    <ion-button [disabled]="!registroForm.valid" class="btn-continue" type="submit" expand="block">SIGUIENTE</ion-button>
     </div>
     
   </form>

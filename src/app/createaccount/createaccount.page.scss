@@ -35,7 +35,7 @@ ion-content{
     left: 70%;
     right: 0;
     top: 15%;
-    transform: translateY(-310%);
+    transform: translateY(-296%);
     width: 25%;
 }
 
@@ -80,17 +80,18 @@ ion-select{
  color: var(--ion-color-danger);
 }
 
-@media (max-width: 359px){
+
+ @media (min-width: 400px) and (max-width: 440px){
     .logo-form{
-     transform: translateY(-330%);
+     transform: translateY(-240%);
     }
  }
- @media (max-width: 345px){
+ @media (min-width: 365px) and (max-width: 399px){
     .logo-form{
-     transform: translateY(-345%);
+     transform: translateY(-270%);
     }
  }
- @media (min-width: 400px) and (max-width: 425px){
+ @media (min-width: 333px) and (max-width: 344px){
     .logo-form{
      transform: translateY(-270%);
     }

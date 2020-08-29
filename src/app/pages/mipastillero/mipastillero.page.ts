@@ -34,4 +34,7 @@ export class MipastilleroPage implements OnInit {
   goCarrito(){
     this.router.navigate(['carrito']);
   }
+  processTreat(){
+    this.router.navigate(['processtreatment']);
+  }
 }

@@ -37,7 +37,7 @@ public items2: any;
   login() {
     this.auth.login(this.credentials).subscribe(async res => {
       if (res) {
-        this.router.navigateByUrl('/perfil');
+        this.router.navigate(['home']);
       } else {
         const alert = await this.alertController.create({
         header: 'Login Failed',

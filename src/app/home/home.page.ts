@@ -34,11 +34,12 @@ apiURL2 = `https://dev.drazamed.com/favorites`;
 apiURL3 = `https://dev.drazamed.com`;
 
 
+
   constructor(
     private router: Router,
     private menuCtrl: MenuController,
     private http: HttpClient,
-    private cartService: CartService
+    private cartService: CartService,
   ) {
     this.http.get(`${this.apiURL}`).subscribe((response) => {
       this.items = response;

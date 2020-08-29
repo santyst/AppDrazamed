@@ -1,8 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MenuController, IonSlides } from '@ionic/angular';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { CartService } from 'src/app/services/cart.service';
 import { Router } from '@angular/router';
+import { FormBuilder, Validators } from '@angular/forms';
+import { HttpClient, HttpHeaders} from '@angular/common/http';
+
 
 @Component({
   selector: 'app-mensajes',
@@ -10,6 +13,24 @@ import { Router } from '@angular/router';
   styleUrls: ['./mensajes.page.scss'],
 })
 export class MensajesPage implements OnInit {
+  posteo: Observable<any>;
+  postUrl = `https://dev.drazamed.com/user/contact-us`;
+
+  dataToSend = {
+    name: '',
+  phone: '',
+  msg: '',
+  email: '',
+};
+  constructor(
+    private menuCtrl: MenuController,
+    private cartService: CartService,
+    private router: Router,
+    private formBuilder: FormBuilder,
+    public http: HttpClient
+  ) { 
+    this.cartItemCount = this.cartService.getCartItemCount();
+  }
 
   @ViewChild('mySlider') slider: IonSlides;
   sliderOpts = {
@@ -22,13 +43,12 @@ export class MensajesPage implements OnInit {
 
   cartItemCount: BehaviorSubject<number>;
 
-  constructor(
-    private menuCtrl: MenuController,
-    private cartService: CartService,
-    private router: Router
-  ) { 
-    this.cartItemCount = this.cartService.getCartItemCount();
-  }
+mensajesForm = this.formBuilder.group({
+  nombre: ['', [Validators.required]],
+  telefono: ['', [Validators.required]],
+  correo: ['', [Validators.required]],
+  mensaje: ['', [Validators.required]]
+});
 
   ngOnInit() {
   }
@@ -38,6 +58,19 @@ export class MensajesPage implements OnInit {
    }
    goCarrito(){
     this.router.navigate(['carrito']);
+  }
+
+  public submit(){
+    console.log(this.mensajesForm.value);
+    this.mensajesForm.reset();
+  }
+
+
+  postData(){
+    this.http.post(`${this.postUrl}`, this.dataToSend
+    ,{headers: new HttpHeaders({"Content-Type":"application/json"})}).subscribe((mensaje) => {
+    console.log(mensaje);
+  });
   }
 
 }

@@ -8,7 +8,12 @@ import { Router } from '@angular/router';
 })
 export class ProcesstreatmentPage implements OnInit {
 
-  constructor(private router: Router) { }
+porcentaje = 50;
+restante = 100 - this.porcentaje;
+
+
+  constructor(private router: Router) { 
+  }
 
   ngOnInit() {
   }

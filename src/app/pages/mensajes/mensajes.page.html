@@ -22,32 +22,31 @@
         <p class="description_product">Sientase tranquilo de comunicarse con nosotros. Estaremos muy felices de ayudarle.</p>
       </div>
         <div class="custom_form">
-          <form action="">
+          <form [formGroup]="mensajesForm" (ngSubmit)="submit()">
             <div class="form-group">
               <ion-label class="grey">Nombre Completo</ion-label>
-              <ion-input type="text" class="form-control"></ion-input>
+              <ion-input formControlName="nombre" type="text" class="form-control" [(ngModel)]="dataToSend.name"></ion-input>
             </div>
 
             <div class="form-group">
               <ion-label class="grey">Teléfono de Contacto</ion-label>
-              <ion-input type="text" class="form-control"></ion-input>
+              <ion-input formControlName="telefono" type="number" class="form-control" [(ngModel)]="dataToSend.phone"></ion-input>
             </div>
 
             <div class="form-group">
               <ion-label class="grey">Correo Electrónico</ion-label>
-              <ion-input type="text" class="form-control"></ion-input>
+              <ion-input formControlName="correo" type="email" class="form-control" [(ngModel)]="dataToSend.email"></ion-input>
             </div>
 
             <div class="form-group">
               <ion-label class="grey">Mensaje</ion-label>
-              <ion-textarea rows="7" cols="30" class="form-control"></ion-textarea>
+              <ion-textarea rows="7" cols="30" formControlName="mensaje" class="form-control" [(ngModel)]="dataToSend.msg"></ion-textarea>
             </div>
-            <ion-button class="btn-continue" expand="block" >Enviar</ion-button>
+            <ion-button [disabled]="!mensajesForm.valid" type="submit" class="btn-continue" expand="block" (click)="postData()">Enviar</ion-button>
           </form>
         </div>
     </ion-col>
   </ion-row>
-
   <ion-row class="result_search pt-20 pb-20">
 
     <ion-col size="2" class="center pt-15">

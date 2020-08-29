@@ -30,9 +30,11 @@
     "@ionic/storage": "^2.2.0",
     "@types/jquery": "^3.5.0",
     "cordova-android": "^8.1.0",
+    "cordova-browser": "^6.0.0",
     "cordova-plugin-fullscreen": "^1.2.0",
     "jquery": "^3.5.1",
     "moment": "^2.27.0",
+    "ng-circle-progress": "^1.5.1",
     "rxjs": "^6.5.5",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"
@@ -82,7 +84,8 @@
       "cordova-plugin-fullscreen": {}
     },
     "platforms": [
-      "android"
+      "android",
+      "browser"
     ]
   }
 }
