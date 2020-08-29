@@ -1,31 +1,58 @@
 <!-- Header without a border -->
-<ion-header class="ion-no-border">
+<ion-header class="ion-no-border" mode="ios">
   <ion-toolbar class="header-styles">
     <ion-title><img  class="content-image" src="../../assets/img/LOGOS/LOGOS DRAZAMED_Mesa de trabajo 1 copia.png" alt=""></ion-title>
   </ion-toolbar>
 </ion-header>
 
 
-<ion-content>
-  <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
-    <ion-item>
-      <ion-label position="floating">User Name*</ion-label>
-      <ion-input formControlName="userName" type="text" required></ion-input>
-    </ion-item>
-
-    <small class="error-message" *ngIf="gUserName.hasError('notUnique')" position="stacked">User Name is already taken</small>
-
-    
-    <ion-row padding-top>
-      <ion-col>
-        <ion-button [disabled]="registerForm.invalid" expand="full" type="submit">
-          Register
-        </ion-button>
-        <ion-item lines="none">
-          <ion-label size="small">* Required fields</ion-label>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-
-  </form>
+<ion-content mode="md">
+ <form (ngSubmit)="logForm(form)" [formGroup]="registroForm"  #form="ngForm">
+   <div id="container">
+     <ion-list>
+      <img class="logo-form" src="../../assets/img/LOGOS/LOGOS DRAZAMED-04.png">
+      <p>Crear cuenta</p>
+      <ion-item>
+        <ion-label position="stacked">Documento de identidad</ion-label>
+        <ion-input formControlName="documento" type="tel" [(ngModel)]="register.documento" name="documento" ngControl="documento"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Fecha de nacimiento</ion-label>
+        <ion-datetime mode="md"formControlName="nacimiento" drag-content="false" (ionChange)="doSomething(this.nacimiento)" displayFormat="DD/MM/YYYY" [(ngModel)]="register.nacimiento" name="nacimiento" ngControl="nacimiento"></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Dirección para entrega</ion-label>
+        <ion-input formControlName="direccion" type="text" [(ngModel)]="register.direccion" name="direccion" ngControl="direccion"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Telefono</ion-label>
+        <ion-input formControlName="telefono" type="tel" [(ngModel)]="register.telefono" name="telefono" ngControl="telefono"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Género</ion-label>
+        <ion-select formControlName="genero" placeholder="Seleccionar" [(ngModel)]="register.genero" name="genero" ngControl="genero" mode="ios">
+          <ion-select-option>Masculino</ion-select-option>
+          <ion-select-option>Femenino</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Convenio</ion-label>
+        <ion-select formControlName="convenio" placeholder="Seleccionar" [(ngModel)]="register.convenio" name="convenio" ngControl="convenio" mode="ios">
+           <ion-select-option>Ninguno</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-checkbox formControlName="aceptar" [(ngModel)]="register.accept" name="accept" ngControl="accept"  color="success" mode="ios"></ion-checkbox>
+        <ion-label class="label-checkbox">Aceptar términos y condiciones</ion-label>
+      </ion-item>
+      <div *ngFor="let error of error_messages.aceptar">
+        <ng-container *ngIf="registroForm.get('aceptar').hasError(error.type) && 
+              (registroForm.get('aceptar').dirty || registroForm.get('aceptar').touched)">
+          <small class="error-message" >{{ error.message }}</small>
+        </ng-container>
+      </div>
+     </ion-list>
+     <ion-button [disabled]="!registroForm.valid" class="btn-continue" expand="block" (click)="updateD()">ACEPTAR</ion-button>
+   </div>
+ </form>
 </ion-content>

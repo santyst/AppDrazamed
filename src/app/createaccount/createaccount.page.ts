@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { MenuController, AlertController } from '@ionic/angular';
 import * as moment from 'moment';
 import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { UserService } from '../services/user.service';
 import { uniqueDisplayName } from '../validators/unique_user';
@@ -32,14 +32,7 @@ export class CreateaccountPage implements OnInit {
         asyncValidators: [uniqueDisplayName(this.userService, 100)],
         updateOn: 'blur' }),
         clave: new FormControl('', [Validators.required]),
-        reclave: new FormControl('', [Validators.required]),
-        documento: new FormControl('', [Validators.required]),
-        nacimiento: new FormControl('', [Validators.required, Validators.minLength(9)]),
-        direccion: new FormControl('', [Validators.required]),
-        telefono: new FormControl('', [Validators.required, Validators.maxLength(10)]),
-        genero: new FormControl('', [Validators.required]),
-        tipo: new FormControl('', [Validators.required]),
-        aceptar: new FormControl('', [Validators.requiredTrue])
+        reclave: new FormControl('', [Validators.required])
       },
       {
         validators: this.password.bind(this)
@@ -55,22 +48,14 @@ export class CreateaccountPage implements OnInit {
     apellido: '',
     correo: '',
     clave: '',
-    reclave: '',
-    documento: '',
-    nacimiento: this.doSomething,
-    direccion: '',
-    telefono: '',
-    genero: '',
-    tipo: ''
+    reclave: ''
   };
 
   registroForm: FormGroup;
 
   // tslint:disable-next-line: variable-name
   error_messages = {
-
-    correo: [{type: 'pattern', message: 'Ingresa un email valido'}],
-    aceptar: [{type: 'required', message: 'Acepta los términos y condiciones'}]
+    correo: [{type: 'pattern', message: 'Ingresa un email valido'}]
   };
 
   ngOnInit() {
@@ -83,12 +68,12 @@ export class CreateaccountPage implements OnInit {
     const { value: confirmPassword } = formGroup.get('reclave');
     return password === confirmPassword ? null : { passwordNotMatch: true };
   }
-
-   logForm(form) {
-    console.log(form.value);
+  CreateA(){
+    /*this.http.post(`https://reqres.in/api/users`, this.register
+    , {headers: new HttpHeaders({'Content-Type': 'application/json'})}).subscribe((mensaje) => {
+    console.log(mensaje);
+  });*/
+  console.log(this.register);
+  this.router.navigate(['createaccount2']);
   }
-  doSomething(nacimiento){
-     moment(nacimiento).format('YYYY-MM-DD');
-  }
-
 }
