@@ -21,5 +21,7 @@ export class MisdireccionesPage implements OnInit {
   goAddD(){
     this.router.navigate(['adddirection']);
   }
-
+  goCarrito(){
+    this.router.navigate(['carrito']);
+  }
 }

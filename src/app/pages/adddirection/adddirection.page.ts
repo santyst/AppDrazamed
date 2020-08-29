@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
 
+
 @Component({
   selector: 'app-adddirection',
   templateUrl: './adddirection.page.html',
@@ -17,6 +18,13 @@ export class AdddirectionPage implements OnInit {
     nombredir: ['', [Validators.required]]
   });
 
+dir = {
+  ciudad: '',
+  direccion: '',
+  detalles: '',
+  nombredir: ''
+};
+
   ngOnInit() {
   }
 
@@ -26,5 +34,8 @@ export class AdddirectionPage implements OnInit {
   }
   misDirecciones(){
     this.router.navigate(['misdirecciones']);
+  }
+  addDirection(direcciones){
+    console.log(direcciones);
   }
 }
