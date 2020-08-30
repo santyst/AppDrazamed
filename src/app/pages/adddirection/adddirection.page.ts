@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
+import { DireccionesService } from 'src/app/services/direcciones.service';
 
 
 @Component({
@@ -10,7 +11,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 export class AdddirectionPage implements OnInit {
 
-  constructor(private formBuilder: FormBuilder, private router: Router) { }
+  constructor(private formBuilder: FormBuilder, private router: Router, private directionService: DireccionesService) { }
   direccionForm = this.formBuilder.group({
     ciudad: ['', [Validators.required]],
     direccion: ['', [Validators.required]],
@@ -36,6 +37,10 @@ dir = {
     this.router.navigate(['misdirecciones']);
   }
   addDirection(direcciones){
-    console.log(direcciones);
+    this.directionService.addDirection(direcciones);
+    this.router.navigate(['misdirecciones']);
+  }
+  cancelar(){
+    this.direccionForm.reset();
   }
 }
