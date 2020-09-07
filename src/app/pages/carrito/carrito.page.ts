@@ -285,7 +285,10 @@ export class CarritoPage implements OnInit {
 
   async uploadImageData(formData: FormData) {
     const loading = await this.loadingController.create({
-      message: 'Subiendo imagen',
+      cssClass: 'loading',
+      message: 'Por favor espera...',
+      mode: 'ios',
+      spinner: 'dots'
     });
     await loading.present();
 
@@ -305,17 +308,5 @@ export class CarritoPage implements OnInit {
       });
 
 
-  }
-
-  
-
-  async showLoad(){
-    const loading = await this.loadingController.create({
-      cssClass: 'loading',
-      message: 'Por favor espera...',
-      mode: 'ios',
-      spinner: 'dots'
-    });
-    await loading.present();
   }
 }
