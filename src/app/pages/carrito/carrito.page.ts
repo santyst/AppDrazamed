@@ -123,6 +123,36 @@ export class CarritoPage implements OnInit {
     });
     toast.present();
   }
+  async showAlert1(){
+    const alert = await this.alertCtrl.create({
+
+      message: '<img src = "../../assets/img/RECURSOS/check.png" class="alert1">tu fórmula fue aprobada ya puedes generar el pago',
+      mode: 'ios',
+      cssClass: 'failed',
+      buttons: [
+        {
+          text: 'Aceptar',
+          cssClass: 'btnalert',
+        }
+      ]
+      });
+    await alert.present();
+  }
+
+  async showAlert2(){
+    const alert = await this.alertCtrl.create({
+      message: '<img src = "../../assets/img/RECURSOS/wrong.png" class="alert1"> Tu fórmula no fue aprobada, intenta de nuevo si persiste el problema revisa con tu médico',
+      mode: 'ios',
+      cssClass: 'failed',
+      buttons: [
+        {
+          text: 'Aceptar',
+          cssClass: 'btnalert',
+        }
+      ]
+      });
+    await alert.present();
+  }
 
   async selectImage() {
     const actionSheet = await this.actionSheetController.create({
@@ -255,7 +285,10 @@ export class CarritoPage implements OnInit {
 
   async uploadImageData(formData: FormData) {
     const loading = await this.loadingController.create({
-      message: 'Subiendo imagen',
+      cssClass: 'loading',
+      message: 'Por favor espera...',
+      mode: 'ios',
+      spinner: 'dots'
     });
     await loading.present();
 
@@ -267,54 +300,13 @@ export class CarritoPage implements OnInit {
       )
       .subscribe(res => {
         if (res['success']) {
-          this.presentToast('Formula subida correctamente');
+          this.showAlert1();
 
         } else {
-          this.presentToast('Error al adjuntar fórmula');
+          this.showAlert2();
         }
       });
 
 
-  }
-
-  async showAlert1(){
-    const alert = await this.alertCtrl.create({
-
-      message: '<img src = "../../assets/img/RECURSOS/check.png" class="alert1">tu fórmula fue aprobada ya puedes generar el pago',
-      mode: 'ios',
-      cssClass: 'failed',
-      buttons: [
-        {
-          text: 'Aceptar',
-          cssClass: 'btnalert',
-        }
-      ]
-      });
-    await alert.present();
-  }
-
-  async showAlert2(){
-    const alert = await this.alertCtrl.create({
-      message: '<img src = "../../assets/img/RECURSOS/wrong.png" class="alert1"> Tu fórmula no fue aprobada, intenta de nuevo si persiste el problema revisa con tu médico',
-      mode: 'ios',
-      cssClass: 'failed',
-      buttons: [
-        {
-          text: 'Aceptar',
-          cssClass: 'btnalert',
-        }
-      ]
-      });
-    await alert.present();
-  }
-
-  async showLoad(){
-    const loading = await this.loadingController.create({
-      cssClass: 'loading',
-      message: 'Por favor espera...',
-      mode: 'ios',
-      spinner: 'dots'
-    });
-    await loading.present();
   }
 }
