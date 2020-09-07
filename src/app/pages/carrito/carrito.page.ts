@@ -99,7 +99,7 @@ export class CarritoPage implements OnInit {
         for (let img of arr) {
           let filePath = this.file.dataDirectory + img;
           let resPath = this.pathForImage(filePath);
-          this.images.push({ name: 'Fórmula medica', path: resPath, filePath: filePath });
+          this.images.push({ name: img, path: resPath, filePath: filePath });
         }
       }
     });
@@ -215,7 +215,7 @@ export class CarritoPage implements OnInit {
     this.file.copyFile(namePath, currentName, this.file.dataDirectory, newFileName).then(success => {
       this.updateStoredImages(newFileName);
     }, error => {
-      this.showAlert2();
+      this.presentToast('Error al almacenar fórmula');
     });
   }
 
@@ -255,7 +255,7 @@ export class CarritoPage implements OnInit {
       var correctPath = imgEntry.filePath.substr(0, imgEntry.filePath.lastIndexOf('/') + 1);
 
       this.file.removeFile(correctPath, imgEntry.name).then(res => {
-        this.presentToast('Fórmula removida');
+        this.presentToast('Archivo removido');
       });
     });
   }
@@ -266,7 +266,7 @@ export class CarritoPage implements OnInit {
         (<FileEntry>entry).file(file => this.readFile(file))
       })
       .catch(err => {
-        this.showAlert2();
+        this.presentToast('Error al obtener fórmula médica');
       });
   }
 
@@ -285,10 +285,7 @@ export class CarritoPage implements OnInit {
 
   async uploadImageData(formData: FormData) {
     const loading = await this.loadingController.create({
-      cssClass: 'loading',
-      message: 'Por favor espera...',
-      mode: 'ios',
-      spinner: 'dots'
+      message: 'Subiendo imagen',
     });
     await loading.present();
 
@@ -308,5 +305,17 @@ export class CarritoPage implements OnInit {
       });
 
 
+  }
+
+  
+
+  async showLoad(){
+    const loading = await this.loadingController.create({
+      cssClass: 'loading',
+      message: 'Por favor espera...',
+      mode: 'ios',
+      spinner: 'dots'
+    });
+    await loading.present();
   }
 }
