@@ -215,7 +215,7 @@ export class CarritoPage implements OnInit {
     this.file.copyFile(namePath, currentName, this.file.dataDirectory, newFileName).then(success => {
       this.updateStoredImages(newFileName);
     }, error => {
-      this.presentToast('Error al almacenar fórmula');
+      this.showAlert2();
     });
   }
 
@@ -255,7 +255,7 @@ export class CarritoPage implements OnInit {
       var correctPath = imgEntry.filePath.substr(0, imgEntry.filePath.lastIndexOf('/') + 1);
 
       this.file.removeFile(correctPath, imgEntry.name).then(res => {
-        this.presentToast('Archivo removido');
+        this.presentToast('Fórmula removida');
       });
     });
   }
@@ -266,7 +266,7 @@ export class CarritoPage implements OnInit {
         (<FileEntry>entry).file(file => this.readFile(file))
       })
       .catch(err => {
-        this.presentToast('Error al obtener fórmula médica');
+        this.showAlert2();
       });
   }
 
