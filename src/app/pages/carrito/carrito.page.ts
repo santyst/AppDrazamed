@@ -99,7 +99,7 @@ export class CarritoPage implements OnInit {
         for (let img of arr) {
           let filePath = this.file.dataDirectory + img;
           let resPath = this.pathForImage(filePath);
-          this.images.push({ name: img, path: resPath, filePath: filePath });
+          this.images.push({ name: 'Fórmula medica', path: resPath, filePath: filePath });
         }
       }
     });
