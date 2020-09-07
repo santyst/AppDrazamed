@@ -62,9 +62,27 @@
               <p class="name_product">Formula médica</p>
               <p class="description_product">Adjunta aquí tu formula médica. En constantes minutos te verificaremos para seguir con la compra</p>
            </div>
-           <div class="section_attach">
-             <img src="../../../assets/img/RECURSOS/attach.png" width="20%">
+           <div class="section_attach" *ngIf="images.length == 0">
+             <ion-button  fill="clear" class="images" (click)="selectImage()">
+              <img src="../../../assets/img/RECURSOS/attach.png" width="24%">
+             </ion-button>
              <p class="description_product">Adjuntar formula</p>
+           </div>
+           <div class="section_attach" *ngIf="images.length !== 0">
+            <ion-item *ngFor="let img of images; index as pos" text-wrap>
+              <ion-thumbnail slot="start">
+                <ion-img [src]="img.path"></ion-img>
+              </ion-thumbnail>
+              <ion-label>
+                {{ img.name }}
+              </ion-label>
+              <ion-button slot="end" fill="clear" (click)="startUpload(img)">
+                <ion-icon slot="icon-only" name="cloud-upload"></ion-icon>
+              </ion-button>
+              <ion-button slot="end" fill="clear" (click)="deleteImage(img, pos)">
+                <ion-icon slot="icon-only" name="trash"></ion-icon>
+              </ion-button>
+            </ion-item>
            </div>
          </ion-col>
       </ion-row>
@@ -98,6 +116,14 @@
       </ion-row>
     </ion-grid>
   </div>
-
+<ion-button (click)="showAlert1()">
+  alerta success
+</ion-button>
+<ion-button (click)="showAlert2()">
+  alerta error
+</ion-button>
+<ion-button (click)="showLoad()">
+  Loading subiendo
+</ion-button>
   
 </ion-content>

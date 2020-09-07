@@ -20,6 +20,8 @@ apiUrl3 = `https://dev.drazamed.com/medicine/load-medicine-web/0?n=`;
 apiUrl4 = `https://dev.drazamed.com/medicine/search-medicine/1?cat=`;
 apiUrl5 = `https://dev.drazamed.com`;
 apiUrl6 = `https://dev.drazamed.com/images/products/default.png`;
+apiUrl7 = `https://dev.drazamed.com/images/products/`;
+apiUrl8 = `.jpg`;
 
 fav: any;
 fav2: any;

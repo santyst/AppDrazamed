@@ -32,6 +32,9 @@ med3: any;
 apiURL = `https://dev.drazamed.com/medicine/load-medicine-cats/0`;
 apiURL2 = `https://dev.drazamed.com/favorites`;
 apiURL3 = `https://dev.drazamed.com`;
+apiUrl7 = `https://dev.drazamed.com/images/products/`;
+apiUrl8 = `.jpg`;
+apiUrl1 = `https://dev.drazamed.com/images/products/default.png`;
 
 
 

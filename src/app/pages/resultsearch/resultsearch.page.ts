@@ -13,6 +13,10 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ResultsearchPage implements OnInit {
   
+
+  apiUrl7 = `https://dev.drazamed.com/images/products/`;
+  apiUrl8 = `.jpg`;
+
  cartItemCount: BehaviorSubject<number>;
 posteo: Observable<any>;
  imgUrl = [{imagen: `https://dev.drazamed.com/images/products/default.png`}];

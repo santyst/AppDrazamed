@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 })
 export class ProcesstreatmentPage implements OnInit {
 
-porcentaje = 50;
+porcentaje = 70;
 restante = 100 - this.porcentaje;
 
 

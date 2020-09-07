@@ -73,6 +73,35 @@
   width: 25%;
 }
 
+.alert1{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 25%;
+  padding-bottom: 10px;
+}
+// loading
+.loading{
+  --background: #009bd7 !important;
+  --spinner-color: #fff;
+  --min-width: 80%;
+  --max-width: 80%;
+}
+.loading-content{
+  font-weight: bold;
+    font-size: 20px;
+    color: white;
+}
+@media(min-width: 290px) and (max-width: 359px){
+  .loading-content{
+    font-weight: bold;
+      font-size: 15px;
+      color: white;
+  }
+}
+.loading-wrapper.sc-ion-loading-ios{
+  border-radius: 18px;
+}
 // Swiper slideshow 
 .swiper-pagination {
   bottom: 4% !important;
