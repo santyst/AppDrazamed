@@ -1,15 +1,16 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuController, AlertController, ActionSheetController, ToastController, Platform, LoadingController } from '@ionic/angular';
 import { CartService } from 'src/app/services/cart.service';
 import { Camera, CameraOptions, PictureSourceType } from '@ionic-native/Camera/ngx';
 import { File, FileEntry } from '@ionic-native/File/ngx';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { Storage } from '@ionic/storage';
 import { FilePath } from '@ionic-native/file-path/ngx';
 
 import { finalize } from 'rxjs/operators';
+import { getInterpolationArgsLength } from '@angular/compiler/src/render3/view/util';
 
 const STORAGE_KEY = 'my_images';
 
@@ -19,31 +20,35 @@ const STORAGE_KEY = 'my_images';
   styleUrls: ['./carrito.page.scss'],
 })
 export class CarritoPage implements OnInit {
+  constructor(private router: Router, private menuCtrl: MenuController, private cartService: CartService,
+              private alertCtrl: AlertController, private camera: Camera, private file: File, private http: HttpClient,
+              private webview: WebView,
+              private actionSheetController: ActionSheetController, private toastController: ToastController,
+              private storage: Storage, private plt: Platform, private loadingController: LoadingController,
+              private ref: ChangeDetectorRef, private filePath: FilePath, private platform: Platform) {
+
+  }
 
   images = [];
   apiUrl3 = `https://dev.drazamed.com`;
   imgUrl = `https://dev.drazamed.com/images/products/default.png`;
-  cart: any;
+  postUrl = `https://testsanti.000webhostapp.com/phpserver/posts.php`;
+  cart = [];
   xd: any;
   text: any;
-  constructor(private router: Router, private menuCtrl: MenuController, private cartService: CartService, 
-              private alertCtrl: AlertController, private camera: Camera, private file: File, private http: HttpClient, 
-              private webview: WebView,
-              private actionSheetController: ActionSheetController, private toastController: ToastController,
-              private storage: Storage, private plt: Platform, private loadingController: LoadingController,
-              private ref: ChangeDetectorRef, private filePath: FilePath, private platform: Platform) { }
-
+  total: any;
+  orden: any;
   async ngOnInit() {
     this.plt.ready().then(() => {
       this.loadStoredImages();
     });
     this.cart = this.cartService.getCart();
-    for (const formula of this.cart){
-       if (formula.is_pres_required === 1){
-         this.xd = formula.value;
-         this.text = `El medicamento ${this.xd} requiere adjuntar fórmula médica`;
-         const alert = await this.alertCtrl.create({
-          header: this.text ,
+    for (const formula of this.cart) {
+      if (formula.is_pres_required === 1) {
+        this.xd = formula.value;
+        this.text = `El medicamento ${this.xd} requiere adjuntar fórmula médica`;
+        const alert = await this.alertCtrl.create({
+          header: this.text,
           message: '<img src = "../../assets/img/RECURSOS/iconos drazamed-27.png" class="alert">',
           mode: 'ios',
           cssClass: 'failed',
@@ -53,38 +58,38 @@ export class CarritoPage implements OnInit {
               cssClass: 'btnalert',
             }
           ]
-          });
-         await alert.present();
-       }
+        });
+        await alert.present();
+      }
     }
   }
 
-  goPerfil(){
+  goPerfil() {
     this.router.navigate(['perfil']);
   }
   ionViewWillEnter() {
     this.menuCtrl.enable(false);
-   }
-  goHome(){
+  }
+  goHome() {
     this.router.navigate(['home']);
   }
 
   decreaseCartItem(product) {
     this.cartService.decreaseProduct(product);
   }
- 
+
   increaseCartItem(product) {
     this.cartService.addProduct(product);
   }
- 
+
   removeCartItem(product) {
     this.cartService.removeProduct(product);
   }
- 
+
   getTotal() {
     return this.cart.reduce((i, j) => i + j.mrp * j.amount, 0);
   }
-  goBuscar(){
+  goBuscar() {
     this.router.navigate(['medicamentos']);
   }
 
@@ -123,10 +128,10 @@ export class CarritoPage implements OnInit {
     });
     toast.present();
   }
-  async showAlert1(){
+  async showAlert1() {
     const alert = await this.alertCtrl.create({
 
-      message: '<img src = "../../assets/img/RECURSOS/check.png" class="alert1">tu fórmula fue aprobada ya puedes generar el pago',
+      message: '<img src = "../../assets/img/RECURSOS/check.png" class="alert1">Tu fórmula ha sido subida correctamente',
       mode: 'ios',
       cssClass: 'failed',
       buttons: [
@@ -135,13 +140,13 @@ export class CarritoPage implements OnInit {
           cssClass: 'btnalert',
         }
       ]
-      });
+    });
     await alert.present();
   }
 
-  async showAlert2(){
+  async showAlert2() {
     const alert = await this.alertCtrl.create({
-      message: '<img src = "../../assets/img/RECURSOS/wrong.png" class="alert1"> Tu fórmula no fue aprobada, intenta de nuevo si persiste el problema revisa con tu médico',
+      message: '<img src = "../../assets/img/RECURSOS/wrong.png" class="alert1">Ha ocurrido un error al subir tu fórmula, intenta de nuevo',
       mode: 'ios',
       cssClass: 'failed',
       buttons: [
@@ -150,7 +155,7 @@ export class CarritoPage implements OnInit {
           cssClass: 'btnalert',
         }
       ]
-      });
+    });
     await alert.present();
   }
 
@@ -308,5 +313,16 @@ export class CarritoPage implements OnInit {
       });
 
 
+  }
+  send() {
+
+    this.orden = {
+      total: this.getTotal(),
+      producto: this.cart,
+    };
+    this.http.post(`https://reqres.in/api/users`,
+    this.orden, {headers: new HttpHeaders({"Content-Type":"application/json"})}).subscribe((mensaje) => {
+      console.log(mensaje);
+    });
   }
 }
