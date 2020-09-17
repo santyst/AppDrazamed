@@ -320,7 +320,7 @@ export class CarritoPage implements OnInit {
       total: this.getTotal(),
       producto: this.cart,
     };
-    this.http.post(`https://reqres.in/api/users`,
+    this.http.post(`https://httpbin.org/post`,
     this.orden, {headers: new HttpHeaders({"Content-Type":"application/json"})}).subscribe((mensaje) => {
       console.log(mensaje);
     });
