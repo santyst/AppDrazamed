@@ -1,0 +1,118 @@
+.div-header{
+    background-color: #009bd7;
+    padding-bottom: 0.5%;
+  }
+  
+  .icono{
+    color: white;
+    margin-left: 4%;
+  }
+  ion-header {
+    --background: #009bd7!important;
+    --ion-background-color-rgb: 0,155,215;
+  }
+ 
+  .header-styles{
+    --background: #009bd7!important;
+    padding-top:15px;
+    padding-bottom:-100px;
+  }
+  
+  .logo-header{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    width: 50%;    
+  }
+  
+  ion-content{
+    --ion-background-color: white;
+    --ion-background-color-rgb: 236, 235, 238;
+  }
+  .carrito{
+    width: 14% ;
+    height: 14% ;
+    border-radius: 100% !important;
+    margin-left: 65%;
+    margin-bottom: 2% !important;
+  }
+  .container{
+      background-color: #fff;
+      padding-top: 10px !important;
+      padding-bottom: 10px !important;
+      width: 100%;
+      margin-right: auto;
+      margin-left: auto;
+      align-self: center!important;
+  }
+  .center{
+      text-align: center !important;
+  }
+  .title_seccion{
+    color: #00a2dd;
+    font-size: 24px;
+    font-weight: 700;
+    margin: 20px 0px;
+  }
+  .result_search {
+    background: #f2f2f2 !important;
+    padding: 20px 0px !important;
+    margin-bottom: 15px;
+}
+.select_options {
+    background-color: #fff;
+    padding: 20px;
+    margin: 15px 0px;
+    width: 100% !important;
+    border-radius: 20px;
+}
+.align-self{
+    align-self: center !important;
+}
+.mx-auto{
+  margin-right: auto !important;
+  margin-left: auto !important;
+}
+.d-block{
+    display: block !important;
+}
+.name_product {
+    font-size: 19px !important;
+    font-weight: 700 !important;
+    color: #00a1dd !important;
+    margin: 5px 0px !important;
+    line-height: 20px !important;
+}
+.name_product1 {
+  font-size: 19px !important;
+  font-weight: 700 !important;
+  color: #00a1dd !important;
+  margin: 5px 0px !important;
+  line-height: 20px !important;
+}
+
+.description_product {
+    font-size: 17px !important;
+    color: #727070 !important;
+    line-height: 18px !important;
+    margin: 5px 0px !important;
+}
+.mt-20{
+    margin-top: 20px !important;
+}
+.col-item{
+    border-left: 1px solid #727070;
+}
+.col-txt{
+  padding-top: 110px;
+  padding-right: 12px;
+}
+@media (min-width: 319px) and (max-width: 339px){
+.name_product1 {
+  font-size: 19px !important;
+  font-weight: 700 !important;
+  color: #00a1dd !important;
+  margin: 5px 0px !important;
+  line-height: 20px !important;
+  padding-left: 12px;
+}
+}

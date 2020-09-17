@@ -1,0 +1,48 @@
+<ion-header class="ion-no-border" mode="ios">
+  <div class="div-header">
+  <ion-toolbar class="header-styles">
+    <ion-title><img class="content-image" src="../../assets/img/LOGOS/LOGOS DRAZAMED_Mesa de trabajo 1.png" alt=""></ion-title>
+  </ion-toolbar>
+    <ion-buttons class="btn_i">
+      <ion-menu-button slot="start" menu="main-menu"></ion-menu-button>
+      <ion-button class="carrito" (click)="goCarrito()">
+        <img src="../../assets/img/RECURSOS/iconos drazamed-18.png">
+      </ion-button>
+      <ion-badge>{{ cartItemCount | async }}</ion-badge>
+    </ion-buttons>
+  </div>
+</ion-header>
+
+<ion-content mode="ios">
+  <div class="container pt-10 pb-10 align-self">
+   <p class="title_seccion center">Mis direcciones</p>
+   <ion-row class="result_search" *ngFor="let p of direcciones">
+     <ion-col size="12" class="addres_space">
+         <div class="right"></div>
+         <ion-row >
+           <ion-col size="2" class="align-self">
+             <img src="../../../assets/img/RECURSOS/icon_direcciones.png" width="180%">
+           </ion-col>
+           <ion-col size="6" class="align-self">
+             <p class="name_product">Mi dirección</p>
+             <p class="description_product">{{p.ciudad}} {{p.direccion}} {{p.detalles}} {{p.nombredir}}</p>
+           </ion-col>
+           <ion-col size="4" class="center">
+             <ion-button  class="btn_product1 mx-auto d-block" (click)="updateDirection(p)">C<p class="btntext">ambiar</p></ion-button>
+             <ion-button class="btn_product2 mx-auto d-block" (click)="removeDireccion(p)">E<p class="btntext">liminar</p></ion-button>
+           </ion-col>
+         </ion-row>
+     </ion-col>
+   </ion-row>
+
+  </div>
+  <div class="container1">
+    <ion-row>
+      <ion-col class="agregar">
+        <ion-button class="btn-continue" expand="block" (click)="goAddD()" >A<p class="btntext">gregar direccion</p></ion-button>
+      </ion-col>
+    </ion-row>
+  </div>
+</ion-content>
+
+  

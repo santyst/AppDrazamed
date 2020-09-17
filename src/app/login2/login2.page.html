@@ -1,27 +1,32 @@
 <!-- Header without a border -->
-<ion-header class="ion-no-border">
+<ion-header class="ion-no-border" mode="ios">
   <ion-toolbar class="header-styles">
     <ion-title><img  class="content-image" src="../../assets/img/LOGOS/LOGOS DRAZAMED_Mesa de trabajo 1 copia.png" alt=""></ion-title>
   </ion-toolbar>
 </ion-header>
 
 
-<ion-content>
-  <form>
+<ion-content mode="ios">
+  <form #form="ngForm" (ngSubmit)="logForm(form)" novalidate>
     <div id="container">
-      <p>Iniciar sesión</p>
+      <ion-list>
       <img class="logo-form" src="../../assets/img/LOGOS/LOGOS DRAZAMED-04.png">
+      <p>Iniciar sesión</p>
       <ion-item>
-        <ion-input type="text" placeholder="Usuario"></ion-input>
+        <ion-input type="email" [(ngModel)]="credentials.email" name="email" ngControl="email" placeholder="Usuario"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-input type="password" placeholder="Contraseña"></ion-input>
+        <ion-input type="password" [(ngModel)]="credentials.password" name="password" ngControl="password" placeholder="Contraseña"></ion-input>
       </ion-item>
+      <!--<ion-item *ngFor="let item of items">
+        <h2>{{item.result.status}}</h2>
+      </ion-item>-->
       <ion-item>
         <ion-checkbox color="success"></ion-checkbox>
         <ion-label class="label-checkbox">Recordar</ion-label><a class="link" href="./forgottenpassword">Olvide la contraseña</a>
       </ion-item>
-      <ion-button class="btn-continue" expand="block" (click)="goHome()">INGRESAR</ion-button>
+      <ion-button class="btn-continue" expand="block" type="submit" (click)="login()">INGRESAR</ion-button>
+    </ion-list>
     </div>
   </form>
 </ion-content>

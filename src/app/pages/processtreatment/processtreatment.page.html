@@ -1,0 +1,63 @@
+<ion-header class="ion-no-border" mode="ios">
+  <div class="div-header">
+  <ion-toolbar class="header-styles">
+    <ion-title><img class="content-image" src="../../../assets/img/LOGOS/LOGOS DRAZAMED_Mesa de trabajo 1.png" alt=""></ion-title>
+  </ion-toolbar>
+    <ion-buttons>
+      <ion-button slot="start" class="icono" (click)="goHome()">
+        <ion-icon size="large" name="chevron-back-outline"></ion-icon>
+      </ion-button>
+      <ion-button class="carrito" href="/perfil">
+        <img src="../../../assets/img/RECURSOS/iconos drazamed-cc-38.png">
+      </ion-button>
+    </ion-buttons>
+  </div>
+</ion-header>
+
+<ion-content mode="md">
+<div class="container">
+  <p class="title_seccion center">Proceso médico</p>
+  <ion-row class="result_search">
+    <div class="select_options">
+      <ion-col size="12" class="align-self">
+        <img src="../../../assets/img/RECURSOS/dolex.jpeg" width="40%" class="mx-auto d-block">
+      </ion-col>
+    </div>
+    <div class="select_options">
+      <ion-col size="12">
+        <p class="name_product">CENTRUM ADVANCE 100 TABLETAS</p>
+        <p class="description_product mt-20">Vitaminas y Minerales</p>
+        <p class="description_product mt-20">
+          <b>1 Tableta cada 24 Horas</b>
+        </p>
+      </ion-col>
+    </div>
+    <div class="select_options center">
+      <ion-row>
+        <ion-col size="4">
+          <p class="name_product">Próxima</p>
+          <p class="description_product mt-20">Hoy a las 8:am</p>
+        </ion-col>
+        <ion-col size="4" class="col-item">
+          <p class="name_product">Tomadas</p>
+          <p class="description_product mt-20">70 tabletas</p>
+        </ion-col> 
+        <ion-col size="4" class="col-item">
+          <p class="name_product">Faltan</p>
+          <p class="description_product mt-20">30 tabletas</p>
+        </ion-col> 
+      </ion-row>
+    </div>
+  </ion-row>
+  <ion-row>
+    <ion-col size="7">
+      <circle-progress
+  [percent]="porcentaje"
+></circle-progress>
+    </ion-col>
+    <ion-col size="5" class="col-txt">
+      <p class="name_product1">Te falta el {{restante}}% de tu tratamiento médico.</p>
+    </ion-col>
+  </ion-row>
+</div>
+</ion-content>

@@ -1,52 +1,72 @@
 <ion-app>
   <ion-menu menuId="main-menu" content-id="main">
-  	
-    	<ion-content>
-        <div class="menu-header-bg"></div>
-       <ion-list class="menu-items" lines="none"> 
-       	 
-       	 <ion-item>
-       	 	<ion-icon name="home"></ion-icon>
-       	 	Inicio
-       	 </ion-item>
-       	 <ion-item>
-       	 	<ion-icon name="person"></ion-icon>
-       	 	Perfil 1
-       	 </ion-item>
-       	 <ion-item>
-       	 	<ion-icon name="bandage"></ion-icon>
-       	 	Medicamentos
-		</ion-item>
-       	 <ion-item>
-       	 	<ion-icon name="newspaper"></ion-icon>
-       	 	Pedidos
-       	 </ion-item>
-       	 <ion-item>
-       	 	<ion-icon name="medkit"></ion-icon>
-       	 	Pastillero
-       	 </ion-item>
-       	 <ion-item>
-       	 	<ion-icon name="location"></ion-icon>
-       	 	Direcciones
-       	 </ion-item>
-       	 <ion-item>
-       	 	<ion-icon name="mail"></ion-icon>
-       	 	Mensajes/PQR
-       	 </ion-item>
-       	 <ion-item>
-       	 	<ion-icon name="settings"></ion-icon>
-       	 	Ajustes
-       	 </ion-item>
-       	 <ion-item>
-       	 	<ion-icon name="information-circle"></ion-icon>
-       	 	Acerca de
-       	 </ion-item>
-       	 <ion-item>
-       	 	<ion-icon name="log-out"></ion-icon>
-       	 	Cerrar
-       	 </ion-item>
 
-       </ion-list>
+	<ion-header class="ion-no-border" mode="ios">
+		<ion-toolbar class="header-styles">
+		  <ion-title><img class="content-image" src="../../assets/img/LOGOS/LOGOS DRAZAMED_Mesa de trabajo 1.png" alt=""></ion-title>
+		</ion-toolbar>
+	  </ion-header>
+	    	    
+    <ion-content class="side-menu" mode="md">
+	
+		<div class="user">
+		 <img class="img-profile" src="../../assets/img/RECURSOS/iconos drazamed-24.png" alt="">
+		 <span class="username">¡Hola ana!</span>
+		</div>
+
+
+       <ion-list class="menu-items" lines="none"> 
+
+		 <ion-menu-toggle>
+			 <ion-item on-click="goHome()">
+				<img class="button-logos" src="../../assets/img/RECURSOS/iconos drazamed-cc-05.png">
+				<p>Inicio</p>
+			 </ion-item>
+		 </ion-menu-toggle>
+    
+		 <ion-menu-toggle>
+			<ion-item on-click="goPerfil()">
+				<img class="button-logos" src="../../assets/img/RECURSOS/iconos drazamed-cc_Mesa de trabajo 1.png">
+				<p>Mi perfil</p>
+			</ion-item>
+		 </ion-menu-toggle>
+
+       	 <ion-menu-toggle>
+			<ion-item on-click="goMedicamentos()">
+				<img class="button-logos" src="../../assets/img/RECURSOS/iconos drazamed-cc-03.png">
+       	 	   <p>Buscar Medicamentos</p>
+       	    </ion-item>
+		</ion-menu-toggle>
+
+		<ion-menu-toggle>
+            <ion-item on-click="goMensajes()">
+				<img class="button-logos" src="../../assets/img/RECURSOS/iconos drazamed-cc-11.png">
+       	 	  <p>Mensajes / PQRS</p>
+       	    </ion-item>
+		</ion-menu-toggle>
+
+       	<ion-menu-toggle>
+			<ion-item on-click="goPastillero()">
+				<img class="button-logos" src="../assets/img/RECURSOS/iconos drazamed-cc-60.png">
+       	 	    <p>Mi pastillero</p>
+       	    </ion-item>
+		</ion-menu-toggle> 
+
+       	<ion-menu-toggle>
+			<ion-item on-click="goAcercade()">
+				<img class="button-logos" src="../../assets/img/RECURSOS/iconos drazamed-cc-15.png">
+       	 	    <p>Acerca de Drazamed</p>
+       	    </ion-item>
+		</ion-menu-toggle>
+		   
+		<ion-menu-toggle>
+			<ion-item on-click="goOut()">
+				<img class="button-logos" src="../../assets/img/RECURSOS/iconos drazamed-cc-17.png">
+       	 	    <p>Cerrar sesión</p>
+       	    </ion-item>
+		</ion-menu-toggle>
+
+	   </ion-list>
   	</ion-content>
   </ion-menu>
   <ion-router-outlet id="main"></ion-router-outlet>

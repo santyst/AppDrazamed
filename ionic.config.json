@@ -1,5 +1,8 @@
 {
   "name": "drazamed",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
+

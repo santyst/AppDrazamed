@@ -1,0 +1,198 @@
+.div-header{
+    background-color: #009bd7;
+    padding-bottom: 0.5%;
+  }
+  
+  .icono{
+    color: white;
+    margin-left: 4%;
+  }
+  ion-header {
+    --background: #009bd7!important;
+    --ion-background-color-rgb: 0,155,215;
+  }
+ 
+  .header-styles{
+    --background: #009bd7!important;
+    padding-top:15px;
+    padding-bottom:-100px;
+  }
+  
+  .logo-header{
+    padding-top: 10px;
+    padding-bottom: -5px;
+    width: 50%;    
+  }
+  
+  ion-content{
+    --ion-background-color: white;
+    --ion-background-color-rgb: 236, 235, 238;
+  }
+  .carrito{
+    width: 14% ;
+    height: 5% ;
+    border-radius: 100% !important;
+    margin-left: 65%;
+    margin-bottom: 2% !important;
+  }
+  .contenedor{
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    padding-top: 3px !important;
+    padding-bottom: 30px !important;
+  }
+
+  .img_product{
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.1) !important;
+    padding: 10px !important;
+    border-radius: 30px !important;
+    background-color: #fff !important;
+  }
+  .img-fluid {
+    max-width: 100%;
+    height: auto;
+}
+.name_product {
+    font-size: 19px !important;
+    font-weight: 700 !important;
+    color: #727070 !important;
+    margin: 5px 0px !important;
+    line-height: 20px !important;
+}
+.description_product {
+    font-size: 17px !important;
+    color: #727070 !important;
+    line-height: 18px !important;
+    margin: 5px 0px !important;
+}
+.price_product {
+    font-size: 21px !important;
+    font-weight: 700 !important;
+    color: #727070 !important;
+    margin: 0px !important;
+}
+.info_product {
+    margin-top: 30px !important;
+}
+.btn_add {
+    --background: #00a2dd !important;
+    color: #fff !important;
+    font-size: 17.5px !important;
+    width: 70% !important;
+    font-weight: 600 !important;
+    --border-radius: 5px !important;
+    padding: 7px 0px !important;
+    height: 40px;
+}
+.addrm{
+    outline:1px solid red;
+    height: 20px !important;
+    width: 70% !important;
+}
+.btn_text{
+    text-transform: lowercase !important;
+}
+.resume_product {
+    color: #727070;
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.1) !important;
+    margin: 10px !important;
+    padding: 20px 20px 35px !important;
+    border-radius: 20px !important;
+}
+.item_resume {
+    margin: 0px !important;
+    border-bottom: 1px solid #727070 !important;
+    padding: 10px 0px !important;
+    width: 100% !important;
+}
+.title_seccion {
+    color: #00a2dd;
+    font-size: 24px;
+    font-weight: 700;
+    margin: 20px 0px;
+    margin-top: -45px !important;
+    padding: 20px;
+}
+.contenedor{
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    padding-top: 3px !important;
+    padding-bottom: 30px !important;
+  }
+  .item_formula {
+    margin: 0px !important;
+    border-bottom: 1px solid #727070 !important;
+    padding: 10px 0px !important;
+    width: 100% !important;
+    color: green;
+}
+b{
+  color: #727070;
+}
+.item_formula1 {
+  margin: 0px !important;
+  border-bottom: 1px solid #727070 !important;
+  padding: 10px 0px !important;
+  width: 100% !important;
+  color: green;
+}
+
+ion-badge {
+  color: #046a8f;
+  position: absolute;
+  --border-radius: 200%;
+  top: -1px;
+right: 15px;
+--background: #c9c9c9;
+width: 24px ;
+height: 20px;
+font-size: 16px;
+}
+.btn_i{
+  padding-top: 5px;
+  }
+  @media (min-width:400px) and (max-width:417px) {
+    ion-badge {
+      color: #046a8f;
+      position: absolute;
+      --border-radius: 200%;
+      top: -1px;
+    right: 21px;
+    --background: #c9c9c9;
+    width: 24px ;
+    height: 20px;
+    font-size: 16px;
+    }
+  }
+  @media (min-width:320px) and (max-width:336px) {
+    ion-badge {
+      color: #046a8f;
+      position: absolute;
+      --border-radius: 200%;
+      top: -1px;
+    right: 5px;
+    --background: #c9c9c9;
+    width: 24px ;
+    height: 20px;
+    font-size: 16px;
+    }
+  }
+  @media (min-width:337px) and (max-width:350px) {
+    ion-badge {
+      color: #046a8f;
+      position: absolute;
+      --border-radius: 200%;
+      top: -1px;
+    right: 10px;
+    --background: #c9c9c9;
+    width: 24px ;
+    height: 20px;
+    font-size: 16px;
+    }
+  }

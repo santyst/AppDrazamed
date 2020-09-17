@@ -1,0 +1,88 @@
+<ion-header class="ion-no-border" mode="ios">
+  <div class="div-header">
+  <ion-toolbar class="header-styles">
+    <ion-title><img class="content-image" src="../../assets/img/LOGOS/LOGOS DRAZAMED_Mesa de trabajo 1.png" alt=""></ion-title>
+  </ion-toolbar>
+    <ion-buttons class="btn_i">
+      <ion-menu-button slot="start" menu="main-menu"></ion-menu-button>
+      <ion-button class="carrito" (click)="goCarrito()">
+        <img src="../../assets/img/RECURSOS/iconos drazamed-18.png">
+      </ion-button>
+      <ion-badge>{{ cartItemCount | async }}</ion-badge>
+    </ion-buttons>
+  </div>
+</ion-header>
+
+<ion-content>
+<div class="container1">
+<p class="title_seccion center">Mi pastillero</p>
+</div>
+<div class="container">
+  <ion-slides pager="true" [options]="sliderOpts" #mySlider mode="ios">
+  <ion-slide>
+  <div class="banner">
+    <div class="inner">
+  <img src="../../assets/img/RECURSOS/img_banner.jpg" class="img_banner"alt="">
+    </div>
+  </div>
+  </ion-slide>
+  
+  <ion-slide>
+    <div class="banner">
+      <div class="inner">
+    <img src="../../assets/img/RECURSOS/img_banner.jpg" class="img_banner"alt="">
+      </div>
+    </div>
+    </ion-slide>
+  
+    <ion-slide>
+      <div class="banner">
+        <div class="inner">
+      <img src="../../assets/img/RECURSOS/img_banner.jpg" class="img_banner"alt="">
+        </div>
+      </div>
+      </ion-slide>
+  </ion-slides>
+  <ion-row class="result_search">
+   <ion-col size="12" class="addres_space">
+      <ion-row>
+        <ion-col size="2" class="align-self">
+          <img src="../../../assets/img/RECURSOS/iconos drazamed-cc-60.png" width="180%">
+        </ion-col>
+        <ion-col size="10" class="align-self">
+            <ion-button (click)="createAlarm()" class="btn_product">C<p class="btntext">rear alarma</p></ion-button>
+        </ion-col>
+      </ion-row>
+   </ion-col>
+  </ion-row>
+  <div class="sub-cont4">
+    <p class="name_product">Mis alarmas</p>
+  </div>
+  </div>
+<ion-row class="result_search">
+ <ion-col size="3" class="align-self img_product">
+   <img src="../../../assets/img/RECURSOS/dolex.jpeg" width="100%" class="imagen_med">
+ </ion-col>
+ <ion-col size="5" class="align-self">
+   <p class="name_product">Nombre</p>
+   <p class="description_product">Lorem ipsum dolor sit amet.</p>
+ </ion-col>
+ <ion-col size="4" class="align-self">
+  <ion-button (click)="processTreat()" class="btn-product">E<p class="btntext">stado</p></ion-button>
+  <ion-button (click)="createAlarm()" class="btn-product">E<p class="btntext">ditar</p></ion-button>
+ </ion-col>
+</ion-row>
+<ion-row class="result_search">
+  <ion-col size="3" class="align-self img_product">
+    <img src="../../../assets/img/RECURSOS/dolex.jpeg" width="100%" class="imagen_med">
+  </ion-col>
+  <ion-col size="5" class="align-self">
+    <p class="name_product">Nombre</p>
+    <p class="description_product">Lorem ipsum dolor sit amet.</p>
+  </ion-col>
+  <ion-col size="4" class="align-self">
+    <ion-button (click)="processTreat()" class="btn-product">E<p class="btntext">stado</p></ion-button>
+    <ion-button (click)="createAlarm()" class="btn-product">E<p class="btntext">ditar</p></ion-button>
+  </ion-col>
+ </ion-row>
+</ion-content>

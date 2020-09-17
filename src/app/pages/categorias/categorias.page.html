@@ -1,0 +1,69 @@
+<ion-header class="ion-no-border" mode="ios">
+  <div class="div-header">
+  <ion-toolbar class="header-styles">
+    <ion-title><img class="content-image" src="../../assets/img/LOGOS/LOGOS DRAZAMED_Mesa de trabajo 1.png" alt=""></ion-title>
+  </ion-toolbar>
+    <ion-buttons class="btn_i">
+      <ion-menu-button slot="start" menu="main-menu"></ion-menu-button>
+      <ion-button class="carrito" (click)="goCarrito()">
+        <img src="../../assets/img/RECURSOS/iconos drazamed-18.png">
+      </ion-button>
+      <ion-badge>{{ cartItemCount | async }}</ion-badge>
+    </ion-buttons>
+  </div>
+</ion-header>
+
+<ion-content mode="md">
+  <div class="searchbar">
+    <ion-grid>
+      <ion-button expand="block" class="btn-continue" (click)="buscarMed()"><ion-icon class="search" name="search-outline"></ion-icon>
+        <div class="letra"><p class="btntext"><first-letter>B</first-letter>usca aquí tus productos</p></div></ion-button>
+     </ion-grid>
+  </div>
+ 
+  <div class="container">
+    <div class="title">
+      <p class="title_seccion">{{categorias}}</p>
+    </div>
+    <div class="categorias">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12">
+             <div class="product" >
+              <ion-segment scrollable class="scrolli">
+                <ion-card class="card_product" color="light" *ngFor="let datas of searchres5"> 
+                  <div class="elementos">
+                    <div class=" align-self-center pt-10 pb-10">
+                        <img src={{apiUrl7}}{{datas.item_code}}{{apiUrl8}} alt="" class="img-fluid">     
+                    </div>
+                    <div class="align-self-center">
+                      <ion-card-title class="price_product pt-20">${{datas.mrp | number}}</ion-card-title>
+                        <p class="name_product ion-text-wrap textadjust">{{datas.name}}</p>      
+                        <p class="description_product ">{{datas.composition}}</p>
+                      </div>
+                    </div>
+                    <ion-button class="btn_product" (click)="addToCart(datas)">Agregar</ion-button> 
+                 </ion-card>
+               <ion-card class="card_product" color="light" *ngFor="let datas of searchres4"> 
+                <div class="elementos">
+                  <div class=" align-self-center pt-10 pb-10">
+                      <img src={{apiUrl7}}{{datas.item_code}}{{apiUrl8}} alt="" class="img-fluid">
+                  </div>
+                  <div class="align-self-center">
+                    <ion-card-title class="price_product pt-20">${{datas.mrp | number}}</ion-card-title>
+                      <p class="name_product ion-text-wrap textadjust">{{datas.name}}</p>      
+                      <p class="description_product ">{{datas.composition}}</p>
+                    </div>
+                  </div>
+                  <ion-button class="btn_product" (click)="addToCart(datas)">Agregar</ion-button> 
+               </ion-card>
+              </ion-segment>
+             </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</div>
+
+
+</ion-content>

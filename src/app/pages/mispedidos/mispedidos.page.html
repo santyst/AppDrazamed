@@ -1,0 +1,95 @@
+<ion-header class="ion-no-border" mode="ios">
+  <div class="div-header">
+  <ion-toolbar class="header-styles">
+    <ion-title><img class="content-image" src="../../assets/img/LOGOS/LOGOS DRAZAMED_Mesa de trabajo 1.png" alt=""></ion-title>
+  </ion-toolbar>
+    <ion-buttons>
+      <ion-button slot="start" class="icono" (click)="goBack()">
+        <ion-icon size="large" name="chevron-back-outline"></ion-icon>
+      </ion-button>
+      <ion-button class="carrito" (click)="goBack()">
+        <img src="../../../assets/img/RECURSOS/iconos drazamed-cc-38.png">
+      </ion-button>
+
+    </ion-buttons>
+  </div>
+</ion-header>
+
+<ion-content>
+<div class="container">
+  <p class="title_seccion center">Mis pedidos</p>
+  <ion-row class="result_search">
+    <ion-col size="6" class="mt-20">
+      <ion-button class="btn_product" (click)="isYesClicked=true;isNoClicked=false" [color]="!isNoClicked?'medium':'dark'">P<p class="btntext">endientes</p></ion-button>
+    </ion-col>
+    <ion-col size="6" class="mt-20">
+      <ion-button class="btn_product" (click)="isYesClicked=false;isNoClicked=true" [color]="isNoClicked?'medium':'dark'">C<p class="btntext">ompletados</p></ion-button>
+    </ion-col>
+
+    <ion-col size="12" *ngIf="!isNoClicked">
+       <div class="request_sqare">
+         <ion-row>
+           <ion-col size="12" class="mb-10 right">
+              <p class="name_category">En curso</p>
+           </ion-col>
+           <ion-col size="4" class="col-img">
+             <img src="../../../assets/img/RECURSOS/dolex.jpeg" class="mx-auto" width="100%">
+           </ion-col>
+           <ion-col size="8" class="align-self">
+              <p class="name_product">Pedido en curso</p>
+              <p class="description_product">
+                <b>Fecha: </b>
+                2 abril 2020
+              </p>
+              <p class="description_product">
+                <b>Producto: </b>
+                Lorem Ipsum
+              </p>
+              <p class="price_product">$000.00</p>
+           </ion-col>
+         </ion-row>
+         <ion-row class="mt-20">
+             <ion-col size="6"></ion-col>
+             <ion-col size="6">
+              <ion-button class="btn_product" color="medium">V<p class="btntext">er detalles</p></ion-button>
+             </ion-col>
+         </ion-row>
+       </div>
+    </ion-col>
+
+    <ion-col size="12" *ngIf="isNoClicked">
+      <div class="request_sqare">
+        <ion-row>
+          <ion-col size="12" class="mb-10 right">
+             <p class="name_category">Entregado</p>
+          </ion-col>
+          <ion-col size="4" class="col-img">
+            <img src="../../../assets/img/RECURSOS/dolex.jpeg" class="mx-auto" width="100%">
+          </ion-col>
+          <ion-col size="8" class="align-self">
+             <p class="name_product">Pedido en curso</p>
+             <p class="description_product">
+               <b>Fecha: </b>
+               2 abril 2020
+             </p>
+             <p class="description_product">
+               <b>Producto: </b>
+               Lorem Ipsum
+             </p>
+             <p class="price_product">$000.00</p>
+          </ion-col>
+        </ion-row>
+        <ion-row class="mt-20">
+            <ion-col size="6">
+              <ion-button class="calificar_btn">C<p class="btntext">alificar</p></ion-button>
+            </ion-col>
+            <ion-col size="6">
+              <ion-button class="btn_product" color="medium">V<p class="btntext">er detalles</p></ion-button>
+            </ion-col>
+        </ion-row>
+      </div>
+    </ion-col>
+
+  </ion-row>
+</div>
+</ion-content>
