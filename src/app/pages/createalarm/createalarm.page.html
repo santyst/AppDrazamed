@@ -55,6 +55,14 @@
               </ion-select>
             </div>
           </div>
+          <div class="select_options">
+            <p class="name_product" style="color: #00a1dd !important;">Dósis por toma: </p>
+            <div class="input-group">
+              <ion-select placeholder="Selecciona un periodo" class="custom_select" mode="ios">
+                <ion-select-option *ngFor="let dos of dosis">{{dos}}</ion-select-option>
+              </ion-select>
+            </div>
+          </div>
           <p class="name_product" style="color: #00a1dd !important;">Fecha de inicio</p>
           <div class="form-group">
             <ion-datetime mode="md" drag-content="false"  displayFormat="DD/MM/YYYY" class="form-control" placeholder="Dia/Mes/Año"></ion-datetime>
