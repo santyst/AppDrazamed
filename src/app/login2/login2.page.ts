@@ -59,8 +59,9 @@ public items2: any;
   ngOnInit() {
   }
 
-  logForm(form) {
-    console.log(form.value);
+  goHome(){
+   console.log("button clicked");
+   this.router.navigate(['home']);
   }
 
   ionViewWillEnter() {
