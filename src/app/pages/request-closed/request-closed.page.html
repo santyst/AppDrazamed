@@ -1,0 +1,92 @@
+<ion-header class="ion-no-border" mode="ios">
+  <div class="div-header">
+  <ion-toolbar class="header-styles">
+    <ion-title><img class="content-image" src="../../assets/img/LOGOS/LOGOS DRAZAMED_Mesa de trabajo 1.png" alt=""></ion-title>
+  </ion-toolbar>
+    <ion-buttons>
+      <ion-button slot="start" class="icono" (click)="goBack()">
+        <ion-icon size="large" name="chevron-back-outline"></ion-icon>
+      </ion-button>
+      <ion-button class="carrito" (click)="goCart()">
+        <img src="../../assets/img/RECURSOS/iconos drazamed-18.png">
+      </ion-button>
+
+    </ion-buttons>
+  </div>
+</ion-header>
+
+<ion-content>
+<div class="container">
+  <p class="title_seccion_small pt-10">Pedidos entregados</p>
+</div>
+<div class="container1">
+  <ion-row class="result_search">
+    <ion-col size="3" class="align-self img_product">
+      <img src="../../../assets/img/RECURSOS/dolex.jpeg" class="mx-auto d-block" width="100%">
+    </ion-col>
+    <ion-col size="9" class="align-self">
+       <p class="name_product">Nombre</p>
+       <p class="description_product">Lorem ipsum dolor sit amet.</p>
+       <p class="price_product">$000.00</p>
+      </ion-col>
+  </ion-row>
+  <ion-row class="result_search">
+    <ion-col size="3" class="align-self img_product">
+      <img src="../../../assets/img/RECURSOS/dolex.jpeg" class="mx-auto d-block" width="100%">
+    </ion-col>
+    <ion-col size="9" class="align-self">
+       <p class="name_product">Nombre</p>
+       <p class="description_product">Lorem ipsum dolor sit amet.</p>
+       <p class="price_product">$000.00</p>
+      </ion-col>
+  </ion-row>
+  <ion-row class="result_search">
+    <ion-col size="12" class="addres_space">
+      <ion-row>
+        <ion-col size="2">
+          <img src="../../../assets/img/RECURSOS/pointer_address.png" width="180%">
+        </ion-col>
+        <ion-col size="10" class="align-self">
+          <p class="name_product">Mi dirección</p>
+          <p class="description_product">Lorem ipsum dolor sit amet.</p>
+        </ion-col>
+      </ion-row>
+    </ion-col>
+    <ion-col size="12" class="addres_space mt-10">
+      <ion-row>
+        <ion-col size="2">
+          <img src="../../../assets/img/RECURSOS/credit_card.png" width="180%">
+        </ion-col>
+        <ion-col size="10" class="align-self">
+          <p class="name_product">Método de pago</p>
+        <p class="description_product">Mercado Pago</p>
+        </ion-col>
+      </ion-row>
+    </ion-col>
+  </ion-row>
+
+  <ion-row class="result_search mb-40">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6"><p class="name_product">Subtotal</p></ion-col>
+        <ion-col size="6"><p class="description_product">$000.000</p></ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="6"><p class="name_product">Costo envío</p></ion-col>
+        <ion-col size="6"><p class="description_product">$000.000</p></ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="6"><p class="name_product">Impuesto</p></ion-col>
+        <ion-col size="6"><p class="description_product">$000.000</p></ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="6"><p class="name_product">Total</p></ion-col>
+        <ion-col size="6"><p class="description_product">$000.00</p></ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-row>
+</div>
+</ion-content>
