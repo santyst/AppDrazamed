@@ -16,12 +16,23 @@
 <ion-content mode="md">
   <div class="searchbar">
       <ion-searchbar autocomplete="on"debounce="800" [(ngModel)]="searchbarInput" (ionChange)="getItems($event)" placeholder="Busca aquí tus productos"></ion-searchbar>
-      <ion-list *ngIf="isItemAvailable">
-        <ion-item button *ngFor="let med of items " (click)="fillSearchbarText(med.value)">{{ med.value }}</ion-item>
-    </ion-list>
+      <ion-list *ngIf="isItemAvailable" class="list">
+        <ion-item  button *ngFor="let med of items " (click)="fillSearchbarText(med.value)">
+          <ion-row class="result_search">
+            <ion-col size="3" class="align-self img_product">
+              <img src={{apiUrl7}}{{med.item_code}}{{apiUrl8}} class="mx-auto d-block" width="100%">
+            </ion-col>
+            <ion-col size="9" class="align-self">
+               <p class="name_product">{{med.value}}</p>
+               <p class="description_product">{{med.composition}}</p>
+               <p class="price_product">${{ med.mrp | number}}</p>
+              </ion-col>
+          </ion-row>
+        </ion-item>
+      </ion-list>
     </div>
   <div class="label">
-    <ion-label class="description_product" *ngIf="!isItemAvailable">Escribe el producto que necesitas y el buscador te ayudará a encontrarlo, si esta disponible.</ion-label>
+    <ion-label class="description_product1" *ngIf="!isItemAvailable">Escribe el producto que necesitas y el buscador te ayudará a encontrarlo, si esta disponible.</ion-label>
   </div>
 
   
