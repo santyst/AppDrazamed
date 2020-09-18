@@ -67,10 +67,14 @@ mensajesForm = this.formBuilder.group({
 
 
   postData(){
+    console.log('Datos enviados: ');
+    console.log(this.dataToSend);
     this.http.post(`${this.postUrl}`, this.dataToSend
     ,{headers: new HttpHeaders({"Content-Type":"application/json"})}).subscribe((mensaje) => {
     console.log(mensaje);
   });
   }
+
+ 
 
 }
