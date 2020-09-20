@@ -42,7 +42,7 @@
               <ion-label class="grey">Mensaje</ion-label>
               <ion-textarea rows="7" cols="30" formControlName="mensaje" class="form-control" [(ngModel)]="dataToSend.msg"></ion-textarea>
             </div>
-            <ion-button [disabled]="!mensajesForm.valid" type="submit" class="btn-continue" expand="block" (click)="postData()">Enviar</ion-button>
+            <ion-button [disabled]="!mensajesForm.valid" class="btn-continue" expand="block" (click)="postData()">Enviar</ion-button>
           </form>
         </div>
     </ion-col>
