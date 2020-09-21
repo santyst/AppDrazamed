@@ -14,21 +14,21 @@
         <p>Crear cuenta</p>
       <ion-item>
         <ion-label position="stacked">Nombre</ion-label>
-        <ion-input formControlName="nombre" type="text" [(ngModel)]="register.nombre" name="nombre" ngControl="nombre"></ion-input>
+        <ion-input formControlName="first_name" type="text" [(ngModel)]="register1.first_name" name="first_name" ngControl="first_name"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="stacked">Apellido</ion-label>
-        <ion-input formControlName="apellido" type="text" [(ngModel)]="register.apellido" name="apellido" ngControl="apellido"></ion-input>
+        <ion-input formControlName="last_name" type="text" [(ngModel)]="register1.last_name" name="last_name" ngControl="last_name"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label position="stacked">Correo</ion-label>
-        <ion-input formControlName="correo" type="email" [(ngModel)]="register.correo" name="correo" ngControl="correo"></ion-input>
+        <ion-input formControlName="email" type="email" [(ngModel)]="register1.email" name="email" ngControl="email"></ion-input>
       </ion-item>
 
-      <div *ngFor="let error of error_messages.correo">
-        <ng-container *ngIf="registroForm.get('correo').hasError(error.type) && 
-              (registroForm.get('correo').dirty || registroForm.get('correo').touched)">
+      <div *ngFor="let error of error_messages.email">
+        <ng-container *ngIf="registroForm.get('email').hasError(error.type) && 
+              (registroForm.get('email').dirty || registroForm.get('email').touched)">
           <small class="error-message" >{{ error.message }}</small>
         </ng-container>
       </div>
@@ -37,16 +37,16 @@
       
       <ion-item>
         <ion-label position="stacked">Contraseña</ion-label>
-        <ion-input formControlName="clave" type="password" [(ngModel)]="register.clave" name="clave" ngControl="clave"></ion-input>
+        <ion-input formControlName="password" type="password" [(ngModel)]="register1.password" name="password" ngControl="password"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="stacked">Confirmar contraseña</ion-label>
-        <ion-input formControlName="reclave" type="password" [(ngModel)]="register.reclave" name="reclave" ngControl="reclave"></ion-input>
+        <ion-input formControlName="confirm_password" type="password" [(ngModel)]="register1.confirm_password" name="confirm_password" ngControl="confirm_password"></ion-input>
       </ion-item>
       
       <div>
-        <ng-container *ngFor="let error of error_messages.reclave"></ng-container>
-        <small class="error-message" *ngIf="!registroForm.get('reclave').errors && registroForm.hasError('passwordNotMatch') && (registroForm.get('reclave').dirty || registroForm.get('reclave').touched)">
+        <ng-container *ngFor="let error of error_messages.confirm_password"></ng-container>
+        <small class="error-message" *ngIf="!registroForm.get('confirm_password').errors && registroForm.hasError('passwordNotMatch') && (registroForm.get('confirm_password').dirty || registroForm.get('confirm_password').touched)">
           Las contraseñas no coinciden
         </small>
       </div>
