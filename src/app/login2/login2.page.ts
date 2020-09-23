@@ -5,7 +5,7 @@ import { Observable, of } from 'rxjs';
 import { MenuController, Platform, AlertController } from '@ionic/angular';
 import { async } from '@angular/core/testing';
 import { AuthService } from '../services/auth.service';
-
+import { Storage } from '@ionic/storage';
 
 
 @Component({
@@ -14,13 +14,19 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./login2.page.scss'],
 })
 export class Login2Page implements OnInit {
-nombre: any;
-nombre2: any;
-clave2: any;
-accept = false;
-
+credenciales: any;
+correo: any;
+clave: any;
+accept: any;
+key = 'user';
+key1 = 'remind';
 public items3: any;
+public items2: any;
 
+credentials = {
+  email: '',
+  password: ''
+ };
 
   constructor(
     private router: Router,
@@ -29,23 +35,27 @@ public items3: any;
     private alertController: AlertController,
     private platform: Platform,
     private auth: AuthService,
-   
+    private storage: Storage
   ) {
+    this.platform.ready().then(() =>{
+      this.get();
+    })
   }
-
-
-
-public items2: any;
-
-  credentials = {
-   email: '',
-   password: ''
-  };
 
   login() {
     this.auth.login(this.credentials).subscribe(async res => {
       if (res) {
         this.router.navigate(['home']);
+        if(this.accept === true){
+          this.storage.set(this.key, this.credentials);
+          this.storage.set(this.key1, this.accept = true);
+          console.log('se guardo porque esta en true');
+          }
+          else{
+            console.log('no se guarda');
+            this.storage.remove(this.key);
+            this.storage.remove(this.key1);
+          }
       } else {
         const alert = await this.alertController.create({
         header: 'Login Failed',
@@ -61,6 +71,19 @@ public items2: any;
         });
         await alert.present();
       }
+    });
+  }
+
+  get(){
+    this.storage.get(this.key).then(val => {
+       this.credenciales = val;
+       this.correo = this.credenciales.email;
+       this.clave = this.credenciales.password;
+       this.credentials.email = this.correo;
+       this.credentials.password = this.clave;
+    });
+    this.storage.get(this.key1).then((val) => {
+      this.accept = val;
     });
   }
 

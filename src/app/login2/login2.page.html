@@ -13,10 +13,10 @@
       <img class="logo-form" src="../../assets/img/LOGOS/LOGOS DRAZAMED-04.png">
       <p>Iniciar sesión</p>
       <ion-item>
-        <ion-input type="email" [(ngModel)]="credentials.email" name="email" ngControl="email" placeholder="Usuario"></ion-input>
+        <ion-input type="email" [(ngModel)]="credentials.email" name="email" ngControl="email" placeholder="Usuario" value="{{correo}}"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-input type="password" [(ngModel)]="credentials.password" name="password" ngControl="password" placeholder="Contraseña"></ion-input>
+        <ion-input type="password" [(ngModel)]="credentials.password" name="password" ngControl="password" placeholder="Contraseña" value="{{clave}}"></ion-input>
       </ion-item>
       <!--<ion-item *ngFor="let item of items">
         <h2>{{item.result.status}}</h2>
@@ -29,6 +29,4 @@
     </ion-list>
     </div>
   </form>
- <ion-button (click)="save()">save</ion-button>
- <ion-button (click)="retrieve()">retrieve</ion-button>
 </ion-content>
