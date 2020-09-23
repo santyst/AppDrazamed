@@ -52,7 +52,7 @@
     "@angular/compiler": "~9.1.6",
     "@angular/compiler-cli": "~9.1.6",
     "@angular/language-service": "~9.1.6",
-    "@ionic/angular-toolkit": "^2.1.1",
+    "@ionic/angular-toolkit": "^2.3.3",
     "@ionic/lab": "3.2.0",
     "@types/es6-promise": "^3.3.0",
     "@types/jasmine": "~3.5.0",

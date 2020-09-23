@@ -22,11 +22,13 @@
         <h2>{{item.result.status}}</h2>
       </ion-item>-->
       <ion-item>
-        <ion-checkbox color="success"></ion-checkbox>
+        <ion-checkbox [(ngModel)]="accept" name="accept" ngControl="accept"  color="success" mode="ios"></ion-checkbox>
         <ion-label class="label-checkbox">Recordar</ion-label><a class="link" href="./forgottenpassword">Olvide la contraseña</a>
       </ion-item>
       <ion-button class="btn-continue" expand="block"  (click)="login()">INGRESAR</ion-button>
     </ion-list>
     </div>
   </form>
+ <ion-button (click)="save()">save</ion-button>
+ <ion-button (click)="retrieve()">retrieve</ion-button>
 </ion-content>

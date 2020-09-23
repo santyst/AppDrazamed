@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuController, AlertController } from '@ionic/angular';
+import { MenuController, AlertController, LoadingController } from '@ionic/angular';
 import { UserService } from '../services/user.service';
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 import { uniqueDisplayName } from '../validators/unique_user';
-
+import { finalize } from 'rxjs/operators';
 
 
 @Component({
@@ -17,6 +17,9 @@ import { uniqueDisplayName } from '../validators/unique_user';
 export class Createaccount2Page implements OnInit {
   data1: any;
   form: any;
+  ready: any;
+  ready2: any;
+  urlcreate = `https://dev.drazamed.com/user/create-user/1`;
   public registerForm: FormGroup;
   constructor(
     private router: Router,
@@ -25,16 +28,18 @@ export class Createaccount2Page implements OnInit {
     public http: HttpClient,
     private alertController: AlertController,
     private userService: UserService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private loadingController: LoadingController
   ) {
     this.registroForm = this.formBuilder.group({
-      documento: new FormControl('', [Validators.required]),
-      nacimiento: new FormControl('', [Validators.required, Validators.minLength(9)]),
+      // documento: new FormControl('', [Validators.required]),
+      // nacimiento: new FormControl('', [Validators.required, Validators.minLength(9)]),
       address: new FormControl('', [Validators.required]),
       phone: new FormControl('', [Validators.required, Validators.maxLength(10)]),
-      genero: new FormControl('', [Validators.required]),
-      convenio: new FormControl('', [Validators.required]),
-      aceptar: new FormControl('', [Validators.requiredTrue])
+      // genero: new FormControl('', [Validators.required]),
+      // convenio: new FormControl('', [Validators.required]),
+      aceptar: new FormControl('', [Validators.requiredTrue]),
+      // user_type: new FormControl('', [Validators.required]),
     });
     this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
@@ -47,12 +52,13 @@ export class Createaccount2Page implements OnInit {
   status: string;
   accept: boolean;
   register = {
-    documento: '',
-    nacimiento: this.doSomething,
+   // documento: '',
+   // nacimiento: this.doSomething,
     address: '',
     phone: '',
-    genero: '',
-    convenio: ''
+   // genero: '',
+   // convenio: '',
+   user_type: 3
   };
 
   registroForm: FormGroup;
@@ -75,24 +81,40 @@ export class Createaccount2Page implements OnInit {
   async updateD() {
     const datos = Object.assign(this.data1, this.register);
     console.log(datos);
-    /*this.http.post(`https://reqres.in/api/users`, datos
-    , {headers: new HttpHeaders({'Content-Type': 'application/json'})}).subscribe((mensaje) => {
-    console.log(mensaje);
-  });*/
-    const alert = await this.alertController.create({
-      header: 'La cuenta ha sido creada',
-      message: 'Verifica tu correo para activar la cuenta.',
+    const loading = await this.loadingController.create({
+      cssClass: 'loading',
+      message: 'Por favor espera...',
       mode: 'ios',
-      cssClass: 'failed',
-      backdropDismiss: false,
-      buttons: [
-        {
-          text: 'Aceptar',
-          cssClass: 'btnalert',
-          handler: (data) => { this.router.navigate(['login2']); }
-        }
-      ]
+      spinner: 'dots'
     });
-    alert.present();
+    await loading.present();
+    this.http.post(`${this.urlcreate}`, datos
+    , {headers: new HttpHeaders({'Content-Type': 'application/json'})})
+    .pipe(
+      finalize(() => {
+        loading.dismiss();
+      })
+    )
+    .subscribe(async (mensaje) => {
+    this.ready = mensaje;
+    this.ready2 = this.ready.status;
+    if (this.ready2 === 'SUCCESS'){
+      const alert = await this.alertController.create({
+        header: 'La cuenta ha sido creada',
+        message: 'Verifica tu correo para activar la cuenta.',
+        mode: 'ios',
+        cssClass: 'failed',
+        backdropDismiss: false,
+        buttons: [
+          {
+            text: 'Aceptar',
+            cssClass: 'btnalert',
+            handler: (data) => { this.router.navigate(['login2']); }
+          }
+        ]
+      });
+      alert.present();
+    }
+  });
   }
 }

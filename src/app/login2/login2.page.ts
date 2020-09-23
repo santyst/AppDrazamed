@@ -7,24 +7,32 @@ import { async } from '@angular/core/testing';
 import { AuthService } from '../services/auth.service';
 
 
+
 @Component({
   selector: 'app-login2',
   templateUrl: './login2.page.html',
   styleUrls: ['./login2.page.scss'],
 })
 export class Login2Page implements OnInit {
-   
+nombre: any;
+nombre2: any;
+clave2: any;
+accept = false;
+
 public items3: any;
+
+
   constructor(
     private router: Router,
     public http: HttpClient,
     public menuCtrl: MenuController,
     private alertController: AlertController,
     private platform: Platform,
-    private auth: AuthService
-
+    private auth: AuthService,
+   
   ) {
   }
+
 
 
 public items2: any;
@@ -60,7 +68,6 @@ public items2: any;
   }
 
   goHome(){
-   console.log("button clicked");
    this.router.navigate(['home']);
   }
 
@@ -69,6 +76,5 @@ public items2: any;
 }
 
 
+
 }
-
-
