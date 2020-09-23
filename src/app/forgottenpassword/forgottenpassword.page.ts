@@ -96,6 +96,21 @@ export class ForgottenpasswordPage implements OnInit {
           });
           alert.present();
         }
+        else {
+          const alert = await this.alertController.create({
+            header: 'Verifica tu correo electrónico para ver el código de seguridad',
+            mode: 'ios',
+            cssClass: 'failed',
+            backdropDismiss: false,
+            buttons: [
+              {
+                text: 'Aceptar',
+                cssClass: 'btnalert'
+              }
+            ]
+          });
+          alert.present();
+        }
       });
   }
 
