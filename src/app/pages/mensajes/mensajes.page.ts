@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MenuController, IonSlides } from '@ionic/angular';
+import { MenuController, IonSlides, AlertController, LoadingController } from '@ionic/angular';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { CartService } from 'src/app/services/cart.service';
 import { Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
-import { HttpClient, HttpHeaders} from '@angular/common/http';
-
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-mensajes',
@@ -15,20 +15,24 @@ import { HttpClient, HttpHeaders} from '@angular/common/http';
 export class MensajesPage implements OnInit {
   posteo: Observable<any>;
   postUrl = `https://dev.drazamed.com/user/contact-us`;
+  code: any;
+  code2: any;
 
   dataToSend = {
     name: '',
-  phone: '',
-  msg: '',
-  email: '',
-};
+    phone: '',
+    msg: '',
+    email: '',
+  };
   constructor(
     private menuCtrl: MenuController,
     private cartService: CartService,
     private router: Router,
     private formBuilder: FormBuilder,
-    public http: HttpClient
-  ) { 
+    public http: HttpClient,
+    private alertCtrl: AlertController,
+    private loadingController: LoadingController
+  ) {
     this.cartItemCount = this.cartService.getCartItemCount();
   }
 
@@ -43,34 +47,76 @@ export class MensajesPage implements OnInit {
 
   cartItemCount: BehaviorSubject<number>;
 
-mensajesForm = this.formBuilder.group({
-  nombre: ['', [Validators.required]],
-  telefono: ['', [Validators.required]],
-  correo: ['', [Validators.required]],
-  mensaje: ['', [Validators.required]]
-});
+  mensajesForm = this.formBuilder.group({
+    nombre: ['', [Validators.required]],
+    telefono: ['', [Validators.required]],
+    correo: ['', [Validators.required]],
+    mensaje: ['', [Validators.required]]
+  });
 
   ngOnInit() {
   }
 
   ionViewWillEnter() {
     this.menuCtrl.enable(true);
-   }
-   goCarrito(){
+  }
+  goCarrito() {
     this.router.navigate(['carrito']);
   }
 
-  public submit(){
-    console.log(this.mensajesForm.value);
-    this.mensajesForm.reset();
-  }
-
-
-  postData(){
+  async postData() {
+    console.log('Datos enviados: ');
+    console.log(this.dataToSend);
+    const loading = await this.loadingController.create({
+      cssClass: 'loading',
+      message: 'Por favor espera...',
+      mode: 'ios',
+      spinner: 'dots'
+    });
+    await loading.present();
     this.http.post(`${this.postUrl}`, this.dataToSend
-    ,{headers: new HttpHeaders({"Content-Type":"application/json"})}).subscribe((mensaje) => {
-    console.log(mensaje);
-  });
+      , { headers: new HttpHeaders({ "Content-Type": "application/json" }) })
+      .pipe(
+        finalize(() => {
+          loading.dismiss();
+        })
+      )
+      .subscribe(async (mensaje) => {
+        this.code = mensaje;
+        this.code2 = this.code.status;
+        console.log(this.code2);
+        if (this.code2 === 'SUCCESS'){
+         const alert = await this.alertCtrl.create({
+        message: '<img src = "../../assets/img/RECURSOS/check.png" class="alert">El mensaje fue enviado',
+        mode: 'ios',
+        cssClass: 'failed',
+        buttons: [
+          {
+            text: 'Aceptar',
+            cssClass: 'btnalert',
+          }
+        ]
+         });
+         await alert.present();
+         this.mensajesForm.reset();
+        }
+       else {
+        const alert = await this.alertCtrl.create({
+          message: '<img src = "../../assets/img/RECURSOS/wrong.png" class="alert">El mensaje no fue enviado',
+          mode: 'ios',
+          cssClass: 'failed',
+          buttons: [
+            {
+              text: 'Aceptar',
+              cssClass: 'btnalert',
+            }
+          ]
+           });
+        await alert.present();
+       }
+      });
   }
+
+
 
 }

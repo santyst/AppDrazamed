@@ -103,22 +103,32 @@ const routes: Routes = [
   {
     path: 'pedidoscompletados',
     loadChildren: () => import('./pages/pedidoscompletados/pedidoscompletados.module').then( m => m.PedidoscompletadosPageModule), canActivate: [AuthGuard]
-  },  {
+  },
+  {
     path: 'createalarm',
-    loadChildren: () => import('./pages/createalarm/createalarm.module').then( m => m.CreatealarmPageModule)
+    loadChildren: () => import('./pages/createalarm/createalarm.module').then( m => m.CreatealarmPageModule), canActivate: [AuthGuard]
   },
   {
     path: 'adddirection',
-    loadChildren: () => import('./pages/adddirection/adddirection.module').then( m => m.AdddirectionPageModule)
+    loadChildren: () => import('./pages/adddirection/adddirection.module').then( m => m.AdddirectionPageModule), canActivate: [AuthGuard]
   },
   {
     path: 'processtreatment',
-    loadChildren: () => import('./pages/processtreatment/processtreatment.module').then( m => m.ProcesstreatmentPageModule)
+    loadChildren: () => import('./pages/processtreatment/processtreatment.module').then( m => m.ProcesstreatmentPageModule), canActivate: [AuthGuard]
   },
   {
     path: 'checkout',
-    loadChildren: () => import('./pages/checkout/checkout.module').then( m => m.CheckoutPageModule)
+    loadChildren: () => import('./pages/checkout/checkout.module').then( m => m.CheckoutPageModule), canActivate: [AuthGuard]
   },
+  {
+    path: 'request-open',
+    loadChildren: () => import('./pages/request-open/request-open.module').then( m => m.RequestOpenPageModule), canActivate: [AuthGuard]
+  },
+  {
+    path: 'request-closed',
+    loadChildren: () => import('./pages/request-closed/request-closed.module').then( m => m.RequestClosedPageModule), canActivate: [AuthGuard]
+  },
+
 
 
 

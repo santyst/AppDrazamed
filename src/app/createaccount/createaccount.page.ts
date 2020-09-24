@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { MenuController, AlertController } from '@ionic/angular';
 import * as moment from 'moment';
 import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
@@ -26,36 +26,36 @@ export class CreateaccountPage implements OnInit {
     private userService: UserService
   ) {
       this.registroForm = this.formBuilder.group({
-        nombre: new FormControl('', [Validators.required]),
-        apellido: new FormControl('', [Validators.required]),
-        correo: new FormControl('', {validators: [Validators.required, Validators.pattern('^[a-zA-Z0-9._%-]+@([a-zA-Z0-9.-][a-zA-Z0-9.-])+.[a-zA-Z]{2,4}$')],
+        first_name: new FormControl('', [Validators.required]),
+        last_name: new FormControl('', [Validators.required]),
+        email: new FormControl('', {validators: [Validators.required, Validators.pattern('^[a-zA-Z0-9._%-]+@([a-zA-Z0-9.-][a-zA-Z0-9.-])+.[a-zA-Z]{2,4}$')],
         asyncValidators: [uniqueDisplayName(this.userService, 100)],
         updateOn: 'blur' }),
-        clave: new FormControl('', [Validators.required]),
-        reclave: new FormControl('', [Validators.required])
+        password: new FormControl('', [Validators.required]),
+        confirm_password: new FormControl('', [Validators.required])
       },
       {
         validators: this.password.bind(this)
       });
     }
 
-  get gDisplayName() { return this.registroForm.controls.correo; }
+  get gDisplayName() { return this.registroForm.controls.email; }
 
   status: string;
   accept: boolean;
-  register = {
-    nombre: '',
-    apellido: '',
-    correo: '',
-    clave: '',
-    reclave: ''
+  register1 = {
+    first_name: '',
+    last_name: '',
+    email: '',
+    password: '',
+    confirm_password: ''
   };
 
   registroForm: FormGroup;
 
   // tslint:disable-next-line: variable-name
   error_messages = {
-    correo: [{type: 'pattern', message: 'Ingresa un email valido'}]
+    email: [{type: 'pattern', message: 'Ingresa un email valido'}]
   };
 
   ngOnInit() {
@@ -64,8 +64,8 @@ export class CreateaccountPage implements OnInit {
     this.menuCtrl.enable(false);
    }
    password(formGroup: FormGroup) {
-    const { value: password } = formGroup.get('clave');
-    const { value: confirmPassword } = formGroup.get('reclave');
+    const { value: password } = formGroup.get('password');
+    const { value: confirmPassword } = formGroup.get('confirm_password');
     return password === confirmPassword ? null : { passwordNotMatch: true };
   }
   CreateA(){
@@ -73,7 +73,11 @@ export class CreateaccountPage implements OnInit {
     , {headers: new HttpHeaders({'Content-Type': 'application/json'})}).subscribe((mensaje) => {
     console.log(mensaje);
   });*/
-  console.log(this.register);
-  this.router.navigate(['createaccount2']);
+  const navigationExtras: NavigationExtras = {
+    state: {
+      user: this.register1
+    }
+  };
+  this.router.navigate(['createaccount2'], navigationExtras);
   }
 }

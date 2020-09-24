@@ -73,6 +73,7 @@ user: any;
       inputs: [
         {
           name: 'comentario',
+          cssClass: 'inputs',
           type: 'text',
           placeholder: 'Escribe tu comentario'
         }

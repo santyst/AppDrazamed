@@ -21,4 +21,10 @@ goBack(){
 ionViewWillEnter() {
   this.menuCtrl.enable(false);
  }
+ goOpen(){
+  this.router.navigate(['request-open']);
+ }
+ goClosed(){
+  this.router.navigate(['request-closed']);
+ }
 }
