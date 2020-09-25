@@ -98,7 +98,7 @@ switchMap(token => {
   if (this.items2 !== 'ACTIVE'){
     return of(null);
   }
-  this.usuario = {name: this.items.name , email: this.items.email};
+  this.usuario = {name: this.items.name , email: this.items.email, user_id: this.items.data.user_id};
   const decoded = helper.decodeToken(token);
 // console.log('login decoded: ', decoded);
   this.userData.next(decoded);
