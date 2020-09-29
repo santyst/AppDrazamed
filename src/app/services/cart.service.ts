@@ -43,7 +43,7 @@ export class CartService {
     });
   }
 
-  
+
   getCurrent() {
     this.user1 = this.auth.getusuario();
     this.userid = this.user1.email;
@@ -125,7 +125,7 @@ export class CartService {
         if (p.medicine_count == 0) {
           this.cart.splice(index, 1);
           this.user = this.auth.getusuario();
-          this.userid1 = this.user.email;    
+          this.userid1 = this.user.email;
           this.http.get(`${this.cartUrl3}email=${this.userid1}&item_code=${product.item_code}`).subscribe((val) => {
             console.log(val);
           });
