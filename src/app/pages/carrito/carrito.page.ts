@@ -11,6 +11,7 @@ import { FilePath } from '@ionic-native/file-path/ngx';
 
 import { finalize } from 'rxjs/operators';
 import { getInterpolationArgsLength } from '@angular/compiler/src/render3/view/util';
+import { AuthService } from 'src/app/services/auth.service';
 
 const STORAGE_KEY = 'my_images';
 
@@ -20,21 +21,29 @@ const STORAGE_KEY = 'my_images';
   styleUrls: ['./carrito.page.scss'],
 })
 export class CarritoPage implements OnInit {
+  
+  user: any;
+  userid: any;
+  mycart: any;
   constructor(private router: Router, private menuCtrl: MenuController, private cartService: CartService,
-              private alertCtrl: AlertController, private camera: Camera, private file: File, private http: HttpClient,
-              private webview: WebView,
-              private actionSheetController: ActionSheetController, private toastController: ToastController,
-              private storage: Storage, private plt: Platform, private loadingController: LoadingController,
-              private ref: ChangeDetectorRef, private filePath: FilePath, private platform: Platform) {
-
+    private alertCtrl: AlertController, private camera: Camera, private file: File, private http: HttpClient,
+    private webview: WebView,
+    private actionSheetController: ActionSheetController, private toastController: ToastController,
+    private storage: Storage, private plt: Platform, private loadingController: LoadingController,
+    private ref: ChangeDetectorRef, private filePath: FilePath, private platform: Platform, private auth: AuthService) {
+      this.mycart = this.cartService.getCurrent();
+      console.log(this.mycart);
   }
 
   images = [];
   apiUrl3 = `https://dev.drazamed.com`;
   imgUrl = `https://dev.drazamed.com/images/products/default.png`;
   postUrl = `https://testsanti.000webhostapp.com/phpserver/posts.php`;
+  apiImg = `https://dev.drazamed.com/images/products/`;
+  apiUrl8 = `.jpg`;
   cart = [];
-  xd: any;
+  value: any;
+  name: any;
   text: any;
   total: any;
   orden: any;
@@ -43,10 +52,12 @@ export class CarritoPage implements OnInit {
       this.loadStoredImages();
     });
     this.cart = this.cartService.getCart();
+   
     for (const formula of this.cart) {
       if (formula.is_pres_required === 1) {
-        this.xd = formula.value;
-        this.text = `El medicamento ${this.xd} requiere adjuntar fórmula médica`;
+        this.value = formula.value;
+        this.name = formula.name;
+        this.text = `El medicamento ${this.value || this.name} requiere adjuntar fórmula médica`;
         const alert = await this.alertCtrl.create({
           header: this.text,
           message: '<img src = "../../assets/img/RECURSOS/iconos drazamed-27.png" class="alert">',
@@ -62,6 +73,7 @@ export class CarritoPage implements OnInit {
         await alert.present();
       }
     }
+   
   }
 
   goPerfil() {
@@ -69,6 +81,9 @@ export class CarritoPage implements OnInit {
   }
   ionViewWillEnter() {
     this.menuCtrl.enable(false);
+    this.user = this.auth.getusuario();
+    this.userid = this.user.email;
+    console.log(this.userid);
   }
   goHome() {
     this.router.navigate(['home']);
@@ -87,7 +102,7 @@ export class CarritoPage implements OnInit {
   }
 
   getTotal() {
-    return this.cart.reduce((i, j) => i + j.mrp * j.amount, 0);
+    return this.cart.reduce((i, j) => i + j.mrp || j.unit_price * j.medicine_count, 0);
   }
   goBuscar() {
     this.router.navigate(['medicamentos']);
@@ -321,8 +336,8 @@ export class CarritoPage implements OnInit {
       producto: this.cart,
     };
     this.http.post(`https://httpbin.org/post`,
-    this.orden, {headers: new HttpHeaders({"Content-Type":"application/json"})}).subscribe((mensaje) => {
-      console.log(mensaje);
-    });
+      this.orden, { headers: new HttpHeaders({ "Content-Type": "application/json" }) }).subscribe((mensaje) => {
+        console.log(mensaje);
+      });
   }
 }
