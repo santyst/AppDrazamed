@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { CartService } from 'src/app/services/cart.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ThrowStmt } from '@angular/compiler';
+import { async } from '@angular/core/testing';
 
 @Component({
   selector: 'app-categorias',
@@ -31,7 +32,9 @@ med3: any;
 med4: any;
 med5: any;
 data1: any;
+err1: any;
 medis: any;
+imagen: any;
 searchres: any;
 searchres2: any;
 searchres3: any;
@@ -54,14 +57,17 @@ searchres5: any;
           this.searchres5 = this.searchres.result.msg;
           // console.log(this.searchres2);
           console.log(this.searchres5);
+          
         });
         this.http.get(`${this.apiUrl4}${this.categorias}&xlab=icom`).subscribe((res) => {
           this.searchres3 = res;
           this.searchres4 = this.searchres3.result.msg;
           console.log(this.searchres4);
+          
         });
       }
     });
+    
   }
   ngOnInit() {
   }

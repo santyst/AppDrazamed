@@ -21,8 +21,9 @@ export class MedicamentosPage implements OnInit {
   fullmed: any;
   fullmed1: any;
   fullmed2: any;
-  apiURL = `https://drazamed.com/medicine/load-medicine-web/1?term=`;
+  apiURL = `https://dev.drazamed.com/medicine/load-medicine-web/1?term=`;
   apiUrl7 = `https://dev.drazamed.com/images/products/`;
+  apiUrl5 = `https://dev.drazamed.com`
   apiUrl8 = `.jpg`;
   items: any[] = [];
  apiURL2 = `https://dev.drazamed.com/medicine/load-medicine-web/0?n=`;
