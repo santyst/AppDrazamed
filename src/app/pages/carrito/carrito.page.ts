@@ -25,6 +25,9 @@ export class CarritoPage implements OnInit {
   user: any;
   userid: any;
   mycart: any;
+  cantidad = [];
+  item_code = [];
+  formula = [];
   constructor(private router: Router, private menuCtrl: MenuController, private cartService: CartService,
     private alertCtrl: AlertController, private camera: Camera, private file: File, private http: HttpClient,
     private webview: WebView,
@@ -42,6 +45,7 @@ export class CarritoPage implements OnInit {
   apiImg = `https://dev.drazamed.com/images/products/`;
   apiUrl8 = `.jpg`;
   cart = [];
+  user1: any;
   value: any;
   name: any;
   text: any;
@@ -52,7 +56,7 @@ export class CarritoPage implements OnInit {
       this.loadStoredImages();
     });
     this.cart = this.cartService.getCart();
-   
+   console.log(this.cart);
     for (const formula of this.cart) {
       if (formula.is_pres_required === 1) {
         this.value = formula.value;
@@ -330,12 +334,23 @@ export class CarritoPage implements OnInit {
 
   }
   send() {
+    this.user1 = this.auth.getusuario();
+    this.userid = this.user1.email;
+    for(let code of this.cart){
+    this.item_code.push(code.item_code);
+    this.cantidad.push(code.medicine_count);
+    this.formula.push(code.is_pres_required);
+  }
 
     this.orden = {
-      total: this.getTotal(),
-      producto: this.cart,
+      email: this.userid,
+      cart_length: this.cart.length,
+      shipping_cost: 0,
+      quantity: this.cantidad,
+      is_pres_required: 0,
+      item_code: this.item_code
     };
-    this.http.post(`https://httpbin.org/post`,
+    this.http.post(`https://dev.drazamed.com/medicine/store-prescription/0`,
       this.orden, { headers: new HttpHeaders({ "Content-Type": "application/json" }) }).subscribe((mensaje) => {
         console.log(mensaje);
       });

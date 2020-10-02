@@ -16,14 +16,8 @@ export class CartService {
   userid1: any;
   items: any;
   items2: any;
-  items4: any;
-  items3: any;
   cont: any;
-  mrp: any;
-  suma: any;
-  subtotal: any;
   productos: any;
-  conteo: any;
   carro: any;
   cartUrl = `https://dev.drazamed.com/medicine/add-cart/0?`;
   cartUrl2 = `https://dev.drazamed.com/medicine/update-cart/0?`;
@@ -60,7 +54,6 @@ export class CartService {
     this.http.get(`${this.mycart}${this.userid}`).subscribe((val) => {
       this.items = val;
       this.items2 = this.items.items;
-      this.suma = 0;
       this.productos = 0;
       for (let contador of this.items2) {
 
