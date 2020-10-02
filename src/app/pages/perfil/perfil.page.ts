@@ -74,7 +74,7 @@ user: any;
         {
           name: 'comentario',
           cssClass: 'inputs',
-          type: 'text',
+          type: 'textarea',
           placeholder: 'Escribe tu comentario'
         }
       ]
