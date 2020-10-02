@@ -30,12 +30,14 @@
         <ion-col size="6" class="info_product">
           <p class="name_product" style="color: #00a1dd !important" >{{p.value}}</p>
           <p class="price_product">${{p.mrp | number}}</p>
+          <p *ngIf="p.quantity <= 50" class="notavailable">No disponible</p>
+          <p *ngIf="p.quantity > 50" class="available">Disponible</p>
         </ion-col>
       </ion-row>
       <ion-row class="action_products">
         <ion-col size="6"></ion-col>
         <ion-col size="6">
-          <ion-button class="btn_add" (click)="addToCart(p)">
+          <ion-button class="btn_add" (click)="addToCart(p)" [disabled]="p.quantity <= 50">
            A<p class="btn_text">gregar</p>
           </ion-button>
         </ion-col>
