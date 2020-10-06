@@ -20,7 +20,7 @@
         <ion-item  button *ngFor="let med of items " (click)="fillSearchbarText(med.value)">
           <ion-row class="result_search">
             <ion-col size="3" class="align-self img_product">
-              <img src={{apiUrl5}}{{med.imgUrl}} class="mx-auto d-block" width="100%">
+              <img src={{base_url}}{{apiUrl5}}{{med.imgUrl}} class="mx-auto d-block" width="100%">
             </ion-col>
             <ion-col size="9" class="align-self">
                <p class="name_product">{{med.value}}</p>

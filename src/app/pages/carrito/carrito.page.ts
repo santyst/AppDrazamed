@@ -12,6 +12,7 @@ import { FilePath } from '@ionic-native/file-path/ngx';
 import { finalize } from 'rxjs/operators';
 import { getInterpolationArgsLength } from '@angular/compiler/src/render3/view/util';
 import { AuthService } from 'src/app/services/auth.service';
+import { ConfigService } from 'src/app/services/config.service'
 
 const STORAGE_KEY = 'my_images';
 
@@ -28,21 +29,23 @@ export class CarritoPage implements OnInit {
   cantidad = [];
   item_code = [];
   formula = [];
+  base_url: any;
   constructor(private router: Router, private menuCtrl: MenuController, private cartService: CartService,
     private alertCtrl: AlertController, private camera: Camera, private file: File, private http: HttpClient,
     private webview: WebView,
     private actionSheetController: ActionSheetController, private toastController: ToastController,
     private storage: Storage, private plt: Platform, private loadingController: LoadingController,
-    private ref: ChangeDetectorRef, private filePath: FilePath, private platform: Platform, private auth: AuthService) {
+    private ref: ChangeDetectorRef, private filePath: FilePath, private platform: Platform, private auth: AuthService, private config: ConfigService) {
+      this.base_url = config.get_base_url();
       this.mycart = this.cartService.getCurrent();
       console.log(this.mycart);
   }
 
   images = [];
   apiUrl3 = `https://dev.drazamed.com`;
-  imgUrl = `https://dev.drazamed.com/images/products/default.png`;
+  imgUrl = `images/products/default.png`;
   postUrl = `https://testsanti.000webhostapp.com/phpserver/posts.php`;
-  apiImg = `https://dev.drazamed.com/images/products/`;
+  apiImg = `images/products/`;
   apiUrl8 = `.jpg`;
   cart = [];
   user1: any;
@@ -353,7 +356,7 @@ export class CarritoPage implements OnInit {
       is_pres_required: 0,
       item_code: this.item_code
     };
-    this.http.post(`https://dev.drazamed.com/medicine/store-prescription/0`,
+    this.http.post(`${this.base_url}medicine/store-prescription/0`,
       this.orden, { headers: new HttpHeaders({ "Content-Type": "application/json" }) }).subscribe((mensaje) => {
         console.log(mensaje);
       });

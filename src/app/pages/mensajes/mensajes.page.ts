@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { finalize } from 'rxjs/operators';
+import { ConfigService } from 'src/app/services/config.service'
 
 @Component({
   selector: 'app-mensajes',
@@ -14,9 +15,10 @@ import { finalize } from 'rxjs/operators';
 })
 export class MensajesPage implements OnInit {
   posteo: Observable<any>;
-  postUrl = `https://dev.drazamed.com/user/contact-us`;
+  postUrl = `user/contact-us`;
   code: any;
   code2: any;
+  base_url: any;
 
   dataToSend = {
     name: '',
@@ -31,8 +33,10 @@ export class MensajesPage implements OnInit {
     private formBuilder: FormBuilder,
     public http: HttpClient,
     private alertCtrl: AlertController,
-    private loadingController: LoadingController
+    private loadingController: LoadingController,
+    private config: ConfigService
   ) {
+    this.base_url = config.get_base_url();
     this.cartItemCount = this.cartService.getCartItemCount();
   }
 

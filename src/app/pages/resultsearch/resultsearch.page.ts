@@ -5,6 +5,8 @@ import { ModalController } from '@ionic/angular';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { CarritoPage } from '../carrito/carrito.page';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { ConfigService } from 'src/app/services/config.service'
+
 
 @Component({
   selector: 'app-resultsearch',
@@ -14,21 +16,29 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 export class ResultsearchPage implements OnInit {
 
 
-  apiUrl7 = `https://dev.drazamed.com/images/products/`;
+  apiUrl7 = `images/products/`;
   apiUrl8 = `.jpg`;
-  imagen1 = `https://dev.drazamed.com/images/products/default.png`;
+  imagen1 = `images/products/default.png`;
   cartItemCount: BehaviorSubject<number>;
   posteo: Observable<any>;
-  imgUrl = [{ imagen: `https://dev.drazamed.com/images/products/default.png` }];
+  imgUrl = [{ imagen: `images/products/default.png` }];
   data: any;
   data1: any;
   formul: any[] = [];
   name: '';
+  base_url: any;
   
   err1: any;
   // tslint:disable-next-line: max-line-length
-  constructor(private route: ActivatedRoute, private http: HttpClient, private cartService: CartService, private modalCtrl: ModalController, private router: Router) {
+  constructor(
+    private route: ActivatedRoute, 
+    private http: HttpClient, 
+    private cartService: CartService, 
+    private modalCtrl: ModalController, 
+    private router: Router,
+    private config: ConfigService) {
     this.route.queryParams.subscribe(params => {
+      this.base_url = config.get_base_url();
       if (this.router.getCurrentNavigation().extras.state) {
         this.data = this.router.getCurrentNavigation().extras.state.user;
         this.data1 = this.router.getCurrentNavigation().extras.state.formula;
@@ -39,7 +49,7 @@ export class ResultsearchPage implements OnInit {
           this.formul = ['No se requiere formula'];
         }
         for (let imgg of this.data) {
-          this.http.get(`${this.apiUrl7}${imgg.item_code}${this.apiUrl8}`).subscribe((val) => {
+          this.http.get(`${this.base_url}${this.apiUrl7}${imgg.item_code}${this.apiUrl8}`).subscribe((val) => {
 
           }, async (err: HttpErrorResponse) => {
             this.err1 = err.status;

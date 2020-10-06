@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ThrowStmt } from '@angular/compiler';
 import { async } from '@angular/core/testing';
+import { ConfigService } from 'src/app/services/config.service'
 
 @Component({
   selector: 'app-categorias',
@@ -15,13 +16,13 @@ export class CategoriasPage implements OnInit {
 
 categorias: any;
 cartItemCount: BehaviorSubject<number>;
-apiUrl = `https://dev.drazamed.com/favorites`;
-apiUrl2 = `https://dev.drazamed.com/medicine/load-medicine-web/1?term=`;
-apiUrl3 = `https://dev.drazamed.com/medicine/load-medicine-web/0?n=`;
-apiUrl4 = `https://dev.drazamed.com/medicine/search-medicine/1?cat=`;
-apiUrl5 = `https://dev.drazamed.com`;
-apiUrl6 = `https://dev.drazamed.com/images/products/default.png`;
-apiUrl7 = `https://dev.drazamed.com/images/products/`;
+apiUrl = `favorites`;
+apiUrl2 = `medicine/load-medicine-web/1?term=`;
+apiUrl3 = `medicine/load-medicine-web/0?n=`;
+apiUrl4 = `medicine/search-medicine/1?cat=`;
+apiUrl5 = ``;
+apiUrl6 = `images/products/default.png`;
+apiUrl7 = `images/products/`;
 apiUrl8 = `.jpg`;
 
 fav: any;
@@ -40,18 +41,20 @@ searchres2: any;
 searchres3: any;
 searchres4: any;
 searchres5: any;
+base_url: any;
 
-  constructor(private cartService: CartService, private router: Router, private route: ActivatedRoute,private http: HttpClient) { 
+  constructor(private cartService: CartService, private router: Router, private route: ActivatedRoute,private http: HttpClient, private config: ConfigService) { 
+    this.base_url = config.get_base_url();
     this.cartItemCount = this.cartService.getCartItemCount();
     this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state){
         this.categorias = this.router.getCurrentNavigation().extras.state.cat;
         console.log(this.categorias);
-        this.http.get(`${this.apiUrl}`).subscribe((favorito) => {
+        this.http.get(`${this.base_url}${this.apiUrl}`).subscribe((favorito) => {
           this.fav = favorito;
           this.fav2 = this.fav.result.msg;
         });
-        this.http.get(`${this.apiUrl4}${this.categorias}&lab=icom`).subscribe((res) => {
+        this.http.get(`${this.base_url}${this.apiUrl4}${this.categorias}&lab=icom`).subscribe((res) => {
           this.searchres = res;
           // this.searchres2 = this.searchres.result.status;
           this.searchres5 = this.searchres.result.msg;
@@ -59,7 +62,7 @@ searchres5: any;
           console.log(this.searchres5);
           
         });
-        this.http.get(`${this.apiUrl4}${this.categorias}&xlab=icom`).subscribe((res) => {
+        this.http.get(`${this.base_url}${this.apiUrl4}${this.categorias}&xlab=icom`).subscribe((res) => {
           this.searchres3 = res;
           this.searchres4 = this.searchres3.result.msg;
           console.log(this.searchres4);

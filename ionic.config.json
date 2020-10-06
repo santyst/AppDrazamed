@@ -3,6 +3,6 @@
   "integrations": {
     "cordova": {}
   },
-  "type": "angular"
+  "type": "angular",
+  "url_base": "http://dra.devel/"
 }
-

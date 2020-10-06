@@ -1,9 +1,10 @@
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
-import { MenuController, IonSearchbar } from '@ionic/angular';
+import { MenuController, IonSearchbar, Config } from '@ionic/angular';
 import { Router, NavigationExtras } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { CartService } from 'src/app/services/cart.service';
+import { ConfigService} from 'src/app/services/config.service';
 
 
 @Component({
@@ -21,19 +22,22 @@ export class MedicamentosPage implements OnInit {
   fullmed: any;
   fullmed1: any;
   fullmed2: any;
-  apiURL = `https://dev.drazamed.com/medicine/load-medicine-web/1?term=`;
-  apiUrl7 = `https://dev.drazamed.com/images/products/`;
-  apiUrl5 = `https://dev.drazamed.com`
+  base_url:any;
+  apiURL = `medicine/load-medicine-web/1?term=`;
+  apiUrl7 = `images/products/`;
+  apiUrl5 = ``
   apiUrl8 = `.jpg`;
   items: any[];
- apiURL2 = `https://dev.drazamed.com/medicine/load-medicine-web/0?n=`;
+ apiURL2 = `medicine/load-medicine-web/0?n=`;
   constructor(
     private menuCtrl: MenuController,
     private router: Router,
     private http: HttpClient,
-    private cartService: CartService
+    private cartService: CartService,
+    private config: ConfigService
   ) {
-    
+    console.log(config.get_base_url());
+    this.base_url = config.get_base_url();
     this.cartItemCount = this.cartService.getCartItemCount();
 }
 
@@ -55,7 +59,7 @@ getItems(ev: any) {
   // if the value is an empty string don't filter the items
   if (val && val.trim() !== '') {
       this.isItemAvailable = true;
-      this.http.get(`${this.apiURL}${val}`).subscribe((response) => {
+      this.http.get(`${this.base_url}${this.apiURL}${val}`).subscribe((response) => {
         this.meds = response;
         this.items = this.meds;
     });
@@ -68,7 +72,7 @@ fillSearchbarText(item: string){
   this.isItemAvailable = false;
   this.itemSelected.emit(item);
   console.log(item);
-  this.http.get(`${this.apiURL2}${item}`).subscribe((res) => {
+  this.http.get(`${this.base_url}${this.apiURL2}${item}`).subscribe((res) => {
     this.fullmed = res;
     this.fullmed1 = this.fullmed.data;
     this.fullmed2 = this.fullmed.data [0].is_pres_required;
