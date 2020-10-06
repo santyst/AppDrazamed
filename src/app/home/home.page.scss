@@ -187,8 +187,8 @@ ion-grid{
   margin-top: -2px !important;
 }
 .elementos{
-  min-height: 230px !important;
-  max-height: 230px !important;
+  min-height: 260px !important;
+  max-height: 260px !important;
 }
 .btn-continue{
   margin-left: auto!important;
@@ -298,4 +298,16 @@ font-size: 16px;
   height: 20px;
   font-size: 16px;
   }
+}
+.available{
+  font-size: 17px !important;
+  color: #008000 !important;
+  line-height: 18px !important;
+  margin: 5px 0px !important;
+}
+.notavailable{
+  font-size: 17px !important;
+  color: #ff0000 !important;
+  line-height: 18px !important;
+  margin: 5px 0px !important;
 }

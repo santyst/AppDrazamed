@@ -20,19 +20,24 @@
     <ion-grid *ngFor="let p of data">
       <ion-row>
         <ion-col size="6">
-             <div class="img_product" >
+             <div class="img_product" *ngIf="err1 !== 404" >
                 <img src={{apiUrl7}}{{p.item_code}}{{apiUrl8}} class="img-fluid">
+             </div>
+             <div class="img_product" *ngIf="err1 === 404">
+              <img  src={{imagen1}} class="img-fluid">
              </div>
         </ion-col>
         <ion-col size="6" class="info_product">
           <p class="name_product" style="color: #00a1dd !important" >{{p.value}}</p>
           <p class="price_product">${{p.mrp | number}}</p>
+          <p *ngIf="p.quantity <= 40" class="notavailable">No disponible</p>
+          <p *ngIf="p.quantity > 40" class="available">Disponible</p>
         </ion-col>
       </ion-row>
       <ion-row class="action_products">
         <ion-col size="6"></ion-col>
         <ion-col size="6">
-          <ion-button class="btn_add" (click)="addToCart(p)">
+          <ion-button class="btn_add" (click)="addToCart(p)" [disabled]="p.quantity <= 40">
            A<p class="btn_text">gregar</p>
           </ion-button>
         </ion-col>

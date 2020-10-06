@@ -63,7 +63,7 @@
 </ion-slides>
 </div>
 
-<div class="container">
+<!--<div class="container">
 <p class="title_seccion">Ofertas</p>
 <div class="categorias">
 <ion-grid>
@@ -89,7 +89,8 @@
   </ion-row>
 </ion-grid>
 </div>
-</div>
+</div>-->
+
 <div class="container">
   <p class="title_seccion">Nuestros productos</p>
   <div class="categorias">
@@ -101,16 +102,18 @@
              <ion-card class="card_product" color="light" *ngFor="let datas of items4"> 
               <div class="elementos">
                 <div class=" align-self-center pt-10 pb-10">
-                   <img src={{apiUrl7}}{{datas.item_code}}{{apiUrl8}} alt="" class="img-fluid">
+                   <img src={{apiURL3}}{{datas.url_img}}  alt="" class="img-fluid">
                  <!-- <img src={{apiUrl1}} class="img-fluid">-->
                 </div>
-                <div class="align-self-center">
+                <div class="parrafos">
                   <ion-card-title class="price_product pt-20">${{datas.mrp | number}}</ion-card-title>
                     <p class="name_product ion-text-wrap textadjust">{{datas.name}}</p>      
                     <p class="description_product ">{{datas.composition}}</p>
+                    <p *ngIf="datas.quantity <= 40" class="notavailable">No disponible</p>
+                    <p *ngIf="datas.quantity > 40" class="available">Disponible</p>
                   </div>
                 </div>
-                <ion-button class="btn_product" (click)="addToCart(datas)">Agregar</ion-button> 
+                <ion-button class="btn_product" (click)="addToCart(datas)" [disabled]="datas.quantity <= 40">Agregar</ion-button> 
              </ion-card>
             </ion-segment>
            </div>

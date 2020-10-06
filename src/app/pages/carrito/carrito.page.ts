@@ -4,7 +4,7 @@ import { MenuController, AlertController, ActionSheetController, ToastController
 import { CartService } from 'src/app/services/cart.service';
 import { Camera, CameraOptions, PictureSourceType } from '@ionic-native/Camera/ngx';
 import { File, FileEntry } from '@ionic-native/File/ngx';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { Storage } from '@ionic/storage';
 import { FilePath } from '@ionic-native/file-path/ngx';
@@ -51,6 +51,8 @@ export class CarritoPage implements OnInit {
   text: any;
   total: any;
   orden: any;
+  err1: any;
+  med: any;
   async ngOnInit() {
     this.plt.ready().then(() => {
       this.loadStoredImages();
@@ -61,7 +63,8 @@ export class CarritoPage implements OnInit {
       if (formula.is_pres_required === 1) {
         this.value = formula.value;
         this.name = formula.name;
-        this.text = `El medicamento ${this.value || this.name} requiere adjuntar fórmula médica`;
+        this.med = formula.medicine_name;
+        this.text = `El medicamento ${this.value || this.name || this.med} requiere adjuntar fórmula médica`;
         const alert = await this.alertCtrl.create({
           header: this.text,
           message: '<img src = "../../assets/img/RECURSOS/iconos drazamed-27.png" class="alert">',
