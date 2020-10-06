@@ -7,6 +7,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { UserService } from '../services/user.service';
 import { uniqueDisplayName } from '../validators/unique_user';
+import { ConfigService } from 'src/app/services/config.service'
 
 
 @Component({
@@ -16,7 +17,7 @@ import { uniqueDisplayName } from '../validators/unique_user';
 })
 export class CreateaccountPage implements OnInit {
 
-  apiURL = `https://dev.drazamed.com/user/check-user-name?`;
+  apiURL = `user/check-user-name?`;
   constructor(
     private router: Router,
     private menuCtrl: MenuController,

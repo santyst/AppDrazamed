@@ -10,6 +10,7 @@ import { Token } from '@angular/compiler/src/ml_parser/lexer';
 import { strict } from 'assert';
 import { stringify } from 'querystring';
 import { data } from 'jquery';
+import { ConfigService } from 'src/app/services/config.service'
 
 
 
@@ -22,7 +23,7 @@ const TOKEN_KEY = 'jwt-token';
 })
 export class AuthService {
 
-  apiURL = `https://dev.drazamed.com/user/user-login/0?`;
+  apiURL = `user/user-login/0?`;
 
   public items: any;
   public user: Observable<any>;
@@ -31,13 +32,16 @@ export class AuthService {
   public items3: any;
   status: string;
   public usuario: any;  
+  base_url: any;
 
   constructor(
     private storage: Storage,
     private http: HttpClient,
     private plt: Platform,
     private router: Router,
+    private config: ConfigService,
     private alertController: AlertController) {
+      this.base_url = config.get_base_url();
       this.loadStoredToken();
      }
 
@@ -64,7 +68,7 @@ this.user = platformObs.pipe(
 
 login(credentials: {email: string, password: string}){
   let data: Observable <any>;
-  data = this.http.get(`${this.apiURL}email=${credentials.email}&password=${credentials.password}`);
+  data = this.http.get(`${this.base_url}${this.apiURL}email=${credentials.email}&password=${credentials.password}`);
   data.subscribe(result => {
     this.items = result;
     this.items2 = this.items.data.status;
@@ -89,7 +93,7 @@ login(credentials: {email: string, password: string}){
   });
 
 
-  return this.http.get(`${this.apiURL}email=${credentials.email}&password=${credentials.password}`).pipe(
+  return this.http.get(`${this.base_url}${this.apiURL}email=${credentials.email}&password=${credentials.password}`).pipe(
 take(1),
 map(res => {
 return `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkRyYXphbWVkIiwiaWF0IjoxNTE2MjM5MDIyfQ.4x0iejWjRVH3V7ULcX0-vRmxeR8NLdlFGvx69CuBrrY`;

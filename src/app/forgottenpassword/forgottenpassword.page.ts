@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { AlertController, LoadingController, MenuController } from '@ionic/angular';
 import { finalize } from 'rxjs/operators';
+import { ConfigService } from 'src/app/services/config.service'
 
 @Component({
   selector: 'app-forgottenpassword',
@@ -16,8 +17,8 @@ export class ForgottenpasswordPage implements OnInit {
   ready2: any;
   ready3: any;
   ready4: any;
-  postForget = `https://dev.drazamed.com/user/reset-password`;
-  resetUrl = `https://dev.drazamed.com/user/reset-password`;
+  postForget = `user/reset-password`;
+  resetUrl = `user/reset-password`;
   forgottenForm: FormGroup;
   getNewForm: FormGroup;
   constructor(

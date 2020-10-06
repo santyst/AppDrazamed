@@ -4,6 +4,7 @@ import { MenuController, IonSlides } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { CartService } from '../services/cart.service';
+import { ConfigService } from 'src/app/services/config.service'
 
 
 @Component({
@@ -29,13 +30,13 @@ public items4: any;
 public items5: any;
 public items6: any;
 med3: any;
-apiURL = `https://dev.drazamed.com/medicine/load-medicine-cats/0`;
-apiURL2 = `https://dev.drazamed.com/favorites`;
-apiURL3 = `https://dev.drazamed.com`;
-apiUrl7 = `https://dev.drazamed.com/images/products/`;
+apiURL = `medicine/load-medicine-cats/0`;
+apiURL2 = `favorites`;
+apiURL3 = ``;
+apiUrl7 = `images/products/`;
 apiUrl8 = `.jpg`;
-apiUrl1 = `https://dev.drazamed.com/images/products/default.png`;
-
+apiUrl1 = `images/products/default.png`;
+base_url:any;
 
 
   constructor(
@@ -43,13 +44,16 @@ apiUrl1 = `https://dev.drazamed.com/images/products/default.png`;
     private menuCtrl: MenuController,
     private http: HttpClient,
     private cartService: CartService,
+    private config: ConfigService
   ) {
-    this.http.get(`${this.apiURL}`).subscribe((response) => {
+    
+    this.base_url = config.get_base_url();
+    this.http.get(`${this.base_url}${this.apiURL}`).subscribe((response) => {
       this.items = response;
       this.items2 = this.items [0].result.msg;
   });
 
-    this.http.get(`${this.apiURL2}`).subscribe((response) => {
+    this.http.get(`${this.base_url}${this.apiURL2}`).subscribe((response) => {
       this.items3 = response;
       this.items4 = this.items3.result.msg;
     });

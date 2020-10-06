@@ -5,6 +5,7 @@ import { CartService } from 'src/app/services/cart.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { ConfigService } from 'src/app/services/config.service'
 
 
 @Component({
@@ -26,20 +27,23 @@ export class PerfilPage implements OnInit {
   cartItemCount: BehaviorSubject<number>;
   posteo: Observable<any>;
   comentarios: any;
-  postUrl = `https://dev.drazamed.com/user/contact-us`;
+  postUrl = `user/contact-us`;
   user: any;
   usuario: any;
   email: any;
   nombre: any;
   datatoSend: any;
+  base_url: any;
   constructor(
     private menuCtrl: MenuController,
     private cartService: CartService,
     private auth: AuthService,
     public alertCtrl: AlertController,
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private config: ConfigService
   ) {
+    this.base_url = config.get_base_url();
     this.cartItemCount = this.cartService.getCartItemCount();
   }
 

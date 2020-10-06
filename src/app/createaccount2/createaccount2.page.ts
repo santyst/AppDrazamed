@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 import { uniqueDisplayName } from '../validators/unique_user';
 import { finalize } from 'rxjs/operators';
+import { ConfigService } from 'src/app/services/config.service'
 
 
 @Component({
@@ -19,7 +20,7 @@ export class Createaccount2Page implements OnInit {
   form: any;
   ready: any;
   ready2: any;
-  urlcreate = `https://dev.drazamed.com/user/create-user/1`;
+  urlcreate = `user/create-user/1`;
   public registerForm: FormGroup;
   constructor(
     private router: Router,
