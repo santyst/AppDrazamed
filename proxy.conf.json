@@ -1,0 +1,7 @@
+{
+    "/*":{
+        "target":"http://dra.devel/*",
+        "secure":false,
+        "logLevel": "debug"
+    }
+}
