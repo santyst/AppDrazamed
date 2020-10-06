@@ -57,11 +57,11 @@
                     <ion-card-title class="price_product pt-20">${{datas.mrp | number}}</ion-card-title>
                       <p class="name_product ion-text-wrap textadjust">{{datas.name}}</p>      
                       <p class="description_product ">{{datas.composition}}</p>
-                      <p *ngIf="datas.quantity < 50" class="notavailable">No disponible</p>
-                      <p *ngIf="datas.quantity > 50" class="available">Disponible</p>
+                      <p *ngIf="datas.quantity <= 40" class="notavailable">No disponible</p>
+                      <p *ngIf="datas.quantity > 40" class="available">Disponible</p>
                     </div>
                   </div>
-                  <ion-button class="btn_product" (click)="addToCart(datas)" [disabled]="datas.quantity <= 50">Agregar</ion-button> 
+                  <ion-button class="btn_product" (click)="addToCart(datas)" [disabled]="datas.quantity <= 40">Agregar</ion-button> 
                </ion-card>
               </ion-segment>
              </div>

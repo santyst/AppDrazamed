@@ -26,8 +26,8 @@
                <p class="name_product">{{med.value}}</p>
                <p class="description_product">{{med.composition}}</p>
                <p class="price_product">${{ med.mrp | number}}</p>
-                <p *ngIf="med.quantity <= 50" class="notavailable">No disponible</p>
-                <p *ngIf="med.quantity > 50" class="available">Disponible</p>
+                <p *ngIf="med.quantity <= 40" class="notavailable">No disponible</p>
+                <p *ngIf="med.quantity > 40" class="available">Disponible</p>
               </ion-col>
           </ion-row>
         </ion-item>
