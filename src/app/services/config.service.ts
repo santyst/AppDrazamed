@@ -9,7 +9,7 @@ export class ConfigService {
 
 
   constructor() { 
-    this.base_url = "https://dev.drazamed.com/";
+    this.base_url = "http://dra.devel/";
   }
 
 
