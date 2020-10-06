@@ -22,7 +22,7 @@ const TOKEN_KEY = 'jwt-token';
 })
 export class AuthService {
 
-  apiURL = `https://dev.drazamed.com/user/user-login/0?`;
+  apiURL = `http://dra.devel/user/user-login/0?`;
 
   public items: any;
   public user: Observable<any>;

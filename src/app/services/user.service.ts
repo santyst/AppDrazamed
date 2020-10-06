@@ -3,7 +3,7 @@ import { Observable, of } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 const URL = 'https://jsonplaceholder.typicode.com/users';
-const URL2 = 'https://dev.drazamed.com/user/check-user-name?';
+const URL2 = 'http://dra.devel/user/check-user-name?';
 
 @Injectable({
   providedIn: 'root'

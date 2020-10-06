@@ -29,12 +29,12 @@ public items4: any;
 public items5: any;
 public items6: any;
 med3: any;
-apiURL = `https://dev.drazamed.com/medicine/load-medicine-cats/0`;
-apiURL2 = `https://dev.drazamed.com/favorites`;
-apiURL3 = `https://dev.drazamed.com`;
-apiUrl7 = `https://dev.drazamed.com/images/products/`;
+apiURL = `http://dra.devel/medicine/load-medicine-cats/0`;
+apiURL2 = `http://dra.devel/favorites`;
+apiURL3 = `http://dra.devel`;
+apiUrl7 = `http://dra.devel/images/products/`;
 apiUrl8 = `.jpg`;
-apiUrl1 = `https://dev.drazamed.com/images/products/default.png`;
+apiUrl1 = `http://dra.devel/images/products/default.png`;
 
 
 

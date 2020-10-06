@@ -19,10 +19,10 @@ export class CartService {
   cont: any;
   productos: any;
   carro: any;
-  cartUrl = `https://dev.drazamed.com/medicine/add-cart/0?`;
-  cartUrl2 = `https://dev.drazamed.com/medicine/update-cart/0?`;
-  cartUrl3 = `https://dev.drazamed.com/medicine/remove-from-cart-app?`;
-  mycart = `https://dev.drazamed.com/my-cart-app?email=`;
+  cartUrl = `http://dra.devel/medicine/add-cart/0?`;
+  cartUrl2 = `http://dra.devel/medicine/update-cart/0?`;
+  cartUrl3 = `http://dra.devel/medicine/remove-from-cart-app?`;
+  mycart = `http://dra.devel/my-cart-app?email=`;
   private cart = [];
   private cartItemCount = new BehaviorSubject(0);
   constructor(private http: HttpClient, private auth: AuthService, private platform: Platform) {

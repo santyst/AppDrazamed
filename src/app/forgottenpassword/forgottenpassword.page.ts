@@ -16,8 +16,8 @@ export class ForgottenpasswordPage implements OnInit {
   ready2: any;
   ready3: any;
   ready4: any;
-  postForget = `https://dev.drazamed.com/user/reset-password`;
-  resetUrl = `https://dev.drazamed.com/user/reset-password`;
+  postForget = `http://dra.devel/user/reset-password`;
+  resetUrl = `http://dra.devel/user/reset-password`;
   forgottenForm: FormGroup;
   getNewForm: FormGroup;
   constructor(

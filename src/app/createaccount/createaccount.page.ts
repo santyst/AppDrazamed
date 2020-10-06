@@ -16,7 +16,7 @@ import { uniqueDisplayName } from '../validators/unique_user';
 })
 export class CreateaccountPage implements OnInit {
 
-  apiURL = `https://dev.drazamed.com/user/check-user-name?`;
+  apiURL = `http://dra.devel/user/check-user-name?`;
   constructor(
     private router: Router,
     private menuCtrl: MenuController,

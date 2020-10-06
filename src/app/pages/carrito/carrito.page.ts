@@ -39,10 +39,10 @@ export class CarritoPage implements OnInit {
   }
 
   images = [];
-  apiUrl3 = `https://dev.drazamed.com`;
-  imgUrl = `https://dev.drazamed.com/images/products/default.png`;
+  apiUrl3 = `http://dra.devel`;
+  imgUrl = `http://dra.devel/images/products/default.png`;
   postUrl = `https://testsanti.000webhostapp.com/phpserver/posts.php`;
-  apiImg = `https://dev.drazamed.com/images/products/`;
+  apiImg = `http://dra.devel/images/products/`;
   apiUrl8 = `.jpg`;
   cart = [];
   user1: any;
@@ -350,7 +350,7 @@ export class CarritoPage implements OnInit {
       is_pres_required: 0,
       item_code: this.item_code
     };
-    this.http.post(`https://dev.drazamed.com/medicine/store-prescription/0`,
+    this.http.post(`http://dra.devel/medicine/store-prescription/0`,
       this.orden, { headers: new HttpHeaders({ "Content-Type": "application/json" }) }).subscribe((mensaje) => {
         console.log(mensaje);
       });

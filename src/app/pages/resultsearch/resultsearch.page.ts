@@ -14,12 +14,12 @@ import { HttpClient } from '@angular/common/http';
 export class ResultsearchPage implements OnInit {
   
 
-  apiUrl7 = `https://dev.drazamed.com/images/products/`;
+  apiUrl7 = `http://dra.devel/images/products/`;
   apiUrl8 = `.jpg`;
 
  cartItemCount: BehaviorSubject<number>;
 posteo: Observable<any>;
- imgUrl = [{imagen: `https://dev.drazamed.com/images/products/default.png`}];
+ imgUrl = [{imagen: `http://dra.devel/images/products/default.png`}];
  data: any;
  data1: any;
  formul: any[] = [];

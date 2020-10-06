@@ -21,11 +21,11 @@ export class MedicamentosPage implements OnInit {
   fullmed: any;
   fullmed1: any;
   fullmed2: any;
-  apiURL = `https://drazamed.com/medicine/load-medicine-web/1?term=`;
-  apiUrl7 = `https://dev.drazamed.com/images/products/`;
+  apiURL = `http://dra.devel/medicine/load-medicine-web/1?term=`;
+  apiUrl7 = `http://dra.devel/images/products/`;
   apiUrl8 = `.jpg`;
   items: any[] = [];
- apiURL2 = `https://dev.drazamed.com/medicine/load-medicine-web/0?n=`;
+ apiURL2 = `http://dra.devel/medicine/load-medicine-web/0?n=`;
   constructor(
     private menuCtrl: MenuController,
     private router: Router,
@@ -49,6 +49,7 @@ export class MedicamentosPage implements OnInit {
   initializeItems(){
     this.items = this.meds;
 }
+
 getItems(ev: any) {
   // Reset items back to all of the items
   this.initializeItems();
@@ -57,7 +58,7 @@ getItems(ev: any) {
   const val = ev.target.value;
 
   // if the value is an empty string don't filter the items
-  if (val && val.trim() !== '') {
+  if (val && val.trim() !== '' && val.length > 2) {
       this.isItemAvailable = true;
       this.items = this.meds.filter((item: any) => {
           return (item.value.toLowerCase().indexOf(val.toLowerCase()) > -1);

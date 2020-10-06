@@ -19,7 +19,7 @@ export class Createaccount2Page implements OnInit {
   form: any;
   ready: any;
   ready2: any;
-  urlcreate = `https://dev.drazamed.com/user/create-user/1`;
+  urlcreate = `http://dra.devel/user/create-user/1`;
   public registerForm: FormGroup;
   constructor(
     private router: Router,

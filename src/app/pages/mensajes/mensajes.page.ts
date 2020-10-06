@@ -14,7 +14,7 @@ import { finalize } from 'rxjs/operators';
 })
 export class MensajesPage implements OnInit {
   posteo: Observable<any>;
-  postUrl = `https://dev.drazamed.com/user/contact-us`;
+  postUrl = `http://dra.devel/user/contact-us`;
   code: any;
   code2: any;
 
