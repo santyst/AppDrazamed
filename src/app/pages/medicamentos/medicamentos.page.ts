@@ -25,7 +25,7 @@ export class MedicamentosPage implements OnInit {
   apiUrl7 = `https://dev.drazamed.com/images/products/`;
   apiUrl5 = `https://dev.drazamed.com`
   apiUrl8 = `.jpg`;
-  items: any[] = [];
+  items: any[];
  apiURL2 = `https://dev.drazamed.com/medicine/load-medicine-web/0?n=`;
   constructor(
     private menuCtrl: MenuController,
@@ -33,9 +33,7 @@ export class MedicamentosPage implements OnInit {
     private http: HttpClient,
     private cartService: CartService
   ) {
-    this.http.get(`${this.apiURL}`).subscribe((response) => {
-        this.meds = response;
-    });
+    
     this.cartItemCount = this.cartService.getCartItemCount();
 }
 
@@ -47,12 +45,9 @@ export class MedicamentosPage implements OnInit {
   goCarrito(){
     this.router.navigate(['carrito']);
   }
-  initializeItems(){
-    this.items = this.meds;
-}
+  
 getItems(ev: any) {
   // Reset items back to all of the items
-  this.initializeItems();
 
   // set val to the value of the searchbar
   const val = ev.target.value;
@@ -60,9 +55,10 @@ getItems(ev: any) {
   // if the value is an empty string don't filter the items
   if (val && val.trim() !== '') {
       this.isItemAvailable = true;
-      this.items = this.meds.filter((item: any) => {
-          return (item.value.toLowerCase().indexOf(val.toLowerCase()) > -1);
-      });
+      this.http.get(`${this.apiURL}${val}`).subscribe((response) => {
+        this.meds = response;
+        this.items = this.meds;
+    });
   } else {
       this.isItemAvailable = false;
   }
