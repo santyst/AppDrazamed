@@ -21,18 +21,19 @@
     <!-- <img src="../../../assets/img/RECURSOS/iconos drazamed-17.png" class="img_title">-->
     <p class="title_seccion">Carrito de Compras</p>
   </div>
+  <div class="titulo">
+    <p *ngIf="cart.length == 0" class="carrito_vacio">Carrito Vacío</p>
+  </div>
   <div class="container">
     <ion-grid>
 
       <ion-row class="result_search" *ngFor="let p of cart">
         <ion-col size="3" class="align-self-center">
-          <div *ngIf="p.item_code">
+          <div >
             <img src={{apiImg}}{{p.item_code}}{{apiUrl8}} class="img_product" width="100%">
           </div>
 
-          <div *ngIf="!p.item_code">
-            <img src={{imgUrl}} class="img_product" width="100%">
-          </div>
+         
         </ion-col>
 
         <ion-col size="5" class="align-self-center">
@@ -104,7 +105,7 @@
               <p class="name_product">Subtotal</p>
             </ion-col>
             <ion-col size="6">
-              <p class="description_product">$000.000</p>
+              <p class="description_product">${{ getTotal() | number }}</p>
             </ion-col>
           </ion-row>
 
@@ -131,7 +132,7 @@
               <p class="name_product">Total</p>
             </ion-col>
             <ion-col size="6">
-              <p class="description_product">${{ getTotal() | number }}</p>
+              <p class="description_product">$000.000</p>
             </ion-col>
           </ion-row>
         </ion-grid>

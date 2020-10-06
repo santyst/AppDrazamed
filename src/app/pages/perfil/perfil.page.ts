@@ -25,8 +25,13 @@ export class PerfilPage implements OnInit {
 
   cartItemCount: BehaviorSubject<number>;
   posteo: Observable<any>;
-comentarios: any;
-user: any;
+  comentarios: any;
+  postUrl = `https://dev.drazamed.com/user/contact-us`;
+  user: any;
+  usuario: any;
+  email: any;
+  nombre: any;
+  datatoSend: any;
   constructor(
     private menuCtrl: MenuController,
     private cartService: CartService,
@@ -44,12 +49,12 @@ user: any;
   ionViewWillEnter() {
     this.menuCtrl.enable(true);
     this.user = this.auth.getusuario();
- 
+
     console.log(this.user);
-   }
+  }
 
 
-   async addComment(){
+  async addComment() {
     const input = await this.alertCtrl.create({
       header: '¿Cómo va tu tratamiento?',
       cssClass: 'failed',
@@ -60,13 +65,18 @@ user: any;
           cssClass: 'btnalert',
           handler: (data) => {
             this.comentarios = data.comentario;
-            console.log(this.comentarios);
-            /*const postData = new FormData();
-            postData.append('carro', this.comentarios );
-            this.posteo = this.http.post('http://localhost/httppost/json.php', postData);
-            this.posteo.subscribe((data: any) => {
-            console.log(data);
-            });*/
+            this.usuario = this.auth.getusuario();
+            this.email = this.usuario.email;
+            this.nombre = this.usuario.name;
+            this.datatoSend = {
+              name: this.nombre,
+              phone: '',
+              msg: this.comentarios,
+              email: this.email,
+            };
+            this.http.post(`${this.postUrl}`, this.datatoSend).subscribe((val) => {
+              console.log(val);
+            });
           }
         }
       ],
@@ -81,27 +91,27 @@ user: any;
     });
 
     await input.present();
-   }
+  }
 
-   goEdit(){
-     this.router.navigate(['editprofile']);
-   }
-   misPedidos(){
-     this.router.navigate(['mispedidos']);
-   }
-   miPastillero(){
+  goEdit() {
+    this.router.navigate(['editprofile']);
+  }
+  misPedidos() {
+    this.router.navigate(['mispedidos']);
+  }
+  miPastillero() {
     this.router.navigate(['mipastillero']);
-   }
-   misDirecciones(){
+  }
+  misDirecciones() {
     this.router.navigate(['misdirecciones']);
-   }
-   processTreat(){
-     this.router.navigate(['processtreatment']);
-   }
-   createAlarm(){
-     this.router.navigate(['createalarm']);
-   }
-   goCarrito(){
-     this.router.navigate(['carrito']);
-   }
+  }
+  processTreat() {
+    this.router.navigate(['processtreatment']);
+  }
+  createAlarm() {
+    this.router.navigate(['createalarm']);
+  }
+  goCarrito() {
+    this.router.navigate(['carrito']);
+  }
 }
