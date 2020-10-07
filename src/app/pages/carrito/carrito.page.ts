@@ -32,7 +32,6 @@ export class CarritoPage implements OnInit {
   item_code = [];
   formula = [];
   base_url: any;
-  
   constructor(private router: Router, private menuCtrl: MenuController, private cartService: CartService,
     private alertCtrl: AlertController, private camera: Camera, private file: File, private http: HttpClient,
     private webview: WebView,
@@ -116,7 +115,7 @@ export class CarritoPage implements OnInit {
   }
 
   getTotal() {
-    return this.cart.reduce((i, j) => i + j.mrp || j.unit_price * j.medicine_count, 0);
+   return this.cart.reduce((i , j) => i + (j.unit_price * j.medicine_count || + j.mrp * j.medicine_count), 0);
   }
   goBuscar() {
     this.router.navigate(['medicamentos']);
