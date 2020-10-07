@@ -144,4 +144,8 @@ export class CartService {
       }
     }
   }
+  removeAll(){
+   this.cart.length = 0;
+   this.cartItemCount.next(0);
+  }
 }

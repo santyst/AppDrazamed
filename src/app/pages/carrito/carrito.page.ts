@@ -23,6 +23,8 @@ const STORAGE_KEY = 'my_images';
 })
 export class CarritoPage implements OnInit {
   
+  code: any;
+  code2: any;
   user: any;
   userid: any;
   mycart: any;
@@ -30,6 +32,7 @@ export class CarritoPage implements OnInit {
   item_code = [];
   formula = [];
   base_url: any;
+  
   constructor(private router: Router, private menuCtrl: MenuController, private cartService: CartService,
     private alertCtrl: AlertController, private camera: Camera, private file: File, private http: HttpClient,
     private webview: WebView,
@@ -47,6 +50,7 @@ export class CarritoPage implements OnInit {
   postUrl = `https://testsanti.000webhostapp.com/phpserver/posts.php`;
   apiImg = `images/products/`;
   apiUrl8 = `.jpg`;
+  delete_cart = `empty-cart?email=`;
   cart = [];
   user1: any;
   value: any;
@@ -339,7 +343,14 @@ export class CarritoPage implements OnInit {
 
 
   }
-  send() {
+  async send() {
+    const loading = await this.loadingController.create({
+      cssClass: 'loading',
+      message: 'Por favor espera...',
+      mode: 'ios',
+      spinner: 'dots'
+    });
+    await loading.present();
     this.user1 = this.auth.getusuario();
     this.userid = this.user1.email;
     for(let code of this.cart){
@@ -357,8 +368,66 @@ export class CarritoPage implements OnInit {
       item_code: this.item_code
     };
     this.http.post(`${this.base_url}medicine/store-prescription/0`,
-      this.orden, { headers: new HttpHeaders({ "Content-Type": "application/json" }) }).subscribe((mensaje) => {
-        console.log(mensaje);
+      this.orden, { headers: new HttpHeaders({ "Content-Type": "application/json" }) })
+      .pipe(
+        finalize(() => {
+          loading.dismiss();
+        })
+      )
+      .subscribe(async (mensaje) => {
+        this.code = mensaje;
+        this.code2 = this.code.status;
+        if (this.code2 === 'SUCCESS'){
+          const alert = await this.alertCtrl.create({
+         message: '<img src = "../../assets/img/RECURSOS/check.png" class="alert">Su orden fue creada',
+         mode: 'ios',
+         cssClass: 'failed',
+         backdropDismiss: false,
+         buttons: [
+           {
+             text: 'Aceptar',
+             cssClass: 'btnalert',
+             handler: (data) => { alert2.present(); }
+           }
+         ]
+          });
+          const alert2 = await this.alertCtrl.create({
+            message: '<img src = "../../assets/img/RECURSOS/check.png" class="alert">En constantes minutos verificaremos su orden',
+            mode: 'ios',
+            cssClass: 'failed',
+            backdropDismiss: false,
+            buttons: [
+              {
+                text: 'Aceptar',
+                cssClass: 'btnalert',
+                handler: (data) => { this.router.navigate(['mispedidos']); }
+              }
+            ]
+             });
+
+          this.http.get(`${this.base_url}${this.delete_cart}${this.userid}`).subscribe(val => {
+            console.log(val);
+          });
+          this.cartService.removeAll();
+
+          await alert.present();
+         
+         }
+        else {
+         const alert = await this.alertCtrl.create({
+           message: '<img src = "../../assets/img/RECURSOS/wrong.png" class="alert">Su orden no fue creada, intente de nuevo',
+           mode: 'ios',
+           cssClass: 'failed',
+           backdropDismiss: false,
+           buttons: [
+             {
+               text: 'Aceptar',
+               cssClass: 'btnalert',
+             }
+           ]
+            });
+         await alert.present();
+        }
       });
   }
 }
