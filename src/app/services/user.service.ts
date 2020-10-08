@@ -21,7 +21,7 @@ export class UserService {
   isDisplayNameUnique(val: string): Promise<any> {
     console.log('Going to the server:', val);
     return new Promise(resolve => {
-      this.http.get<any>(`${URL2}u_name=${val}`, {observe: 'response'})
+      this.http.get<any>(`${this.base_url}${URL2}u_name=${val}`, {observe: 'response'})
         .subscribe(res => {
           console.log('res: ', res.status);
           if(res.status === 200){

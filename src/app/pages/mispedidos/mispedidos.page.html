@@ -27,31 +27,37 @@
     </ion-col>
 
     <ion-col size="12" *ngIf="!isNoClicked">
-       <div class="request_sqare">
+       <div class="request_sqare" *ngFor="let d of orden">
          <ion-row>
            <ion-col size="12" class="mb-10 right">
-              <p class="name_category">En curso</p>
+              <p class="name_category" *ngIf="d.status === 1">Sin verificar</p>
+              <p class="name_category" *ngIf="d.status !== 1">Verificado</p>
            </ion-col>
-           <ion-col size="4" class="col-img">
-             <img src="../../../assets/img/RECURSOS/dolex.jpeg" class="mx-auto" width="100%">
-           </ion-col>
+           
            <ion-col size="8" class="align-self">
               <p class="name_product">Pedido en curso</p>
               <p class="description_product">
                 <b>Fecha: </b>
-                2 abril 2020
+                {{d.created_at}}
               </p>
               <p class="description_product">
-                <b>Producto: </b>
-                Lorem Ipsum
+                <b># de orden: </b>
+                {{d.id}}
               </p>
-              <p class="price_product">$000.00</p>
+           </ion-col>
+           <ion-col size="4">
+            <ion-buttons>
+              <ion-button class="trash" ><img src="../../../assets/img/RECURSOS/trash.png"
+                  width="100%"></ion-button>
+            </ion-buttons>
            </ion-col>
          </ion-row>
          <ion-row class="mt-20">
-             <ion-col size="6"></ion-col>
              <ion-col size="6">
-              <ion-button class="btn_product" color="medium" (click)="goOpen()">V<p class="btntext">er detalles</p></ion-button>
+              <ion-button class="btn_product" coloR="dark" (click)="goPago(d)" *ngIf="d.status == 2">P<p class="btntext">agar</p></ion-button>
+             </ion-col>
+             <ion-col size="6">
+              <ion-button class="btn_product" color="medium" (click)="goOpen(d)">V<p class="btntext">er detalles</p></ion-button>
              </ion-col>
          </ion-row>
        </div>

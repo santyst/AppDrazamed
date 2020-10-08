@@ -17,6 +17,7 @@ import { ConfigService } from 'src/app/services/config.service'
 })
 export class CreateaccountPage implements OnInit {
 
+
   apiURL = `user/check-user-name?`;
   constructor(
     private router: Router,
@@ -24,8 +25,10 @@ export class CreateaccountPage implements OnInit {
     private formBuilder: FormBuilder,
     public http: HttpClient,
     private alertController: AlertController,
-    private userService: UserService
+    private userService: UserService,
+    private config: ConfigService
   ) {
+    
       this.registroForm = this.formBuilder.group({
         first_name: new FormControl('', [Validators.required]),
         last_name: new FormControl('', [Validators.required]),
