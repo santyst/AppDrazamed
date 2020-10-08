@@ -7,7 +7,7 @@
 
 
 <ion-content mode="md">
-  <form (ngSubmit)="logForm(form)" [formGroup]="registroForm"  #form="ngForm">
+  <form [formGroup]="registroForm"  #form="ngForm">
     <div id="container">
       <ion-list>
       <img class="logo-form" src="../../assets/img/LOGOS/LOGOS DRAZAMED-04.png">
@@ -45,7 +45,7 @@
       </ion-item>
       
       <div>
-        <ng-container *ngFor="let error of error_messages.confirm_password"></ng-container>
+     
         <small class="error-message" *ngIf="!registroForm.get('confirm_password').errors && registroForm.hasError('passwordNotMatch') && (registroForm.get('confirm_password').dirty || registroForm.get('confirm_password').touched)">
           Las contraseñas no coinciden
         </small>
