@@ -88,6 +88,14 @@ ion-header {
     margin-right: auto !important;
     height: 60px !important;
 }
+.trash{
+    float: right !important;
+    --background: #f2f2f2 !important;
+    border-radius: 100% !important;
+    width: 100%;
+  height: 100%;
+    margin-left: 60%;
+  }
 .calificar_btn{
     --background: #fff;
     padding: 10px !important;
