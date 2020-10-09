@@ -129,3 +129,15 @@
     margin-left: -3% !important;
   }
 }
+@media (min-height: 900px) and (max-height: 1024px){
+  .swiper-pagination {
+    bottom: 1% !important;
+    margin-left: -3% !important;
+  }
+}
+@media (min-width: 767px) and (max-width: 800px){
+  .swiper-pagination {
+    bottom: 1% !important;
+    margin-left: -3% !important;
+  }
+}
