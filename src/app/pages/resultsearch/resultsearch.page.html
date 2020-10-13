@@ -1,14 +1,14 @@
 <ion-header class="ion-no-border" mode="ios">
   <div class="div-header">
   <ion-toolbar class="header-styles">
-    <ion-title><img class="content-image" src="../../../assets/img/LOGOS/LOGOS DRAZAMED_Mesa de trabajo 1.png" alt=""></ion-title>
+    <img class="content-image" src="../../../assets/img/LOGOS/LOGOS DRAZAMED_Mesa de trabajo 1.png" alt="">
   </ion-toolbar>
     <ion-buttons class="btn_i">
       <ion-button slot="start" class="icono" (click)="goBack()">
         <ion-icon size="large" name="chevron-back-outline"></ion-icon>
       </ion-button>
       <ion-button class="carrito" (click)="openCart()" #cart>
-        <img src="../../../assets/img/RECURSOS/iconos drazamed-18.png">
+        <img src="../../../assets/img/RECURSOS/iconos drazamed-18.png" class="carro1">
       </ion-button>
       <ion-badge>{{ cartItemCount | async }}</ion-badge>
     </ion-buttons>
@@ -32,16 +32,19 @@
           <p class="price_product">${{p.mrp | number}}</p>
           <p *ngIf="p.quantity <= 40" class="notavailable">No disponible</p>
           <p *ngIf="p.quantity > 40" class="available">Disponible</p>
+          <ion-button class="btn_add" (click)="addToCart(p)" [disabled]="p.quantity <= 40">
+            A<p class="btn_text">gregar</p>
+           </ion-button>
         </ion-col>
       </ion-row>
-      <ion-row class="action_products">
+      <!--<ion-row class="action_products">
         <ion-col size="6"></ion-col>
         <ion-col size="6">
           <ion-button class="btn_add" (click)="addToCart(p)" [disabled]="p.quantity <= 40">
            A<p class="btn_text">gregar</p>
           </ion-button>
         </ion-col>
-      </ion-row>
+      </ion-row>-->
       <ion-row class="resume_product"> 
          <p class="item_resume"><b>Comercializado por:</b> {{p.manufacturer}}</p>
          <p class="item_formula" *ngIf="data1"><b>Fórmula Médica:</b> RX</p>
