@@ -1,12 +1,12 @@
 <ion-header class="ion-no-border" mode="ios">
   <div class="div-header">
   <ion-toolbar class="header-styles">
-    <ion-title><img class="content-image" src="../../assets/img/LOGOS/LOGOS DRAZAMED_Mesa de trabajo 1.png" alt=""></ion-title>
+    <img class="content-image" src="../../assets/img/LOGOS/LOGOS DRAZAMED_Mesa de trabajo 1.png" alt="">
   </ion-toolbar>
     <ion-buttons class="btn_i">
       <ion-menu-button slot="start" menu="main-menu"></ion-menu-button>
       <ion-button class="carrito" (click)="goCarrito()">
-        <img src="../../assets/img/RECURSOS/iconos drazamed-18.png">
+        <img src="../../assets/img/RECURSOS/iconos drazamed-18.png" class="carro1">
       </ion-button>
       <ion-badge>{{ cartItemCount | async }}</ion-badge>
     </ion-buttons>
@@ -49,32 +49,30 @@
   </ion-row>
   <ion-row class="result_search pt-20 pb-20">
 
-    <ion-col size="2" class="center pt-15">
-      <a href="">
-        <img src="../../../assets/img/RECURSOS/phone.png" width="30px">
-      </a>
+    <ion-col size="3" class="center pt-15">
+ 
+        <img src="../../../assets/img/RECURSOS/phone.png" width="30px" class="imagenes">
+ 
     </ion-col>
-    <ion-col size="10" class="pt-15">
+    <ion-col size="9" class="pt-15">
        <p class="name_category_new">Teléfonos de Contacto</p>
        <p class="description_product">(1) 879-3999</p>
     </ion-col>
 
-    <ion-col size="2" class="center pt-15">
-      <a href="">
-        <img src="../../../assets/img/RECURSOS/iconos drazamed-cc-32.png" width="30px">
-      </a>
+    <ion-col size="3" class="center pt-15">
+      
+        <img src="../../../assets/img/RECURSOS/iconos drazamed-cc-32.png" width="30px" class="imagenes">
+    
     </ion-col>
-    <ion-col size="10" class="pt-15">
+    <ion-col size="9" class="pt-15">
        <p class="name_category_new">Nuestra Ubicación</p>
        <p class="description_product">Carrera 6 No. 1-20 Cajicá - Cundinamarca</p>
     </ion-col>
 
-    <ion-col size="2" class="center pt-15">
-      <a href="">
-        <img src="../../../assets/img/RECURSOS/iconos drazamed-cc-11.png" width="30px">
-      </a>
+    <ion-col size="3" class="center pt-15">
+        <img src="../../../assets/img/RECURSOS/iconos drazamed-cc-11.png" width="30px" class="imagenes">
     </ion-col>
-    <ion-col size="10" class="pt-15">
+    <ion-col size="9" class="pt-15">
        <p class="name_category_new">Correo Electrónico</p>
        <p class="description_product">info@drazamed.com</p>
     </ion-col>

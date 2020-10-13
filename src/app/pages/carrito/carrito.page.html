@@ -1,15 +1,14 @@
 <ion-header class="ion-no-border" mode="ios">
   <div class="div-header">
     <ion-toolbar class="header-styles">
-      <ion-title><img class="content-image" src="../../../assets/img/LOGOS/LOGOS DRAZAMED_Mesa de trabajo 1.png" alt="">
-      </ion-title>
+      <img class="content-image" src="../../../assets/img/LOGOS/LOGOS DRAZAMED_Mesa de trabajo 1.png" alt="">
     </ion-toolbar>
     <ion-buttons>
       <ion-button slot="start" class="icono" (click)="goHome()">
         <ion-icon size="large" name="chevron-back-outline"></ion-icon>
       </ion-button>
       <ion-button class="carrito" (click)="goPerfil()">
-        <img src="../../../assets/img/RECURSOS/iconos drazamed-cc-38.png">
+        <img src="../../../assets/img/RECURSOS/iconos drazamed-cc-38.png" class="carro1">
       </ion-button>
     </ion-buttons>
   </div>
@@ -44,14 +43,14 @@
         <ion-col size="4">
           <ion-buttons>
             <ion-button class="trash" (click)="removeCartItem(p)"><img src="../../../assets/img/RECURSOS/trash.png"
-                width="100%"></ion-button>
+                width="100%" class="basurita"></ion-button>
           </ion-buttons>
 
-          <ion-button color="medium" fill="clear" (click)="increaseCartItem(p)">
+          <ion-button color="medium" fill="clear" (click)="increaseCartItem(p)" class="butonsaddr1">
             <ion-icon name="add" slot="icon-only"></ion-icon>
           </ion-button>
           <p class="qtyty">{{ p.medicine_count }}</p>
-          <ion-button color="medium" fill="clear" (click)="decreaseCartItem(p)">
+          <ion-button color="medium" fill="clear" (click)="decreaseCartItem(p)" class="butonsaddr">
             <ion-icon name="remove" slot="icon-only"></ion-icon>
           </ion-button>
         </ion-col>

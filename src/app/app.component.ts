@@ -6,6 +6,12 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Router } from '@angular/router';
 import { AuthService } from './services/auth.service';
 
+import Pusher from 'pusher-js';
+import * as PusherTypes from 'pusher-js';
+
+
+
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -14,7 +20,7 @@ import { AuthService } from './services/auth.service';
 
 export class AppComponent {
 
-public user: any;
+  public user: any;
 
   constructor(
     private platform: Platform,
@@ -30,42 +36,54 @@ public user: any;
     this.user = this.auth.getusuario();
     console.log(this.user);
 
-   }
+  }
 
   initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
+     this.pushSet();
   }
-  
 
-  goHome(){
+  pushSet(){
+    const pusher = new Pusher('270a27c11d1a38de071b', {
+      cluster: 'us2',
+    });
+    Pusher.logToConsole = true;
+    const channel = pusher.subscribe('Drazamed');
+    channel.bind('orderStatus', (data) => {
+      console.log(data);
+    });
+  }
+
+
+  goHome() {
     this.router.navigate(['home']);
   }
 
-  goPerfil(){
+  goPerfil() {
     this.router.navigate(['perfil']);
   }
 
-  goMedicamentos(){
+  goMedicamentos() {
     this.router.navigate(['medicamentos']);
   }
 
-  goMensajes(){
+  goMensajes() {
     this.router.navigate(['mensajes']);
   }
 
-  goPastillero(){
+  goPastillero() {
     this.router.navigate(['mipastillero']);
   }
 
-  goAcercade(){
+  goAcercade() {
     this.router.navigate(['acercade']);
   }
 
 
-  goOut(){
+  goOut() {
     this.auth.logout();
   }
 }

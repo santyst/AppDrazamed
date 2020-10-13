@@ -378,7 +378,7 @@ export class CarritoPage implements OnInit {
         this.code2 = this.code.status;
         if (this.code2 === 'SUCCESS'){
           const alert = await this.alertCtrl.create({
-         message: '<img src = "../../assets/img/RECURSOS/check.png" class="alert">Su orden fue creada',
+         message: '<img src = "../../assets/img/RECURSOS/check.png" class="alert">Tu orden fue creada',
          mode: 'ios',
          cssClass: 'failed',
          backdropDismiss: false,
@@ -391,7 +391,7 @@ export class CarritoPage implements OnInit {
          ]
           });
           const alert2 = await this.alertCtrl.create({
-            message: '<img src = "../../assets/img/RECURSOS/check.png" class="alert">En constantes minutos verificaremos su orden',
+            message: '<img src = "../../assets/img/RECURSOS/check.png" class="alert">En constantes minutos verificaremos tu orden',
             mode: 'ios',
             cssClass: 'failed',
             backdropDismiss: false,

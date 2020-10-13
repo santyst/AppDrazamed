@@ -1,12 +1,12 @@
 <ion-header class="ion-no-border" mode="ios">
   <div class="div-header">
   <ion-toolbar class="header-styles">
-    <ion-title><img class="content-image" src="../../assets/img/LOGOS/LOGOS DRAZAMED_Mesa de trabajo 1.png" alt=""></ion-title>
+    <img class="content-image" src="../../assets/img/LOGOS/LOGOS DRAZAMED_Mesa de trabajo 1.png" alt="">
   </ion-toolbar>
     <ion-buttons class="btn_i">
       <ion-menu-button slot="start" menu="main-menu"></ion-menu-button>
       <ion-button class="carrito" (click)="goCarrito()">
-        <img src="../../assets/img/RECURSOS/iconos drazamed-18.png">
+        <img src="../../assets/img/RECURSOS/iconos drazamed-18.png" class="carro1">
       </ion-button>
       <ion-badge>{{ cartItemCount | async }}</ion-badge>
     </ion-buttons>
@@ -18,7 +18,7 @@
      <ion-grid>
        <ion-row>
          <ion-col size="2">
-           <img src="../../../assets/img/RECURSOS/user.png" width="180%">
+           <img src="../../../assets/img/RECURSOS/user.png" class="perfilimg">
          </ion-col>
          <ion-col size="6">
            <p class="title_seccion_head">Perfil</p>
@@ -65,19 +65,19 @@
         <ion-row>
           <ion-col size="4" class="col_op"> 
              <ion-button (click)="misPedidos()" fill="clear" class="images">
-               <img src="../../../assets/img/RECURSOS/icon_pedidos.png" >
+               <img src="../../../assets/img/RECURSOS/icon_pedidos.png" class="imagenes">
              </ion-button>
              <p class="name_category">Pedidos</p>
           </ion-col>
           <ion-col size="4" class="col_op">
             <ion-button (click)="miPastillero()" class="images" fill="clear">
-              <img src="../../../assets/img/RECURSOS/icon_pastillero.png">
+              <img src="../../../assets/img/RECURSOS/icon_pastillero.png" class="imagenes">
             </ion-button>
             <p class="name_category">Mi pastillero</p>
           </ion-col>
           <ion-col size="4" class="col_op">
             <ion-button (click)="misDirecciones()" fill="clear" class="images">
-              <img src="../../../assets/img/RECURSOS/icon_direcciones.png" >
+              <img src="../../../assets/img/RECURSOS/icon_direcciones.png" class="imagenes">
             </ion-button>
             <p class="name_category">Mis direcciones</p>
           </ion-col>

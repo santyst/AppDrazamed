@@ -20,4 +20,7 @@ restante = 100 - this.porcentaje;
 goHome(){
   this.router.navigate(['perfil']);
 }
+goPerfil(){
+  this.router.navigate(['perfil']);
+}
 }

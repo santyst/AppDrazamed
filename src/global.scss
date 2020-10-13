@@ -181,4 +181,29 @@
     font-size: 30px;
     color: white;
   }
+  textarea.alert-input.sc-ion-alert-ios {
+    min-height: 37px;
+    resize: none;
+    font-size: 25px;
+  }
+  .searchbar-input {
+    font-size: 37px !important;
+    font-weight: 600 !important;
+    border: none !important;
+  }
+  .searchbar-search-icon.sc-ion-searchbar-md {
+    left: 16px;
+    top: 11px;
+    width: 33px;
+    height: 33px;
+  }
+  .alert-radio-group.sc-ion-alert-ios, .alert-checkbox-group.sc-ion-alert-ios {
+    -ms-scroll-chaining: none;
+    overscroll-behavior: contain;
+    max-height: 240px;
+    border-top: 0.55px solid rgba(var(--ion-text-color-rgb, 0, 0, 0), 0.2);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    font-size: 25px;
+  }
 }

@@ -1,12 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MenuController, IonSlides, AlertController } from '@ionic/angular';
+import { MenuController, IonSlides, AlertController, LoadingController } from '@ionic/angular';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { CartService } from 'src/app/services/cart.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ConfigService } from 'src/app/services/config.service'
-
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-perfil',
@@ -24,6 +24,8 @@ export class PerfilPage implements OnInit {
     }
   };
 
+  code: any;
+  code2: any;
   cartItemCount: BehaviorSubject<number>;
   posteo: Observable<any>;
   comentarios: any;
@@ -41,7 +43,8 @@ export class PerfilPage implements OnInit {
     public alertCtrl: AlertController,
     private http: HttpClient,
     private router: Router,
-    private config: ConfigService
+    private config: ConfigService,
+    private loadingController: LoadingController
   ) {
     this.base_url = config.get_base_url();
     this.cartItemCount = this.cartService.getCartItemCount();
@@ -67,7 +70,7 @@ export class PerfilPage implements OnInit {
         {
           text: 'Enviar',
           cssClass: 'btnalert',
-          handler: (data) => {
+          handler: async (data) => {
             this.comentarios = data.comentario;
             this.usuario = this.auth.getusuario();
             this.email = this.usuario.email;
@@ -78,8 +81,36 @@ export class PerfilPage implements OnInit {
               msg: this.comentarios,
               email: this.email,
             };
-            this.http.post(`${this.postUrl}`, this.datatoSend).subscribe((val) => {
-              console.log(val);
+            const loading = await this.loadingController.create({
+              cssClass: 'loading',
+              message: 'Por favor espera...',
+              mode: 'ios',
+              spinner: 'dots'
+            });
+            await loading.present();
+            this.http.post(`${this.base_url}${this.postUrl}`, this.datatoSend).
+            pipe(
+              finalize(() => {
+                loading.dismiss();
+              })
+            )
+            .subscribe(async (val) => {
+              this.code = val;
+              this.code2 = this.code.status;
+              if (this.code2 === 'SUCCESS'){
+                const alert = await this.alertCtrl.create({
+               message: '<img src = "../../assets/img/RECURSOS/check.png" class="alert">El comentario fue enviado',
+               mode: 'ios',
+               cssClass: 'failed',
+               buttons: [
+                 {
+                   text: 'Aceptar',
+                   cssClass: 'btnalert',
+                 }
+               ]
+                });
+                await alert.present();
+               }
             });
           }
         }
