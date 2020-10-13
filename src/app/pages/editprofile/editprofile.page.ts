@@ -18,5 +18,9 @@ export class EditprofilePage implements OnInit {
     this.user = this.auth.getusuario();
  
     console.log(this.user);
-   }
+  }
+
+  updateProfile() {
+    
+  }
 }
