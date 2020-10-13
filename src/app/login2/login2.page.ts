@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { MenuController, Platform, AlertController } from '@ionic/angular';
+import { MenuController, Platform, AlertController, LoadingController } from '@ionic/angular';
 import { async } from '@angular/core/testing';
 import { AuthService } from '../services/auth.service';
 import { Storage } from '@ionic/storage';
-
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login2',
@@ -35,15 +35,29 @@ credentials = {
     private alertController: AlertController,
     private platform: Platform,
     private auth: AuthService,
-    private storage: Storage
+    private storage: Storage,
+    private loadingController: LoadingController
   ) {
     this.platform.ready().then(() =>{
       this.get();
     })
   }
 
-  login() {
-    this.auth.login(this.credentials).subscribe(async res => {
+  async login() {
+    const loading = await this.loadingController.create({
+      cssClass: 'loading',
+      message: 'Por favor espera...',
+      mode: 'ios',
+      spinner: 'dots'
+    });
+    await loading.present();
+    this.auth.login(this.credentials)
+    .pipe(
+      finalize(() => {
+        loading.dismiss();
+      })
+    )
+    .subscribe(async res => {
       if (res) {
         this.router.navigate(['home']);
         if(this.accept === true){

@@ -1,7 +1,7 @@
 <!-- Header without a border -->
 <ion-header class="ion-no-border" mode="ios">
   <ion-toolbar class="header-styles">
-    <ion-title><img  class="content-image" src="../../assets/img/LOGOS/LOGOS DRAZAMED_Mesa de trabajo 1 copia.png" alt=""></ion-title>
+    <img  class="content-image" src="../../assets/img/LOGOS/LOGOS DRAZAMED_Mesa de trabajo 1 copia.png" alt="">
   </ion-toolbar>
 </ion-header>
 
@@ -13,16 +13,16 @@
       <img class="logo-form" src="../../assets/img/LOGOS/LOGOS DRAZAMED-04.png">
         <p>Crear cuenta</p>
       <ion-item>
-        <ion-label position="stacked">Nombre</ion-label>
+        <ion-label position="stacked" class="label">Nombre</ion-label>
         <ion-input formControlName="first_name" type="text" [(ngModel)]="register1.first_name" name="first_name" ngControl="first_name"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label position="stacked">Apellido</ion-label>
+        <ion-label position="stacked" class="label">Apellido</ion-label>
         <ion-input formControlName="last_name" type="text" [(ngModel)]="register1.last_name" name="last_name" ngControl="last_name"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label position="stacked">Correo</ion-label>
+        <ion-label position="stacked" class="label">Correo</ion-label>
         <ion-input formControlName="email" type="email" [(ngModel)]="register1.email" name="email" ngControl="email"></ion-input>
       </ion-item>
 
@@ -36,11 +36,11 @@
       <small class="error-message" *ngIf="gDisplayName.hasError('notUnique')">Email already exist</small>
       
       <ion-item>
-        <ion-label position="stacked">Contraseña</ion-label>
+        <ion-label position="stacked" class="label">Contraseña</ion-label>
         <ion-input formControlName="password" type="password" [(ngModel)]="register1.password" name="password" ngControl="password"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label position="stacked">Confirmar contraseña</ion-label>
+        <ion-label position="stacked" class="label">Confirmar contraseña</ion-label>
         <ion-input formControlName="confirm_password" type="password" [(ngModel)]="register1.confirm_password" name="confirm_password" ngControl="confirm_password"></ion-input>
       </ion-item>
       

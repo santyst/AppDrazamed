@@ -1,103 +1,107 @@
 ion-header {
-    --background: #009bd7!important;
-    --ion-background-color-rgb: 0,155,215;
-  }
-  
-  .header-styles{
-    --background: #009bd7!important;
-    padding-top:15px;
-    padding-bottom:-100px;
-  }
-  
-  .logo-header{
-    padding-top: 20px;
-    padding-bottom: 20px;
-    width: 50%;    
-  }
-  
-  ion-content{
-    --ion-background-color: #fff;
-    --ion-background-color-rgb: 236, 235, 238;
-  }
-  
-  .carrito{
-    width: 14% ;
-      height: 14% ;
-      border-radius: 100% !important;
-      margin-left: 65%;
-      margin-bottom: 2% !important;
-  }
-  
-  .div-header{
-    background-color: #009bd7;
-    padding-bottom: 0.5%;
-  }
-  
-  ion-menu-button{
-    color: white;
-    margin-left: 5%;
-  }
-  ion-badge {
-    color: #046a8f;
-    position: absolute;
-    --border-radius: 200%;
-    top: -1px;
+  --background: #009bd7 !important;
+  --ion-background-color-rgb: 0, 155, 215;
+}
+
+.header-styles {
+  --background: #009bd7 !important;
+  padding-top: 15px;
+  padding-bottom: -100px;
+}
+
+.logo-header {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  width: 50%;
+}
+
+ion-content {
+  --ion-background-color: #fff;
+  --ion-background-color-rgb: 236, 235, 238;
+}
+
+.carrito {
+  width: 14%;
+  height: 14%;
+  border-radius: 100% !important;
+  margin-left: 65%;
+  margin-bottom: 2% !important;
+}
+
+.div-header {
+  background-color: #009bd7;
+  padding-bottom: 0.5%;
+  text-align: center;
+}
+.content-image {
+  max-width: 60%;
+  border: 0;
+}
+ion-menu-button {
+  color: white;
+  margin-left: 5%;
+}
+ion-badge {
+  color: #046a8f;
+  position: absolute;
+  --border-radius: 200%;
+  top: -1px;
   right: 15px;
   --background: #c9c9c9;
-  width: 24px ;
+  width: 24px;
   height: 20px;
   font-size: 16px;
-  }
-  .btn_i{
-    padding-top: 5px;
-    }
-  .container {
-    width: 100%;
-    margin-right: auto;
-    margin-left: auto;
-    background-color: #fff;
+}
+.btn_i {
+  padding-top: 5px;
+}
+.container {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  background-color: #fff;
 }
 .align-self {
-    align-self: center!important;
+  align-self: center !important;
 }
 .pt-10 {
-    padding-top: 10px!important;
+  padding-top: 10px !important;
 }
 .pb-10 {
-    padding-bottom: 10px!important;
+  padding-bottom: 10px !important;
 }
 .title_seccion {
-    color: #00a2dd;
-    font-size: 24px;
-    font-weight: 700;
-    margin: 20px 0px;
+  color: #00a2dd;
+  font-size: 24px;
+  font-weight: 700;
+  margin: 20px 0px;
 }
-.center{
-    text-align: center !important;
+.center {
+  text-align: center !important;
 }
 .result_search {
-    background: #f2f2f2 !important;
-    padding-top: 10px !important;
-   // margin-bottom: 15px;
+  background: #f2f2f2 !important;
+  padding-top: 10px !important;
+  // margin-bottom: 15px;
 }
 .addres_space {
-    background: #fff;
-    //padding: 20px 10px;
+  background: #fff;
+  //padding: 20px 10px;
 }
-.right{
-    text-align: right ;
+.right {
+  text-align: right;
 }
-.description_product1{
+.description_product1 {
   color: #727070 !important;
   line-height: 18px !important;
   text-align: center !important;
   margin-right: 10px !important;
   margin-left: 10px !important;
   display: flex;
-  margin: auto; 
+  margin: auto;
   height: 57px;
 }
-.mt-20{
+.mt-20 {
   margin-top: 20px !important;
 }
 .name_product {
@@ -113,11 +117,11 @@ ion-header {
   line-height: 18px !important;
   margin: 5px 0px !important;
 }
-.mx-auto{
+.mx-auto {
   margin-right: auto !important;
   margin-left: auto !important;
 }
-.d-block{
+.d-block {
   display: block;
 }
 .btn_product1 {
@@ -140,73 +144,153 @@ ion-header {
   font-weight: 300 !important;
 }
 
-.container1{
+.container1 {
   width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
-    margin-right: auto;
-    margin-left: auto;
-    align-self: center !important;
-    padding-bottom: 15px !important;
-    padding-top: 15px !important;
-    position: fixed !important;
-    bottom: 0 !important;
-    height: auto !important;
-    text-align: center;
-    background-color: #00a1dd;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  align-self: center !important;
+  padding-bottom: 15px !important;
+  padding-top: 15px !important;
+  position: fixed !important;
+  bottom: 0 !important;
+  height: auto !important;
+  text-align: center;
+  background-color: #00a1dd;
 }
-.agregar{
+.agregar {
   align-self: center !important;
 }
-.btntext{
+.btntext {
   text-transform: lowercase !important;
 }
-.btn-continue{
-  margin-left: auto!important;
-  margin-right: auto!important;
-  --background: #fff!important;
+.btn-continue {
+  margin-left: auto !important;
+  margin-right: auto !important;
+  --background: #fff !important;
   font-weight: 600 !important;
   font-size: 17.5px !important;
   width: 80% !important;
-  --border-radius: 8px!important;
-color: #00a1dd;
+  --border-radius: 8px !important;
+  color: #00a1dd;
 }
-@media (min-width:400px) and (max-width:417px) {
+@media (min-width: 400px) and (max-width: 417px) {
   ion-badge {
     color: #046a8f;
     position: absolute;
     --border-radius: 200%;
     top: -1px;
-  right: 21px;
-  --background: #c9c9c9;
-  width: 24px ;
-  height: 20px;
-  font-size: 16px;
+    right: 21px;
+    --background: #c9c9c9;
+    width: 24px;
+    height: 20px;
+    font-size: 16px;
   }
 }
-@media (min-width:320px) and (max-width:336px) {
+@media (min-width: 320px) and (max-width: 336px) {
   ion-badge {
     color: #046a8f;
     position: absolute;
     --border-radius: 200%;
     top: -1px;
-  right: 5px;
-  --background: #c9c9c9;
-  width: 24px ;
-  height: 20px;
-  font-size: 16px;
+    right: 5px;
+    --background: #c9c9c9;
+    width: 24px;
+    height: 20px;
+    font-size: 16px;
   }
 }
-@media (min-width:337px) and (max-width:350px) {
+@media (min-width: 337px) and (max-width: 350px) {
   ion-badge {
     color: #046a8f;
     position: absolute;
     --border-radius: 200%;
     top: -1px;
-  right: 10px;
-  --background: #c9c9c9;
-  width: 24px ;
-  height: 20px;
-  font-size: 16px;
+    right: 10px;
+    --background: #c9c9c9;
+    width: 24px;
+    height: 20px;
+    font-size: 16px;
+  }
+}
+@media (min-width: 600px) and (min-height: 950px) {
+  .header-styles {
+    --background: #009bd7 !important;
+    padding-top: 0px;
+    padding-bottom: 10px;
+    text-align: center;
+  }
+  .content-image {
+    height: 110px;
+  }
+  .carro1 {
+    max-width: 68%;
+    border: 0;
+    margin-right: -41px;
+  }
+  ion-badge {
+    color: #046a8f;
+    position: absolute;
+    --border-radius: 200%;
+    top: -1px;
+    right: 39px;
+    --background: #c9c9c9;
+    width: 45px;
+    height: 29px;
+    font-size: 25px;
+  }
+  ion-menu-button {
+    color: white;
+    margin-left: 5%;
+    font-size: 50px !important;
+  }
+  .title_seccion {
+    color: #00a2dd;
+    font-size: 32px;
+    font-weight: 700;
+    margin: 20px 0px;
+  }
+  .btn-continue {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    --background: #fff !important;
+    font-weight: 600 !important;
+    font-size: 26.5px !important;
+    width: 80% !important;
+    --border-radius: 8px !important;
+    color: #00a1dd;
+  }
+  .name_product {
+    font-size: 27px !important;
+    font-weight: 700 !important;
+    color: #727070 !important;
+    margin: 15px 0px !important;
+    line-height: 20px !important;
+  }
+  .description_product {
+    font-size: 22px !important;
+    color: #727070 !important;
+    line-height: 18px !important;
+    margin: 5px 0px !important;
+  }
+  .btn_product1 {
+    --background: #00a2dd !important;
+    padding: 10px !important;
+    --border-radius: 15px !important;
+    color: #fff !important;
+    text-align: center !important;
+    font-size: 25px !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+  }
+  .btn_product2 {
+    --background: #fff !important;
+    padding: 10px !important;
+    --border-radius: 15px !important;
+    color: #00a2dd !important;
+    text-align: center !important;
+    font-size: 25px !important;
+    font-weight: 300 !important;
   }
 }

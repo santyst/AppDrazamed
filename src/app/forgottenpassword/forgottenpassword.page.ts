@@ -17,6 +17,7 @@ export class ForgottenpasswordPage implements OnInit {
   ready2: any;
   ready3: any;
   ready4: any;
+  base_url: any;
   postForget = `user/reset-password`;
   resetUrl = `user/reset-password`;
   forgottenForm: FormGroup;
@@ -27,8 +28,10 @@ export class ForgottenpasswordPage implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private loadingController: LoadingController,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private config: ConfigService
   ) {
+    this.base_url = config.get_base_url();
     this.forgottenForm = this.formBuilder.group({
       email: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9._%-]+@([a-zA-Z0-9.-][a-zA-Z0-9.-])+.[a-zA-Z]{2,4}$')]),
     });
@@ -73,7 +76,7 @@ export class ForgottenpasswordPage implements OnInit {
       spinner: 'dots'
     });
     await loading.present();
-    this.http.post(`${this.postForget}`, this.correo)
+    this.http.post(`${this.base_url}${this.postForget}`, this.correo)
     .pipe(
       finalize(() => {
         loading.dismiss();
@@ -123,7 +126,7 @@ export class ForgottenpasswordPage implements OnInit {
       spinner: 'dots'
     });
     await loading.present();
-    this.http.post(`${this.resetUrl}`, this.forgotten
+    this.http.post(`${this.base_url}${this.resetUrl}`, this.forgotten
     , {headers: new HttpHeaders({'Content-Type': 'application/json'})})
     .pipe(
       finalize(() => {
@@ -144,6 +147,21 @@ export class ForgottenpasswordPage implements OnInit {
               text: 'Aceptar',
               cssClass: 'btnalert',
               handler: (data) => { this.router.navigate(['login2']); }
+            }
+          ]
+        });
+        alert.present();
+      }
+      else{
+        const alert = await this.alertController.create({
+          message: '<img src = "../../assets/img/RECURSOS/wrong.png" class="alert">No se ha reestablecer tu contraseña',
+          mode: 'ios',
+          cssClass: 'failed',
+          backdropDismiss: false,
+          buttons: [
+            {
+              text: 'Aceptar',
+              cssClass: 'btnalert',
             }
           ]
         });
