@@ -76,7 +76,7 @@ export class ForgottenpasswordPage implements OnInit {
       spinner: 'dots'
     });
     await loading.present();
-    this.http.post(`${this.base_url}${this.postForget}`, this.correo)
+    this.http.post(`${this.base_url}${this.postForget}`, this.correo , {headers: new HttpHeaders({'Content-Type': 'application/json'})})
     .pipe(
       finalize(() => {
         loading.dismiss();
