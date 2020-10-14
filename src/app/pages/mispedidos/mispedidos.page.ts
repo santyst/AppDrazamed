@@ -4,6 +4,7 @@ import { NavigationExtras, Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth.service';
 import { ConfigService } from 'src/app/services/config.service';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 import Pusher from 'pusher-js';
 import * as PusherTypes from 'pusher-js';
@@ -34,7 +35,7 @@ export class MispedidosPage implements OnInit {
   status: any;
   invoice_i: any;
   precio: any;
-  constructor(private router: Router, private http: HttpClient, private auth: AuthService, private menuCtrl: MenuController, private config: ConfigService) {
+  constructor(private iab: InAppBrowser, private router: Router, private http: HttpClient, private auth: AuthService, private menuCtrl: MenuController, private config: ConfigService) {
     this.base_url = config.get_base_url();
     this.user1 = this.auth.getusuario();
     this.userid = this.user1.email;
@@ -87,7 +88,7 @@ export class MispedidosPage implements OnInit {
       this.ad = pay;
       this.address = this.ad.posted.address;
       this.linkpay = this.ad.preference.init_point;
-      window.open(this.linkpay);
+      this.iab.create(this.linkpay, '_system');
     });
   }
 }
