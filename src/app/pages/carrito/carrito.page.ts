@@ -399,7 +399,7 @@ export class CarritoPage implements OnInit {
          ]
           });
           const alert2 = await this.alertCtrl.create({
-            message: '<img src = "../../assets/img/RECURSOS/check.png" class="alert">En constantes minutos verificaremos tu orden',
+            message: '<img src = "../../assets/img/RECURSOS/check.png" class="alert">En algunos minutos verificaremos tu orden',
             mode: 'ios',
             cssClass: 'failed',
             backdropDismiss: false,
