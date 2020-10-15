@@ -22,7 +22,7 @@
         <p class="description_product">Sientase tranquilo de comunicarse con nosotros. Estaremos muy felices de ayudarle.</p>
       </div>
         <div class="custom_form">
-          <form [formGroup]="mensajesForm" (ngSubmit)="submit()">
+          <form [formGroup]="mensajesForm" > <!-- (ngSubmit)="submit()" -->
             <div class="form-group">
               <ion-label class="grey">Nombre Completo</ion-label>
               <ion-input formControlName="nombre" type="text" class="form-control" [(ngModel)]="dataToSend.name"></ion-input>

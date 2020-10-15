@@ -252,6 +252,14 @@ export class CarritoPage implements OnInit {
     });
   }
 
+  updateAlarm() {
+
+  }
+
+  goBack() {
+
+  }
+
   updateStoredImages(name) {
     this.storage.get(STORAGE_KEY).then(images => {
       let arr = JSON.parse(images);
