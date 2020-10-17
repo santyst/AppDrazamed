@@ -12,4 +12,8 @@ export class PedidoscompletadosPage implements OnInit {
   ngOnInit() {
   }
 
+  goBack(){
+    // this.router.navigate(['mipastillero']);
+  }
+
 }
