@@ -5,7 +5,7 @@ ion-header {
 
 .header-styles {
   --background: #009bd7 !important;
-  padding-top: 15px;
+  padding-top: 30px;
   padding-bottom: -100px;
   text-align: center;
 }
@@ -314,7 +314,7 @@ ion-badge {
   line-height: 18px !important;
   margin: 5px 0px !important;
 }
-@media (min-width: 600px) and (min-height: 950px) {
+@media (min-width: 600px) and (min-height: 900px) {
   .header-styles {
     --background: #009bd7 !important;
     padding-top: 0px;

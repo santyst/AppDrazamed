@@ -8,7 +8,7 @@ import { AuthService } from './services/auth.service';
 
 import Pusher from 'pusher-js';
 import * as PusherTypes from 'pusher-js';
-
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 
 
 
@@ -27,7 +27,8 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private router: Router,
-    public auth: AuthService
+    public auth: AuthService,
+    private localNotifications: LocalNotifications
   ) {
     this.initializeApp();
   }
@@ -53,7 +54,14 @@ export class AppComponent {
     Pusher.logToConsole = true;
     const channel = pusher.subscribe('Drazamed');
     channel.bind('orderStatus', (data) => {
-      console.log(data);
+      if (data) {
+        this.localNotifications.schedule({
+          text: data,
+          lockscreen: true,
+          wakeup: true
+
+        });
+      }
     });
   }
 
