@@ -88,7 +88,7 @@ export class MispedidosPage implements OnInit {
       this.ad = pay;
       this.address = this.ad.posted.address;
       this.linkpay = this.ad.preference.init_point;
-      this.iab.create(this.linkpay, '_system');
+      this.iab.create(this.linkpay, '_blank');
     });
   }
 }
