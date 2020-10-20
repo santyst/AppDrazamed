@@ -78,8 +78,8 @@ export class MensajesPage implements OnInit {
       spinner: 'dots'
     });
     await loading.present();
-    this.http.post(`${this.postUrl}`, this.dataToSend
-      , { headers: new HttpHeaders({ "Content-Type": "application/json" }) })
+    this.http.post(`${this.base_url}${this.postUrl}`, this.dataToSend
+      , { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) })
       .pipe(
         finalize(() => {
           loading.dismiss();
