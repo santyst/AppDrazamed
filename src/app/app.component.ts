@@ -8,7 +8,7 @@ import { AuthService } from './services/auth.service';
 
 import Pusher from 'pusher-js';
 import * as PusherTypes from 'pusher-js';
-
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 
 
 
@@ -20,20 +20,22 @@ import * as PusherTypes from 'pusher-js';
 
 export class AppComponent {
 
-  public user: any;
-
+  user: any;
+  user1: any;
+  userid: any;
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private router: Router,
-    public auth: AuthService
+    public auth: AuthService,
+    private localNotifications: LocalNotifications
   ) {
     this.initializeApp();
   }
 
   ionViewWillEnter() {
-    this.user = this.auth.getusuario();
+   
     console.log(this.user);
 
   }
@@ -43,10 +45,10 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
-     this.pushSet();
+    this.pushSet();
   }
 
-  pushSet(){
+  pushSet() {
     const pusher = new Pusher('270a27c11d1a38de071b', {
       cluster: 'us2',
     });
@@ -54,6 +56,17 @@ export class AppComponent {
     const channel = pusher.subscribe('Drazamed');
     channel.bind('orderStatus', (data) => {
       console.log(data);
+      this.user1 = data.user.email;
+      this.user = this.auth.getusuario();
+      this.userid = this.user.email;
+      console.log(this.userid);
+      console.log(this.user1);
+      if (this.user1 === this.userid) {
+        this.localNotifications.schedule({
+          text: 'Orden verificada',
+          lockscreen: true
+        });
+      }
     });
   }
 
