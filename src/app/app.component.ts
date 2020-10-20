@@ -20,8 +20,9 @@ import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 
 export class AppComponent {
 
-  public user: any;
+  user: any;
   user1: any;
+  userid: any;
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
@@ -34,7 +35,7 @@ export class AppComponent {
   }
 
   ionViewWillEnter() {
-    this.user = this.auth.getusuario();
+   
     console.log(this.user);
 
   }
@@ -56,12 +57,14 @@ export class AppComponent {
     channel.bind('orderStatus', (data) => {
       console.log(data);
       this.user1 = data.user.email;
-      if (this.user1 === this.user) {
+      this.user = this.auth.getusuario();
+      this.userid = this.user.email;
+      console.log(this.userid);
+      console.log(this.user1);
+      if (this.user1 === this.userid) {
         this.localNotifications.schedule({
-          text: data,
-          lockscreen: true,
-          wakeup: true
-
+          text: 'Orden verificada',
+          lockscreen: true
         });
       }
     });
