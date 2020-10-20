@@ -23,11 +23,11 @@
 <div class="container1">
   <ion-row class="result_search" *ngFor="let medicine of cart_med">
     <ion-col size="3" class="align-self img_product">
-      <img src="../../../assets/img/RECURSOS/dolex.jpeg" class="mx-auto d-block" width="100%">
+      <img src={{base_url}}{{apiUrl}}{{medicine.item_code}}{{apiUrl2}} class="mx-auto d-block" width="100%">
     </ion-col>
     <ion-col size="9" class="align-self">
-       <p class="name_product">Nombre</p>
-       <p class="description_product">Lorem ipsum dolor sit amet.</p>
+       <p class="name_product">{{medicine.item_name}}</p>
+       <p class="description_product">{{medicine.composition}}</p>
        <p class="price_product">${{medicine.total_price | number}}</p>
       </ion-col>
   </ion-row>

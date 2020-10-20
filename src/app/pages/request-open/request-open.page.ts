@@ -18,6 +18,8 @@ export class RequestOpenPage implements OnInit {
   userid: any;
   base_url: any;
   payment_url = `medicine/make-mercado-pago-payment/`;
+  apiUrl2 = `.jpg`;
+  apiUrl = `images/products/`;
   ad: any;
   address: any;
   linkpay: any;
