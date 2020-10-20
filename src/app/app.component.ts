@@ -21,7 +21,7 @@ import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 export class AppComponent {
 
   public user: any;
-
+  user1: any;
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
@@ -44,17 +44,19 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
-     this.pushSet();
+    this.pushSet();
   }
 
-  pushSet(){
+  pushSet() {
     const pusher = new Pusher('270a27c11d1a38de071b', {
       cluster: 'us2',
     });
     Pusher.logToConsole = true;
     const channel = pusher.subscribe('Drazamed');
     channel.bind('orderStatus', (data) => {
-      if (data) {
+      console.log(data);
+      this.user1 = data.user.email;
+      if (this.user1 === this.user) {
         this.localNotifications.schedule({
           text: data,
           lockscreen: true,
