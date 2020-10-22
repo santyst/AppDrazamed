@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { ConfigService } from 'src/app/services/config.service';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 @Component({
   selector: 'app-request-open',
@@ -18,14 +19,17 @@ export class RequestOpenPage implements OnInit {
   userid: any;
   base_url: any;
   payment_url = `medicine/make-mercado-pago-payment/`;
+  apiUrl2 = `.jpg`;
+  apiUrl = `images/products/`;
   ad: any;
   address: any;
   linkpay: any;
   status: any;
   invoice_i: any;
-precio: any;
+  precio: any;
+  subtotal1: any;
 
-  constructor(private router: Router, private auth: AuthService, private route: ActivatedRoute, private http: HttpClient, private config: ConfigService) {
+  constructor(private iab: InAppBrowser,private router: Router, private auth: AuthService, private route: ActivatedRoute, private http: HttpClient, private config: ConfigService) {
     this.base_url = config.get_base_url();
     this.user = this.auth.getusuario();
     this.userid = this.user.email;
@@ -58,9 +62,24 @@ precio: any;
     this.router.navigate(['carrito']);
   }
   goPago() {
-    window.open(this.linkpay);
+    this.iab.create(this.linkpay, '_blank');
   }
-  getPrice(){
-    return this.cart_med.reduce((i, j) => i + j.total_price , 0);
+  getPrice() {
+    return this.cart_med.reduce((i, j) => i + j.total_price, 0);
+  }
+  getTotal() {
+    return this.getPrice() + 2000;
+  }
+  getTax() {
+    this.subtotal1 = 0;
+    for (let ta of this.cart_med) {
+      if (ta.tax !== 0) {
+        this.subtotal1 += ta.tax;
+      }
+    }
+    return this.subtotal1;
+  }
+  subTotal(){
+    return this.getPrice() - this.getTax();
   }
 }
