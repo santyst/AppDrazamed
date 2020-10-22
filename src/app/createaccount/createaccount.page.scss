@@ -1,39 +1,39 @@
-ion-content{
+ion-content {
     --ion-background-color: #009bd7;
-    --ion-background-color-rgb: 0,155,215;
+    --ion-background-color-rgb: 0, 155, 215;
 }
 
-.header-styles{
-    --background: #fff!important;
-    padding-top:20px;
-    padding-bottom:10px;
+.header-styles {
+    --background: #fff !important;
+    padding-top: 30px;
+    padding-bottom: 10px;
     height: 90px;
     text-align: center;
 }
-.content-image{
+.content-image {
     height: 50px;
 }
-#container{
-    margin-left: auto!important;
-    margin-right: auto!important;
+#container {
+    margin-left: auto !important;
+    margin-right: auto !important;
     background: white;
     --ion-background-color: #fff;
-    max-width: 85%!important;
+    max-width: 85% !important;
     padding-top: 10px;
     padding-bottom: 50px;
-    padding-left:30px;
+    padding-left: 30px;
     padding-right: 20px;
     margin-top: 20px;
     border-radius: 35px;
 }
 
-.logo-header{
+.logo-header {
     padding-top: 20px;
     padding-bottom: 20px;
-    width: 50%;    
+    width: 50%;
 }
 
-.logo-form{
+.logo-form {
     text-align: center;
     position: absolute;
     left: 70%;
@@ -43,65 +43,65 @@ ion-content{
     width: 25%;
 }
 
-ion-item{
-    --padding-start:0px;
-    --border-style:none;
+ion-item {
+    --padding-start: 0px;
+    --border-style: none;
 }
 
-ion-label{
-    --color: #b4b4b4!important;
+ion-label {
+    --color: #b4b4b4 !important;
 }
 
-ion-input, ion-datetime{
+ion-input,
+ion-datetime {
     border: 1px solid #eeeeee;
     border-radius: 16px;
-    padding-left:10px!important;
+    padding-left: 10px !important;
     margin-top: 5px;
 }
 
-.btn-continue{
-    margin-top: 10%!important;
-    margin-left: auto!important;
-    margin-right: auto!important;
-    --background: #015670!important;
+.btn-continue {
+    margin-top: 10% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    --background: #015670 !important;
     font-weight: bold;
     letter-spacing: 0.5px;
     width: 50%;
-    --border-radius: 16px!important;
+    --border-radius: 16px !important;
 }
 
-p{
+p {
     font-weight: bold;
-    color:#7e7e7e;
+    color: #7e7e7e;
 }
-ion-select{
+ion-select {
     border: 1px solid #eeeeee;
     border-radius: 16px;
-    padding-left: 10px!important;
+    padding-left: 10px !important;
     margin-top: 5px;
 }
 .error-message {
- color: var(--ion-color-danger);
+    color: var(--ion-color-danger);
 }
 
+@media (min-width: 400px) and (max-width: 440px) {
+    .logo-form {
+        transform: translateY(-106%);
+    }
+}
+@media (min-width: 365px) and (max-width: 399px) {
+    .logo-form {
+        transform: translateY(-106%);
+    }
+}
+@media (min-width: 333px) and (max-width: 344px) {
+    .logo-form {
+        transform: translateY(-110%);
+    }
+}
 
- @media (min-width: 400px) and (max-width: 440px){
-    .logo-form{
-     transform: translateY(-106%);
-    }
- }
- @media (min-width: 365px) and (max-width: 399px){
-    .logo-form{
-     transform: translateY(-106%);
-    }
- }
- @media (min-width: 333px) and (max-width: 344px){
-    .logo-form{
-     transform: translateY(-110%);
-    }
- }
-
- @media (min-width: 600px) and (min-height: 950px) {
+@media (min-width: 600px) and (min-height: 950px) {
     #container {
         margin-left: auto !important;
         margin-right: auto !important;
@@ -134,7 +134,8 @@ ion-select{
         --color: #b4b4b4 !important;
         font-size: 35px;
     }
-    ion-input, ion-datetime {
+    ion-input,
+    ion-datetime {
         border: 3px solid #eeeeee;
         border-radius: 16px;
         padding-left: 10px !important;
@@ -158,16 +159,16 @@ ion-select{
         color: var(--ion-color-danger);
         font-size: 25px;
     }
-    .header-styles{
-        --background: #fff!important;
+    .header-styles {
+        --background: #fff !important;
         padding-top: 0px;
-        padding-bottom:10px;
+        padding-bottom: 10px;
         text-align: center;
     }
-    .content-image{
+    .content-image {
         height: 110px;
     }
-    ion-header{
+    ion-header {
         height: 100px;
     }
 }

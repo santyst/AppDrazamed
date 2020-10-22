@@ -20,18 +20,25 @@
  </div>
  <div class="container1">
   <ion-row class="result_search">
+    
   <div class="searchbar mb-20">
-    <ion-searchbar autocomplete="on"debounce="700"  placeholder="Busca aquí tus productos"></ion-searchbar>
+    <ion-searchbar autocomplete="on"debounce="700" [(ngModel)]="searchbarInput" (ionChange)="getItems($event)" placeholder="Busca aquí tus productos"></ion-searchbar>
   </div>
+  <div class="div_medis">
+    <ion-list>
+   <ion-item button *ngFor="let it of items" (click)="fillSearchbarText(it.item_name)">
       <ion-col size="4">
         <div class="img_product">
-          <img src="../../../assets/img/RECURSOS/dolex.jpeg" class="img-fluid">
+          <img src={{base_url}}{{apiUrl7}}{{it.item_code}}{{apiUrl8}} class="img-fluid">
         </div>
       </ion-col>
       <ion-col size="8" class="align-self">
-        <p class="name_product" style="color: #00a1dd !important;">Nombre del producto</p>
-        <p class="description_product">Lorem ipsum dolor sit amet</p>
+        <p class="name_product" style="color: #00a1dd !important;">{{it.item_name}}</p>
+        <p class="description_product">{{it.composition}}</p>
       </ion-col>
+    </ion-item>
+  </ion-list>
+</div>
       <ion-col size="12" class="mt-20 padding">
         <form action="">
           <p class="name_product" style="color: #00a1dd !important;">Mensaje</p>
@@ -73,5 +80,6 @@
       </ion-col>
    </ion-row>
  </div>
+ 
 </ion-content>
 

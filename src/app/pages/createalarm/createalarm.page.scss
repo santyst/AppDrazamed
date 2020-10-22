@@ -19,11 +19,26 @@ ion-header {
   max-width: 60%;
   border: 0;
 }
+.div_medis {
+  width: 100%;
+  height: 130px;
+  overflow: auto;
+}
 ion-content {
   --ion-background-color: #fff;
   --ion-background-color-rgb: 236, 235, 238;
 }
-
+ion-item {
+  --background: #f2f2f2;
+  height: 160px;
+}
+ion-list {
+  background-color: #f2f2f2;
+}
+.list-md {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
 .carrito {
   width: 14%;
   height: 14%;
@@ -193,13 +208,21 @@ ion-select::part(text) {
     font-weight: 700 !important;
     color: #727070 !important;
     margin: 11px 0px !important;
-    line-height: 20px !important;
+    line-height: 30px !important;
   }
   .description_product {
     font-size: 26px !important;
     color: #727070 !important;
-    line-height: 18px !important;
+    line-height: 30px !important;
     margin: 15px 0px !important;
+  }
+  .div_medis {
+    width: 100%;
+    height: 260px;
+    overflow: auto;
+  }
+  ion-item {
+    --background: #f2f2f2;
   }
   .form-control {
     display: block;
@@ -230,5 +253,5 @@ ion-select::part(text) {
     --background: #009bd7;
     color: #fff !important;
     font-size: 40px;
-}
+  }
 }

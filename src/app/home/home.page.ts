@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
-import { MenuController, IonSlides } from '@ionic/angular';
+import { MenuController, IonSlides, IonRouterOutlet } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { CartService } from '../services/cart.service';
@@ -44,7 +44,8 @@ base_url:any;
     private menuCtrl: MenuController,
     private http: HttpClient,
     private cartService: CartService,
-    private config: ConfigService
+    private config: ConfigService,
+    private routerOutlet: IonRouterOutlet
   ) {
     
     this.base_url = config.get_base_url();
@@ -63,6 +64,7 @@ base_url:any;
 
     ionViewWillEnter() {
  this.menuCtrl.enable(true);
+ this.routerOutlet.swipeGesture = false;
 }
 goCarrito(){
   this.router.navigate(['carrito']);
