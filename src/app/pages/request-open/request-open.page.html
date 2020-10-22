@@ -60,26 +60,26 @@
     <ion-grid>
       <ion-row>
         <ion-col size="6"><p class="name_product">Subtotal</p></ion-col>
-        <ion-col size="6"><p class="description_product">${{ getPrice() | number }}</p></ion-col>
+        <ion-col size="6"><p class="description_product">${{ subTotal() | number }}</p></ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col size="6"><p class="name_product">Costo envío</p></ion-col>
-        <ion-col size="6"><p class="description_product">$000.000</p></ion-col>
+        <ion-col size="6"><p class="description_product">$2,000</p></ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col size="6"><p class="name_product">Impuesto</p></ion-col>
-        <ion-col size="6"><p class="description_product">$000.000</p></ion-col>
+        <ion-col size="6"><p class="description_product">${{ getTax() | number}}</p></ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col size="6"><p class="name_product">Total</p></ion-col>
-        <ion-col size="6"><p class="description_product">$000.00</p></ion-col>
+        <ion-col size="6"><p class="description_product">${{getTotal() | number}}</p></ion-col>
       </ion-row>
     </ion-grid>
     <ion-col size="12" class="mt-20">
-      <ion-button class="btn-continue" expand="block" *ngIf="status == 2" (click)="goPago()">P<p class="btntext" >agar</p></ion-button>
+      <ion-button class="btn-continue" expand="block" *ngIf="status == 2" (click)="getTax()">P<p class="btntext" >agar</p></ion-button>
       <ion-button class="btn-continue" expand="block" *ngIf="status == 1">E<p class="btntext" >liminar pedido</p></ion-button>
     </ion-col>
   </ion-row>
