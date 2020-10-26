@@ -128,6 +128,11 @@ const routes: Routes = [
     path: 'request-closed',
     loadChildren: () => import('./pages/request-closed/request-closed.module').then( m => m.RequestClosedPageModule), canActivate: [AuthGuard]
   },
+  {
+    path: 'createalarm2',
+    loadChildren: () => import('./pages/createalarm2/createalarm2.module').then( m => m.Createalarm2PageModule), canActivate: [AuthGuard]
+  },
+
 
 
 
