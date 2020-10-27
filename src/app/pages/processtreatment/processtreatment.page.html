@@ -20,15 +20,15 @@
   <ion-row class="result_search">
     <div class="select_options">
       <ion-col size="12" class="align-self">
-        <img src="../../../assets/img/RECURSOS/dolex.jpeg" width="40%" class="mx-auto d-block">
+        <img src={{base_url}}{{apiUrl7}}{{alarma.item_code}}{{apiUrl8}} width="40%" class="mx-auto d-block">
       </ion-col>
     </div>
     <div class="select_options">
       <ion-col size="12">
-        <p class="name_product">CENTRUM ADVANCE 100 TABLETAS</p>
-        <p class="description_product mt-20">Vitaminas y Minerales</p>
+        <p class="name_product">{{alarma.item_name}}</p>
+        <p class="description_product mt-20">{{alarma.compsition}}</p>
         <p class="description_product mt-20">
-          <b>1 Tableta cada 24 Horas</b>
+          <b>1 Tableta cada {{alarma.cada}} Horas</b>
         </p>
       </ion-col>
     </div>

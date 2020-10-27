@@ -59,30 +59,18 @@
     <p class="name_product">Mis alarmas</p>
   </div>
   </div>
-<ion-row class="result_search">
+<ion-row class="result_search" *ngFor="let al of alarmas">
  <ion-col size="3" class="align-self img_product">
-   <img src="../../../assets/img/RECURSOS/dolex.jpeg" width="100%" class="imagen_med">
+   <img src={{base_url}}{{apiUrl7}}{{al.item_code}}{{apiUrl8}} width="100%" class="imagen_med">
  </ion-col>
  <ion-col size="5" class="align-self">
-   <p class="name_product">Nombre</p>
-   <p class="description_product">Lorem ipsum dolor sit amet.</p>
+   <p class="name_product">{{al.item_name}}</p>
+   <p class="description_product">{{al.composition}}</p>
  </ion-col>
  <ion-col size="4" class="align-self">
-  <ion-button (click)="processTreat()" class="btn-product">E<p class="btntext">stado</p></ion-button>
+  <ion-button (click)="processTreat(al)" class="btn-product">E<p class="btntext">stado</p></ion-button>
   <ion-button (click)="createAlarm()" class="btn-product">E<p class="btntext">ditar</p></ion-button>
  </ion-col>
 </ion-row>
-<ion-row class="result_search">
-  <ion-col size="3" class="align-self img_product">
-    <img src="../../../assets/img/RECURSOS/dolex.jpeg" width="100%" class="imagen_med">
-  </ion-col>
-  <ion-col size="5" class="align-self">
-    <p class="name_product">Nombre</p>
-    <p class="description_product">Lorem ipsum dolor sit amet.</p>
-  </ion-col>
-  <ion-col size="4" class="align-self">
-    <ion-button (click)="processTreat()" class="btn-product">E<p class="btntext">stado</p></ion-button>
-    <ion-button (click)="createAlarm()" class="btn-product">E<p class="btntext">ditar</p></ion-button>
-  </ion-col>
- </ion-row>
+
 </ion-content>

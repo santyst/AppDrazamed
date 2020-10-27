@@ -6,6 +6,7 @@ import * as moment from 'moment';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Storage } from '@ionic/storage';
+import { TratamientosService } from 'src/app/services/tratamientos.service';
 
 @Component({
   selector: 'app-createalarm2',
@@ -15,8 +16,9 @@ import { Storage } from '@ionic/storage';
 export class Createalarm2Page implements OnInit {
   items: any;
   constructor(private router: Router, private route: ActivatedRoute, private config: ConfigService,
-    private localNotifications: LocalNotifications, private loadingController: LoadingController,
-    private alertCtrl: AlertController, private formBuilder: FormBuilder, private storage: Storage) {
+              private localNotifications: LocalNotifications, private loadingController: LoadingController,
+              private alertCtrl: AlertController, private formBuilder: FormBuilder, private storage: Storage, 
+              private tratamientoService: TratamientosService) {
     this.base_url = config.get_base_url();
     
   }
@@ -68,6 +70,7 @@ export class Createalarm2Page implements OnInit {
     moment(time).format('LT');
   }
   async updateAlarm() {
+    this.tratamientoService.addAlarm(this.alarmas);
     console.log(this.alarmas);
     let date = new Date(this.alarmas.date + ' ' + this.alarmas.time);
     console.log(date);
@@ -100,7 +103,8 @@ export class Createalarm2Page implements OnInit {
       ]
     });
     await alert.present();
-    this.storage.set(this.key2, this.alarmas);
+    // this.storage.set(this.key2, this.alarmas);
+    this.router.navigate(['mipastillero']);
   }
 
 }

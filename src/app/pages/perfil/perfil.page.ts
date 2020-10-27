@@ -1,12 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MenuController, IonSlides, AlertController, LoadingController } from '@ionic/angular';
+import { MenuController, IonSlides, AlertController, LoadingController, Platform } from '@ionic/angular';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { CartService } from 'src/app/services/cart.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { ConfigService } from 'src/app/services/config.service'
 import { finalize } from 'rxjs/operators';
+import { TratamientosService } from 'src/app/services/tratamientos.service';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-perfil',
@@ -36,6 +38,10 @@ export class PerfilPage implements OnInit {
   nombre: any;
   datatoSend: any;
   base_url: any;
+  alarmas = [];
+  apiUrl7 = `images/products/`;
+  apiUrl8 = `.jpg`;
+alarma: any;
   constructor(
     private menuCtrl: MenuController,
     private cartService: CartService,
@@ -44,10 +50,16 @@ export class PerfilPage implements OnInit {
     private http: HttpClient,
     private router: Router,
     private config: ConfigService,
-    private loadingController: LoadingController
+    private loadingController: LoadingController,
+    private tratamientoService: TratamientosService,
+    private storage: Storage,
+    private platform: Platform
   ) {
     this.base_url = config.get_base_url();
     this.cartItemCount = this.cartService.getCartItemCount();
+    this.platform.ready().then(() =>{
+      this.alarmas = this.tratamientoService.getAlarma();
+    });
   }
 
   ngOnInit() {
@@ -140,8 +152,13 @@ export class PerfilPage implements OnInit {
   misDirecciones() {
     this.router.navigate(['misdirecciones']);
   }
-  processTreat() {
-    this.router.navigate(['processtreatment']);
+  processTreat(alarma) {
+    let navigationExtras: NavigationExtras = {
+      state: {
+        user: alarma
+      }
+    };
+    this.router.navigate(['processtreatment'], navigationExtras);
   }
   createAlarm() {
     this.router.navigate(['createalarm']);
