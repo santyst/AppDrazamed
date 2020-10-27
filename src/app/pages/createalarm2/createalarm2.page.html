@@ -29,12 +29,12 @@
           <p class="name_product" style="color: #00a1dd !important;">{{items.item_name}}</p>
           <p class="description_product">{{items.composition}}</p>
         </ion-col>
-      
+        
         <ion-col size="12" class="mt-20 padding">
           <form>
             <p class="name_product" style="color: #00a1dd !important;">Mensaje</p>
             <div class="form-group">
-              <ion-input  placeholder="Ingresa tu mensaje" class="form-control" [(ngModel)]="alarmas.mensaje" name="mensaje" value="{{items.item_name}}"></ion-input>
+              <ion-input  placeholder="Ingresa tu mensaje" class="form-control"  [(ngModel)]="alarmas.mensaje" name="mensaje"></ion-input>
             </div>
             <p class="name_product" style="color: #00a1dd !important;">Crear alarma</p>
             <div class="select_options">

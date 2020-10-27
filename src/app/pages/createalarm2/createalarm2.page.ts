@@ -53,7 +53,7 @@ export class Createalarm2Page implements OnInit {
       cada: this.intervaloNumber,
       date: this.doSomething,
       time: this.doSomethingh,
-      mensaje: '',
+      mensaje: this.items.item_name,
       item_name: this.items.item_name,
       composition: this.items.composition,
       item_code: this.items.item_code
