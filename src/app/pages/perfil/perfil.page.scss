@@ -43,15 +43,16 @@ ion-header {
   }
   ion-badge {
     color: #046a8f;
-    position: absolute;
-    --border-radius: 200%;
-    top: -1px;
-  right: 15px;
+  position: absolute;
+  --border-radius: 200%;
+  top: 2px;
+  right: 9px;
   --background: #c9c9c9;
-  width: 24px ;
+  width: 28px;
   height: 20px;
   font-size: 16px;
   }
+  
   .btn_i{
     padding-top: 5px;
     }
@@ -237,12 +238,12 @@ p {
 @media (min-width:400px) and (max-width:417px) {
   ion-badge {
     color: #046a8f;
-    position: absolute;
-    --border-radius: 200%;
-    top: -1px;
-  right: 21px;
+  position: absolute;
+  --border-radius: 200%;
+  top: 2px;
+  right: 9px;
   --background: #c9c9c9;
-  width: 24px ;
+  width: 28px;
   height: 20px;
   font-size: 16px;
   }
