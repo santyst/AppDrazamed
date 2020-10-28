@@ -9,17 +9,24 @@ export class TratamientosService {
 
   alarm = [];
   alarmas = [];
-  key = 'alarmas1';
+  key = 'alarms1';
   constructor(private storage: Storage, private platform: Platform) {
+
     this.platform.ready().then(() =>{
-      this.storage.get(this.key).then(val => {
-         this.alarm = val;
+      this.storage.get(this.key).then((val) => {
+        if(val === null){
+          val = [];
+          console.log(val);
+        }
+        else{
+          this.alarm = val;
+        }
       });
     });
   }
 
   getAlarma(){
-    return this.alarm;
+      return this.alarm;
   }
 
 
@@ -32,6 +39,6 @@ export class TratamientosService {
   }
 
   removeAlarm(){
-
+        this.storage.remove(this.key);
   }
 }
