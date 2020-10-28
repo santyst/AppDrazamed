@@ -22,7 +22,7 @@ const STORAGE_KEY = 'my_images';
   styleUrls: ['./carrito.page.scss'],
 })
 export class CarritoPage implements OnInit {
-  
+
   code: any;
   code2: any;
   user: any;
@@ -38,9 +38,9 @@ export class CarritoPage implements OnInit {
     private actionSheetController: ActionSheetController, private toastController: ToastController,
     private storage: Storage, private plt: Platform, private loadingController: LoadingController,
     private ref: ChangeDetectorRef, private filePath: FilePath, private platform: Platform, private auth: AuthService, private config: ConfigService) {
-      this.base_url = config.get_base_url();
-      this.mycart = this.cartService.getCurrent();
-      console.log(this.mycart);
+    this.base_url = config.get_base_url();
+    this.mycart = this.cartService.getCurrent();
+    console.log(this.mycart);
   }
 
   images = [];
@@ -50,8 +50,12 @@ export class CarritoPage implements OnInit {
   apiImg = `images/products/`;
   apiUrl8 = `.jpg`;
   delete_cart = `empty-cart?email=`;
+  subtotal: any;
+  subtotal1: any;
   cart = [];
   user1: any;
+  tax: any;
+  tax1: any;
   value: any;
   name: any;
   text: any;
@@ -59,12 +63,14 @@ export class CarritoPage implements OnInit {
   orden: any;
   err1: any;
   med: any;
+  tax2: any;
+  division: any;
   async ngOnInit() {
     this.plt.ready().then(() => {
       this.loadStoredImages();
     });
     this.cart = this.cartService.getCart();
-   console.log(this.cart);
+    console.log(this.cart);
     for (const formula of this.cart) {
       if (formula.is_pres_required === 1) {
         this.value = formula.value;
@@ -86,7 +92,7 @@ export class CarritoPage implements OnInit {
         await alert.present();
       }
     }
-   
+
   }
 
   goPerfil() {
@@ -114,9 +120,45 @@ export class CarritoPage implements OnInit {
     this.cartService.removeProduct(product);
   }
 
-  getTotal() {
-   return this.cart.reduce((i , j) => i + (j.unit_price * j.medicine_count || + j.mrp * j.medicine_count), 0);
+  getSubTotal() {
+    return this.cart.reduce((i, j) => i + (j.unit_price * j.medicine_count || + j.mrp * j.medicine_count), 0);
   }
+  getTotal() {
+    if (this.cart.length !== 0) {
+      return this.getSubTotal() + 2000;
+    }
+    else {
+      return 0;
+    }
+  }
+  /*getTax() {
+    this.subtotal = 0;
+    this.subtotal1 = 0;
+    for (let ta of this.cart) {
+      this.total = (ta.mrp * ta.medicine_count || ta.unit_price * ta.medicine_count);
+      this.tax1 = ta.tax ? ta.tax : 0 || ta.medicine.tax ? ta.medicine.tax : 0;
+      console.log(this.total);
+      console.log(this.tax1);
+      if (this.tax1 !== 0) {
+        this.subtotal = Math.floor(this.total / (((100) + this.tax1) / 100));
+        console.log(this.subtotal);
+        this.subtotal1 += this.subtotal;
+      }
+    }
+    console.log(this.subtotal1);
+    return this.subtotal1;
+  }*/
+  envio() {
+    if (this.cart.length === 0) {
+      return 0;
+    }
+    else {
+      return 2000;
+    }
+  }
+  /*impuesto() {
+    return this.getSubTotal() - this.getTax();
+  }*/
   goBuscar() {
     this.router.navigate(['medicamentos']);
   }
@@ -360,11 +402,11 @@ export class CarritoPage implements OnInit {
     await loading.present();
     this.user1 = this.auth.getusuario();
     this.userid = this.user1.email;
-    for(let code of this.cart){
-    this.item_code.push(code.item_code);
-    this.cantidad.push(code.medicine_count);
-    this.formula.push(code.is_pres_required);
-  }
+    for (let code of this.cart) {
+      this.item_code.push(code.item_code);
+      this.cantidad.push(code.medicine_count);
+      this.formula.push(code.is_pres_required);
+    }
 
     this.orden = {
       email: this.userid,
@@ -384,19 +426,19 @@ export class CarritoPage implements OnInit {
       .subscribe(async (mensaje) => {
         this.code = mensaje;
         this.code2 = this.code.status;
-        if (this.code2 === 'SUCCESS'){
+        if (this.code2 === 'SUCCESS') {
           const alert = await this.alertCtrl.create({
-         message: '<img src = "../../assets/img/RECURSOS/check.png" class="alert">Tu orden fue creada',
-         mode: 'ios',
-         cssClass: 'failed',
-         backdropDismiss: false,
-         buttons: [
-           {
-             text: 'Aceptar',
-             cssClass: 'btnalert',
-             handler: (data) => { alert2.present(); }
-           }
-         ]
+            message: '<img src = "../../assets/img/RECURSOS/check.png" class="alert">Tu orden fue creada',
+            mode: 'ios',
+            cssClass: 'failed',
+            backdropDismiss: false,
+            buttons: [
+              {
+                text: 'Aceptar',
+                cssClass: 'btnalert',
+                handler: (data) => { alert2.present(); }
+              }
+            ]
           });
           const alert2 = await this.alertCtrl.create({
             message: '<img src = "../../assets/img/RECURSOS/check.png" class="alert">En algunos minutos verificaremos tu orden',
@@ -410,7 +452,7 @@ export class CarritoPage implements OnInit {
                 handler: (data) => { this.router.navigate(['mispedidos']); }
               }
             ]
-             });
+          });
 
           this.http.get(`${this.base_url}${this.delete_cart}${this.userid}`).subscribe(val => {
             console.log(val);
@@ -418,22 +460,22 @@ export class CarritoPage implements OnInit {
           this.cartService.removeAll();
 
           await alert.present();
-         
-         }
+
+        }
         else {
-         const alert = await this.alertCtrl.create({
-           message: '<img src = "../../assets/img/RECURSOS/wrong.png" class="alert">Su orden no fue creada, intente de nuevo',
-           mode: 'ios',
-           cssClass: 'failed',
-           backdropDismiss: false,
-           buttons: [
-             {
-               text: 'Aceptar',
-               cssClass: 'btnalert',
-             }
-           ]
-            });
-         await alert.present();
+          const alert = await this.alertCtrl.create({
+            message: '<img src = "../../assets/img/RECURSOS/wrong.png" class="alert">Su orden no fue creada, intente de nuevo',
+            mode: 'ios',
+            cssClass: 'failed',
+            backdropDismiss: false,
+            buttons: [
+              {
+                text: 'Aceptar',
+                cssClass: 'btnalert',
+              }
+            ]
+          });
+          await alert.present();
         }
       });
   }
