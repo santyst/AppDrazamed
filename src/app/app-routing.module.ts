@@ -132,6 +132,11 @@ const routes: Routes = [
     path: 'createalarm2',
     loadChildren: () => import('./pages/createalarm2/createalarm2.module').then( m => m.Createalarm2PageModule), canActivate: [AuthGuard]
   },
+  {
+    path: 'edit-address',
+    loadChildren: () => import('./pages/edit-address/edit-address.module').then( m => m.EditAddressPageModule), canActivate: [AuthGuard]
+  },
+
 
 
 
