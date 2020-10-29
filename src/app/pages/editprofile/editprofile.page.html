@@ -6,7 +6,7 @@
     <ion-buttons>
       <ion-menu-button slot="start" menu="main-menu"></ion-menu-button>
       <ion-button class="carrito" (click)="updateProfile()">
-        Ok
+        Actualizar
       </ion-button>
     </ion-buttons>
   </div>
@@ -35,40 +35,36 @@
          <form action="">
            <div class="form-group">
              <ion-label class="grey">Nombre</ion-label>
-             <ion-input type="text" class="form-control"></ion-input>
+             <ion-input type="text" class="form-control" value="{{firstName}}"></ion-input>
            </div>
            <div class="form-group">
+            <ion-label class="grey">Apellido</ion-label>
+            <ion-input type="text" class="form-control" value="{{lastName}}"></ion-input>
+          </div>
+           <div class="form-group">
             <ion-label class="grey">Correo</ion-label>
-            <ion-input type="text" class="form-control"></ion-input>
-          </div>
-          <div class="form-group">
-            <ion-label class="grey">Contraseña</ion-label>
-            <ion-input type="text" class="form-control"></ion-input>
-          </div>
-          <div class="form-group">
-            <ion-label class="grey">Confirmar contraseña</ion-label>
-            <ion-input type="text" class="form-control"></ion-input>
+            <ion-input type="email" class="form-control" value="{{mail}}"></ion-input>
           </div>
           <div class="form-group">
             <ion-label class="grey">Documento de identidad</ion-label>
-            <ion-input type="text" class="form-control"></ion-input>
+            <ion-input type="number" class="form-control" value="{{id}}"></ion-input>
           </div>
           <div class="form-group">
             <ion-label class="grey">Dirección para entrega de pedidos</ion-label>
-            <ion-input type="text" class="form-control"></ion-input>
+            <ion-input type="text" class="form-control" value="{{address}}"></ion-input>
           </div>
           <div class="form-group">
           <ion-label class="grey">Teléfono de contacto</ion-label>
-            <ion-input type="text" class="form-control"></ion-input>
+            <ion-input type="number" class="form-control" value="{{phone}}"></ion-input>
           </div>
-          <div class="form-group">
+          <!--<div class="form-group">
             <ion-label class="grey">Genero</ion-label>
             <ion-input type="text" class="form-control"></ion-input>
           </div>
           <div class="form-group">
             <ion-label class="grey">Convenio</ion-label>
             <ion-input type="text" class="form-control"></ion-input>
-          </div>
+          </div>-->
          </form>
        </div>
    </ion-row>
