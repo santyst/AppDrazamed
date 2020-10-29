@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { CartService } from 'src/app/services/cart.service';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { DireccionesService } from 'src/app/services/direcciones.service';
 import { AlertController } from '@ionic/angular';
+import { AuthService } from 'src/app/services/auth.service';
+import { ConfigService } from 'src/app/services/config.service';
+import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -16,24 +19,42 @@ export class MisdireccionesPage implements OnInit {
   cartItemCount: BehaviorSubject<number>;
   direcciones = [];
   taskList = [];
-taskName: any;
-
-  constructor(private cartService: CartService, private router: Router, private direccionService: DireccionesService) {
+  taskName: any;
+  user: any;
+  base_url: any;
+  useremail: any;
+  address: any;
+  profile: any;
+  constructor(private cartService: CartService, private router: Router, private direccionService: DireccionesService,
+              private auth: AuthService, private config: ConfigService, private http: HttpClient) {
     this.cartItemCount = this.cartService.getCartItemCount();
+    this.base_url = config.get_base_url();
+    this.user = this.auth.getusuario();
+    this.useremail = this.user.email;
+    this.http.get(`${this.base_url}user/get-user-data/0?email=${this.useremail}`).subscribe((val) => {
+       this.profile = val;
+       this.address = this.profile.address;
+    });
   }
 
   ngOnInit() {
     this.direcciones = this.direccionService.getDirection();
   }
-  goAddD(){
+  goAddD() {
     this.router.navigate(['adddirection']);
   }
-  goCarrito(){
+  goCarrito() {
     this.router.navigate(['carrito']);
   }
   removeDireccion(product) {
     this.direccionService.removeDirection(product);
   }
- 
-
+  updateDefAd(ad){
+    let navigationExtras: NavigationExtras = {
+      state: {
+        user: ad
+      }
+    };
+    this.router.navigate(['edit-address'], navigationExtras);
+  }
 }
