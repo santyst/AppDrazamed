@@ -104,7 +104,7 @@
               <p class="name_product">Subtotal</p>
             </ion-col>
             <ion-col size="6">
-              <p class="description_product">$0</p>
+              <p class="description_product">${{getTax() | number}}</p>
             </ion-col>
           </ion-row>
 
@@ -113,7 +113,7 @@
               <p class="name_product">Costo envío</p>
             </ion-col>
             <ion-col size="6">
-              <p class="description_product"> 2000 </p>
+              <p class="description_product">$2000</p>
             </ion-col>
           </ion-row>
 
@@ -122,7 +122,7 @@
               <p class="name_product">Impuesto</p>
             </ion-col>
             <ion-col size="6">
-              <p class="description_product">$0</p>
+              <p class="description_product">${{impuesto() | number}}</p>
             </ion-col>
           </ion-row>
 
@@ -142,8 +142,9 @@
 
             <ion-button (click)="send()" class="btn-continue" expand="block" [disabled]="cart == []">C<p class="btntext">
                 olocar Orden</p>
+            
             </ion-button>
-            <!--<ion-button (click)="getTax()" class="btn-continue" expand="block">impuesto</ion-button>-->
+            <ion-button (click)="getTax()" class="btn-continue" expand="block">Impuesto</ion-button>
           </div>
 
           <div *ngFor="let p of cart">

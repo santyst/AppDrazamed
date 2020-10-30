@@ -33,11 +33,11 @@ export class CarritoPage implements OnInit {
   formula = [];
   base_url: any;
   constructor(private router: Router, private menuCtrl: MenuController, private cartService: CartService,
-    private alertCtrl: AlertController, private camera: Camera, private file: File, private http: HttpClient,
-    private webview: WebView,
-    private actionSheetController: ActionSheetController, private toastController: ToastController,
-    private storage: Storage, private plt: Platform, private loadingController: LoadingController,
-    private ref: ChangeDetectorRef, private filePath: FilePath, private platform: Platform, private auth: AuthService, private config: ConfigService) {
+              private alertCtrl: AlertController, private camera: Camera, private file: File, private http: HttpClient,
+              private webview: WebView,
+              private actionSheetController: ActionSheetController, private toastController: ToastController,
+              private storage: Storage, private plt: Platform, private loadingController: LoadingController,
+              private ref: ChangeDetectorRef, private filePath: FilePath, private platform: Platform, private auth: AuthService, private config: ConfigService) {
     this.base_url = config.get_base_url();
     this.mycart = this.cartService.getCurrent();
     console.log(this.mycart);
@@ -65,6 +65,7 @@ export class CarritoPage implements OnInit {
   med: any;
   tax2: any;
   division: any;
+  subtotal2: any;
   async ngOnInit() {
     this.plt.ready().then(() => {
       this.loadStoredImages();
@@ -131,23 +132,17 @@ export class CarritoPage implements OnInit {
       return 0;
     }
   }
-  /*getTax() {
+  getTax() {
     this.subtotal = 0;
     this.subtotal1 = 0;
     for (let ta of this.cart) {
       this.total = (ta.mrp * ta.medicine_count || ta.unit_price * ta.medicine_count);
-      this.tax1 = ta.tax ? ta.tax : 0 || ta.medicine.tax ? ta.medicine.tax : 0;
-      console.log(this.total);
-      console.log(this.tax1);
-      if (this.tax1 !== 0) {
-        this.subtotal = Math.floor(this.total / (((100) + this.tax1) / 100));
-        console.log(this.subtotal);
-        this.subtotal1 += this.subtotal;
-      }
+      this.tax1 = ta.tax ? ta.tax : 0;
+      this.subtotal = Math.floor(this.total / (((100) + this.tax1) / 100));
+      this.subtotal1 += this.subtotal;
     }
-    console.log(this.subtotal1);
     return this.subtotal1;
-  }*/
+  }
   envio() {
     if (this.cart.length === 0) {
       return 0;
@@ -156,9 +151,9 @@ export class CarritoPage implements OnInit {
       return 2000;
     }
   }
-  /*impuesto() {
+  impuesto() {
     return this.getSubTotal() - this.getTax();
-  }*/
+  }
   goBuscar() {
     this.router.navigate(['medicamentos']);
   }
@@ -411,7 +406,7 @@ export class CarritoPage implements OnInit {
     this.orden = {
       email: this.userid,
       cart_length: this.cart.length,
-      shipping_cost: 0,
+      shipping_cost: 2000,
       quantity: this.cantidad,
       is_pres_required: 0,
       item_code: this.item_code

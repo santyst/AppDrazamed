@@ -9,10 +9,10 @@ export class TratamientosService {
 
   alarm = [];
   alarmas = [];
-  key = 'alarms1';
+  key = 'getAlarma';
   constructor(private storage: Storage, private platform: Platform) {
 
-    this.platform.ready().then(() =>{
+    /*this.platform.ready().then(() =>{
       this.storage.get(this.key).then((val) => {
         if(val === null){
           val = [];
@@ -22,6 +22,17 @@ export class TratamientosService {
           this.alarm = val;
         }
       });
+    });*/
+    this.platform.ready().then(() => {
+     this.alarmas = JSON.parse(window.localStorage.getItem(this.key));
+     if(this.alarmas === null){
+       this.alarmas = [];
+       console.log(this.alarmas);
+     }
+     else{
+       this.alarm = this.alarmas;
+       console.log(this.alarm);
+     }
     });
   }
 
@@ -35,7 +46,7 @@ export class TratamientosService {
     if (!added){
       this.alarm.push(alarma);
     }
-    this.storage.set(this.key, this.alarm);
+    window.localStorage.setItem(this.key, JSON.stringify(this.alarm));
   }
 
   removeAlarm(){

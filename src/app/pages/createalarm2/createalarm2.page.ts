@@ -77,7 +77,7 @@ export class Createalarm2Page implements OnInit {
     this.localNotifications.schedule({
       title: this.alarmas.mensaje,
       text: 'Hora de un medicamento.',
-      trigger: { firstAt: date, in: this.alarmas.cada, every: ELocalNotificationTriggerUnit.MINUTE, count: 3 },
+      trigger: { firstAt: date, in: this.alarmas.cada, unit: ELocalNotificationTriggerUnit.MINUTE , count: 3 },
       lockscreen: true,
       wakeup: true,
       priority: 2,
@@ -105,6 +105,7 @@ export class Createalarm2Page implements OnInit {
     await alert.present();
     // this.storage.set(this.key2, this.alarmas);
     this.router.navigate(['mipastillero']);
+    this.alarmasForm.reset();
   }
 
 }

@@ -4,9 +4,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { Createalarm2PageRoutingModule } from './createalarm2-routing.module';
+import { EditAddressPageRoutingModule } from './edit-address-routing.module';
 
-import { Createalarm2Page } from './createalarm2.page';
+import { EditAddressPage } from './edit-address.page';
 
 @NgModule({
   imports: [
@@ -14,8 +14,8 @@ import { Createalarm2Page } from './createalarm2.page';
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
-    Createalarm2PageRoutingModule
+    EditAddressPageRoutingModule
   ],
-  declarations: [Createalarm2Page]
+  declarations: [EditAddressPage]
 })
-export class Createalarm2PageModule {}
+export class EditAddressPageModule {}
