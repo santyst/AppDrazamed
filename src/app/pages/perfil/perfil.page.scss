@@ -191,6 +191,7 @@ ion-header {
 }
 .grey{
 color: #727070 !important;
+margin-top: 0px;
 }
 .img_product{
   box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.1) !important;
@@ -221,7 +222,7 @@ color: #727070 !important;
 .name_product {
   font-size: 19px !important;
   font-weight: 700 !important;
-  color: #727070 !important;
+  color: #00a1dd !important;
   margin: 5px 0px !important;
   line-height: 20px !important;
 }
@@ -260,6 +261,21 @@ p {
   height: 20px;
   font-size: 16px;
   }
+}
+@media (min-width: 320px) and (max-width: 360px){
+  .name_product {
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    color: #00a1dd !important;
+    margin: 5px 0px !important;
+    line-height: 20px !important;
+  }
+  .description_product {
+    font-size: 14px !important;
+    color: #727070 !important;
+    line-height: 18px !important;
+    margin: 5px 0px !important;
+}
 }
 @media (min-width:337px) and (max-width:350px) {
   ion-badge {
@@ -328,7 +344,7 @@ p {
 .description_product {
   font-size: 25px !important;
   color: #727070 !important;
-  line-height: 18px !important;
+  line-height: 28px !important;
   margin: 15px 0px !important;
 }
 .btn-product {
@@ -360,13 +376,14 @@ p {
 .grey {
   color: #727070 !important;
   font-size: 25px;
+  margin-top: 0px;
 }
 .name_product {
   font-size: 29px !important;
   font-weight: 700 !important;
-  color: #727070 !important;
+  color: #00a1dd !important;
   margin: 14px 0px !important;
-  line-height: 20px !important;
+  line-height: 33px !important;
 }
 
 }
