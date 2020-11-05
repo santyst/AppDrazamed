@@ -123,7 +123,7 @@
       </div>
         <ion-row class="result_search" *ngFor="let al of alarmas">
             <ion-col size="12" class="col_trat">
-               <!--<p class="grey">Próxima 2H 20 min (5:00p.m)</p>-->
+               <p class="grey">Próxima 2H 20 min (5:00p.m)</p>
             </ion-col>
             <ion-col size="3" class="img_product">
               <img src={{base_url}}{{apiUrl7}}{{al.item_code}}{{apiUrl8}} class="img_med">
@@ -134,7 +134,7 @@
             </ion-col>
             <ion-col size="4">
              <ion-button (click)="processTreat(al)" class="btn-product">E<p class="btntext">stado</p></ion-button>
-             <ion-button (click)="createAlarm()" class="btn-product">E<p class="btntext">ditar</p></ion-button>
+             <ion-button (click)="editAlarm(al)" class="btn-product">E<p class="btntext">ditar</p></ion-button>
             </ion-col>
         </ion-row>
     </div>

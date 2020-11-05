@@ -45,8 +45,9 @@ export class TratamientosService {
     const added = false;
     if (!added){
       this.alarm.push(alarma);
+      window.localStorage.setItem(this.key, JSON.stringify(this.alarm));
     }
-    window.localStorage.setItem(this.key, JSON.stringify(this.alarm));
+    
   }
 
   removeAlarm(){

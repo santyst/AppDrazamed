@@ -4,7 +4,7 @@ import { ELocalNotificationTriggerUnit, LocalNotifications } from '@ionic-native
 import { ConfigService } from 'src/app/services/config.service';
 import * as moment from 'moment';
 import { AlertController, LoadingController } from '@ionic/angular';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { TratamientosService } from 'src/app/services/tratamientos.service';
 
@@ -14,14 +14,19 @@ import { TratamientosService } from 'src/app/services/tratamientos.service';
   styleUrls: ['./createalarm2.page.scss'],
 })
 export class Createalarm2Page implements OnInit {
-  items: any;
   constructor(private router: Router, private route: ActivatedRoute, private config: ConfigService,
-              private localNotifications: LocalNotifications, private loadingController: LoadingController,
-              private alertCtrl: AlertController, private formBuilder: FormBuilder, private storage: Storage, 
-              private tratamientoService: TratamientosService) {
+    private localNotifications: LocalNotifications, private loadingController: LoadingController,
+    private alertCtrl: AlertController, private formBuilder: FormBuilder, private storage: Storage,
+    private tratamientoService: TratamientosService) {
     this.base_url = config.get_base_url();
-    
+    this.alarmasForm = this.formBuilder.group({
+      mensaje: new FormControl('', [Validators.required]),
+      time: new FormControl('', [Validators.required]),
+      date: new FormControl('', [Validators.required]),
+      cada: new FormControl('', [Validators.required]),
+    });
   }
+  items: any;
   apiUrl7 = `images/products/`;
   apiUrl8 = `.jpg`;
   base_url: any;
@@ -33,20 +38,15 @@ export class Createalarm2Page implements OnInit {
 
 
   dosis = ['0.5', '1', '1.5', '2', '2.5', '3', '3.5', '4', '4.5', '5'];
-  alarmasForm = this.formBuilder.group({
-    mensaje: ['', [Validators.required]],
-    time: ['', [Validators.required]],
-    date: ['', [Validators.required]],
-    cada: ['', [Validators.required]]
-  });
-  
+
+  alarmasForm: FormGroup;
+
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
         this.items = this.router.getCurrentNavigation().extras.state.user;
         console.log(this.items);
-
       }
     });
     this.alarmas = {
@@ -58,6 +58,7 @@ export class Createalarm2Page implements OnInit {
       composition: this.items.composition,
       item_code: this.items.item_code
     };
+    this.alarmasForm.reset();
   }
   goBack() {
     this.router.navigate(['createalarm']);
@@ -69,20 +70,7 @@ export class Createalarm2Page implements OnInit {
   doSomethingh(time) {
     moment(time).format('LT');
   }
-  async updateAlarm() {
-    this.tratamientoService.addAlarm(this.alarmas);
-    console.log(this.alarmas);
-    let date = new Date(this.alarmas.date + ' ' + this.alarmas.time);
-    console.log(date);
-    this.localNotifications.schedule({
-      title: this.alarmas.mensaje,
-      text: 'Hora de un medicamento.',
-      trigger: { firstAt: date, in: this.alarmas.cada, unit: ELocalNotificationTriggerUnit.MINUTE , count: 3 },
-      lockscreen: true,
-      wakeup: true,
-      priority: 2,
-      silent: false,
-    });
+  async load(){
     const loading = await this.loadingController.create({
       cssClass: 'loading',
       message: 'Por favor espera...',
@@ -91,6 +79,20 @@ export class Createalarm2Page implements OnInit {
       duration: 50
     });
     await loading.present();
+  }
+  async updateAlarm() {
+    let date = new Date(this.alarmas.date + ' ' + this.alarmas.time);
+    console.log(date);
+    this.localNotifications.schedule({
+      title: this.alarmas.mensaje,
+      text: 'Hora de un medicamento.',
+      trigger: { firstAt: date, in: this.alarmas.cada, unit: ELocalNotificationTriggerUnit.MINUTE, count: 3 },
+      lockscreen: true,
+      wakeup: true,
+      priority: 2,
+      silent: false,
+    });
+    this.load();
     const alert = await this.alertCtrl.create({
       message: '<img src = "../../assets/img/RECURSOS/check.png" class="alert">La alarma fue creada.',
       mode: 'ios',
@@ -104,8 +106,9 @@ export class Createalarm2Page implements OnInit {
     });
     await alert.present();
     // this.storage.set(this.key2, this.alarmas);
+    this.tratamientoService.addAlarm(this.alarmas);
+    console.log(this.alarmas);
     this.router.navigate(['mipastillero']);
-    this.alarmasForm.reset();
   }
 
 }
