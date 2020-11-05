@@ -1,0 +1,75 @@
+<ion-header class="ion-no-border" mode="ios">
+  <div class="div-header">
+    <ion-toolbar class="header-styles">
+      <img class="content-image" src="../../assets/img/LOGOS/LOGOS DRAZAMED_Mesa de trabajo 1.png" alt="">
+    </ion-toolbar>
+    <ion-buttons>
+      <ion-button slot="start" class="icono" (click)="goBack()">
+        <ion-icon size="large" name="chevron-back-outline"></ion-icon>
+      </ion-button>
+      <ion-button class="carrito" (click)="editAlarm()" >
+        Ok
+      </ion-button>
+    </ion-buttons>
+  </div>
+</ion-header>
+
+<ion-content mode="md">
+  <div class="container">
+    <p class="title_seccion center">Editar alarma</p>
+  </div>
+  <div class="container1">
+    <ion-row class="result_search">
+        <ion-col size="4">
+          <div class="img_product">
+            <img src={{base_url}}{{apiUrl7}}{{items.item_code}}{{apiUrl8}} class="img-fluid">
+          </div>
+        </ion-col>
+        <ion-col size="8" class="align-self">
+          <p class="name_product" style="color: #00a1dd !important;">{{items.item_name}}</p>
+          <p class="description_product">{{items.composition}}</p>
+        </ion-col>
+        
+        <ion-col size="12" class="mt-20 padding">
+          <form [formGroup]="alarmasForm">
+            <p class="name_product" style="color: #00a1dd !important;">Mensaje</p>
+            <div class="form-group">
+              <ion-input formControlName="mensaje" placeholder="Ingresa tu mensaje" class="form-control"  [(ngModel)]="alarmas.mensaje" name="mensaje"></ion-input>
+            </div>
+            <p class="name_product" style="color: #00a1dd !important;">Editar alarma</p>
+            <div class="select_options">
+              <p class="name_product" style="color: #00a1dd !important;">Tomar cada: </p>
+              <div class="input-group">
+                <ion-select  placeholder="Selecciona un periodo" class="custom_select" mode="ios" name="cada" [(ngModel)]="alarmas.cada" formControlName="cada">
+                  <ion-select-option *ngFor="let inter of intervalo" [value]="inter.id">{{inter.name}}</ion-select-option>
+                </ion-select>
+              </div>
+            </div>
+            <div class="select_options">
+              <p class="name_product" style="color: #00a1dd !important;">Empezar tratamiento: </p>
+              <div class="input-group">
+                <ion-datetime  mode="md" display-format="h:mm A" picker-format="h:mm A" [(ngModel)]="alarmas.time"  
+                class="form-control" name="time" placeholder="Hora de Inicio" formControlName="time"></ion-datetime>
+              </div>
+            </div>
+            <!--<div class="select_options">
+              <p class="name_product" style="color: #00a1dd !important;">Dósis por toma: </p>
+              <div class="input-group">
+                <ion-select placeholder="Selecciona un periodo" class="custom_select" mode="ios">
+                  <ion-select-option *ngFor="let dos of dosis">{{dos}}</ion-select-option>
+                </ion-select>
+              </div>
+            </div>-->
+            <div class="select_options">
+              <p class="name_product" style="color: #00a1dd !important;">Fecha de inicio: </p>
+              <div class="input-group">
+                <ion-datetime  mode="md" drag-content="false" displayFormat="DD/MM/YYYY" class="form-control"
+                  placeholder="Dia/Mes/Año" [(ngModel)]="alarmas.date" name="date" formControlName="date"></ion-datetime>
+              </div>
+            </div>
+          </form>
+        </ion-col>
+    </ion-row>
+  </div>
+</ion-content>
+
