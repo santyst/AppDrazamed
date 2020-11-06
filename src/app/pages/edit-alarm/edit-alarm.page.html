@@ -7,7 +7,7 @@
       <ion-button slot="start" class="icono" (click)="goBack()">
         <ion-icon size="large" name="chevron-back-outline"></ion-icon>
       </ion-button>
-      <ion-button class="carrito" (click)="updateAlarm()" >
+      <ion-button class="carrito" (click)="editAlarm()" >
         Ok
       </ion-button>
     </ion-buttons>
@@ -16,7 +16,7 @@
 
 <ion-content mode="md">
   <div class="container">
-    <p class="title_seccion center">Crea una alarma</p>
+    <p class="title_seccion center">Editar alarma</p>
   </div>
   <div class="container1">
     <ion-row class="result_search">
@@ -31,16 +31,16 @@
         </ion-col>
         
         <ion-col size="12" class="mt-20 padding">
-          <form [formGroup]="alarmasForm" #form="ngForm">
+          <form [formGroup]="alarmasForm">
             <p class="name_product" style="color: #00a1dd !important;">Mensaje</p>
             <div class="form-group">
-              <ion-input formControlName="mensaje" placeholder="Ingresa tu mensaje" class="form-control"  [(ngModel)]="alarmas.mensaje" name="mensaje" ngControl="mensaje"></ion-input>
+              <ion-input formControlName="mensaje" placeholder="Ingresa tu mensaje" class="form-control"  [(ngModel)]="alarmas.mensaje" name="mensaje"></ion-input>
             </div>
-            <p class="name_product" style="color: #00a1dd !important;">Crear alarma</p>
+            <p class="name_product" style="color: #00a1dd !important;">Editar alarma</p>
             <div class="select_options">
               <p class="name_product" style="color: #00a1dd !important;">Tomar cada: </p>
               <div class="input-group">
-                <ion-select  placeholder="Selecciona un periodo" class="custom_select" mode="ios" [(ngModel)]="alarmas.cada" formControlName="cada" name="cada" ngControl="cada">
+                <ion-select  placeholder="Selecciona un periodo" class="custom_select" mode="ios" name="cada" [(ngModel)]="alarmas.cada" formControlName="cada">
                   <ion-select-option *ngFor="let inter of intervalo" [value]="inter.id">{{inter.name}}</ion-select-option>
                 </ion-select>
               </div>
@@ -49,7 +49,7 @@
               <p class="name_product" style="color: #00a1dd !important;">Empezar tratamiento: </p>
               <div class="input-group">
                 <ion-datetime  mode="md" display-format="h:mm A" picker-format="h:mm A" [(ngModel)]="alarmas.time"  
-                class="form-control" placeholder="Hora de Inicio" formControlName="time" name="time" ngControl="time"></ion-datetime>
+                class="form-control" name="time" placeholder="Hora de Inicio" formControlName="time"></ion-datetime>
               </div>
             </div>
             <!--<div class="select_options">
@@ -64,7 +64,7 @@
               <p class="name_product" style="color: #00a1dd !important;">Fecha de inicio: </p>
               <div class="input-group">
                 <ion-datetime  mode="md" drag-content="false" displayFormat="DD/MM/YYYY" class="form-control"
-                  placeholder="Dia/Mes/Año" [(ngModel)]="alarmas.date" formControlName="date" name="date" ngControl="date"></ion-datetime>
+                  placeholder="Dia/Mes/Año" [(ngModel)]="alarmas.date" name="date" formControlName="date"></ion-datetime>
               </div>
             </div>
           </form>
@@ -72,3 +72,4 @@
     </ion-row>
   </div>
 </ion-content>
+

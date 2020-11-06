@@ -160,8 +160,13 @@ alarma: any;
     };
     this.router.navigate(['processtreatment'], navigationExtras);
   }
-  createAlarm() {
-    this.router.navigate(['createalarm']);
+  editAlarm(alarmas) {
+    let navigationExtras: NavigationExtras = {
+      state: {
+        user: alarmas
+      }
+    };
+    this.router.navigate(['edit-alarm'], navigationExtras);
   }
   goCarrito() {
     this.router.navigate(['carrito']);

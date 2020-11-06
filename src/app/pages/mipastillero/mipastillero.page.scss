@@ -73,6 +73,13 @@ ion-badge {
   font-weight: 700;
   margin: 20px 0px;
 }
+.grey{
+  color: #727070 !important;
+  margin-top: 0px;
+  }
+.col_trat{
+  text-align: right !important;
+}
 .container1 {
   width: 100%;
   padding-right: 1px;
@@ -230,6 +237,11 @@ a {
   text-transform: lowercase;
 }
 @media (min-width: 600px) and (min-height: 950px) {
+  .grey {
+    color: #727070 !important;
+    font-size: 25px;
+    margin-top: 0px;
+  }
   .header-styles {
     --background: #009bd7 !important;
     padding-top: 0px;
@@ -281,7 +293,7 @@ a {
     font-size: 35px !important;
     font-weight: 700 !important;
     margin: 5px 0px !important;
-    line-height: 20px !important;
+    line-height: 33px !important;
     color: #00a1dd !important;
   }
   .btn-product {
@@ -306,4 +318,19 @@ a {
     margin: 5px 0px !important;
 }
 
+}
+@media (min-width: 320px) and (max-width: 360px){
+  .name_product {
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    color: #00a1dd !important;
+    margin: 5px 0px !important;
+    line-height: 20px !important;
+  }
+  .description_product {
+    font-size: 14px !important;
+    color: #727070 !important;
+    line-height: 18px !important;
+    margin: 5px 0px !important;
+}
 }
