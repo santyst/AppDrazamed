@@ -59,9 +59,9 @@ this.user = platformObs.pipe(
       // console.log('decoded: ', decoded);
       this.userData.next(decoded);
       return true;
-    } else {
+    }/*else {
       return null;
-    }
+    }*/
   })
 );
 }
