@@ -99,14 +99,14 @@ map(res => {
 return `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkRyYXphbWVkIiwiaWF0IjoxNTE2MjM5MDIyfQ.4x0iejWjRVH3V7ULcX0-vRmxeR8NLdlFGvx69CuBrrY`;
 }),
 switchMap(token => {
-  if (this.items2 !== 'ACTIVE'){
-    return of(null);
-  }
   this.usuario = {name: this.items.name , email: this.items.email, user_id: this.items.data.user_id};
   const decoded = helper.decodeToken(token);
 // console.log('login decoded: ', decoded);
   this.userData.next(decoded);
   const storageObs = from(this.storage.set(TOKEN_KEY, token));
+  /*if (this.items2 !== 'ACTIVE'){
+    return of(null);
+  }*/
   return storageObs;
 })
 );
