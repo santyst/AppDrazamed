@@ -28,7 +28,7 @@
         <p class="name_product">{{alarma.item_name}}</p>
         <p class="description_product mt-20">{{alarma.compsition}}</p>
         <p class="description_product mt-20">
-          <b>1 Tableta cada {{alarma.cada}} Horas</b>
+          <b>1 Tableta cada {{alarma.freq}} Horas</b>
         </p>
       </ion-col>
     </div>
@@ -40,11 +40,11 @@
         </ion-col>
         <ion-col size="4" class="col-item">
           <p class="name_product">Tomadas</p>
-          <p class="description_product mt-20">70 tabletas</p>
+          <p class="description_product mt-20">0 tabletas</p>
         </ion-col> 
         <ion-col size="4" class="col-item">
           <p class="name_product">Faltan</p>
-          <p class="description_product mt-20">30 tabletas</p>
+          <p class="description_product mt-20">{{alarma.units_value}} {{alarma.units}}</p>
         </ion-col> 
       </ion-row>
     </div>
