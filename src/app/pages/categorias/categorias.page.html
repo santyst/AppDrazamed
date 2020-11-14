@@ -39,6 +39,9 @@
                     </div>
                     <div class="align-self-center">
                       <ion-card-title class="price_product pt-20">${{datas.mrp | number}}</ion-card-title>
+                      <p class="price_product1" *ngIf=" datas.units_value !== 0">{{datas.units}} a
+                        ${{(datas.mrp / datas.units_value).toFixed(2)}}</p>
+                      <p class="price_product1" *ngIf="datas.units_value == 0">{{datas.units}} a $0</p>
                         <p class="name_product ion-text-wrap textadjust">{{datas.name}}</p>      
                         <p class="description_product ">{{datas.composition}}</p>
                         <p *ngIf="datas.quantity <= 50" class="notavailable">No disponible</p>
@@ -55,6 +58,9 @@
                   </div>
                   <div class="align-self-center">
                     <ion-card-title class="price_product pt-20">${{datas.mrp | number}}</ion-card-title>
+                    <p class="price_product1" *ngIf=" datas.units_value !== 0">{{datas.units}} a
+                      ${{(datas.mrp / datas.units_value).toFixed(2)}}</p>
+                    <p class="price_product1" *ngIf="datas.units_value == 0">{{datas.units}} a $0</p>
                       <p class="name_product ion-text-wrap textadjust">{{datas.name}}</p>      
                       <p class="description_product ">{{datas.composition}}</p>
                       <p *ngIf="datas.quantity <= 40" class="notavailable">No disponible</p>

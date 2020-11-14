@@ -179,6 +179,12 @@ ion-grid {
   margin: 5px 0px !important;
   text-transform: lowercase !important;
 }
+.price_product1 {
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  color: #727070 !important;
+  margin: 0px !important;
+}
 .btn_product {
   --background: #00a2dd !important;
   padding: 10px !important;
@@ -347,6 +353,12 @@ ion-grid {
   }
   .price_product {
     font-size: 30px !important;
+    font-weight: 700 !important;
+    color: #727070 !important;
+    margin: 0px !important;
+  }
+  .price_product1 {
+    font-size: 21px !important;
     font-weight: 700 !important;
     color: #727070 !important;
     margin: 0px !important;
