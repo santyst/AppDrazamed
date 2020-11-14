@@ -39,6 +39,8 @@ export class PerfilPage implements OnInit {
   datatoSend: any;
   base_url: any;
   alarmas = [];
+  items: any;
+  items2 = [];
   apiUrl7 = `images/products/`;
   apiUrl8 = `.jpg`;
 alarma: any;
@@ -59,6 +61,7 @@ alarma: any;
     this.cartItemCount = this.cartService.getCartItemCount();
     this.platform.ready().then(() =>{
       this.alarmas = this.tratamientoService.getAlarma();
+      console.log(this.alarmas);
     });
   }
 
@@ -151,6 +154,9 @@ alarma: any;
   }
   misDirecciones() {
     this.router.navigate(['misdirecciones']);
+  }
+  removetreatment(alarma){
+    this.tratamientoService.removeAlarm(alarma);
   }
   processTreat(alarma) {
     let navigationExtras: NavigationExtras = {

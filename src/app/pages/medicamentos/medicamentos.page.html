@@ -26,6 +26,9 @@
                <p class="name_product">{{med.value}}</p>
                <p class="description_product">{{med.composition}}</p>
                <p class="price_product">${{ med.mrp | number}}</p>
+               <p class="price_product1" *ngIf=" med.units_value !== 0">{{med.units}} a
+                ${{(med.mrp / med.units_value).toFixed(2)}}</p>
+              <p class="price_product1" *ngIf="med.units_value == 0">{{med.units}} a $0</p>
                 <p *ngIf="med.quantity <= 40" class="notavailable">No disponible</p>
                 <p *ngIf="med.quantity > 40" class="available">Disponible</p>
               </ion-col>

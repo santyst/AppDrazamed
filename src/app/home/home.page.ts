@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { CartService } from '../services/cart.service';
 import { ConfigService } from 'src/app/services/config.service'
+import { TratamientosService } from '../services/tratamientos.service';
 
 
 @Component({
@@ -36,7 +37,7 @@ apiURL3 = ``;
 apiUrl7 = `images/products/`;
 apiUrl8 = `.jpg`;
 apiUrl1 = `images/products/default.png`;
-base_url:any;
+base_url: any;
 
 
   constructor(
@@ -45,9 +46,10 @@ base_url:any;
     private http: HttpClient,
     private cartService: CartService,
     private config: ConfigService,
-    private routerOutlet: IonRouterOutlet
+    private routerOutlet: IonRouterOutlet,
+    private tratamientosService: TratamientosService
   ) {
-    
+    this.tratamientosService.getAlarma();
     this.base_url = config.get_base_url();
     this.http.get(`${this.base_url}${this.apiURL}`).subscribe((response) => {
       this.items = response;

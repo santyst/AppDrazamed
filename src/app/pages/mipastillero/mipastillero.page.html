@@ -61,8 +61,17 @@
     <p class="name_product">Mis alarmas</p>
   </div>
 <ion-row class="result_search" *ngFor="let al of alarmas">
-  <ion-col size="12" class="col_trat">
+  <ion-col size="6" class="col_trat">
     <p class="grey">Próxima 2H 20 min (5:00p.m)</p>
+ </ion-col>
+ <ion-col size="1">
+  <ion-toggle checked mode="ios" class="toggle"></ion-toggle>
+ </ion-col>
+ <ion-col size="5">
+  <ion-buttons>
+    <ion-button class="trash" (click)="removetreatment(al)"><img src="../../../assets/img/RECURSOS/trash.png"
+        width="100%" class="basurita"></ion-button>
+  </ion-buttons>
  </ion-col>
  <ion-col size="3" class="align-self img_product">
    <img src={{base_url}}{{apiUrl7}}{{al.item_code}}{{apiUrl8}} width="100%" class="imagen_med">

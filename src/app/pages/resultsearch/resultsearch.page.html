@@ -30,6 +30,9 @@
         <ion-col size="6" class="info_product">
           <p class="name_product" style="color: #00a1dd !important" >{{p.value}}</p>
           <p class="price_product">${{p.mrp | number}}</p>
+          <p class="price_product1" *ngIf=" p.units_value !== 0">{{p.units}} a
+            ${{(p.mrp / p.units_value).toFixed(2)}}</p>
+          <p class="price_product1" *ngIf="p.units_value == 0">{{p.units}} a $0</p>
           <p *ngIf="p.quantity <= 40" class="notavailable">No disponible</p>
           <p *ngIf="p.quantity > 40" class="available">Disponible</p>
           <ion-button class="btn_add" (click)="addToCart(p)" [disabled]="p.quantity <= 40">

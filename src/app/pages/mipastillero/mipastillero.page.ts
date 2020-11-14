@@ -19,6 +19,8 @@ apiUrl7 = `images/products/`;
 apiUrl8 = `.jpg`;
 item_name: any;
 alarmas = [];
+items: any;
+items2 = [];
 
   @ViewChild('mySlider') slider: IonSlides;
   sliderOpts = {
@@ -36,6 +38,13 @@ alarmas = [];
     this.cartItemCount = this.cartService.getCartItemCount();
     this.platform.ready().then(() =>{
       this.alarmas = this.tratamientoService.getAlarma();
+      /*for (let item of this.alarmas) {
+        this.items = item.medicines;
+        for (var i = 0; i < this.items.length; i++) {
+          this.items2.push(this.items[i]);
+        }
+      }*/
+      console.log(this.alarmas);
     });
   }
 
@@ -54,6 +63,9 @@ alarmas = [];
   }
   goCarrito(){
     this.router.navigate(['carrito']);
+  }
+  removetreatment(alarma){
+    this.tratamientoService.removeAlarm(alarma);
   }
   processTreat(alarma){
     let navigationExtras: NavigationExtras = {

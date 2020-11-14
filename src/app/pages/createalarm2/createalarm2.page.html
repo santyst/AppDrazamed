@@ -34,13 +34,13 @@
           <form [formGroup]="alarmasForm" #form="ngForm">
             <p class="name_product" style="color: #00a1dd !important;">Mensaje</p>
             <div class="form-group">
-              <ion-input formControlName="mensaje" placeholder="Ingresa tu mensaje" class="form-control"  [(ngModel)]="alarmas.mensaje" name="mensaje" ngControl="mensaje"></ion-input>
+              <ion-input formControlName="obs" placeholder="Ingresa tu mensaje" class="form-control"  [(ngModel)]="alarmas.obs" name="obs" ngControl="obs"></ion-input>
             </div>
             <p class="name_product" style="color: #00a1dd !important;">Crear alarma</p>
             <div class="select_options">
               <p class="name_product" style="color: #00a1dd !important;">Tomar cada: </p>
               <div class="input-group">
-                <ion-select  placeholder="Selecciona un periodo" class="custom_select" mode="ios" [(ngModel)]="alarmas.cada" formControlName="cada" name="cada" ngControl="cada">
+                <ion-select  placeholder="Selecciona un periodo" class="custom_select" mode="ios" [(ngModel)]="alarmas.freq" formControlName="freq" name="freq" ngControl="freq">
                   <ion-select-option *ngFor="let inter of intervalo" [value]="inter.id">{{inter.name}}</ion-select-option>
                 </ion-select>
               </div>
