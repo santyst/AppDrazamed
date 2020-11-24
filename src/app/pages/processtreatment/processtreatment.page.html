@@ -36,15 +36,15 @@
       <ion-row>
         <ion-col size="4">
           <p class="name_product">Próxima</p>
-          <p class="description_product mt-20">Hoy a las 8:am</p>
+          <p class="description_product mt-20">Hoy a las {{alarma.prox}}</p>
         </ion-col>
         <ion-col size="4" class="col-item">
           <p class="name_product">Tomadas</p>
-          <p class="description_product mt-20">0 tabletas</p>
+          <p class="description_product mt-20">{{taken}} {{alarma.units}}</p>
         </ion-col> 
         <ion-col size="4" class="col-item">
           <p class="name_product">Faltan</p>
-          <p class="description_product mt-20">{{alarma.units_value}} {{alarma.units}}</p>
+          <p class="description_product mt-20">{{faltantes}} {{alarma.units}}</p>
         </ion-col> 
       </ion-row>
     </div>
@@ -56,7 +56,8 @@
 ></circle-progress>
     </ion-col>
     <ion-col size="5" class="col-txt">
-      <p class="name_product1">Te falta el {{restante}}% de tu tratamiento médico.</p>
+      <p class="name_product1" *ngIf="restante !== 0">Te falta el {{restante}}% de tu tratamiento médico.</p>
+      <p class="name_product1" *ngIf="restante === 0">Tu tratamiento ha finalizado</p>
     </ion-col>
   </ion-row>
 </div>
