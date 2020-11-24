@@ -23,8 +23,9 @@ export class TratamientosService {
   tratamiento: any;
   del: any;
   items2 = [];
+
   constructor(private storage: Storage, private platform: Platform, private http: HttpClient, private config: ConfigService,
-              private auth: AuthService, private localNotifications: LocalNotifications) {
+    private auth: AuthService, private localNotifications: LocalNotifications) {
     this.base_url = config.get_base_url();
     /*this.platform.ready().then(() =>{
       this.storage.get(this.key).then((val) => {
@@ -38,39 +39,61 @@ export class TratamientosService {
       });
     });*/
     this.platform.ready().then(() => {
-     /*this.alarmas = JSON.parse(window.localStorage.getItem(this.key));
-     if(this.alarmas === null){
-       this.alarmas = [];
-       console.log(this.alarmas);
-     }
-     else{
-       this.alarm = this.alarmas;
-       console.log(this.alarm);
-     }*/
-     this.user1 = this.auth.getusuario();
-     this.userid = this.user1.email;
-     this.http.get(`${this.base_url}${this.apiUrl}${this.userid}`).subscribe(val => {
-       this.items = val;
-       for (let item of this.items) {
-        this.items3 = item.medicines;
-        for (var i = 0; i < this.items3.length; i++) {
-          this.items2.push(this.items3[i]);
-          this.alarm = this.items2;
-        }
+      /*this.alarmas = JSON.parse(window.localStorage.getItem(this.key));
+      if(this.alarmas === null){
+        this.alarmas = [];
+        console.log(this.alarmas);
       }
-       console.log(this.alarm);
-     });
+      else{
+        this.alarm = this.alarmas;
+        console.log(this.alarm);
+      }*/
+      this.user1 = this.auth.getusuario();
+      this.userid = this.user1.email;
+      this.http.get(`${this.base_url}${this.apiUrl}${this.userid}`).subscribe(val => {
+        this.items = val;
+        for (let item of this.items) {
+          this.items3 = item.medicines;
+          for (var i = 0; i < this.items3.length; i++) {
+            this.items2.push(this.items3[i]);
+            this.alarm = this.items2;
+          }
+        }
+        console.log(this.alarm);
+      });
     });
   }
 
-  getAlarma(){
-      return this.alarm;
+  getAlarma() {
+    return this.alarm;
   }
 
-
-  addAlarm(alarma){
+  getTime(time) {
+    return time;
+  }
+  addTaken(number) {
+    number += 1;
+    return number;
+  }
+  addAlarm(alarma) {
     console.log(alarma);
-    const added = false;
+    let added = false;
+    for (let alar of this.alarm) {
+        if (alarma.toma === 'T1') {
+          alar.tomadas += 1;
+        }
+    }
+    for (let al of this.alarm) {
+
+      if (al.item_code === alarma.item_code) {
+        al.timeM = alarma.timeM;
+        al.timeH = alarma.timeH;
+        al.timeD = alarma.timeD;
+        al.prox = alarma.prox;
+        added = true;
+        console.log(this.alarm);
+      }
+    }
     this.tratamiento = {
       email: alarma.email,
       item_code: alarma.item_code,
@@ -80,18 +103,19 @@ export class TratamientosService {
       start_time: `${alarma.date}T${alarma.time}:00`,
       obs: `${alarma.obs}, tomar una cada ${alarma.freq} horas`
     };
-    if (!added){
+    if (!added) {
       this.alarm.push(alarma);
       this.user1 = this.auth.getusuario();
       this.userid = this.user1.email;
+      console.log(this.alarm);
       this.http.post(`${this.base_url}treatment/create-treatment`, this.tratamiento).subscribe(msj => {
-       console.log(msj);
+        console.log(msj);
       });
     }
 
   }
 
-  removeAlarm(alarma){
+  removeAlarm(alarma) {
     this.user1 = this.auth.getusuario();
     this.userid = this.user1.email;
     this.del = {
