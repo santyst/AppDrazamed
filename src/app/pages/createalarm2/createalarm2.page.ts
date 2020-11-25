@@ -7,7 +7,6 @@ import { AlertController, LoadingController } from '@ionic/angular';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { TratamientosService } from 'src/app/services/tratamientos.service';
-import { mobiscroll, MbscTimerOptions } from '@mobiscroll/angular';
 import { timer } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from 'src/app/services/auth.service';
@@ -201,6 +200,7 @@ export class Createalarm2Page implements OnInit {
           id: this.alarmas.item_code,
           title: this.items.item_name,
           text: 'Hora de un medicamento.',
+          trigger: {in: 1, unit: ELocalNotificationTriggerUnit.SECOND},
           lockscreen: true,
           wakeup: true,
           priority: 2,
@@ -238,6 +238,7 @@ export class Createalarm2Page implements OnInit {
               id: this.alarmas.item_code,
               title: this.items.item_name,
               text: 'Hora de un medicamento.',
+              trigger: {in: 1, unit: ELocalNotificationTriggerUnit.SECOND},
               lockscreen: true,
               wakeup: true,
               priority: 2,

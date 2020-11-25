@@ -25,7 +25,7 @@ export class TratamientosService {
   items2 = [];
 
   constructor(private storage: Storage, private platform: Platform, private http: HttpClient, private config: ConfigService,
-    private auth: AuthService, private localNotifications: LocalNotifications) {
+              private auth: AuthService, private localNotifications: LocalNotifications) {
     this.base_url = config.get_base_url();
     /*this.platform.ready().then(() =>{
       this.storage.get(this.key).then((val) => {
@@ -116,21 +116,19 @@ export class TratamientosService {
   }
 
   removeAlarm(alarma) {
-    this.user1 = this.auth.getusuario();
-    this.userid = this.user1.email;
-    this.del = {
-      email: this.userid,
-      item_code: alarma.item_code
-    }
     for (let [index, p] of this.alarm.entries()) {
       if (p.item_code === alarma.item_code) {
         this.alarm.splice(index, 1);
+        this.user1 = this.auth.getusuario();
+        this.userid = this.user1.email;
+        this.del = {
+      email: this.userid,
+      item_code: alarma.item_code
+    };
         this.http.post(`${this.base_url}treatment/delete-treatment`, this.del).subscribe((val) => {
           console.log(val);
         });
       }
     }
-    this.localNotifications.clear(alarma.id_not);
-    console.log(this.localNotifications.getAll());
   }
 }
