@@ -103,17 +103,14 @@ export class Createalarm2Page implements OnInit {
     this.aleatory = Math.floor(Math.random() * 10) + 1;
     const date = new Date(this.alarmas.date + ' ' + this.alarmas.time);
     console.log(date);
-    /*this.localNotifications.schedule({
-      id: this.aleatory,
-      title: this.items.item_name,
-      text: 'Hora de un medicamento.',
-      trigger: { firstAt: date, in: this.alarmas.freq, unit: ELocalNotificationTriggerUnit.MINUTE },
+    this.localNotifications.schedule({
+      id: 1,
+      title: 'Se ha creado tu tratamiento',
       lockscreen: true,
       wakeup: true,
       priority: 2,
-      silent: false,
-      actions: [{ id: 'yes', title: 'Tomar' }, { id: 'no', title: 'Posponer' }]
-    });*/
+      silent: false
+    });
     this.load();
     const alert = await this.alertCtrl.create({
       message: '<img src = "../../assets/img/RECURSOS/check.png" class="alert">La alarma fue creada.',
