@@ -19,6 +19,7 @@ import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { FilePath } from '@ionic-native/file-path/ngx';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+import { NativeStorage } from '@ionic-native/native-storage/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -33,6 +34,7 @@ import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
     Camera,
     File,
     WebView,
+    NativeStorage,
     LocalNotifications,
     InAppBrowser,
     FilePath

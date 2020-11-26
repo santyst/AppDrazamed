@@ -11,7 +11,7 @@ import { strict } from 'assert';
 import { stringify } from 'querystring';
 import { data } from 'jquery';
 import { ConfigService } from 'src/app/services/config.service'
-
+import { NativeStorage } from '@ionic-native/native-storage/ngx';
 
 
 const helper = new JwtHelperService();
@@ -39,6 +39,7 @@ export class AuthService {
     private http: HttpClient,
     private plt: Platform,
     private router: Router,
+    private nativeSto: NativeStorage,
     private config: ConfigService,
     private alertController: AlertController) {
     this.base_url = config.get_base_url();
@@ -50,7 +51,7 @@ export class AuthService {
 
     this.user = platformObs.pipe(
       switchMap(() => {
-        return from(this.storage.get(TOKEN_KEY));
+        return from(this.nativeSto.getItem(TOKEN_KEY));
       }),
       map(token => {
         // console.log('token from storage', token);
@@ -106,11 +107,11 @@ export class AuthService {
         let decoded = helper.decodeToken(token);
         // console.log('login decoded: ', decoded);
         this.userData.next(decoded);
-        let storageObs = from(this.storage.set(TOKEN_KEY, token));
+        let storageObs = from(this.nativeSto.setItem(TOKEN_KEY, token));
         /*if (this.items2 !== 'ACTIVE'){
           return of(null);
         }*/
-        return storageObs;
+        return  storageObs;
       })
     );
   }
@@ -123,7 +124,7 @@ export class AuthService {
 
 
   logout() {
-    this.storage.remove(TOKEN_KEY).then(() => {
+    this.nativeSto.remove(TOKEN_KEY).then(() => {
       this.router.navigateByUrl('/login1');
       this.userData.next(null);
     });
