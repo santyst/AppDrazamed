@@ -4,7 +4,7 @@ import { Storage } from '@ionic/storage';
 import { Platform, AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { Observable, BehaviorSubject, from, of, Subscription } from 'rxjs';
+import { Observable, BehaviorSubject, from, of, Subscription, ObservableInput } from 'rxjs';
 import { take, map, switchMap, switchMapTo, subscribeOn } from 'rxjs/operators';
 import { Token } from '@angular/compiler/src/ml_parser/lexer';
 import { strict } from 'assert';
@@ -51,10 +51,10 @@ export class AuthService {
 
     this.user = platformObs.pipe(
       switchMap(() => {
-        return from(this.nativeSto.getItem(TOKEN_KEY));
+        return from(this.storage.get(TOKEN_KEY));
       }),
       map(token => {
-        // console.log('token from storage', token);
+        console.log('token from storage', token);
         if (token) {
           const decoded = helper.decodeToken(token);
           // console.log('decoded: ', decoded);
@@ -107,7 +107,7 @@ export class AuthService {
         let decoded = helper.decodeToken(token);
         // console.log('login decoded: ', decoded);
         this.userData.next(decoded);
-        let storageObs = from(this.nativeSto.setItem(TOKEN_KEY, token));
+        let storageObs = from(this.storage.set(TOKEN_KEY, token));
         /*if (this.items2 !== 'ACTIVE'){
           return of(null);
         }*/
@@ -124,7 +124,7 @@ export class AuthService {
 
 
   logout() {
-    this.nativeSto.remove(TOKEN_KEY).then(() => {
+    this.storage.remove(TOKEN_KEY).then(() => {
       this.router.navigateByUrl('/login1');
       this.userData.next(null);
     });
