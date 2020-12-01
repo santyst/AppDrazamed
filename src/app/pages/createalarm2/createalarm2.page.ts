@@ -146,12 +146,14 @@ export class Createalarm2Page implements OnInit {
     this.loop = this.alarmas.freq * 60000;
     const pastillas = 3;
     let i = 1;
+    const horas_totales = this.alarmas.freq * pastillas;
     const dateObjetive = new Date(`${this.alarmas.date}T${this.alarmas.time}`).getTime();
     const dateObjetive2 = new Date(`${this.alarmas.date}T${this.alarmas.time}`);
     const nowstart = new Date();
     const nowstart2 = moment(nowstart);
     const dateObjetive3 = moment(dateObjetive2);
-
+    const endDate = moment(dateObjetive2).add(horas_totales, 'minutes').format();
+    console.log('Fecha final' + ' ' + endDate);
     // console.log((date2));
     const dif = dateObjetive3.diff(nowstart2, 'minutes');
     const hora = moment(nowstart).add(dif, 'minutes').format('LT');
@@ -166,7 +168,7 @@ export class Createalarm2Page implements OnInit {
       const days = Math.floor(timeleft / (1000 * 60 * 60 * 24));
       const hours = Math.floor((timeleft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const minutes = Math.floor((timeleft % (1000 * 60 * 60)) / (1000 * 60));
-      
+
       //document.getElementById('days').innerHTML = days + 'd '
       //document.getElementById('hours').innerHTML = hours + 'h '
       // document.getElementById('mins').innerHTML = minutes + 'm '
@@ -200,8 +202,7 @@ export class Createalarm2Page implements OnInit {
           lockscreen: true,
           wakeup: true,
           priority: 2,
-          silent: false,
-          actions: [{ id: 'yes', title: 'Tomar' }, { id: 'no', title: 'Posponer' }]
+          silent: false
         });
         this.localNotifications.on('click').subscribe(async val => {
           const alert = await this.alertCtrl.create({
@@ -220,6 +221,18 @@ export class Createalarm2Page implements OnInit {
               {
                 text: 'Posponer',
                 cssClass: 'btnalert',
+                handler: datos => {
+                  this.localNotifications.schedule({
+                    id: this.alarmas.item_code,
+                    title: this.items.item_name,
+                    text: 'Hora de un medicamento.',
+                    trigger: {in: 1, unit: ELocalNotificationTriggerUnit.MINUTE},
+                    lockscreen: true,
+                    wakeup: true,
+                    priority: 2,
+                    silent: false
+                  });
+                }
               }
             ]
           });
@@ -238,7 +251,6 @@ export class Createalarm2Page implements OnInit {
               wakeup: true,
               priority: 2,
               silent: false,
-              actions: [{ id: 'yes', title: 'Tomar' }, { id: 'no', title: 'Posponer' }]
             });
             /*this.localNotifications.on('click').subscribe(async val => {
               const alert = await this.alertCtrl.create({
