@@ -9,6 +9,7 @@ import { AuthService } from './services/auth.service';
 import Pusher from 'pusher-js';
 import * as PusherTypes from 'pusher-js';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+import { BackgroundMode } from '@ionic-native/background-mode/ngx';
 
 
 
@@ -29,21 +30,31 @@ export class AppComponent {
     private statusBar: StatusBar,
     private router: Router,
     public auth: AuthService,
-    private localNotifications: LocalNotifications
+    private localNotifications: LocalNotifications,
+    private backgroundMode: BackgroundMode
   ) {
     this.initializeApp();
+    
   }
 
   ionViewWillEnter() {
-   
     console.log(this.user);
 
   }
 
   initializeApp() {
     this.platform.ready().then(() => {
+      this.backgroundMode.enable();
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.localNotifications.hasPermission().then(val => {
+        if (val === false){
+          this.localNotifications.requestPermission();
+        }
+        else if (val === true){
+          console.log('hay permisos');
+        }
+      });
     });
     this.pushSet();
   }

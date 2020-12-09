@@ -20,6 +20,7 @@ import { FilePath } from '@ionic-native/file-path/ngx';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
+import { BackgroundMode } from '@ionic-native/background-mode/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -37,6 +38,7 @@ import { NativeStorage } from '@ionic-native/native-storage/ngx';
     NativeStorage,
     LocalNotifications,
     InAppBrowser,
+    BackgroundMode,
     FilePath
   ],
   bootstrap: [AppComponent]
