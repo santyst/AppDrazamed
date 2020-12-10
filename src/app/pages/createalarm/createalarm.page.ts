@@ -22,6 +22,7 @@ export class CreatealarmPage implements OnInit {
   userid: any;
   pedidos: any;
   items2 = [];
+  items5 = [];
   items3: any;
   items4: any;
   items: any[] = [];
@@ -42,7 +43,13 @@ export class CreatealarmPage implements OnInit {
           this.items2.push(this.items3[i]);
         }
       }
-      console.log(this.items2);
+     
+        for(let uni of this.items2){
+         if(uni.units !== 'ML' && uni.units !== 'NoD' && uni.units !== 'GR'){
+           this.items5.push(uni);
+         }
+        }
+        console.log(this.items5);
     });
 
   }
@@ -50,7 +57,7 @@ export class CreatealarmPage implements OnInit {
   ngOnInit() {
   }
   initializeItems() {
-    this.items = this.items2;
+    this.items = this.items5;
   }
   goBack() {
     this.router.navigate(['mipastillero']);
