@@ -6,6 +6,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ThrowStmt } from '@angular/compiler';
 import { async } from '@angular/core/testing';
 import { ConfigService } from 'src/app/services/config.service'
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-categorias',
@@ -43,7 +44,8 @@ searchres4: any;
 searchres5: any;
 base_url: any;
 
-  constructor(private cartService: CartService, private router: Router, private route: ActivatedRoute,private http: HttpClient, private config: ConfigService) { 
+  constructor(private cartService: CartService, private router: Router, private route: ActivatedRoute,
+              private http: HttpClient, private config: ConfigService, private alertCtrl: AlertController) { 
     this.base_url = config.get_base_url();
     this.cartItemCount = this.cartService.getCartItemCount();
     this.route.queryParams.subscribe(params => {
@@ -78,7 +80,19 @@ base_url: any;
   buscarMed(){
     this.router.navigate(['medicamentos']);
   }
-  addToCart(product){
+  async addToCart(product){
+    const alert = await this.alertCtrl.create({
+      message: '<img src = "../../assets/img/RECURSOS/check.png" class="alert">Producto agregado con éxito',
+      mode: 'ios',
+      cssClass: 'failed',
+      buttons: [
+        {
+          text: 'Aceptar',
+          cssClass: 'btnalert',
+        }
+      ]
+       });
+    await alert.present();
     this.cartService.addProduct(product);
    }
    goCarrito(){

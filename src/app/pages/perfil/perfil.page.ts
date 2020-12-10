@@ -155,8 +155,27 @@ alarma: any;
   misDirecciones() {
     this.router.navigate(['misdirecciones']);
   }
-  removetreatment(alarma){
-    this.tratamientoService.removeAlarm(alarma);
+  async removetreatment(alarma){
+    const alert = await this.alertCtrl.create({
+      message: '<img src = "../../assets/img/RECURSOS/iconos drazamed-27.png" class="alert">¿Deseas eliminar el tratamiento?',
+      mode: 'ios',
+      cssClass: 'failed',
+      backdropDismiss: false,
+      buttons: [
+        {
+          text: 'Si',
+          cssClass: 'btnalert',
+          handler: data => {
+            this.tratamientoService.removeAlarm(alarma);
+          }
+        },
+        {
+          text: 'No',
+          cssClass: 'btnalert',
+        }
+      ]
+       });
+    await alert.present();
   }
   processTreat(alarma) {
     let navigationExtras: NavigationExtras = {

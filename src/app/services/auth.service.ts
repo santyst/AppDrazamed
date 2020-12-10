@@ -73,6 +73,7 @@ export class AuthService {
     data.subscribe(result => {
       this.items = result;
       this.items2 = this.items.data.status;
+      this.usuario = { name: this.items.name, email: this.items.email, user_id: this.items.data.user_id };
     }, async (err: HttpErrorResponse) => {
       this.items3 = err.status;
       if (this.items3 === 401 || credentials.email === '' || credentials.password === '') {
@@ -103,7 +104,7 @@ export class AuthService {
         return `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkRyYXphbWVkIiwiaWF0IjoxNTE2MjM5MDIyfQ.4x0iejWjRVH3V7ULcX0-vRmxeR8NLdlFGvx69CuBrrY`;
       }),
       switchMap((token) => {
-        this.usuario = { name: this.items.name, email: this.items.email, user_id: this.items.data.user_id };
+       
         let decoded = helper.decodeToken(token);
         // console.log('login decoded: ', decoded);
         this.userData.next(decoded);

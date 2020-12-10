@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { CartService } from 'src/app/services/cart.service';
-import { IonSlides, Platform } from '@ionic/angular';
+import { AlertController, IonSlides, Platform } from '@ionic/angular';
 import { NavigationExtras, Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import { ConfigService } from 'src/app/services/config.service';
@@ -33,7 +33,7 @@ items2 = [];
 
   cartItemCount: BehaviorSubject<number>;
   constructor(private cartService: CartService, private router: Router, private storage: Storage, private platform: Platform, 
-              private config: ConfigService, private tratamientoService: TratamientosService) {
+              private config: ConfigService, private tratamientoService: TratamientosService, private alertCtrl: AlertController) {
     this.base_url = config.get_base_url();
     this.cartItemCount = this.cartService.getCartItemCount();
     this.platform.ready().then(() =>{
@@ -64,8 +64,27 @@ items2 = [];
   goCarrito(){
     this.router.navigate(['carrito']);
   }
-  removetreatment(alarma){
-    this.tratamientoService.removeAlarm(alarma);
+  async removetreatment(alarma){
+    const alert = await this.alertCtrl.create({
+      message: '<img src = "../../assets/img/RECURSOS/iconos drazamed-27.png" class="alert">¿Deseas eliminar el tratamiento?',
+      mode: 'ios',
+      cssClass: 'failed',
+      backdropDismiss: false,
+      buttons: [
+        {
+          text: 'Si',
+          cssClass: 'btnalert',
+          handler: data => {
+            this.tratamientoService.removeAlarm(alarma);
+          }
+        },
+        {
+          text: 'No',
+          cssClass: 'btnalert',
+        }
+      ]
+       });
+    await alert.present();
   }
   processTreat(alarma){
     let navigationExtras: NavigationExtras = {
