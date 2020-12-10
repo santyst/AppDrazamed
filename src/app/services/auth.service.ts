@@ -106,9 +106,6 @@ export class AuthService {
         return `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkRyYXphbWVkIiwiaWF0IjoxNTE2MjM5MDIyfQ.4x0iejWjRVH3V7ULcX0-vRmxeR8NLdlFGvx69CuBrrY`;
       }),
       switchMap((token) => {
-        //console.log(this.items);
-        
-        
         let decoded = helper.decodeToken(token);
         // console.log('login decoded: ', decoded);
         this.userData.next(decoded);

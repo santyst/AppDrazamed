@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CartService } from 'src/app/services/cart.service';
-import { ModalController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { CarritoPage } from '../carrito/carrito.page';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
@@ -36,7 +36,8 @@ export class ResultsearchPage implements OnInit {
     private cartService: CartService, 
     private modalCtrl: ModalController, 
     private router: Router,
-    private config: ConfigService) {
+    private config: ConfigService,
+    private alertCtrl: AlertController) {
     this.route.queryParams.subscribe(params => {
       this.base_url = config.get_base_url();
       if (this.router.getCurrentNavigation().extras.state) {
@@ -70,7 +71,19 @@ export class ResultsearchPage implements OnInit {
     this.router.navigate(['carrito']);
   }
 
-  addToCart(product) {
+  async addToCart(product) {
+    const alert = await this.alertCtrl.create({
+      message: '<img src = "../../assets/img/RECURSOS/check.png" class="alert">Producto agregado con éxito',
+      mode: 'ios',
+      cssClass: 'failed',
+      buttons: [
+        {
+          text: 'Aceptar',
+          cssClass: 'btnalert',
+        }
+      ]
+       });
+    await alert.present();
     this.cartService.addProduct(product);
   }
 

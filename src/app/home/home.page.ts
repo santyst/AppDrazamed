@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
-import { MenuController, IonSlides, IonRouterOutlet } from '@ionic/angular';
+import { MenuController, IonSlides, IonRouterOutlet, AlertController } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { CartService } from '../services/cart.service';
@@ -47,7 +47,8 @@ base_url: any;
     private cartService: CartService,
     private config: ConfigService,
     private routerOutlet: IonRouterOutlet,
-    private tratamientosService: TratamientosService
+    private tratamientosService: TratamientosService,
+    private alertCtrl: AlertController
   ) {
     this.tratamientosService.getAlarma();
     this.base_url = config.get_base_url();
@@ -74,7 +75,19 @@ goCarrito(){
 buscarMed(){
   this.router.navigate(['medicamentos']);
 }
-addToCart(product){
+async addToCart(product){
+  const alert = await this.alertCtrl.create({
+    message: '<img src = "../../assets/img/RECURSOS/check.png" class="alert">Producto agregado con éxito',
+    mode: 'ios',
+    cssClass: 'failed',
+    buttons: [
+      {
+        text: 'Aceptar',
+        cssClass: 'btnalert',
+      }
+    ]
+     });
+  await alert.present();
   this.cartService.addProduct(product);
  }
 
