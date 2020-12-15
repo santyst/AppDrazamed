@@ -3,7 +3,7 @@ import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { ELocalNotificationTriggerUnit, LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { ConfigService } from 'src/app/services/config.service';
 import * as moment from 'moment';
-import { AlertController, LoadingController } from '@ionic/angular';
+import { AlertController, LoadingController, Platform } from '@ionic/angular';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { TratamientosService } from 'src/app/services/tratamientos.service';
@@ -17,11 +17,15 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./createalarm2.page.scss'],
 })
 export class Createalarm2Page implements OnInit {
+  currentnot: any;
+  currentnot1: any;
+  currentnot3: any;
+  
   constructor(private router: Router, private route: ActivatedRoute, private config: ConfigService,
               private localNotifications: LocalNotifications, private loadingController: LoadingController,
               private alertCtrl: AlertController, private formBuilder: FormBuilder, private storage: Storage,
               private tratamientoService: TratamientosService, private htpp: HttpClient, private auth: AuthService,
-              private http: HttpClient) {
+              private http: HttpClient, private plt: Platform) {
     this.base_url = config.get_base_url();
     this.user1 = this.auth.getusuario();
     this.userid = this.user1.email;
@@ -30,7 +34,7 @@ export class Createalarm2Page implements OnInit {
       time: new FormControl('', [Validators.required]),
       date: new FormControl('', [Validators.required]),
       freq: new FormControl('', [Validators.required]),
-    });
+    }); 
   }
   items: any;
   apiUrl7 = `images/products/`;
@@ -129,12 +133,12 @@ export class Createalarm2Page implements OnInit {
       });
     });*/
     this.alarmas.tomadas = 0;
-    this.alarmas.conteo = this.check(this.aleatory);
+    this.alarmas.conteo = this.check(this.alarmas.item_code);
     this.tratamientoService.addAlarm(this.alarmas);
     console.log(this.alarmas);
     this.router.navigate(['mipastillero']);
   }
-  check(id = this.aleatory){
+  check(id = this.alarmas.item_code){
     this.loop = this.alarmas.freq * 60000;
     const pastillas = 3;
     let i = 1;
@@ -155,7 +159,7 @@ export class Createalarm2Page implements OnInit {
     const int1 = setInterval(() => {
       const now = new Date().getTime();
       const now1 = moment(now).format();
-      console.log(now1);
+      // console.log(now1);
       const timeleft = dateObjetive - now;
       const days = Math.floor(timeleft / (1000 * 60 * 60 * 24));
       const hours = Math.floor((timeleft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -188,7 +192,7 @@ export class Createalarm2Page implements OnInit {
         clearInterval(int1);
         // console.log('notificacion 1' + ' ' + this.alarmas.item_name );
         this.localNotifications.schedule({
-          id: this.alarmas.item_code,
+          id: id,
           title: this.items.item_name,
           text: 'Hora de un medicamento.',
           foreground: true,
@@ -197,7 +201,8 @@ export class Createalarm2Page implements OnInit {
           priority: 2,
           silent: false
         });
-        this.localNotifications.on('click').subscribe(async val => {
+        this.currentnot1 = this.localNotifications.on('click').subscribe(async val => {
+          console.log(val);
           const alert = await this.alertCtrl.create({
             mode: 'ios',
             cssClass: 'failed',
@@ -207,38 +212,31 @@ export class Createalarm2Page implements OnInit {
                 text: 'Tomar',
                 cssClass: 'btnalert',
                 handler: data => {
+                  console.log('alarmas');
+                  console.log(this.alarmas);
                  this.alarmas.toma = 'T1';
                  this.tratamientoService.addAlarm(this.alarmas);
+                 this.currentnot1.unsubscribe();
                 }
               },
               {
                 text: 'Posponer',
                 cssClass: 'btnalert',
                 handler: datos => {
-                  this.localNotifications.schedule({
-                    id: this.alarmas.item_code,
-                    title: this.items.item_name,
-                    text: 'Hora de un medicamento.',
-                    trigger: {in: 1, unit: ELocalNotificationTriggerUnit.MINUTE},
-                    foreground: true,
-                    lockscreen: true,
-                    wakeup: true,
-                    priority: 2,
-                    silent: false
-                  });
+                  this.currentnot1.unsubscribe();
+                  this.postpone(val.id, this.alarmas);
                 }
               }
             ]
           });
           await alert.present();
         });
-        
         this.countdown();
         const intervaloGrande = setInterval(() => {
             i++;
             // console.log('notificacion' + i + ' ' + this.alarmas.item_name );
             this.localNotifications.schedule({
-              id: this.alarmas.item_code,
+              id: id,
               title: this.items.item_name,
               text: 'Hora de un medicamento.',
               foreground: true,
@@ -247,7 +245,8 @@ export class Createalarm2Page implements OnInit {
               priority: 2,
               silent: false,
             });
-            /*this.localNotifications.on('click').subscribe(async val => {
+            this.currentnot = this.localNotifications.on('click').subscribe(async val => {
+              console.log(val);
               const alert = await this.alertCtrl.create({
                 mode: 'ios',
                 cssClass: 'failed',
@@ -257,20 +256,25 @@ export class Createalarm2Page implements OnInit {
                     text: 'Tomar',
                     cssClass: 'btnalert',
                     handler: data => {
-                      this.alarmas.toma = 'T1';
-                      this.tratamientoService.addAlarm(this.alarmas);
-                      this.localNotifications.clear(this.alarmas.item_code);
-                     }
+                      console.log('alarmas');
+                      console.log(this.alarmas);
+                     this.alarmas.toma = 'T1';
+                     this.tratamientoService.addAlarm(this.alarmas);
+                     this.currentnot.unsubscribe();
+                    }
                   },
                   {
                     text: 'Posponer',
                     cssClass: 'btnalert',
+                    handler: datos => {
+                      this.currentnot.unsubscribe();
+                      this.postpone(val.id, this.alarmas);
+                    }
                   }
                 ]
               });
               await alert.present();
-            });*/
-            
+            });
             if(i < pastillas){
               this.countdown();
             }
@@ -295,7 +299,7 @@ export class Createalarm2Page implements OnInit {
      const intervalo1 = setInterval(() => {
       const date1 = new Date().getTime();
       const date1_1 = moment(date1).format();
-      console.log(date1_1);
+      // console.log(date1_1);
       const timeleft = objectiveDate3 - date1;
       const days = Math.floor(timeleft / (1000 * 60 * 60 * 24));
       const hours = Math.floor((timeleft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -324,5 +328,51 @@ export class Createalarm2Page implements OnInit {
                  // document.getElementById('end').innerHTML = 'TIME UP!!';
       }
     }, 1000);
+  }
+  postpone(id, alarma){
+    const int4 = setInterval(() => {
+      this.localNotifications.schedule({
+        id: id,
+        title: this.items.item_name,
+        text: 'Hora de un medicamento.',
+        foreground: true,
+        lockscreen: true,
+        wakeup: true,
+        priority: 2,
+        silent: false
+      });
+      this.currentnot3 = this.localNotifications.on('click').subscribe(async val => {
+        console.log(val);
+        const alert = await this.alertCtrl.create({
+          mode: 'ios',
+          cssClass: 'failed',
+          backdropDismiss: false,
+          buttons: [
+            {
+              text: 'Tomar',
+              cssClass: 'btnalert',
+              handler: data => {
+                console.log('alarmas');
+                console.log(alarma);
+               this.alarmas.toma = 'T1';
+               this.tratamientoService.addAlarm(alarma);
+               this.currentnot3.unsubscribe();
+               clearInterval(int4);
+              }
+            },
+            {
+              text: 'Posponer',
+              cssClass: 'btnalert',
+              handler: datos => {
+                this.currentnot3.unsubscribe();
+               this.postpone(id, alarma);
+               
+              }
+            }
+          ]
+        });
+        await alert.present();
+      });
+    },60000);
   }
 }
