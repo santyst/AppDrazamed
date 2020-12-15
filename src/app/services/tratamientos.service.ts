@@ -76,12 +76,15 @@ export class TratamientosService {
     return number;
   }
   addAlarm(alarma) {
-    console.log(alarma);
+    // console.log(alarma);
     let added = false;
     for (let alar of this.alarm) {
+      if(alar.item_code === alarma.item_code){
         if (alarma.toma === 'T1') {
           alar.tomadas += 1;
+          break;
         }
+      }
     }
     for (let al of this.alarm) {
 
@@ -91,7 +94,7 @@ export class TratamientosService {
         al.timeD = alarma.timeD;
         al.prox = alarma.prox;
         added = true;
-        console.log(this.alarm);
+       // console.log(this.alarm);
       }
     }
     this.tratamiento = {
