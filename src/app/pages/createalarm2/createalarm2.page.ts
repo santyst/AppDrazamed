@@ -82,16 +82,19 @@ export class Createalarm2Page implements OnInit {
       units: this.items.units,
       item_code: this.items.item_code,
     };
+    console.log('json inicial');
+    console.log(this.alarmas);
     this.alarmasForm.reset();
+
   }
   goBack() {
     this.router.navigate(['createalarm']);
   }
-  doSomething(date) {
-    moment(date).format('YYYY-MM-DD');
+  doSomething(fecha) {
+    moment(fecha).format('YYYY-MM-DD');
   }
-  doSomethingh(time) {
-    moment(time).format('LTS');
+  doSomethingh(hora) {
+    moment(hora).format('LTS');
   }
   async load() {
     const loading = await this.loadingController.create({
