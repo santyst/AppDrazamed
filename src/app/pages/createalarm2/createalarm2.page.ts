@@ -50,7 +50,6 @@ export class Createalarm2Page implements OnInit {
   not: any;
   nottrigger: any;
   loop: any;
-  
   intervalo = [{ id: 4, name: '4 Horas' }, { id: 8, name: '8 Horas' }, { id: 12, name: '12 Horas' }, { id: 16, name: '16 Horas' },
   { id: 24, name: '24 Horas' }, { id: 48, name: '48 Horas' }, { id: 72, name: '72 Horas' }];
 
@@ -87,6 +86,7 @@ export class Createalarm2Page implements OnInit {
     this.alarmasForm.reset();
 
   }
+  
   goBack() {
     this.router.navigate(['createalarm']);
   }
@@ -155,7 +155,7 @@ export class Createalarm2Page implements OnInit {
     console.log('Fecha final' + ' ' + endDate);
     // console.log((date2));
     const dif = dateObjetive3.diff(nowstart2, 'minutes');
-    const hora = moment(nowstart).add(dif, 'minutes').format('LT');
+    const hora = moment(nowstart).add(dif, 'minutes').add(1, 'minute').format('LT');
     //document.getElementById('hora').innerHTML = 'a las ' + hora;
     this.alarmas.prox = hora;
     this.tratamientoService.addAlarm(this.alarmas);
