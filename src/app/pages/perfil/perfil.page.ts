@@ -43,6 +43,8 @@ export class PerfilPage implements OnInit {
   items2 = [];
   apiUrl7 = `images/products/`;
   apiUrl8 = `.jpg`;
+  proxima = [];
+  prox: any;
 alarma: any;
   constructor(
     private menuCtrl: MenuController,
@@ -62,6 +64,11 @@ alarma: any;
     this.platform.ready().then(() =>{
       this.alarmas = this.tratamientoService.getAlarma();
       console.log(this.alarmas);
+      for(let pro of this.alarmas){
+        this.proxima.push(pro.proxima_entrega);
+        console.log(this.proxima);
+       this.prox = (this.proxima[0]);
+      }
     });
   }
 
