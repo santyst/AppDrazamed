@@ -50,6 +50,10 @@ export class Createalarm2Page implements OnInit {
   not: any;
   nottrigger: any;
   loop: any;
+
+  fecha: any;
+  hora: any;
+
   intervalo = [{ id: 4, name: '4 Horas' }, { id: 8, name: '8 Horas' }, { id: 12, name: '12 Horas' }, { id: 16, name: '16 Horas' },
   { id: 24, name: '24 Horas' }, { id: 48, name: '48 Horas' }, { id: 72, name: '72 Horas' }];
 
@@ -68,11 +72,14 @@ export class Createalarm2Page implements OnInit {
         console.log(this.items);
       }
     });
+    this.fecha = moment().format('YYYY-MM-DD');
+    this.hora = moment();
+
     this.alarmas = {
       email: this.userid,
       freq: this.intervaloNumber,
-      date: this.doSomething,
-      time: this.doSomethingh,
+      date: moment(this.fecha).format('YYYY-MM-DD'),
+      time: moment(this.hora).format('LTS'),
       obs: this.items.item_name,
       item_name: this.items.item_name,
       composition: this.items.composition,
