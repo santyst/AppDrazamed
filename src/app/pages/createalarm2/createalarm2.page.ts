@@ -11,6 +11,7 @@ import { timer } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from 'src/app/services/auth.service';
 
+
 @Component({
   selector: 'app-createalarm2',
   templateUrl: './createalarm2.page.html',
@@ -48,6 +49,7 @@ export class Createalarm2Page implements OnInit {
   aleatory: any;
   tomadas: any;
   not: any;
+  intervalo1: any;
   nottrigger: any;
   loop: any;
 
@@ -73,7 +75,7 @@ export class Createalarm2Page implements OnInit {
       }
     });
     this.fecha = moment().format('YYYY-MM-DD');
-    this.hora = moment();
+    this.hora = moment().format('LTS');
 
     this.alarmas = {
       email: this.userid,
@@ -142,15 +144,15 @@ export class Createalarm2Page implements OnInit {
        console.log(value);
       });
     });*/
+    this.check(this.alarmas.item_code);
     this.alarmas.tomadas = 0;
-    this.alarmas.conteo = this.check(this.alarmas.item_code);
     this.tratamientoService.addAlarm(this.alarmas);
     console.log(this.alarmas);
     this.router.navigate(['mipastillero']);
   }
-  check(id = this.alarmas.item_code){
+  check(id){
     this.loop = this.alarmas.freq * 60000;
-    const pastillas = 3;
+    const pastillas = this.alarmas.total;
     let i = 1;
     const horas_totales = this.alarmas.freq * pastillas;
     const dateObjetive = new Date(`${this.alarmas.date}T${this.alarmas.time}`).getTime();
@@ -158,15 +160,18 @@ export class Createalarm2Page implements OnInit {
     const nowstart = new Date();
     const nowstart2 = moment(nowstart);
     const dateObjetive3 = moment(dateObjetive2);
-    const endDate = moment(dateObjetive2).add(horas_totales, 'minutes').format();
+    const endDate = moment(dateObjetive2).add(horas_totales, 'hours').format();
+    const proxima = moment(endDate).subtract(48, 'hours').format('YYYY-MM-DD');
     console.log('Fecha final' + ' ' + endDate);
+    console.log('Proxima entrega' + ' ' + proxima);
     // console.log((date2));
     const dif = dateObjetive3.diff(nowstart2, 'minutes');
     const hora = moment(nowstart).add(dif, 'minutes').add(1, 'minute').format('LT');
     //document.getElementById('hora').innerHTML = 'a las ' + hora;
     this.alarmas.prox = hora;
+    this.alarmas.proxima_entrega = proxima;
     this.tratamientoService.addAlarm(this.alarmas);
-    const int1 = setInterval(() => {
+    this.intervalo1 = setInterval(() => {
       const now = new Date().getTime();
       const now1 = moment(now).format();
       // console.log(now1);
@@ -185,7 +190,7 @@ export class Createalarm2Page implements OnInit {
       this.tratamientoService.addAlarm(this.alarmas);
               // Display the message when countdown is over
       if (timeleft < 0) {
-                  clearInterval(int1);
+                  clearInterval(this.intervalo1);
                   this.alarmas.timeH = '';
                   this.alarmas.timeM = '';
                   this.alarmas.timeD = '';
@@ -199,7 +204,7 @@ export class Createalarm2Page implements OnInit {
               }
       const verify = (moment(dateObjetive).isSame(now1));
       if (verify === true){
-        clearInterval(int1);
+        clearInterval(this.intervalo1);
         // console.log('notificacion 1' + ' ' + this.alarmas.item_name );
         this.localNotifications.schedule({
           id: id,
@@ -242,6 +247,8 @@ export class Createalarm2Page implements OnInit {
           await alert.present();
         });
         this.countdown();
+      }
+    }, 1000);
         const intervaloGrande = setInterval(() => {
             i++;
             // console.log('notificacion' + i + ' ' + this.alarmas.item_name );
@@ -292,8 +299,7 @@ export class Createalarm2Page implements OnInit {
             clearInterval(intervaloGrande);
            }
           }, this.loop);
-      }
-    }, 1000);
+      
 
   }
   countdown(){
@@ -385,4 +391,5 @@ export class Createalarm2Page implements OnInit {
       });
     },60000);
   }
+
 }

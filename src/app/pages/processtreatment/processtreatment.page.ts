@@ -12,7 +12,6 @@ export class ProcesstreatmentPage implements OnInit {
   porcentaje: any;
   restante: any;
   alarma: any;
-  pastillas = 3;
   apiUrl7 = `images/products/`;
   apiUrl8 = `.jpg`;
   base_url: any;
@@ -26,9 +25,9 @@ export class ProcesstreatmentPage implements OnInit {
         this.alarma = this.router.getCurrentNavigation().extras.state.user;
         console.log(this.alarma);
         this.taken = this.alarma.tomadas;
-        this.porcentaje = (this.taken / this.pastillas) * 100;
+        this.porcentaje = (this.taken / this.alarma.total) * 100;
         this.restante = Math.ceil(100 - this.porcentaje);
-        this.faltantes = this.pastillas - this.taken;
+        this.faltantes = this.alarma.total - this.taken;
         console.log('Se ha tomado ' + this.taken);
       }
     });
