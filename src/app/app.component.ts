@@ -44,7 +44,7 @@ export class AppComponent {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      this.backgroundMode.enable();
+      // this.backgroundMode.enable();
       this.statusBar.styleDefault();
       this.splashScreen.hide();
       this.localNotifications.hasPermission().then(val => {
