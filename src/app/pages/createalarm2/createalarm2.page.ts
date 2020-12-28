@@ -18,10 +18,27 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./createalarm2.page.scss'],
 })
 export class Createalarm2Page implements OnInit {
-  currentnot: any;
-  currentnot1: any;
-  currentnot3: any;
-  
+  currentnot: any = 0;
+  currentnot1: any = 0;
+  currentnot3: any = 0;
+  items: any = 0;
+  apiUrl7 = `images/products/`;
+  apiUrl8 = `.jpg`;
+  base_url: any = 0;
+  alarmas: any = 0;
+  intervaloNumber: number = 0;
+  key2 = 'alarma';
+  user1: any = 0;
+  userid: any = 0;
+  aleatory: any = 0;
+  tomadas: any = 0;
+  not: any = 0;
+  intervalo1: any = 0;
+  nottrigger: any = 0;
+  loop: any = 0;
+  fecha: any = 0;
+  hora: any = 0;
+
   constructor(private router: Router, private route: ActivatedRoute, private config: ConfigService,
               private localNotifications: LocalNotifications, private loadingController: LoadingController,
               private alertCtrl: AlertController, private formBuilder: FormBuilder, private storage: Storage,
@@ -37,24 +54,7 @@ export class Createalarm2Page implements OnInit {
       freq: new FormControl('', [Validators.required]),
     }); 
   }
-  items: any;
-  apiUrl7 = `images/products/`;
-  apiUrl8 = `.jpg`;
-  base_url: any;
-  alarmas: any;
-  intervaloNumber: number = 0;
-  key2 = 'alarma';
-  user1: any;
-  userid: any;
-  aleatory: any;
-  tomadas: any;
-  not: any;
-  intervalo1: any;
-  nottrigger: any;
-  loop: any;
-
-  fecha: any;
-  hora: any;
+  
 
   intervalo = [{ id: 4, name: '4 Horas' }, { id: 8, name: '8 Horas' }, { id: 12, name: '12 Horas' }, { id: 16, name: '16 Horas' },
   { id: 24, name: '24 Horas' }, { id: 48, name: '48 Horas' }, { id: 72, name: '72 Horas' }];
@@ -106,7 +106,7 @@ export class Createalarm2Page implements OnInit {
     moment(hora).format('LTS');
   }
   async load() {
-    const loading = await this.loadingController.create({
+    let loading = await this.loadingController.create({
       cssClass: 'loading',
       message: 'Por favor espera...',
       mode: 'ios',
@@ -117,10 +117,10 @@ export class Createalarm2Page implements OnInit {
   }
   async updateAlarm() {
     this.aleatory = Math.floor(Math.random() * 10) + 1;
-    const date = new Date(this.alarmas.date + ' ' + this.alarmas.time);
+    let date = new Date(this.alarmas.date + ' ' + this.alarmas.time);
     console.log(date);
     this.load();
-    const alert = await this.alertCtrl.create({
+    let alert = await this.alertCtrl.create({
       message: '<img src = "../../assets/img/RECURSOS/check.png" class="alert">La alarma fue creada.',
       mode: 'ios',
       cssClass: 'failed',
@@ -152,33 +152,37 @@ export class Createalarm2Page implements OnInit {
   }
   check(id){
     this.loop = this.alarmas.freq * 60000;
-    const pastillas = this.alarmas.total;
+    let pastillas = 0;
+    pastillas = this.alarmas.total
     let i = 1;
-    const horas_totales = this.alarmas.freq * pastillas;
-    const dateObjetive = new Date(`${this.alarmas.date}T${this.alarmas.time}`).getTime();
-    const dateObjetive2 = new Date(`${this.alarmas.date}T${this.alarmas.time}`);
-    const nowstart = new Date();
-    const nowstart2 = moment(nowstart);
-    const dateObjetive3 = moment(dateObjetive2);
-    const endDate = moment(dateObjetive2).add(horas_totales, 'hours').format();
-    const proxima = moment(endDate).subtract(48, 'hours').format('YYYY-MM-DD');
+    let horas_totales = 0;
+    horas_totales = this.alarmas.freq * pastillas;
+    let dateObjetive = 0;
+    dateObjetive = new Date(`${this.alarmas.date}T${this.alarmas.time}`).getTime();
+    let dateObjetive2 = new Date(`${this.alarmas.date}T${this.alarmas.time}`);
+    let nowstart = new Date();
+    let nowstart2 = moment(nowstart);
+    let dateObjetive3 = moment(dateObjetive2);
+    let endDate = moment(dateObjetive2).add(horas_totales, 'hours').format();
+    let proxima = moment(endDate).subtract(48, 'hours').format('YYYY-MM-DD');
     console.log('Fecha final' + ' ' + endDate);
     console.log('Proxima entrega' + ' ' + proxima);
     // console.log((date2));
-    const dif = dateObjetive3.diff(nowstart2, 'minutes');
-    const hora = moment(nowstart).add(dif, 'minutes').add(1, 'minute').format('LT');
+    let dif = dateObjetive3.diff(nowstart2, 'minutes');
+    let hora = moment(nowstart).add(dif, 'minutes').add(1, 'minute').format('LT');
     //document.getElementById('hora').innerHTML = 'a las ' + hora;
     this.alarmas.prox = hora;
     this.alarmas.proxima_entrega = proxima;
     this.tratamientoService.addAlarm(this.alarmas);
-    this.intervalo1 = setInterval(() => {
-      const now = new Date().getTime();
-      const now1 = moment(now).format();
+    this.intervalo1 = window.setInterval(() => {
+      let now = new Date().getTime();
+      let now1 = moment(now).format();
       // console.log(now1);
-      const timeleft = dateObjetive - now;
-      const days = Math.floor(timeleft / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((timeleft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((timeleft % (1000 * 60 * 60)) / (1000 * 60));
+      let timeleft = 0;
+      timeleft = dateObjetive - now;
+      let days = Math.floor(timeleft / (1000 * 60 * 60 * 24));
+      let hours = Math.floor((timeleft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      let minutes = Math.floor((timeleft % (1000 * 60 * 60)) / (1000 * 60));
 
       //document.getElementById('days').innerHTML = days + 'd '
       //document.getElementById('hours').innerHTML = hours + 'h '
@@ -190,7 +194,7 @@ export class Createalarm2Page implements OnInit {
       this.tratamientoService.addAlarm(this.alarmas);
               // Display the message when countdown is over
       if (timeleft < 0) {
-                  clearInterval(this.intervalo1);
+                  window.clearInterval(this.intervalo1);
                   this.alarmas.timeH = '';
                   this.alarmas.timeM = '';
                   this.alarmas.timeD = '';
@@ -202,9 +206,9 @@ export class Createalarm2Page implements OnInit {
                   //document.getElementById('hora').innerHTML = ''
                  // //document.getElementById('end').innerHTML = 'TIME UP!!';
               }
-      const verify = (moment(dateObjetive).isSame(now1));
+      let verify = (moment(dateObjetive).isSame(now1));
       if (verify === true){
-        clearInterval(this.intervalo1);
+        window.clearInterval(this.intervalo1);
         // console.log('notificacion 1' + ' ' + this.alarmas.item_name );
         this.localNotifications.schedule({
           id: id,
@@ -218,7 +222,7 @@ export class Createalarm2Page implements OnInit {
         });
         this.currentnot1 = this.localNotifications.on('click').subscribe(async val => {
           console.log(val);
-          const alert = await this.alertCtrl.create({
+          let alert = await this.alertCtrl.create({
             mode: 'ios',
             cssClass: 'failed',
             backdropDismiss: false,
@@ -247,9 +251,7 @@ export class Createalarm2Page implements OnInit {
           await alert.present();
         });
         this.countdown();
-      }
-    }, 1000);
-        const intervaloGrande = setInterval(() => {
+        let intervaloGrande = window.setInterval(() => {
             i++;
             // console.log('notificacion' + i + ' ' + this.alarmas.item_name );
             this.localNotifications.schedule({
@@ -264,7 +266,7 @@ export class Createalarm2Page implements OnInit {
             });
             this.currentnot = this.localNotifications.on('click').subscribe(async val => {
               console.log(val);
-              const alert = await this.alertCtrl.create({
+              let alert = await this.alertCtrl.create({
                 mode: 'ios',
                 cssClass: 'failed',
                 backdropDismiss: false,
@@ -296,30 +298,31 @@ export class Createalarm2Page implements OnInit {
               this.countdown();
             }
             if(i === pastillas){
-            clearInterval(intervaloGrande);
+            window.clearInterval(intervaloGrande);
            }
           }, this.loop);
-      
+        }
+      }, 1000);
 
   }
   countdown(){
-     const now = new Date();
-     const now2 = moment(now).format();
-     const objectiveDate = moment(now2).add(this.alarmas.freq, 'minutes').format('LT');
-     const objectiveDate2 = moment(now2).add(this.alarmas.freq, 'minutes').format();
-     const objectiveDate3 = new Date(objectiveDate2).getTime();
+     let now = new Date();
+     let now2 = moment(now).format();
+     let objectiveDate = moment(now2).add(this.alarmas.freq, 'minutes').format('LT');
+     let objectiveDate2 = moment(now2).add(this.alarmas.freq, 'minutes').format();
+     let objectiveDate3 = new Date(objectiveDate2).getTime();
     // console.log((date2));
      //document.getElementById('hora').innerHTML = 'a las ' + objectiveDate;
      this.alarmas.prox = objectiveDate;
      this.tratamientoService.addAlarm(this.alarmas);
-     const intervalo1 = setInterval(() => {
-      const date1 = new Date().getTime();
-      const date1_1 = moment(date1).format();
+     let intervalo1 = window.setInterval(() => {
+      let date1 = new Date().getTime();
+      let date1_1 = moment(date1).format();
       // console.log(date1_1);
-      const timeleft = objectiveDate3 - date1;
-      const days = Math.floor(timeleft / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((timeleft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((timeleft % (1000 * 60 * 60)) / (1000 * 60));
+      let timeleft = objectiveDate3 - date1;
+      let days = Math.floor(timeleft / (1000 * 60 * 60 * 24));
+      let hours = Math.floor((timeleft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      let minutes = Math.floor((timeleft % (1000 * 60 * 60)) / (1000 * 60));
       this.alarmas.timeH = hours;
       this.alarmas.timeM = minutes;
       this.alarmas.timeD = days;
@@ -331,7 +334,7 @@ export class Createalarm2Page implements OnInit {
      
               // Display the message when countdown is over
       if (timeleft < 0) {
-                  clearInterval(intervalo1);
+                  window.clearInterval(intervalo1);
                   this.alarmas.timeH = '';
                   this.alarmas.timeM = '';
                   this.alarmas.timeD = '';
@@ -346,7 +349,7 @@ export class Createalarm2Page implements OnInit {
     }, 1000);
   }
   postpone(id, alarma){
-    const int4 = setInterval(() => {
+    let int4 = window.setInterval(() => {
       this.localNotifications.schedule({
         id: id,
         title: this.items.item_name,
@@ -359,7 +362,7 @@ export class Createalarm2Page implements OnInit {
       });
       this.currentnot3 = this.localNotifications.on('click').subscribe(async val => {
         console.log(val);
-        const alert = await this.alertCtrl.create({
+        let alert = await this.alertCtrl.create({
           mode: 'ios',
           cssClass: 'failed',
           backdropDismiss: false,
@@ -373,7 +376,7 @@ export class Createalarm2Page implements OnInit {
                this.alarmas.toma = 'T1';
                this.tratamientoService.addAlarm(alarma);
                this.currentnot3.unsubscribe();
-               clearInterval(int4);
+               window.clearInterval(int4);
               }
             },
             {
