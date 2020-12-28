@@ -251,6 +251,8 @@ export class Createalarm2Page implements OnInit {
           await alert.present();
         });
         this.countdown();
+         }
+      }, 1000);
         let intervaloGrande = window.setInterval(() => {
             i++;
             // console.log('notificacion' + i + ' ' + this.alarmas.item_name );
@@ -301,8 +303,7 @@ export class Createalarm2Page implements OnInit {
             window.clearInterval(intervaloGrande);
            }
           }, this.loop);
-        }
-      }, 1000);
+       
 
   }
   countdown(){
