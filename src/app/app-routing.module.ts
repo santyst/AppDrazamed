@@ -140,6 +140,11 @@ const routes: Routes = [
     path: 'edit-alarm',
     loadChildren: () => import('./pages/edit-alarm/edit-alarm.module').then( m => m.EditAlarmPageModule), canActivate: [AuthGuard]
   },
+  {
+    path: 'prueba',
+    loadChildren: () => import('./pages/prueba/prueba.module').then( m => m.PruebaPageModule), canActivate: [AuthGuard]
+  },
+
 
 
 
