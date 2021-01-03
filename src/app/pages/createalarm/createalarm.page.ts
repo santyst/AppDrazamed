@@ -93,7 +93,7 @@ export class CreatealarmPage implements OnInit {
         user: item
       }
     };
-    this.router.navigate(['createalarm2'], navigationExtras);
+    this.router.navigate(['prueba'], navigationExtras);
     this.searchbarInput = '';
   }
 
