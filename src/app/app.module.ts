@@ -21,7 +21,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { BackgroundMode } from '@ionic-native/background-mode/ngx';
-
+import { Push } from '@ionic-native/push/ngx';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -30,6 +30,7 @@ import { BackgroundMode } from '@ionic-native/background-mode/ngx';
   providers: [
     StatusBar,
     SplashScreen,
+    Push,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     AuthService,
     Camera,
