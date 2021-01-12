@@ -42,7 +42,9 @@ export class Login2Page implements OnInit {
       this.get();
     })
   }
-
+ postFCM(){
+   
+ }
   async login() {
     const loading = await this.loadingController.create({
       cssClass: 'loading',
