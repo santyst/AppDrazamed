@@ -22,6 +22,11 @@ import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { BackgroundMode } from '@ionic-native/background-mode/ngx';
 
+//FCM
+import {FCM} from 'cordova-plugin-fcm-with-dependecy-updated/ionic/ngx';
+
+
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -30,6 +35,7 @@ import { BackgroundMode } from '@ionic-native/background-mode/ngx';
   providers: [
     StatusBar,
     SplashScreen,
+    FCM,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     AuthService,
     Camera,
