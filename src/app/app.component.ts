@@ -36,6 +36,7 @@ export class AppComponent {
   user: any;
   user1: any;
   userid: any;
+  key = 'token-fcm';
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
@@ -112,6 +113,8 @@ export class AppComponent {
     this.fcm.onTokenRefresh().subscribe((newToken) => {
       this.token = newToken;
       console.log('onTokenRefresh received event with: ', newToken);
+      window.localStorage.setItem('refresh-token', newToken);
+    
     });
 
     console.log('Subscribing to new notifications');
@@ -128,10 +131,13 @@ export class AppComponent {
 
 
     this.token = await this.fcm.getToken();
+    window.localStorage.setItem(this.key, this.token);
     console.log('getToken result: ', this.token);
+
 
     this.apnstoken = await this.fcm.getAPNSToken();
     console.log('getAPNSToken result: ', this.apnstoken);
+    window.localStorage.setItem('apnsToken', this.apnstoken);
 
     this.pushPayload = await this.fcm.getInitialPushPayload();
     console.log('getInitialPushPayload result: ', this.pushPayload);

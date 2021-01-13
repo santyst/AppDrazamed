@@ -7,6 +7,9 @@ import { async } from '@angular/core/testing';
 import { AuthService } from '../services/auth.service';
 import { Storage } from '@ionic/storage';
 import { finalize } from 'rxjs/operators';
+import { INotificationPayload } from 'cordova-plugin-fcm-with-dependecy-updated';
+import { FCM } from 'cordova-plugin-fcm-with-dependecy-updated/ionic/ngx';
+import { ConfigService } from 'src/app/services/config.service'
 
 @Component({
   selector: 'app-login2',
@@ -19,7 +22,14 @@ export class Login2Page implements OnInit {
   clave: any;
   accept: any;
   key = 'user';
+  token: any;
   key1 = 'remind';
+  apns: any;
+  base_url: any;
+  postJson = {};
+  usuario: any;
+  email: any;
+  refresh_token: any;
   public items3: any;
   public items2: any;
 
@@ -36,14 +46,46 @@ export class Login2Page implements OnInit {
     private platform: Platform,
     private auth: AuthService,
     private storage: Storage,
-    private loadingController: LoadingController
+    private loadingController: LoadingController,
+    private fcm: FCM,
+    private config: ConfigService,
   ) {
+    this.base_url = config.get_base_url();
     this.platform.ready().then(() => {
       this.get();
     })
   }
  postFCM(){
-   
+  this.token =  window.localStorage.getItem('token-fcm');
+  this.refresh_token =  window.localStorage.getItem('refresh-token');
+  this.apns = window.localStorage.getItem('apnsToken');
+  this.usuario = this.auth.getusuario();
+  this.email = this.usuario.email;
+  console.log('Token android' + this.token);
+  console.log('Token iOS' + this.apns);
+  if(this.platform.is('android') === true){
+    this.postJson = {
+      email: this.email,
+      user_type: 3,
+      token: this.token,
+      apnstoken: this.apns,
+      isAndroid: 'true'
+    };
+    console.log(this.postJson);
+  }else{
+  this.postJson = {
+    email: this.email,
+    user_type: 3,
+    token: this.token,
+    apnstoken: this.apns,
+    isAndroid: 'false'
+  };
+  console.log(this.postJson);
+ 
+  } 
+  this.http.post(`${this.base_url}user/post-fcm-data`, this.postJson).subscribe(res => {
+    console.log(res);
+ });
  }
   async login() {
     const loading = await this.loadingController.create({
@@ -61,6 +103,7 @@ export class Login2Page implements OnInit {
       )
       .subscribe(async res => {
         if (res) {
+          this.postFCM();
           this.router.navigate(['home']);
           if (this.accept === true) {
             window.localStorage.setItem(this.key, JSON.stringify(this.credentials));
