@@ -121,6 +121,7 @@ export class AppComponent {
     this.fcm.onNotification().subscribe((payload) => {
       this.pushPayload = payload;
       console.log('onNotification received event with: ', payload);
+      alert(payload);
     });
 
     this.hasPermission = await this.fcm.requestPushPermission();
