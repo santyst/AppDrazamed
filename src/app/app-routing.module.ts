@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
+import { AutoLoginGuard } from './guards/auto-login.guard'
 
 const routes: Routes = [
   {
@@ -50,7 +51,7 @@ const routes: Routes = [
   },
   {
     path: 'slideshow',
-    loadChildren: () => import('./slideshow/slideshow.module').then( m => m.SlideshowPageModule)
+    loadChildren: () => import('./slideshow/slideshow.module').then( m => m.SlideshowPageModule), canActivate: [AutoLoginGuard]
   },
   {
     path: 'carrito',
