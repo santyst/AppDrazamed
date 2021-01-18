@@ -458,6 +458,7 @@ export class CarritoPage implements OnInit {
 
         }
         else {
+          console.log(mensaje);
           const alert = await this.alertCtrl.create({
             message: '<img src = "../../assets/img/RECURSOS/wrong.png" class="alert">Su orden no fue creada, intente de nuevo',
             mode: 'ios',
