@@ -16,7 +16,7 @@ import { NativeStorage } from '@ionic-native/native-storage/ngx';
 
 const helper = new JwtHelperService();
 const TOKEN_KEY = 'jwt-token';
-
+const USUARIOS = 'user-logged';
 
 @Injectable({
   providedIn: 'root'
@@ -109,6 +109,7 @@ export class AuthService {
         let decoded = helper.decodeToken(token);
         // console.log('login decoded: ', decoded);
         this.userData.next(decoded);
+        window.localStorage.setItem(USUARIOS, JSON.stringify(this.usuario));
         let storageObs = from(this.storage.set(TOKEN_KEY, token));
         /*if (this.items2 !== 'ACTIVE'){
           return of(null);
@@ -121,14 +122,15 @@ export class AuthService {
 
 
   getusuario() {
-    return this.usuario;
+    return (JSON.parse(window.localStorage.getItem(USUARIOS)));
   }
 
 
   logout() {
     this.storage.remove(TOKEN_KEY).then(() => {
-      this.router.navigateByUrl('/login1');
-      this.userData.next(null);
+        window.localStorage.removeItem(USUARIOS);
+        this.router.navigateByUrl('/login1');
+        this.userData.next(null);
     });
   }
 
