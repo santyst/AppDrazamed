@@ -121,7 +121,9 @@ export class AppComponent {
     this.fcm.onNotification().subscribe((payload) => {
       this.pushPayload = payload;
       console.log('onNotification received event with: ', payload);
-      alert(payload);
+      
+      
+
     });
 
     this.hasPermission = await this.fcm.requestPushPermission();
@@ -142,6 +144,8 @@ export class AppComponent {
 
     this.pushPayload = await this.fcm.getInitialPushPayload();
     console.log('getInitialPushPayload result: ', this.pushPayload);
+    alert("El id de tratamiento es " + this.pushPayload.a_data);
+
   }
 
   public get pushPayloadString() {
