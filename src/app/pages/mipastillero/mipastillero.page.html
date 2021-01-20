@@ -62,7 +62,7 @@
   </div>
 <ion-row class="result_search" *ngFor="let al of alarmas">
   <ion-col size="6" class="col_trat">
-    <p class="grey" *ngIf="al.timeH !== '' && al.timeD !== '' && al.timeM !== ''">Próxima {{al.timeH}}H {{al.timeM}} min ({{al.prox}})</p>
+    <p class="grey" *ngIf="al.timeH !== '' && al.timeD !== '' && al.timeM !== ''">Próxima {{al.timeH}}H {{al.timeM}} min ({{al.next_time}})</p>
     <p class="grey" *ngIf="al.timeH === '' && al.timeD === '' && al.timeM === ''">Fin del tratamiento</p>
  </ion-col>
  <ion-col size="1">

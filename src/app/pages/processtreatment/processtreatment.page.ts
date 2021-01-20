@@ -24,7 +24,7 @@ export class ProcesstreatmentPage implements OnInit {
       if (this.router.getCurrentNavigation().extras.state) {
         this.alarma = this.router.getCurrentNavigation().extras.state.user;
         console.log(this.alarma);
-        this.taken = this.alarma.tomadas;
+        this.taken = this.alarma.taken;
         this.porcentaje = (this.taken / this.alarma.total) * 100;
         this.restante = Math.ceil(100 - this.porcentaje);
         this.faltantes = this.alarma.total - this.taken;
