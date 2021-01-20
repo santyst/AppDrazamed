@@ -5,6 +5,7 @@ import { Platform } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { AuthService } from './auth.service';
 import { ConfigService } from './config.service';
+import * as moment from 'moment';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,8 @@ export class TratamientosService {
   tratamiento: any;
   del: any;
   items2 = [];
+  next_time: any;
+  intervalos: any = {};
 
   constructor(private storage: Storage, private platform: Platform, private http: HttpClient, private config: ConfigService,
               private auth: AuthService, private localNotifications: LocalNotifications) {
@@ -53,7 +56,16 @@ export class TratamientosService {
       this.http.get(`${this.base_url}${this.apiUrl}${this.userid}`).subscribe(val => {
         this.items = val;
         for (let item of this.items) {
-          this.items3 = item.medicines;
+          let next_date = item.next_time;
+          item.next_time = moment(item.next_time).format('LT');
+          item.medicines[0].next_time = item.next_time;
+          item.medicines[0].next_date = next_date;
+          item.medicines[0].dosis = item.dosis;
+          item.medicines[0].taken = item.taken;
+          item.medicines[0].total = item.total;
+          item.medicines[0].buy_time = moment(item.buy_time).format('ll');
+
+          this.items3 = item.medicines
           for (var i = 0; i < this.items3.length; i++) {
             this.items2.push(this.items3[i]);
             this.alarm = this.items2;
@@ -68,20 +80,44 @@ export class TratamientosService {
     return this.alarm;
   }
 
-  getTime(time) {
-    return time;
+  TimeRemaining(item_code, next_time){
+    let alarma = {
+      timeH: 0,
+      timeM: 0,
+      timeD: 0,
+      item_code: item_code,
+      taken: 0
+    };
+    let dateObjective = new Date(next_time).getTime(); 
+    this.intervalos[item_code] = setInterval(() => {
+      let now = new Date().getTime();
+      let timeleft = 0;
+      timeleft = dateObjective - now;
+      let days = Math.floor(timeleft / (1000 * 60 * 60 * 24));
+      let hours = Math.floor((timeleft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      let minutes = Math.floor((timeleft % (1000 * 60 * 60)) / (1000 * 60));
+      alarma.timeH = hours;
+      alarma.timeM = minutes;
+      alarma.timeD = days;
+      this.addAlarm(alarma);
+      if (timeleft < 0) {
+        clearInterval(this.intervalos[item_code]);
+        alarma.timeH = 0;
+        alarma.timeM = 0;
+        alarma.timeD = 0;
+        console.log(alarma);
+       this.addAlarm(alarma);
+    }
+    }, 1000)
   }
-  addTaken(number) {
-    number += 1;
-    return number;
-  }
+
   addAlarm(alarma) {
-    // console.log(alarma);
+    //console.log(alarma);
     let added = false;
     for (let alar of this.alarm) {
       if(alar.item_code === alarma.item_code){
-        if (alarma.toma === 'T1') {
-          alar.tomadas += 1;
+        if (alarma.taken !== 0) {
+          alar.taken += alarma.taken;
           break;
         }
       }
@@ -92,28 +128,13 @@ export class TratamientosService {
         al.timeM = alarma.timeM;
         al.timeH = alarma.timeH;
         al.timeD = alarma.timeD;
-        al.prox = alarma.prox;
+        al.timeLeft = alarma.timeLeft
         added = true;
-       // console.log(this.alarm);
       }
     }
-    this.tratamiento = {
-      email: alarma.email,
-      item_code: alarma.item_code,
-      total: alarma.total,
-      dosis: alarma.dosis,
-      freq: alarma.freq,
-      start_time: `${alarma.date}T${alarma.time}:00`,
-      obs: `${alarma.obs}, tomar una cada ${alarma.freq} horas`
-    };
     if (!added) {
       this.alarm.push(alarma);
-      this.user1 = this.auth.getusuario();
-      this.userid = this.user1.email;
       console.log(this.alarm);
-      this.http.post(`${this.base_url}treatment/create-treatment`, this.tratamiento).subscribe(msj => {
-        console.log(msj);
-      });
     }
 
   }
@@ -121,6 +142,7 @@ export class TratamientosService {
   removeAlarm(alarma) {
     for (let [index, p] of this.alarm.entries()) {
       if (p.item_code === alarma.item_code) {
+        clearInterval(this.intervalos[alarma.item_code]);
         this.alarm.splice(index, 1);
         this.user1 = this.auth.getusuario();
         this.userid = this.user1.email;

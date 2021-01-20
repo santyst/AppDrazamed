@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 
-import { Platform } from '@ionic/angular';
+import { AlertController, Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Router } from '@angular/router';
@@ -17,6 +17,9 @@ import { BackgroundMode } from '@ionic-native/background-mode/ngx';
 // import { Fire } from '@ionic-native/fcm/ngx';
 import { INotificationPayload } from 'cordova-plugin-fcm-with-dependecy-updated';
 import { FCM } from 'cordova-plugin-fcm-with-dependecy-updated/ionic/ngx';
+import { TratamientosService } from './services/tratamientos.service';
+import { HttpClient } from '@angular/common/http';
+import { ConfigService } from './services/config.service';
 
 
 @Component({
@@ -37,6 +40,12 @@ export class AppComponent {
   user1: any;
   userid: any;
   key = 'token-fcm';
+  base_url :any;
+  item: any;
+  medicine: any;
+  respuestapost: any;
+  respuestapost1: any;
+
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
@@ -44,12 +53,16 @@ export class AppComponent {
     private router: Router,
     public auth: AuthService,
     private localNotifications: LocalNotifications,
-    private backgroundMode: BackgroundMode,
-    private fcm: FCM
+    private tratamientoService: TratamientosService,
+    private fcm: FCM,
+    private http: HttpClient,
+    private config: ConfigService,
+    private alertCtrl: AlertController
   ) {
     this.initializeApp();
-    
-    
+    this.base_url = config.get_base_url();
+    this.user = this.auth.getusuario();
+    this.userid = this.user.email;
   }
 
   ionViewWillEnter() {
@@ -99,7 +112,70 @@ export class AppComponent {
       }
     });
   }
-
+  
+  async sendToma(){
+    // acá entra la notificacion con id de tratamiento
+    let alert = await this.alertCtrl.create({
+      mode: 'ios',
+      cssClass: 'failed',
+      backdropDismiss: false,
+      buttons: [
+        {
+          text: 'Tomar',
+          cssClass: 'btnalert',
+          handler: data => {
+            this.http.get(`${this.base_url}treatment/treatment-by-id?id=555`).subscribe((res) => {
+              this.medicine = res;
+              this.item = this.medicine[0].item_code;
+              let alarma = {
+                email: this.userid,
+                taken: 1,
+                item_code: this.item,
+              }
+              console.log(alarma)
+              this.http.post(`${this.base_url}treatment/update-treatment`, alarma).subscribe((resp) => {
+                this.respuestapost = resp;
+                this.respuestapost1 = this.respuestapost.status;
+                console.log(this.respuestapost1);
+                if(this.respuestapost1 === "SUCCESS"){
+                  let alarma1 = {
+                    taken: 1,
+                    item_code: this.item
+                  }
+                  this.tratamientoService.addAlarm(alarma1);
+                }
+              });
+              
+            });
+           
+          }
+        },
+        {
+          text: 'Posponer',
+          cssClass: 'btnalert',
+          handler: datos => {
+            let alarma2 = {
+              email: this.userid,
+              taken: 0,
+              item_code: this.item,
+            }
+            this.http.post(`${this.base_url}treatment/update-treatment`, alarma2).subscribe((resp) => {
+              this.respuestapost = resp;
+              console.log(this.respuestapost);
+            });
+          }
+        }
+      ]
+    });
+    await alert.present();
+    
+    let alarma = {
+      email: this.userid,
+      toma: 'T1',
+      item_code: '7702184010655',
+    }
+   //  this.tratamientoService.addAlarm(alarma);
+  }
   private async setupFCM() {
     await this.platform.ready();
     console.log('FCM setup started');
@@ -116,12 +192,10 @@ export class AppComponent {
       window.localStorage.setItem('refresh-token', newToken);
     
     });
-
     console.log('Subscribing to new notifications');
     this.fcm.onNotification().subscribe((payload) => {
       this.pushPayload = payload;
       console.log('onNotification received event with: ', payload);
-      alert(payload);
     });
 
     this.hasPermission = await this.fcm.requestPushPermission();
