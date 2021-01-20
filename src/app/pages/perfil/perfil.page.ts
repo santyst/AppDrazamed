@@ -65,7 +65,7 @@ alarma: any;
       this.alarmas = this.tratamientoService.getAlarma();
       console.log(this.alarmas);
       for(let pro of this.alarmas){
-        this.proxima.push(pro.proxima_entrega);
+        this.proxima.push(pro.buy_time);
         console.log(this.proxima);
        this.prox = (this.proxima[0]);
       }

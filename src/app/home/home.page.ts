@@ -38,7 +38,7 @@ apiUrl7 = `images/products/`;
 apiUrl8 = `.jpg`;
 apiUrl1 = `images/products/default.png`;
 base_url: any;
-
+alarmas: any;
 
   constructor(
     private router: Router,
@@ -50,7 +50,11 @@ base_url: any;
     private tratamientosService: TratamientosService,
     private alertCtrl: AlertController
   ) {
-    this.tratamientosService.getAlarma();
+    this.alarmas = this.tratamientosService.getAlarma();
+    for(let al of this.alarmas){
+      this.tratamientosService.TimeRemaining(al.item_code, al.next_date);
+    }
+
     this.base_url = config.get_base_url();
     this.http.get(`${this.base_url}${this.apiURL}`).subscribe((response) => {
       this.items = response;
