@@ -95,7 +95,7 @@ export class TratamientosService {
       timeleft = dateObjective - now;
       let days = Math.floor(timeleft / (1000 * 60 * 60 * 24));
       let hours = Math.floor((timeleft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      let minutes = Math.floor((timeleft % (1000 * 60 * 60)) / (1000 * 60));
+      let minutes = Math.floor(((timeleft % (1000 * 60 * 60)) / (1000 * 60))+1);
       alarma.timeH = hours;
       alarma.timeM = minutes;
       alarma.timeD = days;
