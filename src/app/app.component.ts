@@ -111,13 +111,14 @@ export class AppComponent {
     });
   }
   
-  async sendToma(treatment_id){
+  async sendToma(treatment_id, body){
     this.user = this.auth.getusuario();
     this.userid = this.user.email;
     // acá entra la notificacion con id de tratamiento
     let alert = await this.alertCtrl.create({
       mode: 'ios',
       cssClass: 'failed',
+      message: body,
       backdropDismiss: false,
       buttons: [
         {
@@ -196,7 +197,7 @@ export class AppComponent {
     this.fcm.onNotification().subscribe((payload) => {
       this.pushPayload = payload;
       console.log('onNotification received event with: ', payload);
-      this.sendToma(payload.a_data);
+      this.sendToma(payload.a_data, payload.body);
     });
 
     this.hasPermission = await this.fcm.requestPushPermission();
@@ -217,7 +218,7 @@ export class AppComponent {
 
     this.pushPayload = await this.fcm.getInitialPushPayload();
     console.log('getInitialPushPayload result: ', this.pushPayload);
-    this.sendToma(this.pushPayload.a_data);
+    this.sendToma(this.pushPayload.a_data, '');
   }
 
   public get pushPayloadString() {
