@@ -61,8 +61,6 @@ export class AppComponent {
   ) {
     this.initializeApp();
     this.base_url = config.get_base_url();
-    this.user = this.auth.getusuario();
-    this.userid = this.user.email;
   }
 
   ionViewWillEnter() {
@@ -113,7 +111,9 @@ export class AppComponent {
     });
   }
   
-  async sendToma(){
+  async sendToma(treatment_id){
+    this.user = this.auth.getusuario();
+    this.userid = this.user.email;
     // acá entra la notificacion con id de tratamiento
     let alert = await this.alertCtrl.create({
       mode: 'ios',
@@ -124,7 +124,7 @@ export class AppComponent {
           text: 'Tomar',
           cssClass: 'btnalert',
           handler: data => {
-            this.http.get(`${this.base_url}treatment/treatment-by-id?id=555`).subscribe((res) => {
+            this.http.get(`${this.base_url}treatment/treatment-by-id?id=${treatment_id}`).subscribe((res) => {
               this.medicine = res;
               this.item = this.medicine[0].item_code;
               let alarma = {
@@ -196,6 +196,7 @@ export class AppComponent {
     this.fcm.onNotification().subscribe((payload) => {
       this.pushPayload = payload;
       console.log('onNotification received event with: ', payload);
+      this.sendToma(payload.a_data);
     });
 
     this.hasPermission = await this.fcm.requestPushPermission();
@@ -216,6 +217,7 @@ export class AppComponent {
 
     this.pushPayload = await this.fcm.getInitialPushPayload();
     console.log('getInitialPushPayload result: ', this.pushPayload);
+    this.sendToma(this.pushPayload.a_data);
   }
 
   public get pushPayloadString() {
