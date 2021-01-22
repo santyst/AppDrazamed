@@ -178,7 +178,7 @@ export class AppComponent {
                 if(this.respuestapost1 === "SUCCESS"){
                   let alarma1 = {
                     taken: 1,
-                    item_code: this.item
+                    item_code: this.item_code
                   }
                   this.tratamientoService.addAlarm(alarma1);
                 }

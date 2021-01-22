@@ -64,6 +64,7 @@ alarmas = [];
     });
 
     this.cartItemCount = this.cartService.getCartItemCount();
+    this.tratamientosService.getTreatmen();
   }
 ngOnInit(){
 }
