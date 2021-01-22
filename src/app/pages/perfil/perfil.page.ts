@@ -70,7 +70,7 @@ export class PerfilPage implements OnInit, OnDestroy {
     this.base_url = config.get_base_url();
     this.cartItemCount = this.cartService.getCartItemCount();
 
-       
+    this.alarmas = this.tratamientoService.getAlarma();
       console.log(this.alarmas)
   }
 
@@ -80,8 +80,8 @@ export class PerfilPage implements OnInit, OnDestroy {
     this.user = this.auth.getusuario();
     this.userid = this.user.email;
     console.log(this.user);
-   this.getTreatments();
-
+   //this.getTreatments();
+this.alarmas = this.tratamientoService.getAlarma();
     // console.log(this.alarmas)
 
     /*  for(let al of this.alarmas){
@@ -93,12 +93,13 @@ export class PerfilPage implements OnInit, OnDestroy {
   }
 
   ionViewWillEnter() {
-     this.getTreatments();
+  this.alarmas = this.tratamientoService.getAlarma();
+   //  this.getTreatments();
   } 
   ngOnDestroy(){
 
   }
-getTreatments(){
+/* getTreatments(){
   //this.alarmas.splice(0, this.alarmas.length);
   this.alarm.splice(0, this.alarm.length);
   this.proxima.splice(0, this.proxima.length);
@@ -142,7 +143,7 @@ getTreatments(){
      // console.log(this.alarmas);
 
     });
-}
+} */
   async addComment() {
     const input = await this.alertCtrl.create({
       header: '¿Cómo va tu tratamiento?',

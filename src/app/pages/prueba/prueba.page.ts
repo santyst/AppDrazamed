@@ -156,8 +156,8 @@ export class PruebaPage implements OnInit {
       this.alarmas.next_time = moment(this.medicamento.next_time).format('LT');
       this.alarmas.item_code = this.medicamento.item_code;
       this.alarmas.buy_time = moment(this.medicamento.buy_time.date).format('ll');
-     //  this.tratamientoService.addAlarm(this.alarmas);
-      // this.tratamientoService.TimeRemaining(this.alarmas.item_code, next);
+      this.tratamientoService.addAlarm(this.alarmas);
+      this.tratamientoService.TimeRemaining(this.alarmas.item_code, next);
       console.log(this.alarmas);
       this.router.navigate(['home']);
     });

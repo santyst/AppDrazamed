@@ -51,17 +51,17 @@ user: any;
               private auth: AuthService, private http: HttpClient) {
     this.base_url = config.get_base_url();
     this.cartItemCount = this.cartService.getCartItemCount();
-
+    this.alarmas = this.tratamientoService.getAlarma();
   }
   ngOnInit() {
     //this.alarmas = this.tratamientoService.getAlarma();
-   this.getTreatments();
+    this.alarmas = this.tratamientoService.getAlarma();
   }
   ionViewWillEnter() {
-    this.getTreatments();
+    this.alarmas = this.tratamientoService.getAlarma();
     console.log('entrando');
   }
-  getTreatments(){
+ /*  getTreatments(){
     // this.alarmas.splice(0, this.alarmas.length);
     this.alarm.splice(0, this.alarm.length);
     this.proxima.splice(0, this.proxima.length);
@@ -100,7 +100,7 @@ user: any;
        // console.log(this.alarmas);
   
       });
-  }
+  } */
   createAlarm(){
     this.router.navigate(['createalarm']);
   }

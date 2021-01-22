@@ -69,7 +69,33 @@ export class TratamientosService {
 
     });  */
   }
+getTreatmen(){
+  this.user1 = this.auth.getusuario();
+  this.userid = this.user1.email;
+  this.http.get(`${this.base_url}${this.apiUrl}${this.userid}`).subscribe(val => {
+    this.items = val;
+    for (let item of this.items) {
+      let next_date = item.next_time;
+      item.next_time = moment(item.next_time).format('LT');
+      item.medicines[0].next_time = item.next_time;
+      item.medicines[0].next_date = next_date;
+      item.medicines[0].dosis = item.dosis;
+      item.medicines[0].taken = item.taken;
+      item.medicines[0].total = item.total;
+      item.medicines[0].buy_time = moment(item.buy_time).format('ll');
 
+      this.items3 = item.medicines
+      for (var i = 0; i < this.items3.length; i++) {
+        this.items2.push(this.items3[i]);
+        this.alarm = this.items2;
+      }
+    }
+    for(let time of this.alarm){
+      this.TimeRemaining(time.item_code, time.next_date);
+    }
+    console.log(this.alarm);
+  });
+}
   getAlarma() {
   
     return this.alarm;
@@ -101,7 +127,7 @@ export class TratamientosService {
         alarma.timeM = 0;
         alarma.timeD = 0;
         console.log(alarma);
-       this.addAlarm(alarma);
+        this.addAlarm(alarma);
     }
     }, 1000)
   }
