@@ -126,37 +126,6 @@ export class AppComponent {
       backdropDismiss: false,
       buttons: [
         {
-          text: 'Tomar',
-          cssClass: 'btnalert',
-          handler: data => {
-            this.http.get(`${this.base_url}treatment/treatment-by-id?id=${treatment_id}`).subscribe((res) => {
-              this.respuestapost = res;
-              this.respuestapost1 = this.respuestapost.status;
-              this.item_code = this.respuestapost.data[0].item_code;
-              let alarma = {
-                email: this.userid,
-                taken: 1,
-                item_code: this.item_code,
-              }
-              console.log(alarma)
-              this.http.post(`${this.base_url}treatment/update-treatment`, alarma).subscribe((resp) => {
-                this.respuestapost = resp;
-                this.respuestapost1 = this.respuestapost.status;
-                console.log(this.respuestapost1);
-                if(this.respuestapost1 === "SUCCESS"){
-                  let alarma1 = {
-                    taken: 1,
-                    item_code: this.item
-                  }
-                  this.tratamientoService.addAlarm(alarma1);
-                }
-              });
-              
-            });
-           
-          }
-        },
-        {
           text: 'Posponer',
           cssClass: 'btnalert',
           handler: datos => {
@@ -187,7 +156,39 @@ export class AppComponent {
               };
             });
           }
+        },
+        {
+          text: 'Tomar',
+          cssClass: 'btnalert',
+          handler: data => {
+            this.http.get(`${this.base_url}treatment/treatment-by-id?id=${treatment_id}`).subscribe((res) => {
+              this.respuestapost = res;
+              this.respuestapost1 = this.respuestapost.status;
+              this.item_code = this.respuestapost.data[0].item_code;
+              let alarma = {
+                email: this.userid,
+                taken: 1,
+                item_code: this.item_code,
+              }
+              console.log(alarma)
+              this.http.post(`${this.base_url}treatment/update-treatment`, alarma).subscribe((resp) => {
+                this.respuestapost = resp;
+                this.respuestapost1 = this.respuestapost.status;
+                console.log(this.respuestapost1);
+                if(this.respuestapost1 === "SUCCESS"){
+                  let alarma1 = {
+                    taken: 1,
+                    item_code: this.item
+                  }
+                  this.tratamientoService.addAlarm(alarma1);
+                }
+              });
+              
+            });
+           
+          }
         }
+        
       ]
     });
     await alert.present();
