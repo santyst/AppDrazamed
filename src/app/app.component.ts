@@ -241,7 +241,9 @@ export class AppComponent {
 
     this.pushPayload = await this.fcm.getInitialPushPayload();
     console.log('getInitialPushPayload result: ', this.pushPayload);
-    this.sendToma(this.pushPayload.a_data, '');
+    if(this.pushPayload !== null){
+      this.sendToma(this.pushPayload.a_data, '');
+    }
   }
 
   public get pushPayloadString() {

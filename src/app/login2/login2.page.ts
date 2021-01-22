@@ -10,6 +10,7 @@ import { finalize } from 'rxjs/operators';
 import { INotificationPayload } from 'cordova-plugin-fcm-with-dependecy-updated';
 import { FCM } from 'cordova-plugin-fcm-with-dependecy-updated/ionic/ngx';
 import { ConfigService } from 'src/app/services/config.service'
+import { TratamientosService } from '../services/tratamientos.service';
 
 @Component({
   selector: 'app-login2',
@@ -49,6 +50,7 @@ export class Login2Page implements OnInit {
     private loadingController: LoadingController,
     private fcm: FCM,
     private config: ConfigService,
+    private tratamientoService: TratamientosService
   ) {
     this.base_url = config.get_base_url();
     this.platform.ready().then(() => {
@@ -103,6 +105,7 @@ export class Login2Page implements OnInit {
       )
       .subscribe(async res => {
         if (res) {
+          this.tratamientoService.getAlarma();
           this.postFCM();
           this.router.navigate(['home']);
           if (this.accept === true) {

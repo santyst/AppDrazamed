@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { MenuController, IonSlides, AlertController, LoadingController, Platform } from '@ionic/angular';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { CartService } from 'src/app/services/cart.service';
@@ -9,13 +9,14 @@ import { ConfigService } from 'src/app/services/config.service'
 import { finalize } from 'rxjs/operators';
 import { TratamientosService } from 'src/app/services/tratamientos.service';
 import { Storage } from '@ionic/storage';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-perfil',
   templateUrl: './perfil.page.html',
   styleUrls: ['./perfil.page.scss'],
 })
-export class PerfilPage implements OnInit {
+export class PerfilPage implements OnInit, OnDestroy {
 
   @ViewChild('mySlider') slider: IonSlides;
   sliderOpts = {
@@ -37,6 +38,7 @@ export class PerfilPage implements OnInit {
   email: any;
   nombre: any;
   datatoSend: any;
+  alar = [];
   base_url: any;
   alarmas = [];
   items: any;
@@ -45,7 +47,13 @@ export class PerfilPage implements OnInit {
   apiUrl8 = `.jpg`;
   proxima = [];
   prox: any;
-alarma: any;
+  alarma: any;
+  user1: any;
+  userid: any;
+  apiUrl = `my-treatments?email=`;
+  items3: any;
+  intervalos: any = [];
+  alarm = [];
   constructor(
     private menuCtrl: MenuController,
     private cartService: CartService,
@@ -61,28 +69,80 @@ alarma: any;
   ) {
     this.base_url = config.get_base_url();
     this.cartItemCount = this.cartService.getCartItemCount();
-    this.platform.ready().then(() =>{
-      this.alarmas = this.tratamientoService.getAlarma();
-      console.log(this.alarmas);
-      for(let pro of this.alarmas){
-        this.proxima.push(pro.buy_time);
-        console.log(this.proxima);
-       this.prox = (this.proxima[0]);
-      }
-    });
+
+       
+      console.log(this.alarmas)
   }
 
   ngOnInit() {
+    console.log('on init')
+   // this.alarmas = this.tratamientoService.getAlarma()
+    this.user = this.auth.getusuario();
+    this.userid = this.user.email;
+    console.log(this.user);
+   this.getTreatments();
+
+    // console.log(this.alarmas)
+
+    /*  for(let al of this.alarmas){
+      this.proxima.push(al.buy_time);
+      console.log(this.proxima);
+     this.prox = (this.proxima[0]);
+      // this.tratamientoService.TimeRemaining(al.item_code, al.next_date);
+    } */
   }
 
   ionViewWillEnter() {
-    this.menuCtrl.enable(true);
-    this.user = this.auth.getusuario();
+     this.getTreatments();
+  } 
+  ngOnDestroy(){
 
-    console.log(this.user);
   }
+getTreatments(){
+  //this.alarmas.splice(0, this.alarmas.length);
+  this.alarm.splice(0, this.alarm.length);
+  this.proxima.splice(0, this.proxima.length);
+  this.menuCtrl.enable(true);
+  this.user = this.auth.getusuario();
+  console.log(this.user);
+    this.user1 = this.auth.getusuario();
+    this.userid = this.user1.email;
+    this.http.get(`${this.base_url}${this.apiUrl}${this.userid}`).subscribe(val => {
+      this.items = val;
+      for (let item of this.items) {
+        let next_date = item.next_time;
+        item.next_time = moment(item.next_time).format('LT');
+        item.medicines[0].next_time = item.next_time;
+        item.medicines[0].next_date = next_date;
+        item.medicines[0].dosis = item.dosis;
+        item.medicines[0].taken = item.taken;
+        item.medicines[0].total = item.total;
+        item.medicines[0].buy_time = moment(item.buy_time).format('ll');
 
+        this.items3 = item.medicines
+        for (var i = 0; i < this.items3.length; i++) {
+          this.items2.push(this.items3[i]);
+          this.alarm = this.items2;
+        }
+      }
+      for (let ala of this.alarm) {
+        // this.alar.push(ala);
+        console.log(ala);
+        
+        this.tratamientoService.addAlarm(ala);
+        
+      }
+       this.alarmas = this.tratamientoService.getAlarma();
+      for (let al of this.alarmas) {
+        this.proxima.push(al.buy_time);
+        console.log(this.proxima);
+        this.prox = (this.proxima[0]);
+        this.tratamientoService.TimeRemaining(al.item_code, al.next_date);
+      } 
+     // console.log(this.alarmas);
 
+    });
+}
   async addComment() {
     const input = await this.alertCtrl.create({
       header: '¿Cómo va tu tratamiento?',
@@ -111,29 +171,29 @@ alarma: any;
             });
             await loading.present();
             this.http.post(`${this.base_url}${this.postUrl}`, this.datatoSend).
-            pipe(
-              finalize(() => {
-                loading.dismiss();
-              })
-            )
-            .subscribe(async (val) => {
-              this.code = val;
-              this.code2 = this.code.status;
-              if (this.code2 === 'SUCCESS'){
-                const alert = await this.alertCtrl.create({
-               message: '<img src = "../../assets/img/RECURSOS/check.png" class="alert">El comentario fue enviado',
-               mode: 'ios',
-               cssClass: 'failed',
-               buttons: [
-                 {
-                   text: 'Aceptar',
-                   cssClass: 'btnalert',
-                 }
-               ]
-                });
-                await alert.present();
-               }
-            });
+              pipe(
+                finalize(() => {
+                  loading.dismiss();
+                })
+              )
+              .subscribe(async (val) => {
+                this.code = val;
+                this.code2 = this.code.status;
+                if (this.code2 === 'SUCCESS') {
+                  const alert = await this.alertCtrl.create({
+                    message: '<img src = "../../assets/img/RECURSOS/check.png" class="alert">El comentario fue enviado',
+                    mode: 'ios',
+                    cssClass: 'failed',
+                    buttons: [
+                      {
+                        text: 'Aceptar',
+                        cssClass: 'btnalert',
+                      }
+                    ]
+                  });
+                  await alert.present();
+                }
+              });
           }
         }
       ],
@@ -162,7 +222,7 @@ alarma: any;
   misDirecciones() {
     this.router.navigate(['misdirecciones']);
   }
-  async removetreatment(alarma){
+  async removetreatment(alarma) {
     const alert = await this.alertCtrl.create({
       message: '<img src = "../../assets/img/RECURSOS/iconos drazamed-27.png" class="alert">¿Deseas eliminar el tratamiento?',
       mode: 'ios',
@@ -181,7 +241,7 @@ alarma: any;
           cssClass: 'btnalert',
         }
       ]
-       });
+    });
     await alert.present();
   }
   processTreat(alarma) {

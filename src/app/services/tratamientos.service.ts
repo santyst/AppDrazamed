@@ -25,7 +25,7 @@ export class TratamientosService {
   del: any;
   items2 = [];
   next_time: any;
-  intervalos: any = {};
+  intervalos: any = [];
 
   constructor(private storage: Storage, private platform: Platform, private http: HttpClient, private config: ConfigService,
               private auth: AuthService, private localNotifications: LocalNotifications) {
@@ -41,16 +41,8 @@ export class TratamientosService {
         }
       });
     });*/
-    this.platform.ready().then(() => {
-      /*this.alarmas = JSON.parse(window.localStorage.getItem(this.key));
-      if(this.alarmas === null){
-        this.alarmas = [];
-        console.log(this.alarmas);
-      }
-      else{
-        this.alarm = this.alarmas;
-        console.log(this.alarm);
-      }*/
+    /*  this.platform.ready().then(() => {
+      if(this.auth.usuario){
       this.user1 = this.auth.getusuario();
       this.userid = this.user1.email;
       this.http.get(`${this.base_url}${this.apiUrl}${this.userid}`).subscribe(val => {
@@ -73,10 +65,13 @@ export class TratamientosService {
         }
         console.log(this.alarm);
       });
-    });
+    }
+
+    });  */
   }
 
   getAlarma() {
+  
     return this.alarm;
   }
 

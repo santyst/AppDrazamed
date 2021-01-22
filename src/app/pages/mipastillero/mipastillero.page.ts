@@ -6,6 +6,9 @@ import { NavigationExtras, Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import { ConfigService } from 'src/app/services/config.service';
 import { TratamientosService } from 'src/app/services/tratamientos.service';
+import { AuthService } from 'src/app/services/auth.service';
+import * as moment from 'moment';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-mipastillero',
@@ -22,6 +25,17 @@ alarmas = [];
 items: any;
 items2 = [];
 
+proxima = [];
+prox: any;
+alarma: any;
+user1: any;
+userid: any;
+apiUrl = `my-treatments?email=`;
+items3: any;
+alarm = [];
+alar: any;
+user: any;
+
   @ViewChild('mySlider') slider: IonSlides;
   sliderOpts = {
     autoplay: true,
@@ -33,22 +47,59 @@ items2 = [];
 
   cartItemCount: BehaviorSubject<number>;
   constructor(private cartService: CartService, private router: Router, private storage: Storage, private platform: Platform, 
-              private config: ConfigService, private tratamientoService: TratamientosService, private alertCtrl: AlertController) {
+              private config: ConfigService, private tratamientoService: TratamientosService, private alertCtrl: AlertController,
+              private auth: AuthService, private http: HttpClient) {
     this.base_url = config.get_base_url();
     this.cartItemCount = this.cartService.getCartItemCount();
-    this.platform.ready().then(() =>{
-      this.alarmas = this.tratamientoService.getAlarma();
-      /*for (let item of this.alarmas) {
-        this.items = item.medicines;
-        for (var i = 0; i < this.items.length; i++) {
-          this.items2.push(this.items[i]);
-        }
-      }*/
-      console.log(this.alarmas);
-    });
-  }
 
+  }
   ngOnInit() {
+    //this.alarmas = this.tratamientoService.getAlarma();
+   this.getTreatments();
+  }
+  ionViewWillEnter() {
+    this.getTreatments();
+    console.log('entrando');
+  }
+  getTreatments(){
+    // this.alarmas.splice(0, this.alarmas.length);
+    this.alarm.splice(0, this.alarm.length);
+    this.proxima.splice(0, this.proxima.length);
+    this.user = this.auth.getusuario();
+    console.log(this.user);
+      this.user1 = this.auth.getusuario();
+      this.userid = this.user1.email;
+      this.http.get(`${this.base_url}${this.apiUrl}${this.userid}`).subscribe(val => {
+        this.items = val;
+        for (let item of this.items) {
+          let next_date = item.next_time;
+          item.next_time = moment(item.next_time).format('LT');
+          item.medicines[0].next_time = item.next_time;
+          item.medicines[0].next_date = next_date;
+          item.medicines[0].dosis = item.dosis;
+          item.medicines[0].taken = item.taken;
+          item.medicines[0].total = item.total;
+          item.medicines[0].buy_time = moment(item.buy_time).format('ll');
+  
+          this.items3 = item.medicines
+          for (var i = 0; i < this.items3.length; i++) {
+            this.items2.push(this.items3[i]);
+            this.alarm = this.items2;
+          }
+        }
+        for (let ala of this.alarm) {
+          // this.alar.push(ala);
+          console.log(ala);
+          this.tratamientoService.addAlarm(ala);
+        
+        }
+         this.alarmas = this.tratamientoService.getAlarma();
+        for (let al of this.alarmas) {
+           this.tratamientoService.TimeRemaining(al.item_code, al.next_date);
+        } 
+       // console.log(this.alarmas);
+  
+      });
   }
   createAlarm(){
     this.router.navigate(['createalarm']);

@@ -1,6 +1,6 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
-import { MenuController, IonSlides, IonRouterOutlet, AlertController } from '@ionic/angular';
+import { MenuController, IonSlides, IonRouterOutlet, AlertController, Platform } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { CartService } from '../services/cart.service';
@@ -13,7 +13,7 @@ import { TratamientosService } from '../services/tratamientos.service';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnInit{
 @ViewChild('mySlider') slider: IonSlides;
 sliderOpts = {
   autoplay: true,
@@ -38,7 +38,7 @@ apiUrl7 = `images/products/`;
 apiUrl8 = `.jpg`;
 apiUrl1 = `images/products/default.png`;
 base_url: any;
-alarmas: any;
+alarmas = [];
 
   constructor(
     private router: Router,
@@ -48,13 +48,10 @@ alarmas: any;
     private config: ConfigService,
     private routerOutlet: IonRouterOutlet,
     private tratamientosService: TratamientosService,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private platform: Platform
   ) {
-    this.alarmas = this.tratamientosService.getAlarma();
-    for(let al of this.alarmas){
-      this.tratamientosService.TimeRemaining(al.item_code, al.next_date);
-    }
-
+    
     this.base_url = config.get_base_url();
     this.http.get(`${this.base_url}${this.apiURL}`).subscribe((response) => {
       this.items = response;
@@ -68,8 +65,10 @@ alarmas: any;
 
     this.cartItemCount = this.cartService.getCartItemCount();
   }
-
+ngOnInit(){
+}
     ionViewWillEnter() {
+      
  this.menuCtrl.enable(true);
  this.routerOutlet.swipeGesture = false;
 }
