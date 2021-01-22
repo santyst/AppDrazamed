@@ -45,6 +45,7 @@ export class AppComponent {
   medicine: any;
   respuestapost: any;
   respuestapost1: any;
+  item_code:any;
 
   constructor(
     private platform: Platform,
@@ -114,6 +115,9 @@ export class AppComponent {
   async sendToma(treatment_id, body){
     this.user = this.auth.getusuario();
     this.userid = this.user.email;
+    console.log("TreatmentId:", treatment_id);
+    console.log("email:", this.userid);
+    let treatmentId = treatment_id;
     // acá entra la notificacion con id de tratamiento
     let alert = await this.alertCtrl.create({
       mode: 'ios',
@@ -126,12 +130,13 @@ export class AppComponent {
           cssClass: 'btnalert',
           handler: data => {
             this.http.get(`${this.base_url}treatment/treatment-by-id?id=${treatment_id}`).subscribe((res) => {
-              this.medicine = res;
-              this.item = this.medicine[0].item_code;
+              this.respuestapost = res;
+              this.respuestapost1 = this.respuestapost.status;
+              this.item_code = this.respuestapost.data[0].item_code;
               let alarma = {
                 email: this.userid,
                 taken: 1,
-                item_code: this.item,
+                item_code: this.item_code,
               }
               console.log(alarma)
               this.http.post(`${this.base_url}treatment/update-treatment`, alarma).subscribe((resp) => {
@@ -155,14 +160,31 @@ export class AppComponent {
           text: 'Posponer',
           cssClass: 'btnalert',
           handler: datos => {
-            let alarma2 = {
-              email: this.userid,
-              taken: 0,
-              item_code: this.item,
-            }
-            this.http.post(`${this.base_url}treatment/update-treatment`, alarma2).subscribe((resp) => {
-              this.respuestapost = resp;
-              console.log(this.respuestapost);
+            console.log("Posponer");
+            var urlTreatment = `${this.base_url}treatment/treatment-by-id?id=`+treatmentId;
+            console.log('url',urlTreatment);
+            this.http.get(urlTreatment).subscribe((res) => {
+              this.respuestapost = res;
+              this.respuestapost1 = this.respuestapost.status;
+              this.item_code = this.respuestapost.data[0].item_code;
+
+              console.log("Post:", this.respuestapost1);
+              console.log("tratamiento:",res);
+              console.log("item_code:",this.item_code);
+
+              if(this.respuestapost1 === "SUCCESS"){
+                let alarma2 = {
+                  email: this.userid,
+                  taken: 0,
+                  item_code: this.item_code,
+                }
+                console.log('envio posponer');
+                console.log(alarma2);
+                this.http.post(`${this.base_url}treatment/update-treatment`, alarma2).subscribe((resp) => {
+                  this.respuestapost = resp;
+                  console.log(this.respuestapost);
+                });
+              };
             });
           }
         }
