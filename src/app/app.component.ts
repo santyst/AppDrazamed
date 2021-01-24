@@ -152,6 +152,7 @@ export class AppComponent {
                 this.http.post(`${this.base_url}treatment/update-treatment`, alarma2).subscribe((resp) => {
                   this.respuestapost = resp;
                   console.log(this.respuestapost);
+                  this.tratamientoService.getTreatmen();
                 });
               };
             });
@@ -247,7 +248,8 @@ export class AppComponent {
     this.pushPayload = await this.fcm.getInitialPushPayload();
     console.log('getInitialPushPayload result: ', this.pushPayload);
     if(this.pushPayload !== null){
-      this.sendToma(this.pushPayload.a_data, '');
+      let data = JSON.parse(this.pushPayload.a_data);
+      this.sendToma(data.treatment_id, '');
     }
   }
 
