@@ -178,9 +178,13 @@ export class AppComponent {
                 if(this.respuestapost1 === "SUCCESS"){
                   let alarma1 = {
                     taken: 1,
+                    timeM: 0,
+                    timeH: 0,
+                    timeD: 0,
                     item_code: this.item_code
                   }
                   this.tratamientoService.addAlarm(alarma1);
+                  this.tratamientoService.getTreatmen();
                 }
               });
               
@@ -220,7 +224,8 @@ export class AppComponent {
     this.fcm.onNotification().subscribe((payload) => {
       this.pushPayload = payload;
       console.log('onNotification received event with: ', payload);
-      this.sendToma(payload.a_data, payload.body);
+      let data = JSON.parse(payload.a_data);
+      this.sendToma(data.treatment_id, payload.body);
     });
 
     this.hasPermission = await this.fcm.requestPushPermission();
