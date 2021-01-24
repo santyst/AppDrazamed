@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { ConfigService } from 'src/app/services/config.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-processtreatment',
@@ -18,11 +19,13 @@ export class ProcesstreatmentPage implements OnInit {
   tomadas: any;
   faltantes: any;
   taken: any;
+  fecha: any;
   constructor(private router: Router, private route: ActivatedRoute, private config: ConfigService) {
     this.base_url = config.get_base_url();
     this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
         this.alarma = this.router.getCurrentNavigation().extras.state.user;
+        this.fecha = moment(this.alarma.next_date).format('L')
         console.log(this.alarma);
         this.taken = this.alarma.taken;
         this.porcentaje = (this.taken / this.alarma.total) * 100;

@@ -70,6 +70,7 @@ export class TratamientosService {
     });  */
   }
 getTreatmen(){
+  this.alarm.splice(0, this.alarm.length);
   this.user1 = this.auth.getusuario();
   this.userid = this.user1.email;
   this.http.get(`${this.base_url}${this.apiUrl}${this.userid}`).subscribe(val => {
@@ -83,11 +84,10 @@ getTreatmen(){
       item.medicines[0].taken = item.taken;
       item.medicines[0].total = item.total;
       item.medicines[0].buy_time = moment(item.buy_time).format('ll');
-
       this.items3 = item.medicines
-      for (var i = 0; i < this.items3.length; i++) {
-        this.items2.push(this.items3[i]);
-        this.alarm = this.items2;
+      for (var i = 0; i < this.items3.length; i++) {         
+          this.items2.push(this.items3[i]);
+          this.alarm = this.items2;
       }
     }
     for(let time of this.alarm){
@@ -97,7 +97,6 @@ getTreatmen(){
   });
 }
   getAlarma() {
-  
     return this.alarm;
   }
 
@@ -128,6 +127,7 @@ getTreatmen(){
         alarma.timeD = 0;
         console.log(alarma);
         this.addAlarm(alarma);
+       //  this.TimeRemaining(item_code, next_time);
     }
     }, 1000)
   }
@@ -139,6 +139,7 @@ getTreatmen(){
       if(alar.item_code === alarma.item_code){
         if (alarma.taken !== 0) {
           alar.taken += alarma.taken;
+          
           break;
         }
       }
@@ -149,7 +150,6 @@ getTreatmen(){
         al.timeM = alarma.timeM;
         al.timeH = alarma.timeH;
         al.timeD = alarma.timeD;
-        al.timeLeft = alarma.timeLeft
         added = true;
       }
     }
