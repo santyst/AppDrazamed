@@ -91,6 +91,8 @@ getTreatmen(){
       }
     }
     for(let time of this.alarm){
+      // console.log("next_time",time.next_date);
+      console.log("ItemCode", time.item_code, "NextTime", time.next_time);
       this.TimeRemaining(time.item_code, time.next_date);
     }
     console.log(this.alarm);
@@ -108,17 +110,29 @@ getTreatmen(){
       item_code: item_code,
       taken: 0
     };
-    let dateObjective = new Date(next_time).getTime(); 
+     
+    
+    
+
     this.intervalos[item_code] = setInterval(() => {
+      console.log("ItemCode:", item_code);
+      console.log("NextTime:", next_time.replace(' ', 'T'));
+      let dateObjective = new Date(next_time.replace(' ', 'T')).getTime();
+      console.log ("DateObjective:", dateObjective);
+      // console.log ("DateObjective:", dateObjective);
       let now = new Date().getTime();
       let timeleft = 0;
+      
       timeleft = dateObjective - now;
+      console.log ("timeLeft:", timeleft);
+      
       let days = Math.floor(timeleft / (1000 * 60 * 60 * 24));
       let hours = Math.floor((timeleft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       let minutes = Math.floor(((timeleft % (1000 * 60 * 60)) / (1000 * 60))+1);
       alarma.timeH = hours;
       alarma.timeM = minutes;
       alarma.timeD = days;
+      // console.log("Dias:", days, "Minutos:", minutes, "Horas:", hours);
       this.addAlarm(alarma);
       if (timeleft < 0) {
         clearInterval(this.intervalos[item_code]);
