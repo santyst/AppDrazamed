@@ -51,14 +51,12 @@ user: any;
               private auth: AuthService, private http: HttpClient) {
     this.base_url = config.get_base_url();
     this.cartItemCount = this.cartService.getCartItemCount();
-    this.alarmas = this.tratamientoService.getAlarma();
   }
   ngOnInit() {
-    //this.alarmas = this.tratamientoService.getAlarma();
-    this.alarmas = this.tratamientoService.getAlarma();
   }
   ionViewWillEnter() {
     this.alarmas = this.tratamientoService.getAlarma();
+    console.log(this.alarmas);
     console.log('entrando');
   }
  /*  getTreatments(){

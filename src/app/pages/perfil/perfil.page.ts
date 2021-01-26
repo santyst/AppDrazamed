@@ -69,16 +69,6 @@ export class PerfilPage implements OnInit, OnDestroy {
   ) {
     this.base_url = config.get_base_url();
     this.cartItemCount = this.cartService.getCartItemCount();
-
-    this.proxima.splice(0, this.proxima.length);
-    for (let al of this.alarmas) {
-      this.proxima.push(al.buy_time);
-      console.log(this.proxima);
-      this.prox = (this.proxima[0]);
-      // this.tratamientoService.TimeRemaining(al.item_code, al.next_date);
-    }
-   
-    console.log('perfil pagina')
   }
 
   ngOnInit() {
@@ -89,22 +79,13 @@ export class PerfilPage implements OnInit, OnDestroy {
     console.log(this.user);
     // this.alarmas = this.tratamientoService.getAlarma();
     // console.log(this.alarmas)
-    this.proxima.splice(0, this.proxima.length);
-    for (let al of this.alarmas) {
-      this.proxima.push(al.buy_time);
-      console.log(this.proxima);
-      this.prox = (this.proxima[0]);
-
-      // this.tratamientoService.TimeRemaining(al.item_code, al.next_date);
-    }
-      
-    console.log(this.alarmas);
-
   }
 
   ionViewWillEnter() {
-    console.log(this.alarmas);
+    this.proxima.splice(0, this.proxima.length);
     this.alarmas = this.tratamientoService.getAlarma();
+    console.log(this.alarmas);
+    console.log('perfil pagina')
     /* for(let res of this.alarmas){
       if(res.timeM === 0 && res.timeH === 0 && res.timeD === 0){
         this.tratamientoService.getTreatmen();
@@ -115,7 +96,6 @@ export class PerfilPage implements OnInit, OnDestroy {
       } 
     }*/
     //  this.getTreatments();
-    this.proxima.splice(0, this.proxima.length);
     for (let al of this.alarmas) {
       this.proxima.push(al.buy_time);
       console.log(this.proxima);
