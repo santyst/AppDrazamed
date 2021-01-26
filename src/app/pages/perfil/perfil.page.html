@@ -92,7 +92,8 @@
              <ion-row>
                <ion-col size="9">
                  <p class="name_category">Próxima entrega</p>
-                 <p class="description_product" mode="md">Fecha: {{prox}}</p>
+                 <p class="description_product" mode="md" *ngIf="alarmas.length !== 0">Fecha: {{prox}}</p>
+                 <p class="description_product" mode="md" *ngIf="alarmas.length === 0">No tienes entregas pendientes</p>
                </ion-col>
                <ion-col size="3" class="col_op">
                 <ion-button class="add" size="small" fill="clear" (click)="misPedidos()">
@@ -125,7 +126,6 @@
           <ion-col size="6" class="col_trat">
             <p class="grey" *ngIf="al.timeH !== 0 || al.timeD !== 0 || al.timeM !== 0">Próxima {{al.timeH}}H {{al.timeM}}Min ({{al.next_time}})</p>
             <p class="grey" *ngIf="al.timeH === 0 && al.timeD === 0 && al.timeM === 0">Recalculando próxima toma</p>
-            <p class="grey" *ngIf="al.timeH === undefined && al.timeD === undefined && al.timeM === undefined">Recalculando próxima toma</p>
          </ion-col>
          <ion-col size="1">
           <ion-toggle checked mode="ios" class="toggle"></ion-toggle>

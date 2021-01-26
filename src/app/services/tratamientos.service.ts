@@ -71,6 +71,7 @@ export class TratamientosService {
   }
 getTreatmen(){
   this.alarm.splice(0, this.alarm.length);
+  this.items2.splice(0, this.items2.length);
   this.user1 = this.auth.getusuario();
   this.userid = this.user1.email;
   this.http.get(`${this.base_url}${this.apiUrl}${this.userid}`).subscribe(val => {
@@ -129,17 +130,24 @@ getTreatmen(){
       let days = Math.floor(timeleft / (1000 * 60 * 60 * 24));
       let hours = Math.floor((timeleft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       let minutes = Math.floor(((timeleft % (1000 * 60 * 60)) / (1000 * 60))+1);
+      if(minutes !== 60){ 
       alarma.timeH = hours;
       alarma.timeM = minutes;
       alarma.timeD = days;
       // console.log("Dias:", days, "Minutos:", minutes, "Horas:", hours);
       this.addAlarm(alarma);
+      }else{
+        alarma.timeH = hours + 1;
+        alarma.timeM = 0;
+        alarma.timeD = days;
+        this.addAlarm(alarma);
+      }
       if (timeleft < 0) {
-        clearInterval(this.intervalos[item_code]);
         alarma.timeH = 0;
         alarma.timeM = 0;
         alarma.timeD = 0;
         console.log(alarma);
+        clearInterval(this.intervalos[item_code]);
         this.addAlarm(alarma);
        //  this.TimeRemaining(item_code, next_time);
     }
@@ -153,7 +161,9 @@ getTreatmen(){
       if(alar.item_code === alarma.item_code){
         if (alarma.taken !== 0) {
           alar.taken += alarma.taken;
-          
+          break;
+        }else{
+          alar.taken += 0;
           break;
         }
       }
@@ -177,8 +187,8 @@ getTreatmen(){
   removeAlarm(alarma) {
     for (let [index, p] of this.alarm.entries()) {
       if (p.item_code === alarma.item_code) {
-        clearInterval(this.intervalos[alarma.item_code]);
         this.alarm.splice(index, 1);
+        clearInterval(this.intervalos[alarma.item_code]);
         this.user1 = this.auth.getusuario();
         this.userid = this.user1.email;
         this.del = {
@@ -187,6 +197,7 @@ getTreatmen(){
     };
         this.http.post(`${this.base_url}treatment/delete-treatment`, this.del).subscribe((val) => {
           console.log(val);
+          //this.getTreatmen();
         });
       }
     }

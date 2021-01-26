@@ -45,7 +45,10 @@ export class AppComponent {
   medicine: any;
   respuestapost: any;
   respuestapost1: any;
-  item_code:any;
+  item_codeP:any;
+  item_codeT:any;
+  respuestapost3: any;
+  respuestapost2: any;
 
   constructor(
     private platform: Platform,
@@ -134,25 +137,35 @@ export class AppComponent {
             console.log('url',urlTreatment);
             this.http.get(urlTreatment).subscribe((res) => {
               this.respuestapost = res;
-              this.respuestapost1 = this.respuestapost.status;
-              this.item_code = this.respuestapost.data[0].item_code;
+              this.respuestapost3 = this.respuestapost.status;
+              this.item_codeP = this.respuestapost.data[0].item_code;
 
-              console.log("Post:", this.respuestapost1);
+              console.log("Post:", this.respuestapost3);
               console.log("tratamiento:",res);
-              console.log("item_code:",this.item_code);
+              console.log("item_code:",this.item_codeP);
 
-              if(this.respuestapost1 === "SUCCESS"){
+              if(this.respuestapost3 === "SUCCESS"){
                 let alarma2 = {
                   email: this.userid,
                   taken: 0,
-                  item_code: this.item_code,
+                  item_code: this.item_codeP,
                 }
                 console.log('envio posponer');
                 console.log(alarma2);
                 this.http.post(`${this.base_url}treatment/update-treatment`, alarma2).subscribe((resp) => {
                   this.respuestapost = resp;
-                  console.log(this.respuestapost);
-                  this.tratamientoService.getTreatmen();
+                  this.respuestapost2 = this.respuestapost.status;
+                  if(this.respuestapost2 === "SUCCESS"){
+                    let alarma1 = {
+                      taken: 0,
+                      timeM: 0,
+                      timeH: 0,
+                      timeD: 0,
+                      item_code: this.item_codeP
+                    }
+                    this.tratamientoService.addAlarm(alarma1);
+                    this.tratamientoService.getTreatmen();
+                  }
                 });
               };
             });
@@ -165,11 +178,11 @@ export class AppComponent {
             this.http.get(`${this.base_url}treatment/treatment-by-id?id=${treatment_id}`).subscribe((res) => {
               this.respuestapost = res;
               this.respuestapost1 = this.respuestapost.status;
-              this.item_code = this.respuestapost.data[0].item_code;
+              this.item_codeT = this.respuestapost.data[0].item_code;
               let alarma = {
                 email: this.userid,
                 taken: 1,
-                item_code: this.item_code,
+                item_code: this.item_codeT,
               }
               console.log(alarma)
               this.http.post(`${this.base_url}treatment/update-treatment`, alarma).subscribe((resp) => {
@@ -182,7 +195,7 @@ export class AppComponent {
                     timeM: 0,
                     timeH: 0,
                     timeD: 0,
-                    item_code: this.item_code
+                    item_code: this.item_codeT
                   }
                   this.tratamientoService.addAlarm(alarma1);
                   this.tratamientoService.getTreatmen();
