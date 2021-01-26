@@ -237,9 +237,9 @@ export class AppComponent {
     console.log('Subscribing to new notifications');
     this.fcm.onNotification().subscribe((payload) => {
       this.pushPayload = payload;
-      console.log('onNotification received event with: ', payload);
-      let data = JSON.parse(payload.a_data);
-      this.sendToma(data.treatment_id, payload.body);
+      console.log('onNotification received event with id: ', payload.a_data.treatment_id);
+      // let data = JSON.parse(payload.a_data);
+      this.sendToma(payload.a_data.treatment_id, payload.body);
     });
 
     this.hasPermission = await this.fcm.requestPushPermission();
@@ -261,8 +261,8 @@ export class AppComponent {
     this.pushPayload = await this.fcm.getInitialPushPayload();
     console.log('getInitialPushPayload result: ', this.pushPayload);
     if(this.pushPayload !== null){
-      let data = JSON.parse(this.pushPayload.a_data);
-      this.sendToma(data.treatment_id, '');
+      // let data = JSON.parse(this.pushPayload.a_data);
+      this.sendToma(this.pushPayload.a_data.treatment_id, '');
     }
   }
 
