@@ -82,6 +82,7 @@ getTreatmen(){
       item.medicines[0].next_time = item.next_time;
       item.medicines[0].next_date = next_date;
       item.medicines[0].dosis = item.dosis;
+      item.medicines[0].frequency = item.frequency;
       item.medicines[0].taken = item.taken;
       item.medicines[0].total = item.total;
       item.medicines[0].buy_time = moment(item.buy_time).format('ll');
@@ -93,7 +94,7 @@ getTreatmen(){
     }
     for(let time of this.alarm){
       // console.log("next_time",time.next_date);
-      console.log("ItemCode", time.item_code, "NextTime", time.next_time);
+      // console.log("ItemCode", time.item_code, "NextTime", time.next_time);
       this.TimeRemaining(time.item_code, time.next_date);
     }
     console.log(this.alarm);
@@ -116,17 +117,12 @@ getTreatmen(){
     
 
     this.intervalos[item_code] = setInterval(() => {
-      console.log("ItemCode:", item_code);
-      console.log("NextTime:", next_time.replace(' ', 'T'));
-      let dateObjective = new Date(next_time.replace(' ', 'T')).getTime();
-      console.log ("DateObjective:", dateObjective);
-      // console.log ("DateObjective:", dateObjective);
-      let now = new Date().getTime();
+
+      let dateObjective = moment(next_time);
+      let now = moment();
       let timeleft = 0;
-      
-      timeleft = dateObjective - now;
-      console.log ("timeLeft:", timeleft);
-      
+      timeleft = dateObjective.diff(now);
+
       let days = Math.floor(timeleft / (1000 * 60 * 60 * 24));
       let hours = Math.floor((timeleft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       let minutes = Math.floor(((timeleft % (1000 * 60 * 60)) / (1000 * 60))+1);
