@@ -21,6 +21,7 @@ export class Createaccount2Page implements OnInit {
   ready: any;
   ready2: any;
   urlcreate = `user/create-user/1`;
+  base_url: any;
   public registerForm: FormGroup;
   constructor(
     private router: Router,
@@ -30,8 +31,10 @@ export class Createaccount2Page implements OnInit {
     private alertController: AlertController,
     private userService: UserService,
     private route: ActivatedRoute,
-    private loadingController: LoadingController
+    private loadingController: LoadingController,
+    private config: ConfigService
   ) {
+    this.base_url = config.get_base_url();
     this.registroForm = this.formBuilder.group({
       // documento: new FormControl('', [Validators.required]),
       // nacimiento: new FormControl('', [Validators.required, Validators.minLength(9)]),
@@ -89,7 +92,7 @@ export class Createaccount2Page implements OnInit {
       spinner: 'dots'
     });
     await loading.present();
-    this.http.post(`${this.urlcreate}`, datos
+    this.http.post(`${this.base_url}${this.urlcreate}`, datos
     , {headers: new HttpHeaders({'Content-Type': 'application/json'})})
     .pipe(
       finalize(() => {
