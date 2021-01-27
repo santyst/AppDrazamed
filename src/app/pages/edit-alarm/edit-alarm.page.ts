@@ -3,6 +3,10 @@ import { Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfigService } from 'src/app/services/config.service';
 import * as moment from 'moment';
+import { AuthService } from 'src/app/services/auth.service';
+import { HttpClient } from '@angular/common/http';
+import { TratamientosService } from 'src/app/services/tratamientos.service';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-edit-alarm',
@@ -15,21 +19,30 @@ export class EditAlarmPage implements OnInit {
   apiUrl7 = `images/products/`;
   apiUrl8 = `.jpg`;
   alarmas: any;
-  intervaloNumber: any;
-  constructor(private config: ConfigService, private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router) {
+  intervaloNumber: number = 0;
+  fecha: any;
+  user1: any;
+  userid: any;
+  hora: any;
+  freq: any;
+  tratamiento: any;
+  constructor(private config: ConfigService, private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router,
+              private auth: AuthService, private http: HttpClient, private tratamientoService: TratamientosService,
+              private alertCtrl: AlertController) {
     this.base_url = config.get_base_url();
   }
 
   intervalo = [{ id: 4, name: '4 Horas' }, { id: 8, name: '8 Horas' }, { id: 12, name: '12 Horas' }, { id: 16, name: '16 Horas' },
   { id: 24, name: '24 Horas' }, { id: 48, name: '48 Horas' }, { id: 72, name: '72 Horas' }];
 
-  dosis = ['0.5', '1', '1.5', '2', '2.5', '3', '3.5', '4', '4.5', '5'];
+  dosis = [1, 2, 3, 4, 5];
 
   alarmasForm = this.formBuilder.group({
     mensaje: ['', [Validators.required]],
     time: ['', [Validators.required]],
     date: ['', [Validators.required]],
-    cada: ['', [Validators.required]]
+    freq: ['', [Validators.required]],
+    dosis: ['', [Validators.required]]
   });
 
   ngOnInit() {
@@ -37,18 +50,21 @@ export class EditAlarmPage implements OnInit {
       if (this.router.getCurrentNavigation().extras.state) {
         this.items = this.router.getCurrentNavigation().extras.state.user;
         console.log(this.items);
+      }
+    });
+    this.fecha = moment().format('YYYY-MM-DD');
+        this.hora = moment().format('LTS');
+        this.freq = this.intervaloNumber;
         this.alarmas = {
-          cada: this.items.cada,
-          date: this.doSomething,
-          time: this.items.time,
+          date: moment(this.fecha).format('YYYY-MM-DD'),
+          time: moment(this.hora).format('LTS'),
           mensaje: this.items.item_name,
           item_name: this.items.item_name,
           composition: this.items.composition,
-          item_code: this.items.item_code
+          item_code: this.items.item_code,
+          dosis: 0
         };
-      }
-    });
-  
+        this.alarmasForm.reset();
   }
   doSomething(date) {
     moment(date).format('YYYY-MM-DD');
@@ -60,7 +76,38 @@ export class EditAlarmPage implements OnInit {
     this.router.navigate(['perfil']);
   }
   editAlarm(){
+    this.user1 = this.auth.getusuario();
+    this.userid = this.user1.email;
 
-    console.log(this.alarmas);
+    this.tratamiento = {
+      email: this.userid,
+      item_code: this.items.item_code,
+      dosis: this.alarmas.dosis,
+      freq: this.freq,
+      start_time: `${this.alarmas.date}T${this.alarmas.time}:00`,
+    };
+    console.log(this.tratamiento);
+    this.http.post(`${this.base_url}treatment/edit-treatment`, this.tratamiento).subscribe(async (res) => {
+      console.log(res)
+      let response: any;
+      response = res;
+      const response1 = response.status;
+      if(response1 === 'SUCCESS'){
+        let alert = await this.alertCtrl.create({
+          message: '<img src = "../../assets/img/RECURSOS/check.png" class="alert">La alarma fue editada.',
+          mode: 'ios',
+          cssClass: 'failed',
+          buttons: [
+            {
+              text: 'Aceptar',
+              cssClass: 'btnalert',
+            }
+          ]
+        });
+        await alert.present();
+        this.tratamientoService.getTreatmen(); 
+        this.router.navigate(['perfil']); 
+      }
+    });
   }
 }

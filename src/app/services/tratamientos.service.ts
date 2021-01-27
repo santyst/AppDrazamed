@@ -70,6 +70,9 @@ export class TratamientosService {
     });  */
   }
 getTreatmen(){
+  for(let tim of this.alarm){
+    clearInterval(this.intervalos[tim.item_code]);
+  }
   this.alarm.splice(0, this.alarm.length);
   this.items2.splice(0, this.items2.length);
   this.user1 = this.auth.getusuario();
@@ -93,8 +96,6 @@ getTreatmen(){
       }
     }
     for(let time of this.alarm){
-      // console.log("next_time",time.next_date);
-      // console.log("ItemCode", time.item_code, "NextTime", time.next_time);
       this.TimeRemaining(time.item_code, time.next_date);
     }
     console.log(this.alarm);
@@ -165,13 +166,12 @@ getTreatmen(){
       }
     }
     for (let al of this.alarm) {
-
       if (al.item_code === alarma.item_code) {
         al.timeM = alarma.timeM;
         al.timeH = alarma.timeH;
         al.timeD = alarma.timeD;
-        added = true;
       }
+      added = true;
     }
     if (!added) {
       this.alarm.push(alarma);

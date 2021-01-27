@@ -40,7 +40,7 @@
             <div class="select_options">
               <p class="name_product" style="color: #00a1dd !important;">Tomar cada: </p>
               <div class="input-group">
-                <ion-select  placeholder="Selecciona un periodo" class="custom_select" mode="ios" name="cada" [(ngModel)]="alarmas.cada" formControlName="cada">
+                <ion-select  placeholder="Selecciona un periodo" class="custom_select" mode="ios" name="freq" [(ngModel)]="freq" formControlName="freq">
                   <ion-select-option *ngFor="let inter of intervalo" [value]="inter.id">{{inter.name}}</ion-select-option>
                 </ion-select>
               </div>
@@ -52,14 +52,15 @@
                 class="form-control" name="time" placeholder="Hora de Inicio" formControlName="time"></ion-datetime>
               </div>
             </div>
-            <!--<div class="select_options">
-              <p class="name_product" style="color: #00a1dd !important;">Dósis por toma: </p>
+            <div class="select_options">
+              <p class="name_product" style="color: #00a1dd !important;">Dosis por toma: </p>
               <div class="input-group">
-                <ion-select placeholder="Selecciona un periodo" class="custom_select" mode="ios">
+                <ion-select placeholder="Selecciona la dosis" class="custom_select" mode="ios" 
+                [(ngModel)]="alarmas.dosis" name="dosis" formControlName="dosis">
                   <ion-select-option *ngFor="let dos of dosis">{{dos}}</ion-select-option>
                 </ion-select>
               </div>
-            </div>-->
+            </div>
             <div class="select_options">
               <p class="name_product" style="color: #00a1dd !important;">Fecha de inicio: </p>
               <div class="input-group">

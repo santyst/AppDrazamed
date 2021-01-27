@@ -52,14 +52,14 @@
                 class="form-control" placeholder="Hora de Inicio" formControlName="time" name="time" ngControl="time"></ion-datetime>
               </div>
             </div>
-            <!--<div class="select_options">
-              <p class="name_product" style="color: #00a1dd !important;">Dósis por toma: </p>
+            <div class="select_options">
+              <p class="name_product" style="color: #00a1dd !important;">Dosis por toma: </p>
               <div class="input-group">
-                <ion-select placeholder="Selecciona un periodo" class="custom_select" mode="ios">
+                <ion-select placeholder="Selecciona la dosis" class="custom_select" mode="ios" [(ngModel)]="alarmas.dosis" formControlName="dosis" name="dosis" ngControl="dosis">
                   <ion-select-option *ngFor="let dos of dosis">{{dos}}</ion-select-option>
                 </ion-select>
               </div>
-            </div>-->
+            </div>
             <div class="select_options">
               <p class="name_product" style="color: #00a1dd !important;">Fecha de inicio: </p>
               <div class="input-group">

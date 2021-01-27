@@ -27,7 +27,7 @@ export class PruebaPage implements OnInit {
   intervalo = [{ id: 4, name: '4 Horas' }, { id: 8, name: '8 Horas' }, { id: 12, name: '12 Horas' }, { id: 16, name: '16 Horas' },
   { id: 24, name: '24 Horas' }, { id: 48, name: '48 Horas' }, { id: 72, name: '72 Horas' }];
 
-  dosis = ['0.5', '1', '1.5', '2', '2.5', '3', '3.5', '4', '4.5', '5'];
+  dosis = [1, 2, 3, 4, 5];
 
   intervaloNumber: number = 0;
   fecha: any = 0;
@@ -60,6 +60,7 @@ export class PruebaPage implements OnInit {
       time: new FormControl('', [Validators.required]),
       date: new FormControl('', [Validators.required]),
       freq: new FormControl('', [Validators.required]),
+      dosis: new FormControl('', [Validators.required]),
     });
   }
 
@@ -75,12 +76,13 @@ export class PruebaPage implements OnInit {
     this.freq = this.intervaloNumber;
     this.alarmas = {
       date: moment(this.fecha).format('YYYY-MM-DD'),
-      time: moment(this.hora).format('LTS'),
+      time: '',
       item_name: this.items.item_name,
       obs: this.items.item_name,
       composition: this.items.composition,
       units: this.items.units,
       toma: 'T0',
+      dosis: 0
     };
     console.log('json inicial');
     console.log(this.alarmas);
@@ -110,14 +112,15 @@ export class PruebaPage implements OnInit {
   }
 
   async createAlarm() {
+    this.alarmas.time = moment(this.alarmas.time).format('HH:mm')
     this.tratamiento = {
       email: this.userid,
       item_code: this.items.item_code,
       total: this.items.units_value,
-      dosis: 1,
+      dosis: this.alarmas.dosis,
       freq: this.freq,
       start_time: `${this.alarmas.date}T${this.alarmas.time}:00`,
-      obs: `${this.items.item_name}, tomar una cada ${this.freq} horas`
+      obs: `${this.items.item_name}, tomar ${this.alarmas.dosis} cada ${this.freq} horas`
     };
     let loading = await this.loadingController.create({
       cssClass: 'loading',
@@ -156,8 +159,10 @@ export class PruebaPage implements OnInit {
       this.alarmas.next_time = moment(this.medicamento.next_time).format('LT');
       this.alarmas.item_code = this.medicamento.item_code;
       this.alarmas.buy_time = moment(this.medicamento.buy_time.date).format('ll');
-      this.tratamientoService.addAlarm(this.alarmas);
-      this.tratamientoService.TimeRemaining(this.alarmas.item_code, next);
+    //this.alarmas.dosis = this.medicamento.dosis;
+     /*  this.tratamientoService.addAlarm(this.alarmas);
+      this.tratamientoService.TimeRemaining(this.alarmas.item_code, next); */
+      this.tratamientoService.getTreatmen();
       console.log(this.alarmas);
       this.router.navigate(['home']);
     });
