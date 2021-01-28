@@ -49,6 +49,7 @@ export class AppComponent {
   item_codeT:any;
   respuestapost3: any;
   respuestapost2: any;
+  dosis: any;
 
   constructor(
     private platform: Platform,
@@ -163,7 +164,7 @@ export class AppComponent {
                       timeD: 0,
                       item_code: this.item_codeP
                     }
-                    this.tratamientoService.addAlarm(alarma1);
+                    // this.tratamientoService.addAlarm(alarma1);
                     this.tratamientoService.getTreatmen();
                   }
                 });
@@ -175,13 +176,15 @@ export class AppComponent {
           text: 'Tomar',
           cssClass: 'btnalert',
           handler: data => {
+
             this.http.get(`${this.base_url}treatment/treatment-by-id?id=${treatment_id}`).subscribe((res) => {
               this.respuestapost = res;
               this.respuestapost1 = this.respuestapost.status;
               this.item_codeT = this.respuestapost.data[0].item_code;
+              this.dosis = this.respuestapost.data[0].dosis
               let alarma = {
                 email: this.userid,
-                taken: 1,
+                taken: this.dosis,
                 item_code: this.item_codeT,
               }
               console.log(alarma)
@@ -190,6 +193,7 @@ export class AppComponent {
                 this.respuestapost1 = this.respuestapost.status;
                 console.log(this.respuestapost1);
                 if(this.respuestapost1 === "SUCCESS"){
+                  /* this.router.navigate(['home']); */
                   let alarma1 = {
                     taken: 1,
                     timeM: 0,
@@ -197,7 +201,7 @@ export class AppComponent {
                     timeD: 0,
                     item_code: this.item_codeT
                   }
-                  this.tratamientoService.addAlarm(alarma1);
+                  /* this.tratamientoService.addAlarm(alarma1); */
                   this.tratamientoService.getTreatmen();
                 }
               });
@@ -237,9 +241,16 @@ export class AppComponent {
     console.log('Subscribing to new notifications');
     this.fcm.onNotification().subscribe((payload) => {
       this.pushPayload = payload;
-      console.log('onNotification received event with id: ', payload.a_data.treatment_id);
-      // let data = JSON.parse(payload.a_data);
-      this.sendToma(payload.a_data.treatment_id, payload.body);
+      if(this.platform.is('ios')){
+        console.log('onNotification received event with id: ', payload.a_data.treatment_id);
+        // let data = JSON.parse(payload.a_data);
+        this.sendToma(payload.a_data.treatment_id, payload.body);
+      }else{
+        console.log('onNotification received event with id: ', payload);
+        let data = JSON.parse(payload.a_data);
+        this.sendToma(data.treatment_id, payload.body);
+      }
+     
     });
 
     this.hasPermission = await this.fcm.requestPushPermission();
