@@ -57,7 +57,7 @@ export class EditAlarmPage implements OnInit {
         this.freq = this.intervaloNumber;
         this.alarmas = {
           date: moment(this.fecha).format('YYYY-MM-DD'),
-          time: moment(this.hora).format('LTS'),
+          time: '',
           mensaje: this.items.item_name,
           item_name: this.items.item_name,
           composition: this.items.composition,
@@ -78,7 +78,7 @@ export class EditAlarmPage implements OnInit {
   editAlarm(){
     this.user1 = this.auth.getusuario();
     this.userid = this.user1.email;
-
+    this.alarmas.time = moment(this.alarmas.time).format('HH:mm')
     this.tratamiento = {
       email: this.userid,
       item_code: this.items.item_code,

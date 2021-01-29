@@ -1,6 +1,8 @@
 ion-header {
     --background: #009bd7!important;
     --ion-background-color-rgb: 0,155,215;
+    min-width: 100% !important;
+    max-width: 100% !important;
   }
   
   .header-styles{
@@ -35,6 +37,7 @@ ion-header {
   .div-header{
     background-color: #009bd7;
     padding-bottom: 0.5%;
+    position: static;
   }
   
   ion-menu-button{

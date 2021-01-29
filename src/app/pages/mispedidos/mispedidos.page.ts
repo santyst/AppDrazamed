@@ -21,10 +21,11 @@ export class MispedidosPage implements OnInit {
   user1: any;
   userid: any;
   orders: any;
-  orden: any;
+  orden = [];
   orden2: any;
   push: any;
   push1: any;
+  userid1: any;
   cart_med: any;
   id: any;
   user: any;
@@ -39,10 +40,10 @@ export class MispedidosPage implements OnInit {
     this.base_url = config.get_base_url();
     this.user1 = this.auth.getusuario();
     this.userid = this.user1.email;
-    this.orders = this.http.get(`${this.base_url}my-prescriptions?email=${this.userid}`).subscribe(val => {
+    this.orders = this.http.get(`${this.base_url}my-prescriptions?email=${this.userid}`).subscribe((val: any) => {
       this.orden = val;
       this.orden2 = this.orden[0];
-      console.log(this.orden2);
+      console.log(this.orden);
     });
     const pusher = new Pusher('270a27c11d1a38de071b', {
       cluster: 'us2',
@@ -90,5 +91,17 @@ export class MispedidosPage implements OnInit {
       this.linkpay = this.ad.preference.init_point;
       this.iab.create(this.linkpay, '_blank');
     });
+  }
+ removeOrder(order) {
+    for (let [index, p] of this.orden.entries()) {
+      if (p.id === order.id) {
+        this.orden.splice(index, 1);
+        this.user = this.auth.getusuario();
+        this.userid1 = this.user.email;
+        this.http.get(`${this.base_url}user/pres-delete/${order.id}`).subscribe((val) => {
+          console.log(val);
+        });
+      }
+    }
   }
 }
