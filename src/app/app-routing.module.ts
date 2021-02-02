@@ -145,6 +145,11 @@ const routes: Routes = [
     path: 'prueba',
     loadChildren: () => import('./pages/prueba/prueba.module').then( m => m.PruebaPageModule), canActivate: [AuthGuard]
   },
+  {
+    path: 'proxima-entrega',
+    loadChildren: () => import('./pages/proxima-entrega/proxima-entrega.module').then( m => m.ProximaEntregaPageModule), canActivate: [AuthGuard]
+  },
+
 
 
 
