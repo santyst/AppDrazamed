@@ -55,7 +55,7 @@ export class PerfilPage implements OnInit, OnDestroy {
   intervalos: any = [];
   alarm = [];
   constructor(
-    private menuCtrl: MenuController,
+    public menuCtrl: MenuController,
     private cartService: CartService,
     private auth: AuthService,
     public alertCtrl: AlertController,
@@ -82,6 +82,7 @@ export class PerfilPage implements OnInit, OnDestroy {
   }
 
   ionViewWillEnter() {
+    this.menuCtrl.enable(true);
     this.proxima.splice(0, this.proxima.length);
     this.alarmas = this.tratamientoService.getAlarma();
     console.log(this.alarmas);
@@ -220,6 +221,9 @@ export class PerfilPage implements OnInit, OnDestroy {
 
   goEdit() {
     this.router.navigate(['editprofile']);
+  }
+  PedidoProximo() {
+    this.router.navigate(['proxima-entrega']);
   }
   misPedidos() {
     this.router.navigate(['mispedidos']);
