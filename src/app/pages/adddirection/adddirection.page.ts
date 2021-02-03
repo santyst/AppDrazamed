@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
 import { DireccionesService } from 'src/app/services/direcciones.service';
+import { MenuController } from '@ionic/angular';
 
 
 @Component({
@@ -11,7 +12,8 @@ import { DireccionesService } from 'src/app/services/direcciones.service';
 })
 export class AdddirectionPage implements OnInit {
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private directionService: DireccionesService) { }
+  constructor(private formBuilder: FormBuilder, private router: Router, private directionService: DireccionesService,
+              public menuCtrl: MenuController) { }
   direccionForm = this.formBuilder.group({
     ciudad: ['', [Validators.required]],
     direccion: ['', [Validators.required]],
@@ -28,7 +30,9 @@ dir = {
 
   ngOnInit() {
   }
-
+  ionViewWillEnter() {
+    this.menuCtrl.enable(false);
+  }
   public submit(){
     console.log(this.direccionForm.value);
     this.direccionForm.reset();

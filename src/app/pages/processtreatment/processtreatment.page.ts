@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { ConfigService } from 'src/app/services/config.service';
 import * as moment from 'moment';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-processtreatment',
@@ -20,7 +21,7 @@ export class ProcesstreatmentPage implements OnInit {
   faltantes: any;
   taken: any;
   fecha: any;
-  constructor(private router: Router, private route: ActivatedRoute, private config: ConfigService) {
+  constructor(private router: Router, private route: ActivatedRoute, private config: ConfigService, public menuCtrl: MenuController) {
     this.base_url = config.get_base_url();
     this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
@@ -42,6 +43,9 @@ export class ProcesstreatmentPage implements OnInit {
   }
 
   ngOnInit() {
+  }
+  ionViewWillEnter() {
+    this.menuCtrl.enable(false);
   }
   goHome() {
     this.router.navigate(['perfil']);

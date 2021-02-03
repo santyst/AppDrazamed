@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-request-closed',
@@ -8,9 +9,12 @@ import { Router } from '@angular/router';
 })
 export class RequestClosedPage implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, public menuCtrl: MenuController) { }
 
   ngOnInit() {
+  }
+  ionViewWillEnter() {
+    this.menuCtrl.enable(false);
   }
   goBack(){
     this.router.navigate(['mispedidos']);
