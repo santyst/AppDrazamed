@@ -20,7 +20,7 @@ export class EditprofilePage implements OnInit {
   id: any;
   address: any;
   phone: any;
-  constructor(private menuCtrl: MenuController, private auth: AuthService, private config: ConfigService, private http: HttpClient) {
+  constructor(public menuCtrl: MenuController, private auth: AuthService, private config: ConfigService, private http: HttpClient) {
     this.base_url = config.get_base_url();
     this.menuCtrl.enable(true);
     this.user = this.auth.getusuario();
@@ -40,7 +40,7 @@ export class EditprofilePage implements OnInit {
   ngOnInit() {
   }
   ionViewWillEnter() {
-
+    this.menuCtrl.enable(true);
   }
 
   updateProfile() {

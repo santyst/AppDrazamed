@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MenuController } from '@ionic/angular';
 import { ConfigService } from 'src/app/services/config.service';
 
 @Component({
@@ -14,7 +15,7 @@ export class EditAddressPage implements OnInit {
   address: any;
   dir: any;
   constructor(private route: ActivatedRoute, private http: HttpClient, private config: ConfigService, private router: Router,
-              private formBuilder: FormBuilder) {
+              private formBuilder: FormBuilder, public menuCtrl: MenuController) {
     this.base_url = config.get_base_url();
    }
    direccionForm = this.formBuilder.group({
@@ -34,7 +35,9 @@ export class EditAddressPage implements OnInit {
       detalles: '',
     };
   }
- 
+  ionViewWillEnter() {
+    this.menuCtrl.enable(false);
+  }
   cancelar(){
     this.direccionForm.reset();
     this.router.navigate(['misdirecciones']);

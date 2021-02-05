@@ -3,7 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { CartService } from 'src/app/services/cart.service';
 import { NavigationExtras, Router } from '@angular/router';
 import { DireccionesService } from 'src/app/services/direcciones.service';
-import { AlertController } from '@ionic/angular';
+import { AlertController, MenuController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth.service';
 import { ConfigService } from 'src/app/services/config.service';
 import { HttpClient } from '@angular/common/http';
@@ -26,7 +26,7 @@ export class MisdireccionesPage implements OnInit {
   address: any;
   profile: any;
   constructor(private cartService: CartService, private router: Router, private direccionService: DireccionesService,
-              private auth: AuthService, private config: ConfigService, private http: HttpClient) {
+              private auth: AuthService, private config: ConfigService, private http: HttpClient, public menuCtrl: MenuController) {
     this.cartItemCount = this.cartService.getCartItemCount();
     this.base_url = config.get_base_url();
     this.user = this.auth.getusuario();
@@ -39,6 +39,9 @@ export class MisdireccionesPage implements OnInit {
 
   ngOnInit() {
     this.direcciones = this.direccionService.getDirection();
+  }
+  ionViewWillEnter() {
+    this.menuCtrl.enable(true);
   }
   goAddD() {
     this.router.navigate(['adddirection']);

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { CartService } from 'src/app/services/cart.service';
-import { AlertController, IonSlides, Platform } from '@ionic/angular';
+import { AlertController, IonSlides, MenuController, Platform } from '@ionic/angular';
 import { NavigationExtras, Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import { ConfigService } from 'src/app/services/config.service';
@@ -48,7 +48,7 @@ user: any;
   cartItemCount: BehaviorSubject<number>;
   constructor(private cartService: CartService, private router: Router, private storage: Storage, private platform: Platform, 
               private config: ConfigService, private tratamientoService: TratamientosService, private alertCtrl: AlertController,
-              private auth: AuthService, private http: HttpClient) {
+              private auth: AuthService, private http: HttpClient, public menuCtrl: MenuController) {
     this.base_url = config.get_base_url();
     this.cartItemCount = this.cartService.getCartItemCount();
   }
@@ -56,6 +56,7 @@ user: any;
   }
   ionViewWillEnter() {
     this.alarmas = this.tratamientoService.getAlarma();
+    this.menuCtrl.enable(true);
     console.log(this.alarmas);
     console.log('entrando');
   }

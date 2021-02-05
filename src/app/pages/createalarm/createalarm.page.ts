@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
+import { MenuController } from '@ionic/angular';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { ConfigService } from 'src/app/services/config.service';
@@ -28,7 +29,8 @@ export class CreatealarmPage implements OnInit {
   items: any[] = [];
  
 
-  constructor(private router: Router, private http: HttpClient, private config: ConfigService, private auth: AuthService) {
+  constructor(private router: Router, private http: HttpClient, private config: ConfigService, private auth: AuthService,
+              public menuCtrl: MenuController) {
     this.isItemAvailable = true;
     this.initializeItems();
     this.base_url = config.get_base_url();
@@ -55,6 +57,9 @@ export class CreatealarmPage implements OnInit {
   }
 
   ngOnInit() {
+  }
+  ionViewWillEnter() {
+    this.menuCtrl.enable(true);
   }
   initializeItems() {
     this.items = this.items5;

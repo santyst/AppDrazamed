@@ -3,7 +3,7 @@ import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { ELocalNotificationTriggerUnit, LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { ConfigService } from 'src/app/services/config.service';
 import * as moment from 'moment';
-import { AlertController, LoadingController, Platform } from '@ionic/angular';
+import { AlertController, LoadingController, MenuController, Platform } from '@ionic/angular';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { TratamientosService } from 'src/app/services/tratamientos.service';
@@ -48,7 +48,7 @@ export class PruebaPage implements OnInit {
   medicamento: any;
 
   constructor(private router: Router, private route: ActivatedRoute, private config: ConfigService,
-    private localNotifications: LocalNotifications, private loadingController: LoadingController,
+    public menuCtrl: MenuController, private loadingController: LoadingController,
     private alertCtrl: AlertController, private formBuilder: FormBuilder, private storage: Storage,
     private tratamientoService: TratamientosService, private htpp: HttpClient, private auth: AuthService,
     private http: HttpClient, private plt: Platform) {
@@ -88,7 +88,9 @@ export class PruebaPage implements OnInit {
     console.log(this.alarmas);
     this.alarmasForm.reset();
   }
-
+  ionViewWillEnter() {
+    this.menuCtrl.enable(false);
+  }
   goBack() {
     this.router.navigate(['createalarm']);
   }

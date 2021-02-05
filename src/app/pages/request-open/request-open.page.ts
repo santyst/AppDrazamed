@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { ConfigService } from 'src/app/services/config.service';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-request-open',
@@ -29,7 +30,9 @@ export class RequestOpenPage implements OnInit {
   precio: any;
   subtotal1: any;
 
-  constructor(private iab: InAppBrowser,private router: Router, private auth: AuthService, private route: ActivatedRoute, private http: HttpClient, private config: ConfigService) {
+  constructor(private iab: InAppBrowser,private router: Router, private auth: AuthService, 
+              private route: ActivatedRoute, private http: HttpClient, private config: ConfigService,
+              public menuCtrl: MenuController) {
     this.base_url = config.get_base_url();
     this.user = this.auth.getusuario();
     this.userid = this.user.email;
@@ -54,6 +57,9 @@ export class RequestOpenPage implements OnInit {
   }
 
   ngOnInit() {
+  }
+  ionViewWillEnter() {
+    this.menuCtrl.enable(false);
   }
   goBack() {
     this.router.navigate(['mispedidos']);

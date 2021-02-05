@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CartService } from 'src/app/services/cart.service';
-import { AlertController, ModalController } from '@ionic/angular';
+import { AlertController, MenuController, ModalController } from '@ionic/angular';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { CarritoPage } from '../carrito/carrito.page';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
@@ -34,7 +34,7 @@ export class ResultsearchPage implements OnInit {
     private route: ActivatedRoute, 
     private http: HttpClient, 
     private cartService: CartService, 
-    private modalCtrl: ModalController, 
+    private menuCtrl: MenuController, 
     private router: Router,
     private config: ConfigService,
     private alertCtrl: AlertController) {
@@ -61,8 +61,10 @@ export class ResultsearchPage implements OnInit {
     });
   }
   ngOnInit() {
-
     this.cartItemCount = this.cartService.getCartItemCount();
+  }
+  ionViewWillEnter() {
+    this.menuCtrl.enable(false);
   }
   goBack() {
     this.router.navigate(['medicamentos']);

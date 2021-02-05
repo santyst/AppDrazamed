@@ -6,7 +6,7 @@ import * as moment from 'moment';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { TratamientosService } from 'src/app/services/tratamientos.service';
-import { AlertController } from '@ionic/angular';
+import { AlertController, MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-edit-alarm',
@@ -28,7 +28,7 @@ export class EditAlarmPage implements OnInit {
   tratamiento: any;
   constructor(private config: ConfigService, private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router,
               private auth: AuthService, private http: HttpClient, private tratamientoService: TratamientosService,
-              private alertCtrl: AlertController) {
+              private alertCtrl: AlertController, public menuCtrl: MenuController) {
     this.base_url = config.get_base_url();
   }
 
@@ -65,6 +65,9 @@ export class EditAlarmPage implements OnInit {
           dosis: 0
         };
         this.alarmasForm.reset();
+  }
+  ionViewWillEnter() {
+    this.menuCtrl.enable(false);
   }
   doSomething(date) {
     moment(date).format('YYYY-MM-DD');

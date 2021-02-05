@@ -273,7 +273,7 @@ export class AppComponent {
     console.log('getInitialPushPayload result: ', this.pushPayload);
     if(this.pushPayload !== null){
       // let data = JSON.parse(this.pushPayload.a_data);
-      this.sendToma(this.pushPayload.a_data.treatment_id, '');
+      this.sendToma(this.pushPayload.a_data.treatment_id, this.pushPayload.body);
     }
   }
 

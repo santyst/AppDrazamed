@@ -1,7 +1,7 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
-import { MenuController } from '@ionic/angular';
+import { AlertController, LoadingController, MenuController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth.service';
 import { ConfigService } from 'src/app/services/config.service';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
@@ -21,6 +21,8 @@ export class MispedidosPage implements OnInit {
   user1: any;
   userid: any;
   orders: any;
+  estado: any;
+  estado1: any;
   orden = [];
   orden2: any;
   push: any;
@@ -36,7 +38,8 @@ export class MispedidosPage implements OnInit {
   status: any;
   invoice_i: any;
   precio: any;
-  constructor(private iab: InAppBrowser, private router: Router, private http: HttpClient, private auth: AuthService, private menuCtrl: MenuController, private config: ConfigService) {
+  constructor(private iab: InAppBrowser, private router: Router, private http: HttpClient, private auth: AuthService, private menuCtrl: MenuController,
+    private config: ConfigService, private alertController: AlertController, private loadingController: LoadingController) {
     this.base_url = config.get_base_url();
     this.user1 = this.auth.getusuario();
     this.userid = this.user1.email;
@@ -92,16 +95,57 @@ export class MispedidosPage implements OnInit {
       this.iab.create(this.linkpay, '_blank');
     });
   }
- removeOrder(order) {
-    for (let [index, p] of this.orden.entries()) {
-      if (p.id === order.id) {
-        this.orden.splice(index, 1);
-        this.user = this.auth.getusuario();
-        this.userid1 = this.user.email;
-        this.http.get(`${this.base_url}user/pres-delete/${order.id}`).subscribe((val) => {
-          console.log(val);
-        });
-      }
-    }
+  async removeOrder(order) {
+
+    const alert = await this.alertController.create({
+      message: '<img src = "../../assets/img/RECURSOS/iconos drazamed-27.png" class="alert">¿Deseas eliminar el pedido?',
+      mode: 'ios',
+      cssClass: 'failed',
+      backdropDismiss: false,
+      buttons: [
+        {
+          text: 'Si',
+          cssClass: 'btnalert',
+          handler: async data => {
+            const loading = await this.loadingController.create({
+              cssClass: 'loading',
+              message: 'Por favor espera...',
+              mode: 'ios',
+              spinner: 'dots'
+            });
+            await loading.present();
+            this.user = this.auth.getusuario();
+            this.userid1 = this.user.email;
+            this.http.get(`${this.base_url}user/pres-delete/${order.id}`).subscribe(async (val) => {
+              this.estado = val;
+              this.estado1 = this.estado.status;
+              if (this.estado1 === 'SUCCESS') {
+                loading.dismiss();
+                for (let [index, p] of this.orden.entries()) {
+                  if (p.id === order.id) {
+                    this.orden.splice(index, 1);
+                  }
+                }
+                const alert2 = await this.alertController.create({
+                  message: '<img src = "../../assets/img/RECURSOS/check.png" class="alert">Se ha eliminado tu pedido',
+                  mode: 'ios',
+                  cssClass: 'failed',
+                  buttons: [
+                    { text: 'ok', cssClass: 'btnalert' }
+                  ]
+                });
+                await alert2.present();
+              }
+            });
+          }
+        },
+        {
+          text: 'No',
+          cssClass: 'btnalert',
+        }
+      ]
+    });
+
+    await alert.present();
   }
 }
