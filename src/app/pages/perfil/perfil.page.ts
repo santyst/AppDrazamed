@@ -97,15 +97,23 @@ export class PerfilPage implements OnInit, OnDestroy {
       } 
     }*/
     //  this.getTreatments();
-    for (let al of this.alarmas) {
-      this.proxima.push(al.buy_time);
-      console.log(this.proxima);
-      this.prox = (this.proxima[0]);
-      // this.tratamientoService.TimeRemaining(al.item_code, al.next_date);
-    }
+    this.proximaEntrega();
   }
   ngOnDestroy() {
 
+  }
+  proximaEntrega(){
+    this.proxima.splice(0, this.proxima.length);
+    this.prox = 0;
+    for (let al of this.alarmas) {
+      this.proxima.push(al.buy_time);
+      // this.tratamientoService.TimeRemaining(al.item_code, al.next_date);
+    }
+    console.log(': this.proxima', this.proxima);
+    let prxFormatted = this.proxima.map(f => moment(f));
+    this.prox = moment.min(prxFormatted).format('ll');
+    console.log('this.prox: ', this.prox);
+    return this.prox;
   }
   /* getTreatments(){
     //this.alarmas.splice(0, this.alarmas.length);
@@ -222,8 +230,30 @@ export class PerfilPage implements OnInit, OnDestroy {
   goEdit() {
     this.router.navigate(['editprofile']);
   }
-  PedidoProximo() {
-    this.router.navigate(['proxima-entrega']);
+  async PedidoProximo() {
+    if(this.alarmas.length === 0){
+      const alert = await this.alertCtrl.create({
+        message: '<img src = "../../assets/img/RECURSOS/iconos drazamed-27.png" class="alert">No tienes pedidos pendientes',
+        mode: 'ios',
+        cssClass: 'failed',
+        backdropDismiss: false,
+        buttons: [
+          {
+            text: 'Aceptar',
+            cssClass: 'btnalert',
+          }
+        ]
+      });
+      await alert.present();
+    }else{
+    let navigationExtras: NavigationExtras = {
+      state: {
+        user: this.alarmas,
+        smaller: this.prox
+      }
+    };
+    this.router.navigate(['proxima-entrega'], navigationExtras);
+    }
   }
   misPedidos() {
     this.router.navigate(['mispedidos']);
@@ -246,6 +276,7 @@ export class PerfilPage implements OnInit, OnDestroy {
           cssClass: 'btnalert',
           handler: data => {
             this.tratamientoService.removeAlarm(alarma);
+            this.proximaEntrega();
           }
         },
         {

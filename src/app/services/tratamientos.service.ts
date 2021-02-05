@@ -88,7 +88,7 @@ getTreatmen(){
       item.medicines[0].frequency = item.frequency;
       item.medicines[0].taken = item.taken;
       item.medicines[0].total = item.total;
-      item.medicines[0].buy_time = moment(item.buy_time).format('ll');
+      item.medicines[0].buy_time = moment(item.buy_time).format();
       this.items3 = item.medicines
       for (var i = 0; i < this.items3.length; i++) {         
           this.items2.push(this.items3[i]);
