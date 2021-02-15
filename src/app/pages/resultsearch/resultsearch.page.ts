@@ -6,6 +6,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { CarritoPage } from '../carrito/carrito.page';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ConfigService } from 'src/app/services/config.service'
+import { TratamientosService } from 'src/app/services/tratamientos.service';
 
 
 @Component({
@@ -24,6 +25,7 @@ export class ResultsearchPage implements OnInit {
   imgUrl = [{ imagen: `images/products/default.png` }];
   data: any;
   data1: any;
+  fromProx = false;
   formul: any[] = [];
   name: '';
   base_url: any;
@@ -37,12 +39,15 @@ export class ResultsearchPage implements OnInit {
     private menuCtrl: MenuController, 
     private router: Router,
     private config: ConfigService,
-    private alertCtrl: AlertController) {
+    private alertCtrl: AlertController,
+    private tratamientoService: TratamientosService) {
     this.route.queryParams.subscribe(params => {
       this.base_url = config.get_base_url();
       if (this.router.getCurrentNavigation().extras.state) {
         this.data = this.router.getCurrentNavigation().extras.state.user;
         this.data1 = this.router.getCurrentNavigation().extras.state.formula;
+        this.fromProx = this.router.getCurrentNavigation().extras.state.fromProx;
+        console.log('fromProx: ', this.fromProx);
         console.log(this.data);
         if (this.data1 === 1) {
           this.formul = ['Se requiere formula'];
@@ -86,7 +91,12 @@ export class ResultsearchPage implements OnInit {
       ]
        });
     await alert.present();
+    if(this.fromProx == false){
     this.cartService.addProduct(product);
+    }else{
+      this.tratamientoService.addMedProxPedido(product);
+      this.router.navigate(['perfil']);
+    }
   }
 
   openCart() {

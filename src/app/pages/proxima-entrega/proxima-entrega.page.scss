@@ -11,7 +11,10 @@ ion-header {
     padding-bottom: -100px;
     text-align: center;
 }
-
+.carrito_vacio{
+    color: red;
+    font-size: 16px;
+}
 .logo-header {
     padding-top: 20px;
     padding-bottom: 20px;
@@ -32,7 +35,7 @@ ion-content {
 }
 .txtVolver {
     margin-left: 20px;
-    font-size: 25px;
+    font-size: 24px;
     padding-bottom: 10px;
     color: white;
 }
@@ -139,6 +142,10 @@ ion-content {
     }
     .content-image {
         height: 110px;
+    }
+    .carrito_vacio{
+        color: red;
+        font-size: 26px;
     }
     .carro1 {
         max-width: 68%;

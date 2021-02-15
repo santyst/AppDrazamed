@@ -87,17 +87,9 @@ export class PerfilPage implements OnInit, OnDestroy {
     this.alarmas = this.tratamientoService.getAlarma();
     console.log(this.alarmas);
     console.log('perfil pagina')
-    /* for(let res of this.alarmas){
-      if(res.timeM === 0 && res.timeH === 0 && res.timeD === 0){
-        this.tratamientoService.getTreatmen();
-        this.alarmas = this.tratamientoService.getAlarma();
-      }
-      else{
-        this.alarmas = this.tratamientoService.getAlarma();
-      } 
-    }*/
-    //  this.getTreatments();
     this.proximaEntrega();
+    let prox = this.tratamientoService.getProxPedido();
+    console.log('prox: ', prox);
   }
   ngOnDestroy() {
 
@@ -115,51 +107,6 @@ export class PerfilPage implements OnInit, OnDestroy {
     console.log('this.prox: ', this.prox);
     return this.prox;
   }
-  /* getTreatments(){
-    //this.alarmas.splice(0, this.alarmas.length);
-    this.alarm.splice(0, this.alarm.length);
-    this.proxima.splice(0, this.proxima.length);
-    this.menuCtrl.enable(true);
-    this.user = this.auth.getusuario();
-    console.log(this.user);
-      this.user1 = this.auth.getusuario();
-      this.userid = this.user1.email;
-      this.http.get(`${this.base_url}${this.apiUrl}${this.userid}`).subscribe(val => {
-        this.items = val;
-        for (let item of this.items) {
-          let next_date = item.next_time;
-          item.next_time = moment(item.next_time).format('LT');
-          item.medicines[0].next_time = item.next_time;
-          item.medicines[0].next_date = next_date;
-          item.medicines[0].dosis = item.dosis;
-          item.medicines[0].taken = item.taken;
-          item.medicines[0].total = item.total;
-          item.medicines[0].buy_time = moment(item.buy_time).format('ll');
-  
-          this.items3 = item.medicines
-          for (var i = 0; i < this.items3.length; i++) {
-            this.items2.push(this.items3[i]);
-            this.alarm = this.items2;
-          }
-        }
-        for (let ala of this.alarm) {
-          // this.alar.push(ala);
-          console.log(ala);
-          
-          this.tratamientoService.addAlarm(ala);
-          
-        }
-         this.alarmas = this.tratamientoService.getAlarma();
-        for (let al of this.alarmas) {
-          this.proxima.push(al.buy_time);
-          console.log(this.proxima);
-          this.prox = (this.proxima[0]);
-          this.tratamientoService.TimeRemaining(al.item_code, al.next_date);
-        } 
-       // console.log(this.alarmas);
-  
-      });
-  } */
   async addComment() {
     const input = await this.alertCtrl.create({
       header: '¿Cómo va tu tratamiento?',
@@ -246,13 +193,7 @@ export class PerfilPage implements OnInit, OnDestroy {
       });
       await alert.present();
     }else{
-    let navigationExtras: NavigationExtras = {
-      state: {
-        user: this.alarmas,
-        smaller: this.prox
-      }
-    };
-    this.router.navigate(['proxima-entrega'], navigationExtras);
+    this.router.navigate(['proxima-entrega']);
     }
   }
   misPedidos() {
@@ -276,6 +217,7 @@ export class PerfilPage implements OnInit, OnDestroy {
           cssClass: 'btnalert',
           handler: data => {
             this.tratamientoService.removeAlarm(alarma);
+            this.tratamientoService.rmMedProxPedido(alarma);
             this.proximaEntrega();
           }
         },

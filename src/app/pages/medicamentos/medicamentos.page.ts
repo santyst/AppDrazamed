@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { MenuController, IonSearchbar, Config } from '@ionic/angular';
-import { Router, NavigationExtras } from '@angular/router';
+import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { CartService } from 'src/app/services/cart.service';
@@ -27,6 +27,7 @@ export class MedicamentosPage implements OnInit {
   apiUrl7 = `images/products/`;
   apiUrl5 = ``
   apiUrl8 = `.jpg`;
+  fromProx = false;
   items: any[];
   apiURL2 = `medicine/load-medicine-web/0?n=`;
   constructor(
@@ -34,17 +35,27 @@ export class MedicamentosPage implements OnInit {
     private router: Router,
     private http: HttpClient,
     private cartService: CartService,
-    private config: ConfigService
+    private config: ConfigService,
+    private route: ActivatedRoute
   ) {
     console.log(config.get_base_url());
     this.base_url = config.get_base_url();
     this.cartItemCount = this.cartService.getCartItemCount();
+    this.route.queryParams.subscribe(params => {
+      if (this.router.getCurrentNavigation().extras.state) {
+        this.fromProx = this.router.getCurrentNavigation().extras.state.fromProx;
+      }
+    })
   }
 
   ngOnInit() {
   }
   ionViewWillEnter() {
     this.menuCtrl.enable(true);
+console.log(': ', this.fromProx );
+  }
+  ionViewWillLeave(){
+    this.fromProx = false;
   }
   goCarrito() {
     this.router.navigate(['carrito']);
@@ -80,7 +91,8 @@ export class MedicamentosPage implements OnInit {
       let navigationExtras: NavigationExtras = {
         state: {
           user: this.fullmed1,
-          formula: this.fullmed2
+          formula: this.fullmed2,
+          fromProx: this.fromProx
         }
       };
       this.router.navigate(['resultsearch'], navigationExtras);

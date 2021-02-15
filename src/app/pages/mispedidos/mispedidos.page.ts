@@ -8,6 +8,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 import Pusher from 'pusher-js';
 import * as PusherTypes from 'pusher-js';
+import { TratamientosService } from 'src/app/services/tratamientos.service';
 
 @Component({
   selector: 'app-mispedidos',
@@ -39,7 +40,8 @@ export class MispedidosPage implements OnInit {
   invoice_i: any;
   precio: any;
   constructor(private iab: InAppBrowser, private router: Router, private http: HttpClient, private auth: AuthService, private menuCtrl: MenuController,
-    private config: ConfigService, private alertController: AlertController, private loadingController: LoadingController) {
+    private config: ConfigService, private alertController: AlertController, private loadingController: LoadingController,
+    private tratamientoService: TratamientosService) {
     this.base_url = config.get_base_url();
     this.user1 = this.auth.getusuario();
     this.userid = this.user1.email;
@@ -62,11 +64,12 @@ export class MispedidosPage implements OnInit {
   ngOnInit() {
   }
   goBack() {
-    this.router.navigate(['perfil']);
+    this.router.navigate(['home']);
   }
 
   ionViewWillEnter() {
     this.menuCtrl.enable(false);
+    this.tratamientoService.getTreatmen();
   }
   goOpen(ordenes) {
 
