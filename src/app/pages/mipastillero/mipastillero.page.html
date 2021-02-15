@@ -63,9 +63,9 @@
 <ion-row class="result_search" *ngFor="let al of alarmas">
   <ion-col size="6" class="col_trat">
     <p class="grey" *ngIf="al.timeH !== 0 || al.timeD !== 0 || al.timeM !== 0">Próxima {{al.timeH}}H {{al.timeM}}Min ({{al.next_time}})</p>
-    <p class="grey" *ngIf="al.timeH === 0 && al.timeD === 0 && al.timeM === 0">Recalculando próxima toma</p>
-    <p class="grey" *ngIf="al.timeH === undefined && al.timeD === undefined && al.timeM === undefined">Recalculando próxima toma</p>
- </ion-col>
+    <p class="grey" *ngIf="al.timeH === 0 && al.timeD === 0 && al.timeM === 0 && al.next_date !== null">Recalculando próxima toma</p>
+    <p class="grey" *ngIf="al.next_date === null">Fin del tratamiento</p>
+  </ion-col>
  <ion-col size="1">
   <ion-toggle checked mode="ios" class="toggle"></ion-toggle>
  </ion-col>
@@ -84,7 +84,7 @@
  </ion-col>
  <ion-col size="4" class="align-self">
   <ion-button (click)="processTreat(al)" class="btn-product">E<p class="btntext">stado</p></ion-button>
-  <ion-button (click)="editAlarm(al)" class="btn-product">E<p class="btntext">ditar</p></ion-button>
+  <ion-button (click)="editAlarm(al)" class="btn-product" [disabled]="al.next_date === null">E<p class="btntext">ditar</p></ion-button>
  </ion-col>
 </ion-row>
 
