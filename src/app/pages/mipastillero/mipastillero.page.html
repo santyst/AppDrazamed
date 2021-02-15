@@ -57,6 +57,7 @@
   </ion-row>
   
   </div>
+  <div *ngIf="alarmas.length !== 0">
   <div class="sub-cont4">
     <p class="title_seccion">Mis alarmas</p>
   </div>
@@ -87,5 +88,8 @@
   <ion-button (click)="editAlarm(al)" class="btn-product" [disabled]="al.next_date === null">E<p class="btntext">ditar</p></ion-button>
  </ion-col>
 </ion-row>
-
+</div>
+<div class="titulo" *ngIf="alarmas.length === 0">
+  <p class="tratamientos_vacio">No tienes tratamientos en curso</p>
+</div>
 </ion-content>

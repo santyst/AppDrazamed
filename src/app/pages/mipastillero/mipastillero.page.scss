@@ -73,6 +73,21 @@ ion-badge {
   font-weight: 700;
   margin: 20px 0px;
 }
+.titulo {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  background: white;
+  text-align: center !important;
+}
+
+.tratamientos_vacio {
+  color: #00a2dd;
+font-size: 18px;
+font-weight: 700;
+}
 .grey{
   color: #727070 !important;
   margin-top: 0px;
@@ -263,6 +278,11 @@ a {
     padding-bottom: 10px;
     text-align: center;
   }
+ .tratamientos_vacio {
+  color: #00a2dd;
+font-size: 24px;
+font-weight: 700;
+}
   .content-image {
     height: 110px;
   }

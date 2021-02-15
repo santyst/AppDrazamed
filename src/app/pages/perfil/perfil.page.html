@@ -118,7 +118,7 @@
         </ion-row>
       
     </div>
-    <div class="container4">
+    <div class="container4" *ngIf="alarmas.length !== 0">
       <div class="sub-cont4">
         <p class="title_seccion">Mis tratamientos</p>
       </div>
@@ -150,9 +150,7 @@
             </ion-col>
         </ion-row>
     </div>
-    <p id="days"></p>
-    <p id="hours"></p>
-    <p id="mins"></p>
-    <p id="hora"></p>
-    <h2 id="end"></h2>
+    <div class="titulo" *ngIf="alarmas.length === 0">
+      <p class="tratamientos_vacio">No tienes tratamientos en curso</p>
+    </div>
   </ion-content>
