@@ -118,14 +118,15 @@
         </ion-row>
       
     </div>
-    <div class="container4">
+    <div class="container4" *ngIf="alarmas.length !== 0">
       <div class="sub-cont4">
         <p class="title_seccion">Mis tratamientos</p>
       </div>
         <ion-row class="result_search" *ngFor="let al of alarmas">
           <ion-col size="6" class="col_trat">
             <p class="grey" *ngIf="al.timeH !== 0 || al.timeD !== 0 || al.timeM !== 0">Próxima {{al.timeH}}H {{al.timeM}}Min ({{al.next_time}})</p>
-            <p class="grey" *ngIf="al.timeH === 0 && al.timeD === 0 && al.timeM === 0">Recalculando próxima toma</p>
+            <p class="grey" *ngIf="al.timeH === 0 && al.timeD === 0 && al.timeM === 0 && al.next_date !== null">Recalculando próxima toma</p>
+            <p class="grey" *ngIf="al.next_date === null">Fin del tratamiento</p>
          </ion-col>
          <ion-col size="1">
           <ion-toggle checked mode="ios" class="toggle"></ion-toggle>
@@ -145,13 +146,11 @@
             </ion-col>
             <ion-col size="4">
              <ion-button (click)="processTreat(al)" class="btn-product">E<p class="btntext">stado</p></ion-button>
-             <ion-button (click)="editAlarm(al)" class="btn-product">E<p class="btntext">ditar</p></ion-button>
+             <ion-button (click)="editAlarm(al)" class="btn-product" [disabled]="al.next_date === null">E<p class="btntext">ditar</p></ion-button>
             </ion-col>
         </ion-row>
     </div>
-    <p id="days"></p>
-    <p id="hours"></p>
-    <p id="mins"></p>
-    <p id="hora"></p>
-    <h2 id="end"></h2>
+    <div class="titulo" *ngIf="alarmas.length === 0">
+      <p class="tratamientos_vacio">No tienes tratamientos en curso</p>
+    </div>
   </ion-content>

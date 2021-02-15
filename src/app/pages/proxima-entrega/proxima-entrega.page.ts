@@ -1,11 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { AlertController, LoadingController, MenuController } from '@ionic/angular';
 import * as moment from 'moment';
 import { AuthService } from 'src/app/services/auth.service';
 import { ConfigService } from 'src/app/services/config.service';
 import { finalize } from 'rxjs/operators';
+import { CartService } from 'src/app/services/cart.service';
+import { TratamientosService } from 'src/app/services/tratamientos.service';
 
 
 @Component({
@@ -24,25 +26,23 @@ export class ProximaEntregaPage implements OnInit {
   apiImg = `images/products/`;
   apiUrl8 = `.jpg`;
   orden: any;
+  proxima = [];
   user1: any;
   userid: any;
   cantidad = [];
   item_code = [];
+  subtotal1: any;
   formula = [];
   code: any;
   code2: any;
+  total: any;
+  tax1: any;
 
 
   constructor(private router: Router, public menuCtrl: MenuController, private route: ActivatedRoute, 
               private config: ConfigService, private alertCtrl: AlertController, private loadingController: LoadingController,
-              private auth: AuthService, private http: HttpClient) {
+              private auth: AuthService, private http: HttpClient, private cartService: CartService, private tratamientoService: TratamientosService) {
     this.base_url = config.get_base_url();
-    this.route.queryParams.subscribe(params => {
-      if (this.router.getCurrentNavigation().extras.state) {
-        this.tratamientos = this.router.getCurrentNavigation().extras.state.user;
-        this.smallerDate = this.router.getCurrentNavigation().extras.state.smaller
-      }
-    });
   }
 
   ngOnInit() {
@@ -50,6 +50,17 @@ export class ProximaEntregaPage implements OnInit {
 
   ionViewWillEnter() {
     this.menuCtrl.enable(false);
+    this.tratamientos.splice(0, this.tratamientos.length);
+    this.tratamientos = this.tratamientoService.getProxPedido();
+    this.smallerDate = 0;
+    this.proxima.splice(0, this.proxima.length);
+    for (let al of this.tratamientos) {
+      this.proxima.push(al.buy_time);
+    }
+    console.log(': this.proxima', this.proxima);
+    let prxFormatted = this.proxima.map(f => moment(f));
+    this.smallerDate = moment.min(prxFormatted).format('ll');
+
     console.log('this.tratamientos: ', this.tratamientos);
     let smaller = this.tratamientos.filter(sm => moment(sm.buy_time).format('ll') === this.smallerDate)
     console.log('smaller: ', smaller, this.smallerDate);
@@ -69,29 +80,44 @@ export class ProximaEntregaPage implements OnInit {
   }
 
   goBuscar(){
-    this.router.navigate(['medicamentos']);
+    let navigationExtras: NavigationExtras = {
+     state: {
+      fromProx: true 
+     }
+    }
+    this.router.navigate(['medicamentos'], navigationExtras);
   }
 
-  getPrice() {
+
+  getSubTotal() {
     return this.pedidoArr.reduce((i, j) => i + j.mrp, 0);
   }
   getTotal() {
-    return this.getPrice() + 2000;
+    if (this.pedidoArr.length !== 0) {
+      return this.getSubTotal() + 2000;
+    }
+    else {
+      return 0;
+    }
   }
   getTax() {
     this.subtotal = 0;
+    this.subtotal1 = 0;
     for (let ta of this.pedidoArr) {
-      if (ta.tax !== 0) {
-        this.subtotal += ta.tax;
-      }
+      this.total = (ta.mrp * 1);
+      this.tax1 = ta.tax ? ta.tax : 0;
+      this.subtotal = Math.floor(this.total / (((100) + this.tax1) / 100));
+      this.subtotal1 += this.subtotal;
     }
-    return this.subtotal;
+    return this.subtotal1;
   }
-  subTotal(){
-    return this.getPrice() - this.getTax();
+
+  impuesto() {
+    return this.getSubTotal() - this.getTax();
   }
 
   removeMed(medicine){
+    this.tratamientoService.rmMedProxPedido(medicine);
     for (let [index, p] of this.pedidoArr.entries()) {
       if(p.item_code === medicine.item_code){
         this.pedidoArr.splice(index, 1);
@@ -156,7 +182,21 @@ export class ProximaEntregaPage implements OnInit {
               {
                 text: 'Aceptar',
                 cssClass: 'btnalert',
-                handler: (data) => { this.router.navigate(['mispedidos']); }
+                handler: (data) => { 
+                  this.router.navigate(['mispedidos']); 
+                  this.user1 = this.auth.getusuario();
+                  this.userid = this.user1.email;
+                  let i = 0;
+                  for(let reorder of this.pedidoArr){
+                    let postUpdate = {
+                      email: this.userid,
+                      item_code: reorder.item_code
+                    }
+                    this.http.post(`${this.base_url}treatment/update-reorden`, postUpdate).subscribe((res: any) =>{
+                    console.log('res reorden: ', res);
+                    });
+                  } 
+                }
               }
             ]
           });

@@ -35,8 +35,9 @@
     <div class="select_options center">
       <ion-row>
         <ion-col size="4">
-          <p class="name_product">Próxima</p>
-          <p class="description_product mt-20">{{fecha}} {{alarma.next_time}}</p>
+          <p class="name_product" *ngIf="alarma.next_date !== null">Próxima</p>
+          <p class="description_product mt-20" *ngIf="alarma.next_date !== null">{{fecha}} {{alarma.next_time}}</p>
+          <p class="name_product2" *ngIf="alarma.next_date === null">Fin del tratamiento</p>
         </ion-col>
         <ion-col size="4" class="col-item">
           <p class="name_product">Tomadas</p>
