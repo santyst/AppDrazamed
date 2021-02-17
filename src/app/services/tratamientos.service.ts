@@ -37,8 +37,8 @@ getTreatmen(){
   for(let tim of this.alarm){
     clearInterval(this.intervalos[tim.item_code]);
   }
-  this.alarm.splice(0, this.alarm.length);
   this.proxPedido.splice(0, this.proxPedido.length);
+  this.alarm.splice(0, this.alarm.length);
   this.items2.splice(0, this.items2.length);
   this.user1 = this.auth.getusuario();
   this.userid = this.user1.email;

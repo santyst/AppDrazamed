@@ -6,7 +6,6 @@ import * as moment from 'moment';
 import { AuthService } from 'src/app/services/auth.service';
 import { ConfigService } from 'src/app/services/config.service';
 import { finalize } from 'rxjs/operators';
-import { CartService } from 'src/app/services/cart.service';
 import { TratamientosService } from 'src/app/services/tratamientos.service';
 
 
@@ -41,7 +40,7 @@ export class ProximaEntregaPage implements OnInit {
 
   constructor(private router: Router, public menuCtrl: MenuController, private route: ActivatedRoute, 
               private config: ConfigService, private alertCtrl: AlertController, private loadingController: LoadingController,
-              private auth: AuthService, private http: HttpClient, private cartService: CartService, private tratamientoService: TratamientosService) {
+              private auth: AuthService, private http: HttpClient, private tratamientoService: TratamientosService) {
     this.base_url = config.get_base_url();
   }
 
