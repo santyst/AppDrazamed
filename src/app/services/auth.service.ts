@@ -111,9 +111,9 @@ export class AuthService {
         this.userData.next(decoded);
         window.localStorage.setItem(USUARIOS, JSON.stringify(this.usuario));
         let storageObs = from(this.storage.set(TOKEN_KEY, token));
-        /*if (this.items2 !== 'ACTIVE'){
+        if (this.items2 !== 'ACTIVE'){
           return of(null);
-        }*/
+        }
         return  storageObs;
       })
     );
