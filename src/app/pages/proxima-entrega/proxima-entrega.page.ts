@@ -18,6 +18,7 @@ export class ProximaEntregaPage implements OnInit {
 
   tratamientos = [];
   pedidoArr = [];
+  pedidoArr1 = [];
   smallerDate: any;
   conditionSmaller:any;
   base_url: any;
@@ -36,12 +37,18 @@ export class ProximaEntregaPage implements OnInit {
   code2: any;
   total: any;
   tax1: any;
-
+  addedMed = false;
 
   constructor(private router: Router, public menuCtrl: MenuController, private route: ActivatedRoute, 
               private config: ConfigService, private alertCtrl: AlertController, private loadingController: LoadingController,
               private auth: AuthService, private http: HttpClient, private tratamientoService: TratamientosService) {
     this.base_url = config.get_base_url();
+    this.route.queryParams.subscribe(params => {
+      this.base_url = config.get_base_url();
+      if (this.router.getCurrentNavigation().extras.state) {
+        this.addedMed = this.router.getCurrentNavigation().extras.state.user;
+      }
+    });
   }
 
   ngOnInit() {
@@ -49,7 +56,7 @@ export class ProximaEntregaPage implements OnInit {
 
   ionViewWillEnter() {
     this.menuCtrl.enable(false);
-    this.tratamientos.splice(0, this.tratamientos.length);
+    //  this.tratamientos.splice(0, this.tratamientos.length);
     this.tratamientos = this.tratamientoService.getProxPedido();
     this.smallerDate = 0;
     this.proxima.splice(0, this.proxima.length);
@@ -68,9 +75,12 @@ export class ProximaEntregaPage implements OnInit {
     console.log('this.conditionSmaller: ', this.conditionSmaller);
     for (let trt of this.tratamientos) {
       if (moment(trt.buy_time).diff(moment(smallerFmatted), 'days') <= 4) {
-        this.pedidoArr.push(trt);
+        this.pedidoArr1.push(trt);
       }
     }
+    this.pedidoArr = this.pedidoArr1.filter(function(item, index, array) {
+      return array.indexOf(item) === index;
+    })
     console.log(': pedido arr ', this.pedidoArr);
   }
 
