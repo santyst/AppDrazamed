@@ -222,6 +222,23 @@ export class AppComponent {
     }
    //  this.tratamientoService.addAlarm(alarma);
   }
+  async sendToma1(body){
+    let alert = await this.alertCtrl.create({
+      mode: 'ios',
+      cssClass: 'failed',
+      message: body,
+      backdropDismiss: false,
+      buttons: [
+        {text: 'Revisar',
+          cssClass: 'btnalert',
+         handler: (d) =>{
+           this.router.navigate(['proxima-entrega']);
+         }   
+      }
+      ]
+    });
+    await alert.present();
+  }
   private async setupFCM() {
     await this.platform.ready();
     console.log('FCM setup started');
@@ -244,11 +261,22 @@ export class AppComponent {
       if(this.platform.is('ios')){
         console.log('onNotification received event with id: ', payload.a_data.treatment_id);
         // let data = JSON.parse(payload.a_data);
-        this.sendToma(payload.a_data.treatment_id, payload.body);
+        let acabaIos = payload.body;
+        if((acabaIos.includes("acaba")) !== true){
+          let data = JSON.parse(payload.a_data);
+          this.sendToma(payload.a_data.treatment_id, payload.body);
+        }else{
+           this.sendToma1(payload.body);
+        }
       }else{
         console.log('onNotification received event with id: ', payload);
-        let data = JSON.parse(payload.a_data);
-        this.sendToma(data.treatment_id, payload.body);
+        let acaba = payload.body;
+        if((acaba.includes("acaba")) !== true){
+          let data = JSON.parse(payload.a_data);
+          this.sendToma(data.treatment_id, payload.body);
+        }else{
+          this.sendToma1(payload.body);
+        }
       }
      
     });

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { CartService } from 'src/app/services/cart.service';
-import { AlertController, MenuController, ModalController } from '@ionic/angular';
+import { AlertController, LoadingController, MenuController, ModalController } from '@ionic/angular';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { CarritoPage } from '../carrito/carrito.page';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
@@ -40,7 +40,8 @@ export class ResultsearchPage implements OnInit {
     private router: Router,
     private config: ConfigService,
     private alertCtrl: AlertController,
-    private tratamientoService: TratamientosService) {
+    private tratamientoService: TratamientosService,
+    private loadingController: LoadingController) {
     this.route.queryParams.subscribe(params => {
       this.base_url = config.get_base_url();
       if (this.router.getCurrentNavigation().extras.state) {
@@ -79,6 +80,8 @@ export class ResultsearchPage implements OnInit {
   }
 
   async addToCart(product) {
+    if(this.fromProx == false){
+    this.cartService.addProduct(product);
     const alert = await this.alertCtrl.create({
       message: '<img src = "../../assets/img/RECURSOS/check.png" class="alert">Producto agregado con éxito',
       mode: 'ios',
@@ -91,11 +94,32 @@ export class ResultsearchPage implements OnInit {
       ]
        });
     await alert.present();
-    if(this.fromProx == false){
-    this.cartService.addProduct(product);
     }else{
       this.tratamientoService.addMedProxPedido(product);
-      this.router.navigate(['perfil']);
+      const loading = await this.loadingController.create({
+        cssClass: 'loading',
+        message: 'Por favor espera...',
+        mode: 'ios',
+        spinner: 'dots'
+      });
+      await loading.present();
+      setTimeout(async() => {
+        loading.dismiss();
+        const alert = await this.alertCtrl.create({
+          message: '<img src = "../../assets/img/RECURSOS/check.png" class="alert">Producto agregado con éxito',
+          mode: 'ios',
+          cssClass: 'failed',
+          buttons: [
+            {
+              text: 'Aceptar',
+              cssClass: 'btnalert',
+            }
+          ]
+           });
+        await alert.present();
+       this.tratamientoService.getProxPedido();
+       this.router.navigate(['proxima-entrega']);
+      },2000)
     }
   }
 
