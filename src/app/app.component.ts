@@ -229,11 +229,25 @@ export class AppComponent {
       message: body,
       backdropDismiss: false,
       buttons: [
-        {text: 'Revisar',
+        {text: 'Ver',
           cssClass: 'btnalert',
          handler: (d) =>{
            this.router.navigate(['proxima-entrega']);
          }   
+      }
+      ]
+    });
+    await alert.present();
+  }
+  async sendToma2(body){
+    let alert = await this.alertCtrl.create({
+      mode: 'ios',
+      cssClass: 'failed',
+      message: body,
+      backdropDismiss: false,
+      buttons: [
+        {text: 'Ok',
+          cssClass: 'btnalert', 
       }
       ]
     });
@@ -261,21 +275,22 @@ export class AppComponent {
       if(this.platform.is('ios')){
         console.log('onNotification received event with id: ', payload.a_data.treatment_id);
         // let data = JSON.parse(payload.a_data);
-        let acabaIos = payload.body;
-        if((acabaIos.includes("acaba")) !== true){
-          let data = JSON.parse(payload.a_data);
+        if(payload.a_data.msg_type === 1){
           this.sendToma(payload.a_data.treatment_id, payload.body);
-        }else{
+        }else if(payload.a_data.msg_type === 2){
            this.sendToma1(payload.body);
+        }else if(payload.a_data.msg_type === 3){
+           this.sendToma2(payload.body);
         }
       }else{
         console.log('onNotification received event with id: ', payload);
-        let acaba = payload.body;
-        if((acaba.includes("acaba")) !== true){
-          let data = JSON.parse(payload.a_data);
+        let data = JSON.parse(payload.a_data);
+        if(data.msg_type === 1){
           this.sendToma(data.treatment_id, payload.body);
-        }else{
+        }else if(data.msg_type === 2){
           this.sendToma1(payload.body);
+        }else if(data.msg_type === 3){
+          this.sendToma2(payload.body);
         }
       }
      
@@ -301,7 +316,13 @@ export class AppComponent {
     console.log('getInitialPushPayload result: ', this.pushPayload);
     if(this.pushPayload !== null){
       // let data = JSON.parse(this.pushPayload.a_data);
-      this.sendToma(this.pushPayload.a_data.treatment_id, this.pushPayload.body);
+        if(this.pushPayload.a_data.msg_type === 1){
+          this.sendToma(this.pushPayload.a_data.treatment_id, this.pushPayload.body);
+        }else if(this.pushPayload.a_data.msg_type === 2){
+           this.sendToma1(this.pushPayload.body);
+        }else if(this.pushPayload.a_data.msg_type === 3){
+           this.sendToma2(this.pushPayload.body);
+        }
     }
   }
 
