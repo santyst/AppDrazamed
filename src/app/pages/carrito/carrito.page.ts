@@ -44,7 +44,6 @@ export class CarritoPage implements OnInit {
   }
 
   images = [];
-  apiUrl3 = `https://dev.drazamed.com`;
   imgUrl = `images/products/default.png`;
   postUrl = `https://testsanti.000webhostapp.com/phpserver/posts.php`;
   apiImg = `images/products/`;
