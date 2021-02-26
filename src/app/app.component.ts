@@ -253,6 +253,23 @@ export class AppComponent {
     });
     await alert.present();
   }
+  async sendToma3(body){
+    let alert = await this.alertCtrl.create({
+      mode: 'ios',
+      cssClass: 'failed',
+      message: body,
+      backdropDismiss: false,
+      buttons: [
+        {text: 'Pagar',
+         cssClass: 'btnalert', 
+         handler: pp => {
+           this.router.navigate(['mispedidos']);
+         }
+      }
+      ]
+    });
+    await alert.present();
+  }
   private async setupFCM() {
     await this.platform.ready();
     console.log('FCM setup started');
@@ -281,6 +298,12 @@ export class AppComponent {
            this.sendToma1(payload.body);
         }else if(payload.a_data.msg_type === 3){
            this.sendToma2(payload.body);
+        }else if(payload.a_data.msg_type === 4){
+          this.sendToma3(payload.body);
+        }else if(payload.a_data.msg_type === 5){
+          this.sendToma2(payload.body);
+        }else if(payload.a_data.msg_type === 6){
+          this.sendToma2(payload.body);
         }
       }else{
         console.log('onNotification received event with id: ', payload);
@@ -290,6 +313,12 @@ export class AppComponent {
         }else if(data.msg_type === 2){
           this.sendToma1(payload.body);
         }else if(data.msg_type === 3){
+          this.sendToma2(payload.body);
+        }else if(data.msg_type === 4){
+          this.sendToma3(payload.body);
+        }else if(payload.a_data.msg_type === 5){
+          this.sendToma2(payload.body);
+        }else if(payload.a_data.msg_type === 6){
           this.sendToma2(payload.body);
         }
       }
@@ -322,6 +351,12 @@ export class AppComponent {
            this.sendToma1(this.pushPayload.body);
         }else if(this.pushPayload.a_data.msg_type === 3){
            this.sendToma2(this.pushPayload.body);
+        }else if(this.pushPayload.a_data.msg_type === 4){
+           this.sendToma3(this.pushPayload.body);
+        }else if(this.pushPayload.a_data.msg_type === 5){
+          this.sendToma2(this.pushPayload.body);
+        }else if(this.pushPayload.a_data.msg_type === 6){
+          this.sendToma2(this.pushPayload.body);
         }
     }
   }
