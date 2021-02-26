@@ -29,13 +29,13 @@ export class PruebaPage implements OnInit {
 
   dosis = [1, 2, 3, 4, 5];
 
-  intervaloNumber: number = 0;
+  intervaloNumber: number;
   fecha: any = 0;
   hora: any = 0;
   base_url: any;
   user1: any;
   userid: any;
-  alarmasForm: any;
+
   alarmas: any;
   items: any;
   loop: any;
@@ -54,16 +54,15 @@ export class PruebaPage implements OnInit {
     private http: HttpClient, private plt: Platform) {
     this.base_url = config.get_base_url();
     this.user1 = this.auth.getusuario();
-    this.userid = this.user1.email;
-    this.alarmasForm = this.formBuilder.group({
-      obs: new FormControl('', [Validators.required]),
-      time: new FormControl('', [Validators.required]),
-      date: new FormControl('', [Validators.required]),
-      freq: new FormControl('', [Validators.required]),
-      dosis: new FormControl('', [Validators.required]),
-    });
+    this.userid = this.user1.email
   }
-
+  alarmasForm = this.formBuilder.group({
+    obs: new FormControl('', [Validators.required]),
+    time: new FormControl('', [Validators.required]),
+    date: new FormControl('', [Validators.required]),
+    freq: new FormControl('', [Validators.required]),
+    dosis: new FormControl('', [Validators.required]),
+  });
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
@@ -82,11 +81,10 @@ export class PruebaPage implements OnInit {
       composition: this.items.composition,
       units: this.items.units,
       toma: 'T0',
-      dosis: 0
+      dosis: ''
     };
     console.log('json inicial');
     console.log(this.alarmas);
-    this.alarmasForm.reset();
   }
   ionViewWillEnter() {
     this.menuCtrl.enable(false);
@@ -167,6 +165,7 @@ export class PruebaPage implements OnInit {
       this.tratamientoService.getTreatmen();
       console.log(this.alarmas);
       this.router.navigate(['home']);
+      this.alarmasForm.reset();
     });
   }
 
