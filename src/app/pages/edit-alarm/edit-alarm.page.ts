@@ -19,7 +19,7 @@ export class EditAlarmPage implements OnInit {
   apiUrl7 = `images/products/`;
   apiUrl8 = `.jpg`;
   alarmas: any;
-  intervaloNumber: number = 0;
+  intervaloNumber: number;
   fecha: any;
   user1: any;
   userid: any;
@@ -62,9 +62,8 @@ export class EditAlarmPage implements OnInit {
           item_name: this.items.item_name,
           composition: this.items.composition,
           item_code: this.items.item_code,
-          dosis: 0
+          dosis: ''
         };
-        this.alarmasForm.reset();
   }
   ionViewWillEnter() {
     this.menuCtrl.enable(false);
@@ -110,6 +109,7 @@ export class EditAlarmPage implements OnInit {
         await alert.present();
         this.tratamientoService.getTreatmen(); 
         this.router.navigate(['perfil']); 
+        this.alarmasForm.reset();
       }
     });
   }

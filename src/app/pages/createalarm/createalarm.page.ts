@@ -24,19 +24,26 @@ export class CreatealarmPage implements OnInit {
   pedidos: any;
   items2 = [];
   items5 = [];
+  items7 = [];
   items3: any;
   items4: any;
   items: any[] = [];
- 
+
 
   constructor(private router: Router, private http: HttpClient, private config: ConfigService, private auth: AuthService,
-              public menuCtrl: MenuController) {
+    public menuCtrl: MenuController) {
     this.isItemAvailable = true;
-    this.initializeItems();
     this.base_url = config.get_base_url();
+  }
+
+  ngOnInit() {
+  }
+  ionViewWillEnter() {
+    this.menuCtrl.enable(true);
     this.user = this.auth.getusuario();
     this.userid = this.user.email;
     this.http.get(`${this.base_url}my-prescriptions?email=${this.userid}`).subscribe((res) => {
+      
       this.pedidos = res;
 
       for (let item of this.pedidos) {
@@ -45,24 +52,40 @@ export class CreatealarmPage implements OnInit {
           this.items2.push(this.items3[i]);
         }
       }
-     
-        for(let uni of this.items2){
-         if(uni.units !== 'ML' && uni.units !== 'NoD' && uni.units !== 'GR'){
-           this.items5.push(uni);
-         }
+
+      for (let uni of this.items2) {
+        if (uni.units !== 'ML' && uni.units !== 'NoD' && uni.units !== 'GR') {
+          this.items5.push(uni);
         }
-        console.log(this.items5);
+      }
+      console.log(this.items5);
+      let a = [];
+      for (let items of this.items5) {
+        let infoMed = {
+          composition: items.composition,
+          units: items.units,
+          units_value: items.units_value,
+          item_code: items.item_code,
+          item_name: items.item_name
+        }
+        a.push(infoMed);
+      }
+      this.items7 = a.filter((thing, index) => {
+        const _thing = JSON.stringify(thing);
+        return index === a.findIndex(obj => {
+          return JSON.stringify(obj) === _thing;
+        });
+      });
+      console.log(': ', this.items7);
+      if(this.pedidos !== ''){
+        this.initializeItems();
+      }
     });
-
-  }
-
-  ngOnInit() {
-  }
-  ionViewWillEnter() {
-    this.menuCtrl.enable(true);
   }
   initializeItems() {
-    this.items = this.items5;
+
+    this.items = this.items7;
+    console.log('this.items: ', this.items);
   }
   goBack() {
     this.router.navigate(['mipastillero']);
@@ -82,7 +105,7 @@ export class CreatealarmPage implements OnInit {
     // if the value is an empty string don't filter the items
     if (val && val.trim() !== '') {
       this.isItemAvailable = true;
-      this.items = this.items2.filter((item: any) => {
+      this.items = this.items7.filter((item: any) => {
         return (item.item_name.toLowerCase().indexOf(val.toLowerCase()) > -1);
       });
     } else {
