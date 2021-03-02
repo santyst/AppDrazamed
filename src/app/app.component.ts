@@ -57,6 +57,7 @@ export class AppComponent {
     private statusBar: StatusBar,
     private router: Router,
     public auth: AuthService,
+    private storage: Storage,
     private localNotifications: LocalNotifications,
     private tratamientoService: TratamientosService,
     private fcm: FCM,
@@ -336,10 +337,15 @@ export class AppComponent {
     window.localStorage.setItem(this.key, this.token);
     console.log('getToken result: ', this.token);
 
-
-    this.apnstoken = await this.fcm.getAPNSToken();
-    console.log('getAPNSToken result: ', this.apnstoken);
-    window.localStorage.setItem('apnsToken', this.apnstoken);
+    
+    let intApns = setInterval(async () => {
+      this.apnstoken = await this.fcm.getAPNSToken();
+      console.log('getAPNSToken result: ', this.apnstoken);
+      if(this.apnstoken){
+        clearInterval(intApns);
+        window.localStorage.setItem('apnsToken', this.apnstoken);
+      }
+    }, 2000);
 
     this.pushPayload = await this.fcm.getInitialPushPayload();
     console.log('getInitialPushPayload result: ', this.pushPayload);
