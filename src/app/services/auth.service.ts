@@ -73,11 +73,13 @@ export class AuthService {
     data.subscribe(result => {
       this.items = result;
       this.items2 = this.items.data.status;
-      if (this.items) {
+      /* if (this.items) {
         this.usuario = { name: this.items.name, email: this.items.email, user_id: this.items.data.user_id };
-      }
+      } */
     }, async (err: HttpErrorResponse) => {
       this.items3 = err.status;
+      console.log('this.items3: ', this.items3);
+      
       if (this.items3 === 401 || credentials.email === '' || credentials.password === '') {
         console.log('Usuario o contraseña incorrecto');
         const alert = await this.alertController.create({
@@ -93,10 +95,12 @@ export class AuthService {
           ]
         });
         await alert.present();
-
         return of(null);
-
       }
+    }, () => {
+    console.log(':logueo exitoso mediante correo', this.items);
+    this.usuario = { name: this.items.name, email: this.items.email, user_id: this.items.data.user_id };   
+    console.log('this.usuario: ', this.usuario);
     });
 
 
@@ -111,15 +115,19 @@ export class AuthService {
         this.userData.next(decoded);
         window.localStorage.setItem(USUARIOS, JSON.stringify(this.usuario));
         let storageObs = from(this.storage.set(TOKEN_KEY, token));
-        if (this.items2 !== 'ACTIVE'){
+        /* if (this.items2 !== 'ACTIVE'){
           return of(null);
-        }
+        } */
         return  storageObs;
       })
     );
   }
 
+  loginGoogle(){}
 
+  loginFacebook(){}
+
+  loginApple(){}
 
   getusuario() {
     return (JSON.parse(window.localStorage.getItem(USUARIOS)));
