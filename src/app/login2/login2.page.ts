@@ -104,6 +104,8 @@ export class Login2Page implements OnInit {
         })
       )
       .subscribe(async res => {
+      console.log('res: ', res);
+        
         if (res) {
           this.tratamientoService.getAlarma();
           this.postFCM();

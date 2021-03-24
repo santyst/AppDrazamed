@@ -61,14 +61,20 @@ ion-content {
     color: #fff;
 }
 .button-logosf {
-    width: 12.8%;
-    height: auto !important ;
-    margin-right: 5px !important;
+    color: #4267B2;
+    font-size: 31px;
+    margin-left: 5px;
+    margin-right: 11px;
 }
 .button-logosg {
     width: 12.8%;
-    height: auto !important ;
-    margin-right: 5px !important;
+    height: auto !important;
+    margin-right: 10px !important;
+    margin-left: 6.5px;
+}
+.button-logosa {
+    font-size: 29px;
+    color: #000;
 }
 .btn-g {
     margin-right: 45px !important;
@@ -98,21 +104,26 @@ ion-content {
     }
 
     .button-logosf {
-        width: 9.9%;
-        height: auto !important ;
-        margin-right: 5px !important;
+        color: #4267B2;
+        font-size: 51px;
+        margin-left: 0;
+        margin-right: 3px;
     }
     .button-logosg {
         width: 9.9%;
         height: auto !important ;
         margin-right: 5px !important;
     }
+    .button-logosa {
+        font-size: 50px;
+        color: #000;
+    }
     .btn-g {
         margin-right: 45px !important;
         font-size: 30px;
     }
     .btn-f {
-        margin-right: 22px !important;
+        margin-right: 12px !important;
         font-size: 29px;
     }
     .account-text {
@@ -124,4 +135,9 @@ ion-content {
         color: #fff;
         font-size: 25px;
     }
+    .img-primary-logo {
+        width: 55%;
+        margin-bottom: 127px;
+    }
+    
 }

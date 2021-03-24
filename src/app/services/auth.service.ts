@@ -12,6 +12,8 @@ import { stringify } from 'querystring';
 import { data } from 'jquery';
 import { ConfigService } from 'src/app/services/config.service'
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
+import { GooglePlus } from '@ionic-native/google-plus/ngx';
+import { Facebook } from '@ionic-native/facebook/ngx';
 
 
 const helper = new JwtHelperService();
@@ -33,13 +35,17 @@ export class AuthService {
   status: string;
   public usuario: any;
   base_url: any;
+  normalLogin = false;
+  googleLogin = false;
+  fbLogin = false;
 
   constructor(
     private storage: Storage,
     private http: HttpClient,
     private plt: Platform,
     private router: Router,
-    private nativeSto: NativeStorage,
+    private facebook: Facebook,
+    private googlePlus: GooglePlus,
     private config: ConfigService,
     private alertController: AlertController) {
     this.base_url = config.get_base_url();
@@ -101,6 +107,7 @@ export class AuthService {
     console.log(':logueo exitoso mediante correo', this.items);
     this.usuario = { name: this.items.name, email: this.items.email, user_id: this.items.data.user_id };   
     console.log('this.usuario: ', this.usuario);
+    this.normalLogin = true;
     });
 
 
@@ -123,23 +130,87 @@ export class AuthService {
     );
   }
 
-  loginGoogle(){}
+  loginGoogle(datas){
 
-  loginFacebook(){}
+    return this.http.get(`https://randomuser.me/api/`).pipe(
+      take(1),
+      map(res => {
+        return `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkRyYXphbWVkIiwiaWF0IjoxNTE2MjM5MDIyfQ.4x0iejWjRVH3V7ULcX0-vRmxeR8NLdlFGvx69CuBrrY`;
+      }),
+      switchMap((token) => {
+        let decoded = helper.decodeToken(token);
+        // console.log('login decoded: ', decoded);
+        this.userData.next(decoded);
+        window.localStorage.setItem(USUARIOS, JSON.stringify(datas));
+        let storageObs = from(this.storage.set(TOKEN_KEY, token));
+        this.googleLogin = true;
+        /* if (this.items2 !== 'ACTIVE'){
+          return of(null);
+        } */
+        return  storageObs;
+      })
+    );
+  }
+
+  loginFacebook(dataFacebook){
+  console.log('dataFacebook: ', dataFacebook);
+    return this.http.get(`https://randomuser.me/api/`).pipe(
+      take(1),
+      map(res => {
+        return `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkRyYXphbWVkIiwiaWF0IjoxNTE2MjM5MDIyfQ.4x0iejWjRVH3V7ULcX0-vRmxeR8NLdlFGvx69CuBrrY`;
+      }),
+      switchMap((token) => {
+        let decoded = helper.decodeToken(token);
+        // console.log('login decoded: ', decoded);
+        this.userData.next(decoded);
+        window.localStorage.setItem(USUARIOS, JSON.stringify(dataFacebook));
+        let storageObs = from(this.storage.set(TOKEN_KEY, token));
+        this.fbLogin = true;
+        /* if (this.items2 !== 'ACTIVE'){
+          return of(null);
+        } */
+        return  storageObs;
+      })
+    );
+  }
 
   loginApple(){}
 
   getusuario() {
-    return (JSON.parse(window.localStorage.getItem(USUARIOS)));
+    return  (JSON.parse(window.localStorage.getItem(USUARIOS)));
   }
 
 
   logout() {
-    this.storage.remove(TOKEN_KEY).then(() => {
+    console.log('normal login', this.normalLogin);
+    console.log('google login', this.googleLogin);
+    console.log('facebook login', this.fbLogin);
+
+    if(this.normalLogin === true){
+      this.storage.remove(TOKEN_KEY).then(() => {
         window.localStorage.removeItem(USUARIOS);
         this.router.navigateByUrl('/login1');
         this.userData.next(null);
-    });
+        this.normalLogin = false;
+    }); 
+    }else if(this.googleLogin === true){
+      this.googlePlus.logout().then(logOutRes =>{
+        console.log('logOutRes: ', logOutRes);
+          window.localStorage.removeItem('GoogleUser');
+          this.router.navigateByUrl('/login1');
+          this.userData.next(null);
+          this.googleLogin = false;
+      });
+    }else if(this.fbLogin === true){
+      this.facebook.logout().then(res => {
+        console.log('res: ', res);
+        window.localStorage.removeItem('FacebookUser');
+          this.router.navigateByUrl('/login1');
+          this.userData.next(null);
+          this.fbLogin = false;
+      });
+    }
+       
   }
 
 }
