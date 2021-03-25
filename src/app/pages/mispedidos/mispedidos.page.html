@@ -27,11 +27,11 @@
     </ion-col>
 
     <ion-col size="12" *ngIf="!isNoClicked">
-       <div class="request_sqare" *ngFor="let d of orden">
+       <div class="request_sqare" *ngFor="let d of pendientes">
          <ion-row>
            <ion-col size="12" class="mb-10 right">
               <p class="name_category" *ngIf="d.status === 1">Sin Verificar</p>
-              <p class="name_category1" *ngIf="d.status !== 1">Verificado</p>
+              <p class="name_category1" *ngIf="d.status === 2">Verificado</p>
            </ion-col>
            
            <ion-col size="8" class="align-self">
@@ -64,25 +64,20 @@
     </ion-col>
 
     <ion-col size="12" *ngIf="isNoClicked">
-      <div class="request_sqare">
+      <div class="request_sqare" *ngFor="let v of completados">
         <ion-row>
           <ion-col size="12" class="mb-10 right">
-             <p class="name_category">Entregado</p>
-          </ion-col>
-          <ion-col size="4" class="col-img">
-            <img src="../../../assets/img/RECURSOS/dolex.jpeg" class="mx-auto" width="100%">
+            <p class="name_category1" *ngIf="v.status === 4">Pagado</p>
           </ion-col>
           <ion-col size="8" class="align-self">
-             <p class="name_product">Pedido en curso</p>
              <p class="description_product">
                <b>Fecha: </b>
-               2 abril 2020
+               {{v.created_at}}
              </p>
              <p class="description_product">
-               <b>Producto: </b>
-               Lorem Ipsum
+               <b># de orden</b>
+              {{v.id}}
              </p>
-             <p class="price_product">$000.00</p>
           </ion-col>
         </ion-row>
         <ion-row class="mt-20">
@@ -90,7 +85,7 @@
               <ion-button class="calificar_btn">C<p class="btntext">alificar</p></ion-button>
             </ion-col>
             <ion-col size="6">
-              <ion-button class="btn_product" color="medium" (click)="goClosed()">V<p class="btntext">er detalles</p></ion-button>
+              <ion-button class="btn_product" color="medium" (click)="goClosed(v)">V<p class="btntext">er detalles</p></ion-button>
             </ion-col>
         </ion-row>
       </div>

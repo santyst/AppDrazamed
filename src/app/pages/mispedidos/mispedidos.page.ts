@@ -5,9 +5,6 @@ import { AlertController, LoadingController, MenuController } from '@ionic/angul
 import { AuthService } from 'src/app/services/auth.service';
 import { ConfigService } from 'src/app/services/config.service';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
-
-import Pusher from 'pusher-js';
-import * as PusherTypes from 'pusher-js';
 import { TratamientosService } from 'src/app/services/tratamientos.service';
 
 @Component({
@@ -39,25 +36,25 @@ export class MispedidosPage implements OnInit {
   status: any;
   invoice_i: any;
   precio: any;
+  pendientes = [];
+  completados = [];
   constructor(private iab: InAppBrowser, private router: Router, private http: HttpClient, private auth: AuthService, private menuCtrl: MenuController,
     private config: ConfigService, private alertController: AlertController, private loadingController: LoadingController,
     private tratamientoService: TratamientosService) {
-    this.base_url = config.get_base_url();
-    this.user1 = this.auth.getusuario();
+       this.base_url = config.get_base_url();
+       this.user1 = this.auth.getusuario();
     this.userid = this.user1.email;
     this.orders = this.http.get(`${this.base_url}my-prescriptions?email=${this.userid}`).subscribe((val: any) => {
       this.orden = val;
-      this.orden2 = this.orden[0];
-      console.log(this.orden);
-    });
-    const pusher = new Pusher('270a27c11d1a38de071b', {
-      cluster: 'us2',
-    });
-    Pusher.logToConsole = true;
-    const channel = pusher.subscribe('Drazamed');
-    channel.bind('orderStatus', (data) => {
-      this.push = data;
-      this.push1 = this.push.message.id;
+      for(let notVer of this.orden){
+        if(notVer.status === 1 || notVer.status === 2){
+         this.pendientes.push(notVer);
+        }else if(notVer.status === 4){
+          this.completados.push(notVer);
+        }
+      }
+      console.log('pendientes', this.pendientes);
+      console.log('completados', this.completados);
     });
   }
 
@@ -70,6 +67,8 @@ export class MispedidosPage implements OnInit {
   ionViewWillEnter() {
     this.menuCtrl.enable(false);
     this.tratamientoService.getTreatmen();
+
+    
   }
   goOpen(ordenes) {
 
@@ -80,8 +79,13 @@ export class MispedidosPage implements OnInit {
     };
     this.router.navigate(['request-open'], navigationExtras);
   }
-  goClosed() {
-    this.router.navigate(['request-closed']);
+  goClosed(completados) {
+    let navigationExtras: NavigationExtras = {
+      state: {
+        user: completados,
+      }
+    };
+    this.router.navigate(['request-closed'], navigationExtras);
   }
   goPago(orden) {
     this.cart_med = orden.get_cart;
