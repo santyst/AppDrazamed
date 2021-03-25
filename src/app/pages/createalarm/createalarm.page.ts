@@ -45,12 +45,16 @@ export class CreatealarmPage implements OnInit {
     this.http.get(`${this.base_url}my-prescriptions?email=${this.userid}`).subscribe((res) => {
       
       this.pedidos = res;
+      console.log('this.pedidos: ', this.pedidos);
+      
 
       for (let item of this.pedidos) {
         this.items3 = item.get_cart;
+        if(item.status === 4 || item.status === 5){
         for (var i = 0; i < this.items3.length; i++) {
           this.items2.push(this.items3[i]);
         }
+      }
       }
 
       for (let uni of this.items2) {

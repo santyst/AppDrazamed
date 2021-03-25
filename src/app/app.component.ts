@@ -57,7 +57,6 @@ export class AppComponent {
     private statusBar: StatusBar,
     private router: Router,
     public auth: AuthService,
-    private storage: Storage,
     private localNotifications: LocalNotifications,
     private tratamientoService: TratamientosService,
     private fcm: FCM,
@@ -337,7 +336,7 @@ export class AppComponent {
     window.localStorage.setItem(this.key, this.token);
     console.log('getToken result: ', this.token);
 
-    
+    if(this.platform.is('ios')){    
     let intApns = setInterval(async () => {
       this.apnstoken = await this.fcm.getAPNSToken();
       console.log('getAPNSToken result: ', this.apnstoken);
@@ -346,7 +345,7 @@ export class AppComponent {
         window.localStorage.setItem('apnsToken', this.apnstoken);
       }
     }, 2000);
-
+    }
     this.pushPayload = await this.fcm.getInitialPushPayload();
     console.log('getInitialPushPayload result: ', this.pushPayload);
     if(this.pushPayload !== null){
