@@ -21,11 +21,11 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { BackgroundMode } from '@ionic-native/background-mode/ngx';
-import { GooglePlus } from '@ionic-native/google-plus/ngx';
-import { Facebook } from '@ionic-native/facebook/ngx';
+// import { GooglePlus } from '@ionic-native/google-plus/ngx';
+// import { Facebook } from '@ionic-native/facebook/ngx';
 //FCM
 import {FCM} from 'cordova-plugin-fcm-with-dependecy-updated/ionic/ngx';
-import { SignInWithApple } from '@ionic-native/sign-in-with-apple/ngx';
+// import { SignInWithApple } from '@ionic-native/sign-in-with-apple/ngx';
 
 
 
@@ -38,13 +38,12 @@ import { SignInWithApple } from '@ionic-native/sign-in-with-apple/ngx';
     StatusBar,
     SplashScreen,
     FCM,
-    GooglePlus,
-    Facebook,
+    // GooglePlus,
+    // Facebook,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     AuthService,
     Camera,
     File,
-    SignInWithApple,
     WebView,
     NativeStorage,
     LocalNotifications,
