@@ -30,6 +30,9 @@ userFacebook: any;
   goCreateAccount(){
   this.router.navigate(['createaccount'])
   }
+login2(){
+  this.router.navigate(['login2']);
+}
 
   ionViewWillEnter() {
     this.menuCtrl.enable(false);
