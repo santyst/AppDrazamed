@@ -6,6 +6,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { CartService } from '../services/cart.service';
 import { ConfigService } from 'src/app/services/config.service'
 import { TratamientosService } from '../services/tratamientos.service';
+import { AuthService } from '../services/auth.service';
 
 
 @Component({
@@ -49,7 +50,8 @@ alarmas = [];
     private routerOutlet: IonRouterOutlet,
     private tratamientosService: TratamientosService,
     private alertCtrl: AlertController,
-    private platform: Platform
+    private platform: Platform,
+    private auth: AuthService
   ) {
     
     this.base_url = config.get_base_url();
@@ -72,6 +74,7 @@ ngOnInit(){
       
  this.menuCtrl.enable(true);
  this.routerOutlet.swipeGesture = false;
+ // console.log('usuario activo', this.auth.getusuario());
 }
 goCarrito(){
   this.router.navigate(['carrito']);
