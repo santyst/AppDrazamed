@@ -49,7 +49,7 @@ export class MispedidosPage implements OnInit {
       for(let notVer of this.orden){
         if(notVer.status === 1 || notVer.status === 2){
          this.pendientes.push(notVer);
-        }else if(notVer.status === 4){
+        }else if(notVer.status >= 4){
           this.completados.push(notVer);
         }
       }
