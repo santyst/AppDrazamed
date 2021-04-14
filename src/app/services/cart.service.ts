@@ -26,6 +26,7 @@ export class CartService {
   cartUrl3 = `medicine/remove-from-cart-app?`;
   mycart = `my-cart-app?email=`;
   private cart = [];
+  cart2 =[];
   private cartItemCount = new BehaviorSubject(0);
   constructor(private http: HttpClient, private auth: AuthService, private platform: Platform, private config: ConfigService) {
     this.base_url = config.get_base_url();
@@ -35,7 +36,13 @@ export class CartService {
       this.userid = this.user1.email;
       this.http.get(`${this.base_url}${this.mycart}${this.userid}`).subscribe((val) => {
         this.items = val;
-        this.cart = this.items.items;
+        // this.cart = this.items.items;
+        this.cart2 = this.items.items;
+        for(let NormalCart of this.cart2){
+          if(NormalCart.isReorden === 0){
+            this.cart.push(NormalCart);
+          }
+        }
       });
     });
   }
@@ -59,12 +66,13 @@ export class CartService {
       this.items2 = this.items.items;
       this.productos = 0;
       for (let contador of this.items2) {
-
+        if(contador.isReorden === 0){
         this.cont = contador.medicine_count;
         // this.mrp = contador.unit_price;
         // this.subtotal = this.cont * this.mrp;
         // this.suma += this.subtotal;
         this.productos += parseInt(this.cont);
+        }
       }
       console.log('productos =' + this.productos);
       this.cartItemCount.next(this.productos);
@@ -100,7 +108,7 @@ export class CartService {
       this.cart.push(product);
       this.user = this.auth.getusuario();
       this.userid = this.user.user_id;
-      this.http.get(`${this.base_url}${this.cartUrl}id=${product.id}&medicine=${product.value || product.name}&med_quantity=1&hidden_item_code=${product.item_code}
+      this.http.get(`${this.base_url}${this.cartUrl}id=${product.id}&medicine=${product.value || product.name}&med_quantity=1&is_reorden=0&hidden_item_code=${product.item_code}
       &hidden_selling_price=${product.mrp}&pres_required=${product.is_pres_required}&user_id=${this.userid}`).subscribe((val) => {
         console.log(val);
       });

@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { ConfigService } from 'src/app/services/config.service';
 import { finalize } from 'rxjs/operators';
 import { TratamientosService } from 'src/app/services/tratamientos.service';
+import { CartService } from 'src/app/services/cart.service';
 
 
 @Component({
@@ -20,7 +21,7 @@ export class ProximaEntregaPage implements OnInit {
   pedidoArr = [];
   pedidoArr1 = [];
   smallerDate: any;
-  conditionSmaller:any;
+  conditionSmaller: any;
   base_url: any;
   subtotal: any;
   apiImg = `images/products/`;
@@ -38,10 +39,13 @@ export class ProximaEntregaPage implements OnInit {
   total: any;
   tax1: any;
   addedMed = false;
+  cartUrl3 = `medicine/remove-from-cart-app?`;
 
-  constructor(private router: Router, public menuCtrl: MenuController, private route: ActivatedRoute, 
-              private config: ConfigService, private alertCtrl: AlertController, private loadingController: LoadingController,
-              private auth: AuthService, private http: HttpClient, private tratamientoService: TratamientosService) {
+
+  constructor(private router: Router, public menuCtrl: MenuController, private route: ActivatedRoute,
+    private config: ConfigService, private alertCtrl: AlertController, private loadingController: LoadingController,
+    private auth: AuthService, private http: HttpClient, private tratamientoService: TratamientosService,
+    private cartService: CartService) {
     this.base_url = config.get_base_url();
     this.route.queryParams.subscribe(params => {
       this.base_url = config.get_base_url();
@@ -78,7 +82,7 @@ export class ProximaEntregaPage implements OnInit {
         this.pedidoArr1.push(trt);
       }
     }
-    this.pedidoArr = this.pedidoArr1.filter(function(item, index, array) {
+    this.pedidoArr = this.pedidoArr1.filter(function (item, index, array) {
       return array.indexOf(item) === index;
     })
     console.log(': pedido arr ', this.pedidoArr);
@@ -88,18 +92,18 @@ export class ProximaEntregaPage implements OnInit {
     this.router.navigate(['perfil']);
   }
 
-  goBuscar(){
+  goBuscar() {
     let navigationExtras: NavigationExtras = {
-     state: {
-      fromProx: true 
-     }
+      state: {
+        fromProx: true
+      }
     }
     this.router.navigate(['medicamentos'], navigationExtras);
   }
 
 
   getSubTotal() {
-    return this.pedidoArr.reduce((i, j) => i + j.mrp, 0);
+    return this.pedidoArr.reduce((i, j) => i + (j.mrp || + j.unit_price), 0);
   }
   getTotal() {
     if (this.pedidoArr.length !== 0) {
@@ -113,7 +117,7 @@ export class ProximaEntregaPage implements OnInit {
     this.subtotal = 0;
     this.subtotal1 = 0;
     for (let ta of this.pedidoArr) {
-      this.total = (ta.mrp * 1);
+      this.total = (ta.mrp * 1 || ta.unit_price * 1);
       this.tax1 = ta.tax ? ta.tax : 0;
       this.subtotal = Math.floor(this.total / (((100) + this.tax1) / 100));
       this.subtotal1 += this.subtotal;
@@ -125,13 +129,14 @@ export class ProximaEntregaPage implements OnInit {
     return this.getSubTotal() - this.getTax();
   }
 
-  removeMed(medicine){
+  removeMed(medicine) {
     this.tratamientoService.rmMedProxPedido(medicine);
     for (let [index, p] of this.pedidoArr.entries()) {
-      if(p.item_code === medicine.item_code){
+      if (p.item_code === medicine.item_code) {
         this.pedidoArr.splice(index, 1);
       }
     }
+    this.cartService.removeProduct(medicine);
   }
 
   async send() {
@@ -191,20 +196,29 @@ export class ProximaEntregaPage implements OnInit {
               {
                 text: 'Aceptar',
                 cssClass: 'btnalert',
-                handler: (data) => { 
-                  this.router.navigate(['mispedidos']); 
+                handler: (data) => {
+
+                  for (let remIsReorden of this.pedidoArr) {
+                    if (remIsReorden.isReorden === 1) {
+                      this.http.get(`${this.base_url}${this.cartUrl3}email=${this.userid}&item_code=${remIsReorden.item_code}`).subscribe((val) => {
+                        console.log(val);
+                      });
+                    }
+                  }
+
+                  this.router.navigate(['mispedidos']);
                   this.user1 = this.auth.getusuario();
                   this.userid = this.user1.email;
                   let i = 0;
-                  for(let reorder of this.pedidoArr){
+                  for (let reorder of this.pedidoArr) {
                     let postUpdate = {
                       email: this.userid,
                       item_code: reorder.item_code
                     }
-                    this.http.post(`${this.base_url}treatment/update-reorden`, postUpdate).subscribe((res: any) =>{
-                    console.log('res reorden: ', res);
+                    this.http.post(`${this.base_url}treatment/update-reorden`, postUpdate).subscribe((res: any) => {
+                      console.log('res reorden: ', res);
                     });
-                  } 
+                  }
                 }
               }
             ]
