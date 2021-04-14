@@ -25,9 +25,9 @@
       </ion-col>
 
       <ion-col size="5" class="align-self-center">
-        <p class="name_product">{{p.item_name}}{{p.value}}</p>
+        <p class="name_product">{{p.item_name}}{{p.value}}{{p.medicine_name}}</p>
         <p class="description_product">{{p.composition}}</p>
-        <p class="price_product">${{ 1 * p.mrp | number }}</p>
+        <p class="price_product">${{ 1 * p.mrp | number }}{{1 * p.unit_price | number}}</p>
       </ion-col>
 
       <ion-col size="4">
@@ -59,7 +59,7 @@
 
         <ion-row>
           <ion-col size="6">
-            <p class="name_product">Costo envío</p>
+            <p class="name_product">Costo de envío</p>
           </ion-col>
           <ion-col size="6">
             <p class="description_product">$2000</p>
