@@ -7,14 +7,12 @@ import { File, FileEntry } from '@ionic-native/File/ngx';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { Storage } from '@ionic/storage';
-import { FilePath } from '@ionic-native/file-path/ngx';
+
 
 import { finalize } from 'rxjs/operators';
-import { getInterpolationArgsLength } from '@angular/compiler/src/render3/view/util';
 import { AuthService } from 'src/app/services/auth.service';
 import { ConfigService } from 'src/app/services/config.service'
 
-const STORAGE_KEY = 'my_images';
 
 @Component({
   selector: 'app-carrito',
@@ -26,6 +24,7 @@ export class CarritoPage implements OnInit {
   code: any;
   code2: any;
   user: any;
+  images = [];
   userid: any;
   mycart: any;
   cantidad = [];
@@ -37,19 +36,18 @@ export class CarritoPage implements OnInit {
               private webview: WebView,
               private actionSheetController: ActionSheetController, private toastController: ToastController,
               private storage: Storage, private plt: Platform, private loadingController: LoadingController,
-              private ref: ChangeDetectorRef, private filePath: FilePath, private platform: Platform, private auth: AuthService, private config: ConfigService) {
+              private ref: ChangeDetectorRef, private platform: Platform, private auth: AuthService, private config: ConfigService) {
     this.base_url = config.get_base_url();
     this.mycart = this.cartService.getCurrent();
     console.log(this.mycart);
   }
 
-  images = [];
   imgUrl = `images/products/default.png`;
-  postUrl = `https://testsanti.000webhostapp.com/phpserver/posts.php`;
   apiImg = `images/products/`;
   apiUrl8 = `.jpg`;
   delete_cart = `empty-cart?email=`;
   subtotal: any;
+  formulaImage: any;
   subtotal1: any;
   cart = [];
   user1: any;
@@ -66,9 +64,6 @@ export class CarritoPage implements OnInit {
   division: any;
   subtotal2: any;
   async ngOnInit() {
-    this.plt.ready().then(() => {
-      this.loadStoredImages();
-    });
     this.cart = this.cartService.getCart();
     console.log(this.cart);
     for (const formula of this.cart) {
@@ -159,39 +154,6 @@ export class CarritoPage implements OnInit {
 
 
   // --------------------- codigo para subir formula
-
-  loadStoredImages() {
-    this.storage.get(STORAGE_KEY).then(images => {
-      if (images) {
-        let arr = JSON.parse(images);
-        this.images = [];
-        for (let img of arr) {
-          let filePath = this.file.dataDirectory + img;
-          let resPath = this.pathForImage(filePath);
-          this.images.push({ name: img, path: resPath, filePath: filePath });
-        }
-      }
-    });
-  }
-
-  pathForImage(img) {
-    if (img === null) {
-      return '';
-    } else {
-      let converted = this.webview.convertFileSrc(img);
-      return converted;
-    }
-  }
-
-  async presentToast(text) {
-    const toast = await this.toastController.create({
-      message: text,
-      position: 'bottom',
-      duration: 3000,
-      mode: 'ios'
-    });
-    toast.present();
-  }
   async showAlert1() {
     const alert = await this.alertCtrl.create({
 
@@ -222,7 +184,7 @@ export class CarritoPage implements OnInit {
     });
     await alert.present();
   }
-
+ 
   async selectImage() {
     const actionSheet = await this.actionSheetController.create({
       header: 'Selecciona una imagen',
@@ -230,13 +192,14 @@ export class CarritoPage implements OnInit {
       buttons: [{
         text: 'Buscar en galeria',
         handler: () => {
-          this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
+          /* this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY); */
         }
       },
       {
         text: 'Usar camara',
         handler: () => {
-          this.takePicture(this.camera.PictureSourceType.CAMERA);
+          this.foto();
+          /* this.takePicture(this.camera.PictureSourceType.CAMERA); */
         }
       },
       {
@@ -248,144 +211,41 @@ export class CarritoPage implements OnInit {
     await actionSheet.present();
   }
 
-  takePicture(sourceType: PictureSourceType) {
-    var options: CameraOptions = {
-      quality: 100,
-      sourceType: sourceType,
-      saveToPhotoAlbum: false,
-      correctOrientation: true
-    };
+  foto(){
+    const options: CameraOptions = {
+      quality: 20,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      sourceType: this.camera.PictureSourceType.CAMERA
+    }
 
-    this.camera.getPicture(options).then(imagePath => {
-      if (this.platform.is('android') && sourceType === this.camera.PictureSourceType.PHOTOLIBRARY) {
-        this.filePath.resolveNativePath(imagePath)
-          .then(filePath => {
-            let correctPath = filePath.substr(0, filePath.lastIndexOf('/') + 1);
-            let currentName = imagePath.substring(imagePath.lastIndexOf('/') + 1, imagePath.lastIndexOf('?'));
-            this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
-          });
-      } else {
-        var currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
-        var correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
-        this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
-      }
-    });
-
-  }
-
-  createFileName() {
-    var d = new Date(),
-      n = d.getTime(),
-      newFileName = n + ".jpg";
-    return newFileName;
-  }
-
-  copyFileToLocalDir(namePath, currentName, newFileName) {
-    this.file.copyFile(namePath, currentName, this.file.dataDirectory, newFileName).then(success => {
-      this.updateStoredImages(newFileName);
-    }, error => {
-      this.presentToast('Error al almacenar fórmula');
+    this.camera.getPicture(options).then((imageData) => {
+      this.formulaImage = 'data:image/jpeg;base64,' + imageData;
+    }, (err) => {
+      console.log(err);
     });
   }
 
-  updateAlarm() {
+  galeria(){
+    const options: CameraOptions = {
+      quality: 20,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+    }
 
-  }
-
-  goBack() {
-
-  }
-
-  updateStoredImages(name) {
-    this.storage.get(STORAGE_KEY).then(images => {
-      let arr = JSON.parse(images);
-      if (!arr) {
-        let newImages = [name];
-        this.storage.set(STORAGE_KEY, JSON.stringify(newImages));
-      } else {
-        arr.push(name);
-        this.storage.set(STORAGE_KEY, JSON.stringify(arr));
-      }
-
-      let filePath = this.file.dataDirectory + name;
-      let resPath = this.pathForImage(filePath);
-
-      let newEntry = {
-        name: name,
-        path: resPath,
-        filePath: filePath
-      };
-
-      this.images = [newEntry, ...this.images];
-      this.ref.detectChanges(); // trigger change detection cycle
+    this.camera.getPicture(options).then((imageData) => {
+      this.formulaImage = 'data:image/jpeg;base64,' + imageData;
+    }, (err) => {
+      console.log(err);
     });
   }
 
-  deleteImage(imgEntry, position) {
-    this.images.splice(position, 1);
-
-    this.storage.get(STORAGE_KEY).then(images => {
-      let arr = JSON.parse(images);
-      let filtered = arr.filter(name => name != imgEntry.name);
-      this.storage.set(STORAGE_KEY, JSON.stringify(filtered));
-
-      var correctPath = imgEntry.filePath.substr(0, imgEntry.filePath.lastIndexOf('/') + 1);
-
-      this.file.removeFile(correctPath, imgEntry.name).then(res => {
-        this.presentToast('Archivo removido');
-      });
-    });
-  }
-
-  startUpload(imgEntry) {
-    this.file.resolveLocalFilesystemUrl(imgEntry.filePath)
-      .then(entry => {
-        (<FileEntry>entry).file(file => this.readFile(file))
-      })
-      .catch(err => {
-        this.presentToast('Error al obtener fórmula médica');
-      });
-  }
-
-  readFile(file: any) {
-    const reader = new FileReader();
-    reader.onload = () => {
-      const formData = new FormData();
-      const imgBlob = new Blob([reader.result], {
-        type: file.type
-      });
-      formData.append('file', imgBlob, file.name);
-      this.uploadImageData(formData);
-    };
-    reader.readAsArrayBuffer(file);
-  }
-
-  async uploadImageData(formData: FormData) {
-    const loading = await this.loadingController.create({
-      cssClass: 'loading',
-      message: 'Por favor espera...',
-      mode: 'ios',
-      spinner: 'dots'
-    });
-    await loading.present();
-
-    this.http.post('https://testsanti.000webhostapp.com/phpserver/json.php', formData)
-      .pipe(
-        finalize(() => {
-          loading.dismiss();
-        })
-      )
-      .subscribe(res => {
-        if (res['success']) {
-          this.showAlert1();
-
-        } else {
-          this.showAlert2();
-        }
-      });
+  // --------------------- codigo para crear una orden.
 
 
-  }
   async send() {
     const loading = await this.loadingController.create({
       cssClass: 'loading',
