@@ -20,7 +20,7 @@ import { FCM } from 'cordova-plugin-fcm-with-dependecy-updated/ionic/ngx';
 import { TratamientosService } from './services/tratamientos.service';
 import { HttpClient } from '@angular/common/http';
 import { ConfigService } from './services/config.service';
-
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 @Component({
   selector: 'app-root',
@@ -36,6 +36,7 @@ export class AppComponent {
   public apnstoken: string;
   public pushPayload: INotificationPayload;
 
+  payment_url = `medicine/make-mercado-pago-payment/`;
   user: any;
   user1: any;
   userid: any;
@@ -50,6 +51,10 @@ export class AppComponent {
   respuestapost3: any;
   respuestapost2: any;
   dosis: any;
+  ad: any;
+  address: any;
+  linkpay: any;
+     
 
   constructor(
     private platform: Platform,
@@ -62,7 +67,8 @@ export class AppComponent {
     private fcm: FCM,
     private http: HttpClient,
     private config: ConfigService,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private iab: InAppBrowser
   ) {
     this.initializeApp();
     this.base_url = config.get_base_url();
@@ -253,7 +259,9 @@ export class AppComponent {
     });
     await alert.present();
   }
-  async sendToma3(body){
+  async sendToma3(body,invoice_id){
+    this.user = this.auth.getusuario();
+    this.userid = this.user.email;
     let alert = await this.alertCtrl.create({
       mode: 'ios',
       cssClass: 'failed',
@@ -263,7 +271,12 @@ export class AppComponent {
         {text: 'Pagar',
          cssClass: 'btnalert', 
          handler: pp => {
-           this.router.navigate(['mispedidos']);
+          this.http.get(`${this.base_url}${this.payment_url}${invoice_id}/1?email=${this.userid}`).subscribe(pay => {
+            this.ad = pay;
+            this.address = this.ad.posted.address;
+            this.linkpay = this.ad.preference.init_point;
+            this.iab.create(this.linkpay, '_blank');
+          });
          }
       }
       ]
@@ -299,7 +312,7 @@ export class AppComponent {
         }else if(payload.a_data.msg_type === 3){
            this.sendToma2(payload.body);
         }else if(payload.a_data.msg_type === 4){
-          this.sendToma3(payload.body);
+          this.sendToma3(payload.body,payload.a_data.treatment_id);
         }else if(payload.a_data.msg_type === 5){
           this.sendToma2(payload.body);
         }else if(payload.a_data.msg_type === 6){
@@ -315,7 +328,7 @@ export class AppComponent {
         }else if(data.msg_type === 3){
           this.sendToma2(payload.body);
         }else if(data.msg_type === 4){
-          this.sendToma3(payload.body);
+          this.sendToma3(payload.body,data.treatment_id);
         }else if(payload.a_data.msg_type === 5){
           this.sendToma2(payload.body);
         }else if(payload.a_data.msg_type === 6){
@@ -357,7 +370,7 @@ export class AppComponent {
         }else if(this.pushPayload.a_data.msg_type === 3){
            this.sendToma2(this.pushPayload.body);
         }else if(this.pushPayload.a_data.msg_type === 4){
-           this.sendToma3(this.pushPayload.body);
+           this.sendToma3(this.pushPayload.body,this.pushPayload.a_data.treatent_id);
         }else if(this.pushPayload.a_data.msg_type === 5){
           this.sendToma2(this.pushPayload.body);
         }else if(this.pushPayload.a_data.msg_type === 6){
