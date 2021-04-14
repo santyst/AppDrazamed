@@ -128,9 +128,9 @@ export class MispedidosPage implements OnInit {
               this.estado1 = this.estado.status;
               if (this.estado1 === 'SUCCESS') {
                 loading.dismiss();
-                for (let [index, p] of this.orden.entries()) {
+                for (let [index, p] of this.pendientes.entries()) {
                   if (p.id === order.id) {
-                    this.orden.splice(index, 1);
+                    this.pendientes.splice(index, 1);
                   }
                 }
                 const alert2 = await this.alertController.create({
