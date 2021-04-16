@@ -71,21 +71,18 @@
             <p class="description_product">Adjunta aquí tu formula médica. En constantes minutos te verificaremos para
               seguir con la compra</p>
           </div>
-          <div class="section_attach">
+          <div class="section_attach" *ngIf="formulaImage === ''">
             <ion-button fill="clear" class="images" (click)="selectImage()">
               <img src="../../../assets/img/RECURSOS/attach.png" width="24%">
             </ion-button>
             <p class="description_product">Adjuntar formula</p>
           </div>
-          <div class="section_attach" *ngIf="images.length !== 0">
+          <div class="section_attach" *ngIf="formulaImage !== ''">
             <ion-list>
-              <ion-item *ngFor="let img of images; index as pos" text-wrap>
+              <ion-item>
                 <ion-thumbnail slot="start">
-                  <ion-img [src]="img.path"></ion-img>
+                  <img [src]="formulaImage" class="photo_user">
                 </ion-thumbnail>
-                <ion-label>
-                  {{ img.name }}
-                </ion-label>
                 <!-- <ion-button slot="end" fill="clear" (click)="startUpload(img)">
                   <ion-icon slot="icon-only" name="cloud-upload"></ion-icon>
                 </ion-button>

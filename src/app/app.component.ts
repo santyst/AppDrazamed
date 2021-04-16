@@ -370,7 +370,7 @@ export class AppComponent {
         }else if(this.pushPayload.a_data.msg_type === 3){
            this.sendToma2(this.pushPayload.body);
         }else if(this.pushPayload.a_data.msg_type === 4){
-           this.sendToma3(this.pushPayload.body,this.pushPayload.a_data.treatent_id);
+           this.sendToma3(this.pushPayload.body,this.pushPayload.a_data.treatment_id);
         }else if(this.pushPayload.a_data.msg_type === 5){
           this.sendToma2(this.pushPayload.body);
         }else if(this.pushPayload.a_data.msg_type === 6){

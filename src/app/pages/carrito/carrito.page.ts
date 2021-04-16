@@ -6,6 +6,7 @@ import { Camera, CameraOptions, PictureSourceType } from '@ionic-native/Camera/n
 import { File, FileEntry } from '@ionic-native/File/ngx';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { Storage } from '@ionic/storage';
 
 
@@ -32,11 +33,11 @@ export class CarritoPage implements OnInit {
   formula = [];
   base_url: any;
   constructor(private router: Router, private menuCtrl: MenuController, private cartService: CartService,
-              private alertCtrl: AlertController, private camera: Camera, private file: File, private http: HttpClient,
-              private webview: WebView,
-              private actionSheetController: ActionSheetController, private toastController: ToastController,
-              private storage: Storage, private plt: Platform, private loadingController: LoadingController,
-              private ref: ChangeDetectorRef, private platform: Platform, private auth: AuthService, private config: ConfigService) {
+    private alertCtrl: AlertController, private camera: Camera, private file: File, private http: HttpClient,
+    private webview: WebView, private fileTransfer: FileTransfer,
+    private actionSheetController: ActionSheetController, private toastController: ToastController,
+    private storage: Storage, private plt: Platform, private loadingController: LoadingController,
+    private ref: ChangeDetectorRef, private platform: Platform, private auth: AuthService, private config: ConfigService) {
     this.base_url = config.get_base_url();
     this.mycart = this.cartService.getCurrent();
     console.log(this.mycart);
@@ -47,7 +48,7 @@ export class CarritoPage implements OnInit {
   apiUrl8 = `.jpg`;
   delete_cart = `empty-cart?email=`;
   subtotal: any;
-  formulaImage: any;
+  formulaImage: any = "";
   subtotal1: any;
   cart = [];
   user1: any;
@@ -64,8 +65,18 @@ export class CarritoPage implements OnInit {
   division: any;
   subtotal2: any;
   async ngOnInit() {
+  }
+
+  goPerfil() {
+    this.router.navigate(['perfil']);
+  }
+  async ionViewWillEnter() {
     this.cart = this.cartService.getCart();
     console.log(this.cart);
+    this.menuCtrl.enable(false);
+    this.user = this.auth.getusuario();
+    this.userid = this.user.email;
+    console.log(this.userid);
     for (const formula of this.cart) {
       if (formula.is_pres_required === 1) {
         this.value = formula.value;
@@ -87,17 +98,6 @@ export class CarritoPage implements OnInit {
         await alert.present();
       }
     }
-
-  }
-
-  goPerfil() {
-    this.router.navigate(['perfil']);
-  }
-  ionViewWillEnter() {
-    this.menuCtrl.enable(false);
-    this.user = this.auth.getusuario();
-    this.userid = this.user.email;
-    console.log(this.userid);
   }
   goHome() {
     this.router.navigate(['home']);
@@ -184,7 +184,7 @@ export class CarritoPage implements OnInit {
     });
     await alert.present();
   }
- 
+
   async selectImage() {
     const actionSheet = await this.actionSheetController.create({
       header: 'Selecciona una imagen',
@@ -192,6 +192,7 @@ export class CarritoPage implements OnInit {
       buttons: [{
         text: 'Buscar en galeria',
         handler: () => {
+          this.galeria();
           /* this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY); */
         }
       },
@@ -211,13 +212,14 @@ export class CarritoPage implements OnInit {
     await actionSheet.present();
   }
 
-  foto(){
+  foto() {
     const options: CameraOptions = {
-      quality: 20,
+      quality: 50,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
-      sourceType: this.camera.PictureSourceType.CAMERA
+      sourceType: this.camera.PictureSourceType.CAMERA,
+      correctOrientation: true,
     }
 
     this.camera.getPicture(options).then((imageData) => {
@@ -227,13 +229,14 @@ export class CarritoPage implements OnInit {
     });
   }
 
-  galeria(){
+  galeria() {
     const options: CameraOptions = {
-      quality: 20,
+      quality: 50,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
-      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+      correctOrientation: true,
     }
 
     this.camera.getPicture(options).then((imageData) => {
@@ -254,21 +257,26 @@ export class CarritoPage implements OnInit {
       spinner: 'dots'
     });
     await loading.present();
+
+
+
+   
     this.user1 = this.auth.getusuario();
     this.userid = this.user1.email;
+    console.log(this.formulaImage);
     for (let code of this.cart) {
       this.item_code.push(code.item_code);
       this.cantidad.push(code.medicine_count);
       this.formula.push(code.is_pres_required);
     }
-
     this.orden = {
       email: this.userid,
       cart_length: this.cart.length,
       shipping_cost: 2000,
       quantity: this.cantidad,
       is_pres_required: 0,
-      item_code: this.item_code
+      item_code: this.item_code,
+      prescription: this.formulaImage
     };
     this.http.post(`${this.base_url}medicine/store-prescription/0`,
       this.orden, { headers: new HttpHeaders({ "Content-Type": "application/json" }) })
