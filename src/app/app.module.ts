@@ -26,7 +26,6 @@ import { Facebook } from '@ionic-native/facebook/ngx';
 //FCM
 import {FCM} from 'cordova-plugin-fcm-with-dependecy-updated/ionic/ngx';
 import { SignInWithApple } from '@ionic-native/sign-in-with-apple/ngx';
-import { FileTransfer } from '@ionic-native/file-transfer/ngx';
 
 
 
@@ -49,7 +48,6 @@ import { FileTransfer } from '@ionic-native/file-transfer/ngx';
     WebView,
     NativeStorage,
     LocalNotifications,
-    FileTransfer,
     InAppBrowser,
     BackgroundMode,
     FilePath

@@ -6,7 +6,6 @@ import { Camera, CameraOptions, PictureSourceType } from '@ionic-native/Camera/n
 import { File, FileEntry } from '@ionic-native/File/ngx';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
-import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { Storage } from '@ionic/storage';
 
 
@@ -34,7 +33,7 @@ export class CarritoPage implements OnInit {
   base_url: any;
   constructor(private router: Router, private menuCtrl: MenuController, private cartService: CartService,
     private alertCtrl: AlertController, private camera: Camera, private file: File, private http: HttpClient,
-    private webview: WebView, private fileTransfer: FileTransfer,
+    private webview: WebView,
     private actionSheetController: ActionSheetController, private toastController: ToastController,
     private storage: Storage, private plt: Platform, private loadingController: LoadingController,
     private ref: ChangeDetectorRef, private platform: Platform, private auth: AuthService, private config: ConfigService) {
