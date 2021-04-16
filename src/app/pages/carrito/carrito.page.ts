@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { MenuController, AlertController, ActionSheetController, ToastController, Platform, LoadingController } from '@ionic/angular';
 import { CartService } from 'src/app/services/cart.service';
 import { Camera, CameraOptions, PictureSourceType } from '@ionic-native/Camera/ngx';
-import { File, FileEntry } from '@ionic-native/File/ngx';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { Storage } from '@ionic/storage';
