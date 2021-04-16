@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router'; 
-import { GooglePlus } from '@ionic-native/google-plus/ngx';
+// import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { MenuController, Platform } from '@ionic/angular';
 import { AuthService } from '../services/auth.service';
-import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
-import { SignInWithApple, ASAuthorizationAppleIDRequest, AppleSignInResponse, AppleSignInErrorResponse } from '@ionic-native/sign-in-with-apple/ngx';
+// import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
+// import { SignInWithApple, ASAuthorizationAppleIDRequest, AppleSignInResponse, AppleSignInErrorResponse } from '@ionic-native/sign-in-with-apple/ngx';
 
 @Component({
   selector: 'app-login1',
@@ -13,15 +13,16 @@ import { SignInWithApple, ASAuthorizationAppleIDRequest, AppleSignInResponse, Ap
 })
 export class Login1Page implements OnInit {
 iosPlt: Boolean;
-userFacebook: any;
+
+// userFacebook: any;
   constructor(
     private router: Router,
     private menuCtrl: MenuController,
     private platform: Platform,
-    private googlePlus: GooglePlus,
+    // private googlePlus: GooglePlus,
     private auth: AuthService,
-    private facebook: Facebook,
-    private appleSign: SignInWithApple
+    // private facebook: Facebook,
+    // private appleSign: SignInWithApple
   ) {}
 
   ngOnInit() {
@@ -43,61 +44,61 @@ login2(){
     }
    }
 
-   loginGoogle(){
-     this.googlePlus.login({}).then(res => {
-     console.log('res: ', res);
-     this.auth.loginGoogle(res).subscribe(respon => {
-       if(respon){
-         this.router.navigate(['home']);
-       }
-     })
-     }).catch(err => {
-     console.log('err: ', err);
-     });
-   }
+  //  loginGoogle(){
+  //    this.googlePlus.login({}).then(res => {
+  //    console.log('res: ', res);
+  //    this.auth.loginGoogle(res).subscribe(respon => {
+  //      if(respon){
+  //        this.router.navigate(['home']);
+  //      }
+  //    })
+  //    }).catch(err => {
+  //    console.log('err: ', err);
+  //    });
+  //  }
 
-   loginFacebook(){
-     this.facebook.login(['public_profile', 'user_friends', 'email']).then((res: FacebookLoginResponse) => {
-      if (res.status === 'connected') {
-        console.log('res fb login: ', res);
-        this.getUserDetail(res.authResponse.userID);
-      }  
-     }).catch(e => console.log('Error logging into Facebook', e));
-   }
+  //  loginFacebook(){
+  //    this.facebook.login(['public_profile', 'user_friends', 'email']).then((res: FacebookLoginResponse) => {
+  //     if (res.status === 'connected') {
+  //       console.log('res fb login: ', res);
+  //       this.getUserDetail(res.authResponse.userID);
+  //     }  
+  //    }).catch(e => console.log('Error logging into Facebook', e));
+  //  }
 
-   loginApple(){
-     this.appleSign.signin({
-      requestedScopes: [
-        ASAuthorizationAppleIDRequest.ASAuthorizationScopeFullName,
-        ASAuthorizationAppleIDRequest.ASAuthorizationScopeEmail
-      ]
-    })
-    .then((res: AppleSignInResponse) => {
-      console.log("Apple login success:- " + res);
-    })
-    .catch((error: AppleSignInErrorResponse) => {
-      console.error(error);
-    });
-   }
+  //  loginApple(){
+  //    this.appleSign.signin({
+  //     requestedScopes: [
+  //       ASAuthorizationAppleIDRequest.ASAuthorizationScopeFullName,
+  //       ASAuthorizationAppleIDRequest.ASAuthorizationScopeEmail
+  //     ]
+  //   })
+  //   .then((res: AppleSignInResponse) => {
+  //     console.log("Apple login success:- " + res);
+  //   })
+  //   .catch((error: AppleSignInErrorResponse) => {
+  //     console.error(error);
+  //   });
+  //  }
 
-   logout(){
-     this.facebook.logout().then(res => {
-     console.log('res: ', res);
-     });
-   }
-   getUserDetail(userid: any) {
-    this.facebook.api('/' + userid + '/?fields=id,email,name,picture', ['public_profile'])
-      .then(res => {
-        console.log(res);
-        this.auth.loginFacebook(res).subscribe(respon => {
-          if(respon){
-            this.router.navigate(['home']);
-          }
-        });
-        // this.userFacebook = res;
-      }).catch(e => {
-        console.log(e);
-      });
-  }
+  //  logout(){
+  //    this.facebook.logout().then(res => {
+  //    console.log('res: ', res);
+  //    });
+  //  }
+  //  getUserDetail(userid: any) {
+  //   this.facebook.api('/' + userid + '/?fields=id,email,name,picture', ['public_profile'])
+  //     .then(res => {
+  //       console.log(res);
+  //       this.auth.loginFacebook(res).subscribe(respon => {
+  //         if(respon){
+  //           this.router.navigate(['home']);
+  //         }
+  //       });
+  //       // this.userFacebook = res;
+  //     }).catch(e => {
+  //       console.log(e);
+  //     });
+  // }
 
 }

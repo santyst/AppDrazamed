@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:193162804196:android:4cad15ad78d1cf193425f1",
         "android_client_info": {
-          "package_name": "com.draz.drazamed"
+          "package_name": "com.drazamed.draz"
         }
       },
       "oauth_client": [
@@ -34,7 +34,7 @@
               "client_id": "193162804196-m502fhiir88rag6u73st6ladv2rk7olh.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.draz.drazamed"
+                "bundle_id": "com.drazamed.draz"
               }
             }
           ]
