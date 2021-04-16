@@ -29,6 +29,8 @@ import {FCM} from 'cordova-plugin-fcm-with-dependecy-updated/ionic/ngx';
 
 
 
+
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -47,7 +49,6 @@ import {FCM} from 'cordova-plugin-fcm-with-dependecy-updated/ionic/ngx';
     WebView,
     NativeStorage,
     LocalNotifications,
-    FileTransfer,
     InAppBrowser,
     BackgroundMode,
     FilePath

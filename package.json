@@ -27,7 +27,6 @@
     "@ionic-native/core": "^5.28.0",
     "@ionic-native/file": "^5.28.0",
     "@ionic-native/file-path": "^5.28.0",
-    "@ionic-native/file-transfer": "^5.32.1",
     "@ionic-native/firebase-x": "^5.30.0",
     "@ionic-native/http": "^5.28.0",
     "@ionic-native/in-app-browser": "^5.32.0",
@@ -83,7 +82,6 @@
     "cordova-plugin-camera": "^5.0.1",
     "cordova-plugin-device": "^2.0.3",
     "cordova-plugin-fcm-with-dependecy-updated": "^7.7.0",
-    "cordova-plugin-file-transfer": "^1.7.1",
     "cordova-plugin-googleplus": "^8.5.2",
     "cordova-plugin-ionic-keyboard": "^2.2.0",
     "cordova-plugin-ionic-webview": "^4.2.1",
@@ -143,10 +141,7 @@
         "APP_NAME": "Drazamed",
         "FACEBOOK_HYBRID_APP_EVENTS": "false",
         "FACEBOOK_ANDROID_SDK_VERSION": "5.13.0"
-      },
-      "cordova-plugin-sign-in-with-apple": {},
-      "cordova-plugin-file-transfer": {}
-
+      }
     },
     "platforms": [
       "browser",
