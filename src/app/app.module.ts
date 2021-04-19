@@ -44,7 +44,6 @@ import {FCM} from 'cordova-plugin-fcm-with-dependecy-updated/ionic/ngx';
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     AuthService,
     Camera,
-    File,
     WebView,
     NativeStorage,
     LocalNotifications,
