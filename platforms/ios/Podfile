@@ -1,0 +1,5 @@
+platform :ios, '7.0'
+target 'DrazamedApp' do
+	pod 'Firebase/Messaging'
+	pod 'Firebase/Analytics'
+end

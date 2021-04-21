@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router'; 
-// import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { MenuController, Platform } from '@ionic/angular';
 import { AuthService } from '../services/auth.service';
-// import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
-// import { SignInWithApple, ASAuthorizationAppleIDRequest, AppleSignInResponse, AppleSignInErrorResponse } from '@ionic-native/sign-in-with-apple/ngx';
 
 @Component({
   selector: 'app-login1',
@@ -19,10 +16,7 @@ iosPlt: Boolean;
     private router: Router,
     private menuCtrl: MenuController,
     private platform: Platform,
-    // private googlePlus: GooglePlus,
     private auth: AuthService,
-    // private facebook: Facebook,
-    // private appleSign: SignInWithApple
   ) {}
 
   ngOnInit() {
