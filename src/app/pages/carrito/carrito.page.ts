@@ -56,6 +56,7 @@ export class CarritoPage implements OnInit {
   value: any;
   name: any;
   text: any;
+  requiredFormula = false;
   total: any;
   orden: any;
   err1: any;
@@ -78,10 +79,11 @@ export class CarritoPage implements OnInit {
     console.log(this.userid);
     for (const formula of this.cart) {
       if (formula.is_pres_required === 1) {
+        this.requiredFormula = true;
         this.value = formula.value;
         this.name = formula.name;
         this.med = formula.medicine_name;
-        this.text = `El medicamento ${this.value || this.name || this.med} requiere adjuntar fórmula médica`;
+        this.text = `El medicamento ${this.value || this.name || this.med} requiere adjuntar fórmula médica.`;
         const alert = await this.alertCtrl.create({
           header: this.text,
           message: '<img src = "../../assets/img/RECURSOS/iconos drazamed-27.png" class="alert">',
@@ -95,6 +97,8 @@ export class CarritoPage implements OnInit {
           ]
         });
         await alert.present();
+      }else{
+        this.requiredFormula = false;
       }
     }
   }
@@ -112,6 +116,7 @@ export class CarritoPage implements OnInit {
 
   removeCartItem(product) {
     this.cartService.removeProduct(product);
+    this.ionViewWillEnter();
   }
 
   getSubTotal() {
@@ -184,6 +189,22 @@ export class CarritoPage implements OnInit {
     await alert.present();
   }
 
+  async showAlert3() {
+    const alert = await this.alertCtrl.create({
+      
+      message: `<img src = "../../assets/img/RECURSOS/iconos drazamed-27.png" class="alert1">${this.text}`,
+      mode: 'ios',
+      cssClass: 'failed',
+      buttons: [
+        {
+          text: 'Aceptar',
+          cssClass: 'btnalert',
+        }
+      ]
+    });
+    await alert.present();
+  }
+
   async selectImage() {
     const actionSheet = await this.actionSheetController.create({
       header: 'Selecciona una imagen',
@@ -223,6 +244,7 @@ export class CarritoPage implements OnInit {
 
     this.camera.getPicture(options).then((imageData) => {
       this.formulaImage = 'data:image/jpeg;base64,' + imageData;
+      this.requiredFormula = false;
     }, (err) => {
       console.log(err);
     });
@@ -240,15 +262,23 @@ export class CarritoPage implements OnInit {
 
     this.camera.getPicture(options).then((imageData) => {
       this.formulaImage = 'data:image/jpeg;base64,' + imageData;
+      this.requiredFormula = false;
     }, (err) => {
       console.log(err);
     });
+  }
+
+  removeFormula(){
+    this.formulaImage="";
   }
 
   // --------------------- codigo para crear una orden.
 
 
   async send() {
+    if(this.requiredFormula == true){
+  this.showAlert3();
+    }else{
     const loading = await this.loadingController.create({
       cssClass: 'loading',
       message: 'Por favor espera...',
@@ -257,9 +287,6 @@ export class CarritoPage implements OnInit {
     });
     await loading.present();
 
-
-
-   
     this.user1 = this.auth.getusuario();
     this.userid = this.user1.email;
     console.log(this.formulaImage);
@@ -319,7 +346,8 @@ export class CarritoPage implements OnInit {
             console.log(val);
           });
           this.cartService.removeAll();
-
+          this.formulaImage = "";
+          this.requiredFormula = false;
           await alert.present();
 
         }
@@ -340,5 +368,6 @@ export class CarritoPage implements OnInit {
           await alert.present();
         }
       });
+    }
   }
 }
