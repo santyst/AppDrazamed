@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { MenuController, AlertController, ActionSheetController, ToastController, Platform, LoadingController } from '@ionic/angular';
 import { CartService } from 'src/app/services/cart.service';
 import { Camera, CameraOptions, PictureSourceType } from '@ionic-native/camera/ngx';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { Storage } from '@ionic/storage';
 
@@ -31,7 +31,7 @@ export class CarritoPage implements OnInit {
   formula = [];
   base_url: any;
   constructor(private router: Router, private menuCtrl: MenuController, private cartService: CartService,
-    private alertCtrl: AlertController, private camera: Camera, private file: File, private http: HttpClient,
+    private alertCtrl: AlertController, private camera: Camera,private http: HttpClient,
     private webview: WebView,
     private actionSheetController: ActionSheetController, private toastController: ToastController,
     private storage: Storage, private plt: Platform, private loadingController: LoadingController,
