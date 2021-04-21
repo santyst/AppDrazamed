@@ -13,8 +13,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { AuthService } from './services/auth.service';
 
 import { NgCircleProgressModule } from 'ng-circle-progress';
-import { Camera } from '@ionic-native/Camera/ngx';
-import { File } from '@ionic-native/File/ngx';
+import { Camera } from '@ionic-native/camera/ngx';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { FilePath } from '@ionic-native/file-path/ngx';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
@@ -45,7 +44,6 @@ import {FCM} from 'cordova-plugin-fcm-with-dependecy-updated/ionic/ngx';
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     AuthService,
     Camera,
-    File,
     WebView,
     NativeStorage,
     LocalNotifications,

@@ -23,7 +23,7 @@
     "@auth0/angular-jwt": "^5.0.1",
     "@ionic-native/android-full-screen": "^5.28.0",
     "@ionic-native/background-mode": "^5.30.0",
-    "@ionic-native/camera": "^5.28.0",
+    "@ionic-native/camera": "^5.32.1",
     "@ionic-native/core": "^5.28.0",
     "@ionic-native/file": "^5.28.0",
     "@ionic-native/file-path": "^5.28.0",
@@ -44,7 +44,6 @@
     "cordova-browser": "^4.1.0",
     "cordova-plugin-background-mode": "^0.7.3",
     "cordova-plugin-badge": "^0.8.8",
-    "cordova-plugin-camera": "^5.0.1",
     "cordova-plugin-cocoapod-support": "1.6.2",
     "cordova-plugin-file": "^6.0.2",
     "cordova-plugin-filepath": "^1.5.8",
@@ -64,7 +63,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.901.12",
-    "@angular/cli": "^9.1.12",
+    "@angular/cli": "9.1.15",
     "@angular/compiler": "^9.1.12",
     "@angular/compiler-cli": "^9.1.12",
     "@angular/language-service": "^9.1.12",
@@ -120,9 +119,6 @@
       "cordova-plugin-local-notification": {},
       "cordova-plugin-nativestorage": {},
       "cordova-plugin-background-mode": {},
-      "cordova-plugin-camera": {
-        "ANDROID_SUPPORT_V4_VERSION": "27.+"
-      },
       "cordova-plugin-cocoapod-support": {},
       "cordova-plugin-fcm-with-dependecy-updated": {
         "ANDROID_DEFAULT_NOTIFICATION_ICON": "@mipmap/ic_launcher",
@@ -132,20 +128,12 @@
         "ANDROID_GRADLE_TOOLS_VERSION": "4.1.0",
         "IOS_FIREBASE_MESSAGING_VERSION": "~> 7.0.0"
       },
-      "cordova-plugin-googleplus": {
-        "REVERSED_CLIENT_ID": "757946878024-kegc929rm08448csq2hd82k91al0m2mu.apps.googleusercontent.com",
-        "PLAY_SERVICES_VERSION": "15.0.1"
-      },
-      "cordova-plugin-facebook4": {
-        "APP_ID": "188133499419537",
-        "APP_NAME": "Drazamed",
-        "FACEBOOK_HYBRID_APP_EVENTS": "false",
-        "FACEBOOK_ANDROID_SDK_VERSION": "5.13.0"
-      }
+      "cordova-plugin-camera": {}
     },
     "platforms": [
       "browser",
-      "android"
+      "android",
+      "ios"
     ]
   }
 }
