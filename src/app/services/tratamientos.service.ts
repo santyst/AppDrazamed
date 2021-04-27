@@ -57,6 +57,11 @@ export class TratamientosService {
         item.medicines[0].frequency = item.frequency;
         item.medicines[0].taken = item.taken;
         item.medicines[0].total = item.total;
+        if(item.active == 1){
+          item.medicines[0].active = true;
+        }else{
+          item.medicines[0].active = false;
+        }
         item.medicines[0].buy_time = moment(item.buy_time).format();
         item.medicines[0].isReorden = item.hasReorden;
         this.items3 = item.medicines
