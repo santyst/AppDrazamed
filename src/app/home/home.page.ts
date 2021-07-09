@@ -28,7 +28,7 @@ cartItemCount: BehaviorSubject<number>;
 public items: any;
 public items2: any;
 public items3: any;
-public items4: any;
+public items4 = [];
 public items5: any;
 public items6: any;
 med3: any;
@@ -63,6 +63,10 @@ alarmas = [];
     this.http.get(`${this.base_url}${this.apiURL2}`).subscribe((response) => {
       this.items3 = response;
       this.items4 = this.items3.result.msg;
+      
+      var n = this.items4.length;
+      var shuffled = this.items4.sort(function(){return .5 - Math.random()});
+      var sel = shuffled.slice(0,n);
     });
 
     this.cartItemCount = this.cartService.getCartItemCount();
